@@ -133,7 +133,7 @@ void CanvasManager::controlActiveCanvas()
         controlStretching();
         controlPosition();
 
-        getActiveCanvas()->print(finalDC);
+        getActiveCanvas()->print(finalDC, app->MAINWINDOW);
     }
 }
 

@@ -72,7 +72,7 @@ struct Window
 
     virtual ~Window()
     {
-        //defaultDestructor();
+        defaultDestructor();
     }
 
 
@@ -181,7 +181,7 @@ struct Manager : Window
 
     virtual ~Manager()
     {
-        //defaultDestructor();
+        defaultDestructor();
     }
 
 

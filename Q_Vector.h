@@ -22,6 +22,7 @@ struct Vector
 
     Vector getNullVector() { return Vector { 0,0 }; };
     void print (const char *str = NULL);
+    const char* getStr (const char *str = NULL);
 };
 
 void equal (Vector &a, const Vector &b);
@@ -50,6 +51,13 @@ inline Vector operator / (const double a, const Vector &b);
 void Vector::print (const char *str /* = NULL*/)
 {
     printf ("%s: {%lf, %lf}\n", str, x, y);
+}
+
+const char* Vector::getStr(const char* str /*= NULL*/)
+{
+    static char answer[MAX_PATH] = {};
+    sprintf(answer, "%s: {%lf, %lf}", str, x, y);
+    return answer;
 }
 
 bool operator == (const Vector &a, const Vector &b)

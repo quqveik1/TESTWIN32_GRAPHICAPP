@@ -3,6 +3,8 @@
 #include "ZoneSizeControl.cpp"
 #include "ImportTool.cpp"
 #include "ToolManager.cpp"
+#include "Lay.cpp"
+#include "CLay.cpp"
 
 Canvas::Canvas(AbstractAppData* _app, Rect _rect, const char* _name) :
     Manager(_app, _rect, 5, true, NULL, { .pos = {0, 0}, .finishPos = {_rect.getSize().x, _app->systemSettings->HANDLEHEIGHT} }),
@@ -271,7 +273,7 @@ void Canvas::copyFinalLayOnFinalDC()
 }
 
 
-void Canvas::print(HDC _dc)
+void Canvas::print(HDC _dc, HWND wnd)
 {
     draw();
     Vector outputPos = rect.pos;

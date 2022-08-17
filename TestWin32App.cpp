@@ -9,7 +9,7 @@
 #include "OpenManager.cpp"
 #include "List.cpp"
 #include "ConsoleOutput.cpp"
-//#include "CanvasManager.cpp"
+#include "CanvasManager.cpp"
 
 int initProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam);
 int shutDownProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam);
@@ -125,12 +125,14 @@ int initProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
     appData->mainManager = manager;
     manager->addWindow(mainHandle);
 
+    //CanvasManager* canvasManager = new CanvasManager ()
+
     return 0;
 }
 
 int shutDownProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
 {
-    delete appData->mainManager;
+    delete appData;
 
     return 0;
 }

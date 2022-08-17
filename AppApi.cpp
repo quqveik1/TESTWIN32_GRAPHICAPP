@@ -12,6 +12,9 @@
 #include "WindowsLibApi.cpp"
 #include "Loadmanager.cpp"
 #include "ToolManager.cpp"
+#include "DCManager.cpp"
+#include "M_HGDIOBJ.cpp"
+#include "M_HDC.cpp"
 
 
 
@@ -53,6 +56,8 @@ PowerPoint::PowerPoint(HINSTANCE hInstance)
 
     currColor = &systemSettings->DrawColor;
 
+    dcManager = new DCManager(this);
+
     setWindowParameters(this, hInstance);
 }
 
@@ -60,11 +65,14 @@ PowerPoint::~PowerPoint()
 {
     writeVersion(appData);
 
+    delete mainManager;
+
     delete toolManager;
     delete loadManager;
     delete windowsLibApi;
     delete systemSettings;
     delete loadLibManager;
+    delete dcManager;
 }
 
 void writeVersion(PowerPoint* app)
@@ -185,6 +193,8 @@ HDC PowerPoint::createDIBSection(double sizex, double sizey, RGBQUAD** pixels/* 
     selectGDIObject(dc, bmap);
     PatBlt(dc, 0, 0, sizex, sizey, BLACKNESS);
     ReleaseDC(MAINWINDOW, wndDC);
+
+    dcManager->addDC(dc);
     return dc;
 }
 

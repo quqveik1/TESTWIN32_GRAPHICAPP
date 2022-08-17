@@ -170,8 +170,8 @@ int Manager::onSize(Vector managerSize)
 void Manager::defaultDestructor()
 {
     assert(app);
-    if (dc) app->smartDeleteDC(dc);
-    if (finalDC) app->smartDeleteDC(finalDC);
+    if (dc) app->deleteDC(dc);
+    if (finalDC) app->deleteDC(finalDC);
     for (int i = 0; i < getCurLen(); i++)
     {
         if (pointers[i]) delete pointers[i];
@@ -181,8 +181,8 @@ void Manager::defaultDestructor()
 void Window::defaultDestructor()
 {
     assert(app);
-    if (dc) app->smartDeleteDC(dc);
-    if (finalDC) app->smartDeleteDC(dc);
+    if (dc) app->deleteDC(dc);
+    if (finalDC) app->deleteDC(dc);
 }
 
 void Manager::hide()

@@ -18,9 +18,9 @@ void Lay::createLay(AbstractAppData* _app, Vector _laySize/* = {}*/)
     Vector nullVector = { 0, 0 };
 
     if (laySize == nullVector) laySize = app->systemSettings->DCVECTORSIZE;
-    lay = txCreateDIBSection(laySize.x, laySize.y, &layBuf);
+    lay = app->createDIBSection(laySize.x, laySize.y, &layBuf);
     clean();
-    outputLay = txCreateDIBSection(laySize.x, laySize.y, &outputBuf);
+    outputLay = app->createDIBSection(laySize.x, laySize.y, &outputBuf);
     clean(outputLay);
 }
 
