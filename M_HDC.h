@@ -11,7 +11,11 @@ struct M_HDC : M_HGDIOBJ
 
     M_HDC();
 
-    virtual int selectObj(M_HGDIOBJ  _obj);
+    virtual int selectObj(M_HGDIOBJ* _obj, HBITMAP brush);
+    virtual int selectObj(M_HGDIOBJ* _obj, HPEN pen);
+    virtual int selectObj(M_HGDIOBJ* _obj, HBRUSH brush);
+    virtual int selectObj(M_HGDIOBJ* _obj, HFONT brush);
+    
     virtual int setSize(Vector size, RGBQUAD** pixels = NULL);
 
     virtual int deleteObj() override;

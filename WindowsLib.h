@@ -204,5 +204,7 @@ struct Manager : Window
     virtual void draw()             override;
     virtual void onClick(Vector mp) override;
     virtual int onSize(Vector managerSize) override;
+    virtual int onKeyboard(int key) override;
+    virtual int onMouseMove(Vector mp, Vector delta) override;
 
 };

@@ -5,7 +5,7 @@
 void CloseButton::draw()
 {
     $s;
-
+    /*
     if ((rect - rect.pos).inRect(getMousePos()))
     {
         app->setColor(trueRed, finalDC);
@@ -16,24 +16,65 @@ void CloseButton::draw()
         app->setColor(color, finalDC);
         app->rectangle(rect - rect.pos, finalDC);
     }
-    app->transparentBlt(finalDC, 0, 0, 0, 0, dc);
+    */
 
-   
+    app->setColor(color, finalDC);
+    app->rectangle(rect - rect.pos, finalDC);
+    app->transparentBlt(finalDC, 0, 0, 0, 0, dc);
+}
+
+void CloseButton::onClick(Vector mp)
+{
+    assert(app);
+    PostMessage(app->MAINWINDOW, WM_DESTROY, NULL, NULL);
+}
+
+
+int CloseButton::onMouseMove(Vector mp, Vector delta)
+{
+    if ((rect - rect.pos).inRect(mp))
+    {
+        color = trueRed;
+        RECT _rect = (RECT)getAbsRect();
+        InvalidateRect(app->MAINWINDOW, &_rect, FALSE);
+    }
+    else
+    {
+        if (color == trueRed)
+        {
+            color = app->systemSettings->MenuColor;
+            RECT _rect = (RECT)getAbsRect();
+            InvalidateRect(app->MAINWINDOW, &_rect, FALSE);
+        }
+    }
+    return 0;
 }
 
 void MinimizeWindow::draw()
 {
-    if ((rect - rect.pos).inRect(getMousePos()))
+    app->setColor(color, finalDC);
+    app->rectangle(rect - rect.pos, finalDC);
+    app->transparentBlt(finalDC, 0, 0, 0, 0, dc);
+}
+
+int MinimizeWindow::onMouseMove(Vector mp, Vector delta)
+{
+    if ((rect - rect.pos).inRect(mp))
     {
-        app->setColor(onMouseColor, finalDC);
-        app->rectangle(rect - rect.pos, finalDC);
+        color = onMouseColor;
+        RECT _rect = (RECT)getAbsRect();
+        InvalidateRect(app->MAINWINDOW, &_rect, FALSE);
     }
     else
     {
-        app->setColor(color, finalDC);
-        app->rectangle(rect - rect.pos, finalDC);
+        if (color == onMouseColor)
+        {
+            color = app->systemSettings->MenuColor;
+            RECT _rect = (RECT)getAbsRect();
+            InvalidateRect(app->MAINWINDOW, &_rect, FALSE);
+        }
     }
-    app->transparentBlt(finalDC, 0, 0, 0, 0, dc);
+    return 0;
 }
 
 
@@ -49,11 +90,7 @@ void MinimizeWindow::onClick(Vector mp)
     }
 }
 
-void CloseButton::onClick(Vector mp)
-{
-    assert(app);
-    app->IsRunning = false;
-}
+
 
 
 
@@ -61,6 +98,29 @@ void ResizeButton::onClick(Vector mp)
 {
     PowerPoint* fullapp = (PowerPoint*)app;
 
+    assert (app);
+    massert(app->MAINWINDOW, app);
+
+    RECT _rect = {};
+    GetWindowRect(app->MAINWINDOW, &_rect);
+    Vector fullScreenSize = {};
+    RECT fullScreenRect = {};
+
+    SystemParametersInfo(SPI_GETWORKAREA, NULL, &fullScreenRect, NULL);
+
+    fullScreenSize.x = GetSystemMetrics(SM_CXSCREEN);
+    fullScreenSize.y = GetSystemMetrics(SM_CYSCREEN);
+
+    if (_rect.bottom >= fullScreenRect.bottom && _rect.top <= fullScreenRect.top && _rect.left <= fullScreenRect.left && _rect.right >= fullScreenRect.right)
+    {
+        ShowWindow(app->MAINWINDOW, SW_RESTORE);
+    }
+    else
+    {
+        ShowWindow(app->MAINWINDOW, SW_MAXIMIZE);
+    }
+
+    /*
     if (!isClickedLastTime())
     {
         Vector saveSize = app->systemSettings->SizeOfScreen;
@@ -85,6 +145,7 @@ void ResizeButton::onClick(Vector mp)
         app->setResized();
         app->systemSettings->lastTimeSizeOfScreen = saveSize;
     }
+    */
 }
 
 void ResizeButton::draw()
@@ -94,16 +155,29 @@ void ResizeButton::draw()
     else                     dc = nowIsNotFullScreen;
 
 
-    if ((rect - rect.pos).inRect(getMousePos()))
+
+    app->setColor(color, finalDC);
+    app->rectangle(rect - rect.pos, finalDC);
+    app->transparentBlt(finalDC, 0, 0, 0, 0, dc);
+}
+
+int ResizeButton::onMouseMove(Vector mp, Vector delta)
+{
+    if ((rect - rect.pos).inRect(mp))
     {
-        app->setColor(onMouseColor, finalDC);
-        app->rectangle(rect - rect.pos, finalDC);
+        color = onMouseColor;
+        RECT _rect = (RECT)getAbsRect();
+        InvalidateRect(app->MAINWINDOW, &_rect, FALSE);
     }
     else
     {
-        app->setColor(color, finalDC);
-        app->rectangle(rect - rect.pos, finalDC);
+        if (color == onMouseColor)
+        {
+            color = app->systemSettings->MenuColor;
+            RECT _rect = (RECT)getAbsRect();
+            InvalidateRect(app->MAINWINDOW, &_rect, FALSE);
+        }
     }
-    app->transparentBlt(finalDC, 0, 0, 0, 0, dc);
+    return 0;
 }
 

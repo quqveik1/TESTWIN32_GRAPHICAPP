@@ -52,8 +52,11 @@ struct CanvasManager : Manager
 
 
     virtual void screenChanged() override;
+
     virtual void draw() override;
     virtual void onClick(Vector mp) override;
+    virtual int onSize(Vector managerSize) override;
+    virtual int onKeyboard(int key) override;
 
     virtual void deleteButton() override;
 };              

@@ -130,3 +130,43 @@ Run file:	C:\Users\quqve\OneDrive\Рабочий стол\Progs\GRAPHICAPP\RingsProject.exe
 Directory:	C:\Users\quqve\OneDrive\Рабочий стол\Progs\GRAPHICAPP
 
 --------------------------------------------------
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\RingsProject.exe, файл: [Unknowm file], функция: [Unknowm func],
+
+Сообщение: В функцию [Unknowm func] передан неверный параметр: неверно, что [Unknowm expr]. Не надо так.
+
+С помощью _set_invalid_parameter_handler() вы можете сами обработать эту ошибку.
+
+#1: TXLib [Ver: 00173a, Rev: 171, Date: 2021-09-14 18:45:19 +0400], Instance: 0x00BEB578 (32-bit), Flags: Cmdre0, Thread: 0xA948 (Main), GetLastError(): 87 (Параметр задан неверно), errno: 22 (Invalid argument), _doserrno: 2 (No such file or directory). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 1 0x7724CBCB in C:\WINDOWS\System32\ucrtbase.dll: mbtowc()
+# 2 0x7727B536 in C:\WINDOWS\System32\ucrtbase.dll: get_thread_local_invalid_parameter_handler()
+# 3 0x7727B560 in C:\WINDOWS\System32\ucrtbase.dll: invalid_parameter_noinfo()
+# 4 0x77280FDB in C:\WINDOWS\System32\ucrtbase.dll: getw()
+# 5 0x7728858C in C:\WINDOWS\System32\ucrtbase.dll: _stdio_common_vfscanf()
+#10 0x764C6739 in C:\WINDOWS\System32\KERNEL32.dll: BaseThreadInitThunk()
+#11 0x776190AF in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlGetFullPathName_UEx()
+#12 0x7761907D in C:\WINDOWS\SYSTEM32\ntdll.dll: RtlGetFullPathName_UEx()
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 171, Date: 2021-09-14 18:45:19 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	C:\Users\Алехандро\Desktop\AlexProjects\TX\TXLib.h
+Compiled:	Jun 17 2022 14:36:57, MSVS 1929, std=199711L, MSVC Runtime, 32-bit, Release
+Started:	Aug 17 2022 22:01:51
+
+Run file:	C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\RingsProject.exe
+Directory:	C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP
+
+--------------------------------------------------

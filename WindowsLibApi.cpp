@@ -151,6 +151,18 @@ int CWindowsLibApi::standartManagerOnClick(Manager* manager, Vector mp)
     return standartManagerOnClick$(manager, mp);
 }
 
+int CWindowsLibApi::standartManagerOnMouseMove(struct Manager* manager, Vector mp, Vector delta)
+{
+    if (manager)
+    {
+        for (int i = 0; i < manager->getCurLen(); i++)
+        {
+           if (manager->pointers[i]) manager->pointers[i]->onMouseMove(mp - manager->pointers[i]->rect.pos, delta);
+        }
+    }
+    return 0;
+}
+
 int CWindowsLibApi::standartManagerOnSize(struct Manager* manager, Vector managerSize)
 {
     if (manager)

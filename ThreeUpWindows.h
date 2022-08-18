@@ -11,6 +11,7 @@ struct CloseButton : Window
 
     virtual void draw() override;
     virtual void onClick(Vector mp) override;
+    virtual int onMouseMove(Vector mp, Vector delta) override;
 };
 
 struct ResizeButton : Window
@@ -33,6 +34,7 @@ struct ResizeButton : Window
 
     virtual void draw() override;
     virtual void onClick(Vector mp) override;
+    virtual int onMouseMove(Vector mp, Vector delta) override;
 };
 
 
@@ -49,6 +51,7 @@ struct MinimizeWindow : Window
 
     virtual void draw() override;
     virtual void onClick(Vector mp) override;
+    virtual int onMouseMove(Vector mp, Vector delta) override;
 };
 
 

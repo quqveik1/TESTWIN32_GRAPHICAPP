@@ -21,6 +21,7 @@ struct CWindowsLibApi
     virtual int standartWindowDraw(struct Window* window);
     virtual int standartManagerDraw(struct Manager* manager);
     virtual int standartManagerOnClick(struct Manager* manager, Vector mp);
+    virtual int standartManagerOnMouseMove(struct Manager* manager, Vector mp, Vector delta);
     virtual int standartManagerOnSize(struct Manager* manager, Vector managerSize);
     virtual int standartManagerOnKeyboard(struct Manager* manager, int key);
 };

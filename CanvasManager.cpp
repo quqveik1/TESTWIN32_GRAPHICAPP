@@ -47,7 +47,7 @@ void CanvasManager::drawTabs()
     {
         app->setColor(app->systemSettings->TextColor, finalDC);
         app->selectFont(app->systemSettings->FONTNAME, font, finalDC);
-        app->drawText({ .pos = {}, .finishPos = {getSize().x, oneTabSize.y} }, "FAQ доступен при клике на логотип слева наверху", finalDC);
+        app->drawText({ .pos = {}, .finishPos = {getSize().x, oneTabSize.y} }, "FAQ доступен при клике на логотип слева наверху", finalDC, DT_VCENTER);
     }
 
     for (int i = 0; i < currentCanvasesLength; i++)
@@ -130,8 +130,8 @@ void CanvasManager::controlActiveCanvas()
     {
         getActiveCanvas()->getScale() = (double)intScale / 100.0;
 
-        controlStretching();
-        controlPosition();
+        //controlStretching();
+        //controlPosition();
 
         getActiveCanvas()->print(finalDC, app->MAINWINDOW);
     }
@@ -141,19 +141,19 @@ void CanvasManager::controlPosition()
 {
     if (getActiveCanvas())
     {
-        if (app->getAsyncKeyState(VK_RIGHT) && app->getAsyncKeyState(VK_CONTROL))
+        if (app->getKeyState(VK_RIGHT) && app->getKeyState(VK_CONTROL))
         {
             getActiveCanvas()->deltaPos.x -= 10;
         }
-        if (app->getAsyncKeyState(VK_LEFT) && app->getAsyncKeyState(VK_CONTROL))
+        if (app->getKeyState(VK_LEFT) && app->getKeyState(VK_CONTROL))
         {
             getActiveCanvas()->deltaPos.x += 10;
         }
-        if (app->getAsyncKeyState(VK_UP) && app->getAsyncKeyState(VK_CONTROL))
+        if (app->getKeyState(VK_UP) && app->getKeyState(VK_CONTROL))
         {
             getActiveCanvas()->deltaPos.y += 10;
         }
-        if (app->getAsyncKeyState(VK_DOWN) && app->getAsyncKeyState(VK_CONTROL))
+        if (app->getKeyState(VK_DOWN) && app->getKeyState(VK_CONTROL))
         {
             getActiveCanvas()->deltaPos.y -= 10;
         }
@@ -172,13 +172,13 @@ void CanvasManager::controlStretching()
 {
     if (clock() - lastTimeButtonClicked > deltaBetween2Clicks && getActiveCanvas())
     {
-        if (app->getAsyncKeyState(VK_CONTROL) && app->getAsyncKeyState(VK_OEM_PLUS))
+        if (app->getKeyState(VK_CONTROL) && app->getKeyState(VK_OEM_PLUS))
         {
             getActiveCanvas()->stretchCanvas(getActiveCanvas()->deltaScale);
             lastTimeButtonClicked = clock();
         }
 
-        if (app->getAsyncKeyState(VK_CONTROL) && app->getAsyncKeyState(VK_OEM_MINUS))
+        if (app->getKeyState(VK_CONTROL) && app->getKeyState(VK_OEM_MINUS))
         {
             getActiveCanvas()->stretchCanvas(- (getActiveCanvas()->deltaScale));
             lastTimeButtonClicked = clock();
@@ -224,7 +224,12 @@ bool CanvasManager::addCanvas(const char* name, Vector dcSize)
     return addWindow(canvases[currentCanvasesLength - 1]);
 }
 
-
+int CanvasManager::onKeyboard(int key)
+{
+    controlStretching();
+    controlPosition();
+    return 1;
+}
 
 void CanvasManager::onClick(Vector mp)
 {
@@ -330,4 +335,23 @@ void CanvasManager::screenChanged()
     }
 
     setTabsRect();
+}
+
+int CanvasManager::onSize(Vector managerSize)
+{
+    rect.finishPos = managerSize;
+    Vector centrizedPos = {};
+    Vector tempSize = {};
+    for (int i = 0; i < currentCanvasesLength; i++)
+    {
+        if (canvases[i])
+        {
+            tempSize = canvases[i]->rect.getSize();
+            centrizedPos = app->getCentrizedPos(tempSize, getSize());
+            canvases[i]->MoveWindowTo(centrizedPos);
+        }
+    }
+
+    setTabsRect();
+    return 0;
 }

@@ -159,9 +159,20 @@ void Manager::onClick(Vector mp)
     app->windowsLibApi->standartManagerOnClick(this, mp);
 }
 
+int Manager::onMouseMove(Vector mp, Vector delta)
+{
+    app->windowsLibApi->standartManagerOnMouseMove(this, mp, delta);
+    return 0;
+}
+
 int Manager::onSize(Vector managerSize)
 {    
     return app->windowsLibApi->standartManagerOnSize(this, managerSize);
+}
+
+int Manager::onKeyboard(int key)
+{
+    return app->windowsLibApi->standartManagerOnKeyboard(this, key);
 }
 
 

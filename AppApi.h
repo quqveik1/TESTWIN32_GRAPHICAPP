@@ -30,6 +30,7 @@ struct PowerPoint : AbstractAppData
     virtual void drawOnScreen(HDC dc, bool useAlpha = false) override;
     virtual void cleanTransparentDC() override;
     virtual bool getAsyncKeyState(int symbol) override;
+    virtual bool getKeyState(int symbol) override;
     virtual bool isDoubleClick() override;
     virtual void deleteTransparency(RGBQUAD* buf, unsigned int totalSize) override;
 

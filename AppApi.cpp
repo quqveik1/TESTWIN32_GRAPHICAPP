@@ -192,6 +192,7 @@ HDC PowerPoint::createDIBSection(double sizex, double sizey, RGBQUAD** pixels/* 
     HBITMAP bmap = CreateDIBSection(NULL, &info, DIB_RGB_COLORS, (void**)pixels, NULL, 0);
     selectGDIObject(dc, bmap);
     PatBlt(dc, 0, 0, sizex, sizey, BLACKNESS);
+    SetBkMode(dc, TRANSPARENT);
     ReleaseDC(MAINWINDOW, wndDC);
 
     dcManager->addDC(dc);
@@ -327,7 +328,7 @@ void PowerPoint::setColor(COLORREF color, HDC dc, int thickness)
     HPEN newPen = CreatePen(PS_SOLID, thickness, color);
     selectGDIObject(dc, newPen);
 
-    //SetTextColor(dc, color);
+    SetTextColor(dc, color);
 }
 
 int PowerPoint::getColorComponent(COLORREF color, COLORREF component)
@@ -424,7 +425,12 @@ void PowerPoint::verticalReflect(HDC dc, RGBQUAD* buf, Vector size, Vector fullD
 
 void PowerPoint::bitBlt(HDC dc1, double x0, double y0, double sizex, double sizey, HDC dc2, double xSource/* = 0*/, double ySource/* = 0*/)
 {
+    Vector size = getHDCSize(dc2);
+    if (!sizex) sizex = size.x;
+    if (!sizey) sizey = size.y;
+
     BitBlt(dc1, std::lround (x0), std::lround(y0), std::lround(sizex), std::lround(sizey), dc2, std::lround(xSource), std::lround(ySource), SRCCOPY);
+    return;
 }
 
 void PowerPoint::bitBlt(HDC dc1, Vector pos, Vector size, HDC dc2, Vector posSource/* = {}*/)
@@ -435,6 +441,11 @@ void PowerPoint::bitBlt(HDC dc1, Vector pos, Vector size, HDC dc2, Vector posSou
 void PowerPoint::transparentBlt(HDC dc1, double x0, double y0, double sizex, double sizey, HDC dc2, double xSource/* = 0*/, double ySource/* = 0*/)
 {
     assert(dc2);
+
+    Vector size = getHDCSize(dc2);
+    if (!sizex) sizex = size.x;
+    if (!sizey) sizey = size.y;
+
     TransparentBlt(dc1, std::lround(x0), std::lround(y0), std::lround(sizex), std::lround(sizey), dc2, std::lround(xSource), std::lround(ySource), std::lround(sizex), std::lround(sizey), systemSettings->TRANSPARENTCOLOR);
 }
 
@@ -528,6 +539,11 @@ void PowerPoint::cleanTransparentDC()
 bool PowerPoint::getAsyncKeyState(int symbol)
 {
     return GetAsyncKeyState(symbol);
+}
+
+bool PowerPoint::getKeyState(int symbol)
+{
+    return GetKeyState(symbol);
 }
 
 bool PowerPoint::isDoubleClick()

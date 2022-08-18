@@ -1,5 +1,6 @@
 #pragma once
 #include "M_HDC.h"
+#include "M_HGDIOBJ.cpp"
 
 M_HDC::M_HDC()
 {
@@ -10,13 +11,48 @@ M_HDC::M_HDC()
     defObjs[3] = GetCurrentObject((HDC)obj, OBJ_FONT);
 }
 
-int M_HDC::selectObj(M_HGDIOBJ  _obj)
+int M_HDC::selectObj(M_HGDIOBJ* _obj, HBITMAP map)
 {
-    if (_obj.status >= 1)
+    if (_obj->status >= 1)
     {
-
+        int wasntDelete = selectedObj[0]->deleteObj();
+        selectedObj[0] = _obj;
+        return !wasntDelete;
     }
-    return 0;
+    return -1;
+}
+
+int M_HDC::selectObj(M_HGDIOBJ* _obj, HPEN pen)
+{
+    if (_obj->status >= 1)
+    {
+        int wasntDelete = selectedObj[1]->deleteObj();
+        selectedObj[1] = _obj;
+        return !wasntDelete;
+    }
+    return -1;
+} 
+
+int M_HDC::selectObj(M_HGDIOBJ* _obj, HBRUSH brush)
+{
+    if (_obj->status >= 1)
+    {
+        int wasntDelete = selectedObj[2]->deleteObj();
+        selectedObj[2] = _obj;
+        return !wasntDelete;
+    }
+    return -1;
+}
+
+int M_HDC::selectObj(M_HGDIOBJ* _obj, HFONT font)
+{
+    if (_obj->status >= 1)
+    {
+        int wasntDelete = selectedObj[3]->deleteObj();
+        selectedObj[3] = _obj;
+        return !wasntDelete;
+    }
+    return -1;
 }
 
 int M_HDC::setSize(Vector size, RGBQUAD** pixels/* = NULL*/)

@@ -176,9 +176,6 @@ void Handle::draw()
 
     app->windowsLibApi->standartManagerDraw(this);
 
-
-    setOptionsRect();
-
     drawOptions();
     
 
@@ -250,6 +247,8 @@ int Handle::onSize(Vector managerSize)
 {
     Rect newRect = { .pos = rect.pos, .finishPos = {managerSize.x, rect.pos.y + getSize().y} };
     resize(newRect);
+
+    setOptionsRect();
 
     for (int i = 0; i < numberOfAddToBackElements; i++)
     {

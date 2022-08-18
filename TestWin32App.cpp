@@ -65,7 +65,7 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
         {
             if (appData->mainManager)
             {
-                appData->mainManager->onMouseMove({}, {});
+                appData->mainManager->onMouseMove({ (double)LOWORD(lParam), (double)HIWORD(lParam) }, {});
             }
         }
 
@@ -125,7 +125,8 @@ int initProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
     appData->mainManager = manager;
     manager->addWindow(mainHandle);
 
-    //CanvasManager* canvasManager = new CanvasManager ()
+    CanvasManager* canvasManager = new CanvasManager(appData, { 0, mainHandle->rect.finishPos.y });
+    manager->addWindow(canvasManager);
 
     return 0;
 }

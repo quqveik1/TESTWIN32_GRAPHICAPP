@@ -1,6 +1,7 @@
 #pragma once
 #include "DrawBibliothek.h"
 #include "List.h"
+#include "ThreeUpWindows.cpp"
 
 
 struct Option
@@ -47,6 +48,15 @@ struct Handle : Manager
         oneItemInBackMenuSize = { app->systemSettings->BUTTONWIDTH, getSize().y};
         optionHeight = getSize().y - 4;
         font = std::lround (optionHeight) - 2;
+
+        CloseButton* closeButton = new CloseButton(appData);
+        addWindowToBack(closeButton);
+
+        ResizeButton* resizeButton = new ResizeButton(appData);
+        addWindowToBack(resizeButton);
+
+        MinimizeWindow* minimizeButton = new MinimizeWindow(appData);
+        addWindowToBack(minimizeButton);
     }
 
     void setOptionsRect();

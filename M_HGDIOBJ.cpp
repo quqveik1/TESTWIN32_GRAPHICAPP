@@ -24,6 +24,7 @@ int M_HGDIOBJ::deleteObj()
             return 0;
         }
     }
+    return 0;
 }
 
 HGDIOBJ M_HGDIOBJ::setObj(HGDIOBJ  _obj)

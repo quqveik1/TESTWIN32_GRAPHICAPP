@@ -33,7 +33,7 @@ void MainManager::draw()
     zone.pos = app->systemSettings->ScreenPos;
     zone.finishPos = app->systemSettings->ScreenPos + app->systemSettings->SizeOfScreen;
     needFrameToWork = !app->isFullScreen();
-    zoneSizeControl.controlFrame();
+    //zoneSizeControl.controlFrame();
 
     controlWorkSpace();
     
@@ -54,8 +54,7 @@ void MainManager::draw()
 
 void MainManager::onClick(Vector mp)
 {
-
-    if (zoneSizeControl.clickFrame()) return;
+    mousePos = mp;
 
     app->windowsLibApi->standartManagerOnClick(this, mp);
 }
