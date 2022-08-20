@@ -4,7 +4,7 @@
 struct M_HGDIOBJ
 {
     HGDIOBJ obj = NULL;
-    HDC motherHDC = NULL;
+    struct M_HDC* motherHDC = NULL;
     int status = 0; //1 - active  // 2- selected
     const char* name = NULL;
 

@@ -15,6 +15,7 @@
 #include "DCManager.cpp"
 #include "M_HGDIOBJ.cpp"
 #include "M_HDC.cpp"
+#include "HGDIManager.cpp"
 
 
 
@@ -57,6 +58,8 @@ PowerPoint::PowerPoint(HINSTANCE hInstance)
     currColor = &systemSettings->DrawColor;
 
     dcManager = new DCManager(this);
+
+    hgdiManager = new HGDIManager(this);
 
     setWindowParameters(this, hInstance);
 }
@@ -656,9 +659,17 @@ Vector PowerPoint::getCursorPos()
 
 bool PowerPoint::isFullScreen()
 {
-    assert(systemSettings);
+    RECT fullScreenRect = {};
 
-    return systemSettings->SizeOfScreen == systemSettings->FullSizeOfScreen;
+    SystemParametersInfo(SPI_GETWORKAREA, NULL, &fullScreenRect, NULL);
+    RECT _rect = {};
+    GetWindowRect(MAINWINDOW, &_rect);
+
+    if (_rect.bottom >= fullScreenRect.bottom && _rect.top <= fullScreenRect.top && _rect.left <= fullScreenRect.left && _rect.right >= fullScreenRect.right)
+    {
+        return true;
+    }
+    return false;
 
 }
 

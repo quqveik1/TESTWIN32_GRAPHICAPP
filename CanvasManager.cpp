@@ -47,7 +47,7 @@ void CanvasManager::drawTabs()
     {
         app->setColor(app->systemSettings->TextColor, finalDC);
         app->selectFont(app->systemSettings->FONTNAME, font, finalDC);
-        app->drawText({ .pos = {}, .finishPos = {getSize().x, oneTabSize.y} }, "FAQ доступен при клике на логотип слева наверху", finalDC, DT_VCENTER);
+        app->drawText({ .pos = {}, .finishPos = {getSize().x, oneTabSize.y} }, "FAQ доступен при клике на логотип слева наверху", finalDC, DT_BOTTOM | DT_CENTER);
     }
 
     for (int i = 0; i < currentCanvasesLength; i++)
@@ -157,15 +157,16 @@ void CanvasManager::controlPosition()
         {
             getActiveCanvas()->deltaPos.y -= 10;
         }
-    }
 
-    Vector сanvasPos = app->getCentrizedPos(getActiveCanvas()->getSize(), getSize());
-    if (app->systemSettings->debugMode >= 3)printf("canvasPos: {%lf, %lf}\n", сanvasPos.x, сanvasPos.y);
-    if (app->systemSettings->debugMode >= 3)printf("getActiveCanvas()->getSize(): {%lf, %lf}\n", getActiveCanvas()->getSize().x, getActiveCanvas()->getSize().y);
-    if (app->systemSettings->debugMode >= 3)printf("getSize(): {%lf, %lf}\n", getSize().x, getSize().y);
-    if (app->systemSettings->debugMode >= 3)printf("Canvas deltaPos: {%lf, %lf}\n", getActiveCanvas()->deltaPos.x, getActiveCanvas()->deltaPos.y);
-    сanvasPos += getActiveCanvas()->deltaPos;
-    getActiveCanvas()->MoveWindowTo(сanvasPos);
+
+        Vector сanvasPos = app->getCentrizedPos(getActiveCanvas()->getSize(), getSize());
+        if (app->systemSettings->debugMode >= 3)printf("canvasPos: {%lf, %lf}\n", сanvasPos.x, сanvasPos.y);
+        if (app->systemSettings->debugMode >= 3)printf("getActiveCanvas()->getSize(): {%lf, %lf}\n", getActiveCanvas()->getSize().x, getActiveCanvas()->getSize().y);
+        if (app->systemSettings->debugMode >= 3)printf("getSize(): {%lf, %lf}\n", getSize().x, getSize().y);
+        if (app->systemSettings->debugMode >= 3)printf("Canvas deltaPos: {%lf, %lf}\n", getActiveCanvas()->deltaPos.x, getActiveCanvas()->deltaPos.y);
+        сanvasPos += getActiveCanvas()->deltaPos;
+        getActiveCanvas()->MoveWindowTo(сanvasPos);
+    }
 }
 
 void CanvasManager::controlStretching()

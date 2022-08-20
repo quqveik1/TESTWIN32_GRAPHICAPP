@@ -2,11 +2,13 @@
 #include "AbstractApp.h"
 #include "FileSavings.h"
 #include "LoadLib.h"
+#include "HGDIManager.h"
 
 struct PowerPoint : AbstractAppData
 {
     struct Manager* mainManager = NULL;
     struct DCManager* dcManager = NULL;
+    struct HGDIManager* hgdiManager = NULL;
 
 
     HCURSOR activeCursor = NULL;

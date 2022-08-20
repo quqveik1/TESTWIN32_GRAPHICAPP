@@ -34,9 +34,14 @@ int CloseButton::onMouseMove(Vector mp, Vector delta)
 {
     if ((rect - rect.pos).inRect(mp))
     {
+        SetCapture(app->MAINWINDOW);
+        if (color != trueRed)
+        {
+            RECT _rect = (RECT)getAbsRect();
+            InvalidateRect(app->MAINWINDOW, &_rect, FALSE);
+        }
         color = trueRed;
-        RECT _rect = (RECT)getAbsRect();
-        InvalidateRect(app->MAINWINDOW, &_rect, FALSE);
+        
     }
     else
     {
@@ -45,6 +50,7 @@ int CloseButton::onMouseMove(Vector mp, Vector delta)
             color = app->systemSettings->MenuColor;
             RECT _rect = (RECT)getAbsRect();
             InvalidateRect(app->MAINWINDOW, &_rect, FALSE);
+            ReleaseCapture();
         }
     }
     return 0;
@@ -61,9 +67,13 @@ int MinimizeWindow::onMouseMove(Vector mp, Vector delta)
 {
     if ((rect - rect.pos).inRect(mp))
     {
+        SetCapture(app->MAINWINDOW);
+        if (color != onMouseColor)
+        {
+            RECT _rect = (RECT)getAbsRect();
+            InvalidateRect(app->MAINWINDOW, &_rect, FALSE);
+        }
         color = onMouseColor;
-        RECT _rect = (RECT)getAbsRect();
-        InvalidateRect(app->MAINWINDOW, &_rect, FALSE);
     }
     else
     {
@@ -72,6 +82,7 @@ int MinimizeWindow::onMouseMove(Vector mp, Vector delta)
             color = app->systemSettings->MenuColor;
             RECT _rect = (RECT)getAbsRect();
             InvalidateRect(app->MAINWINDOW, &_rect, FALSE);
+            ReleaseCapture();
         }
     }
     return 0;
@@ -165,9 +176,14 @@ int ResizeButton::onMouseMove(Vector mp, Vector delta)
 {
     if ((rect - rect.pos).inRect(mp))
     {
+        SetCapture(app->MAINWINDOW);
+        if (color != onMouseColor)
+        {
+            RECT _rect = (RECT)getAbsRect();
+            InvalidateRect(app->MAINWINDOW, &_rect, FALSE);
+            
+        }
         color = onMouseColor;
-        RECT _rect = (RECT)getAbsRect();
-        InvalidateRect(app->MAINWINDOW, &_rect, FALSE);
     }
     else
     {
@@ -176,6 +192,7 @@ int ResizeButton::onMouseMove(Vector mp, Vector delta)
             color = app->systemSettings->MenuColor;
             RECT _rect = (RECT)getAbsRect();
             InvalidateRect(app->MAINWINDOW, &_rect, FALSE);
+            ReleaseCapture();
         }
     }
     return 0;

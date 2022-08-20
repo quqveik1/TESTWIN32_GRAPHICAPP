@@ -7,5 +7,6 @@ struct HGDIManager
 {
     M_HGDIOBJ* objs[10000] = {};
 
-
+    virtual M_HDC* getHDC();
+    virtual M_HGDIOBJ* getHGDIOBJ();
 };
