@@ -35,7 +35,7 @@ struct Cursor
 
 
     void makeDefault();
-    void draw(HDC finalDC);
+    void draw(M_HDC finalDC);
     int moveLeft(bool needToChangeStartPos = true);
     int moveRight(bool needToChangeStartPos = true);
     int moveCursorTo(int pos, bool needToChangeStartPos = true);

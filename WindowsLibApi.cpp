@@ -9,8 +9,7 @@ void CWindowsLibApi::resize(Window* window, Rect newRect)
         window->finalDCSize = { newRect.getSize().x, newRect.getSize().y };
         if (window->systemSettings->debugMode >= 2) printf("finalDCSize {%lf, %lf}; \n", window->finalDCSize.x, window->finalDCSize.y);
 
-        window->app->deleteDC(window->finalDC);
-        window->finalDC = window->app->createDIBSection(window->finalDCSize, &window->finalDCArr);
+        window->finalDC.setSize(window->finalDCSize, &window->finalDCArr);
 
         window->app->setColor(window->color, window->finalDC);
         window->app->rectangle(0, 0, newRect.getSize().x, newRect.getSize().y, window->finalDC);

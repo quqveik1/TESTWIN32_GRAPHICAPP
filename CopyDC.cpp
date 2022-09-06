@@ -175,7 +175,7 @@ HDC CopyDC::load(ToolLay* toollay)
 
     if (isStarted(toolLay) && !isFinished(toolLay))
     {
-        app->drawCadre(saveCopyDC->pos, saveCopyDC->pos + saveCopyDC->size, outDC, frameColor, 2);
+        //app->drawCadre(saveCopyDC->pos, saveCopyDC->pos + saveCopyDC->size, outDC, frameColor, 2);
     }
 
 

@@ -8,7 +8,6 @@ struct PowerPoint : AbstractAppData
 {
     struct Manager* mainManager = NULL;
     struct DCManager* dcManager = NULL;
-    struct HGDIManager* hgdiManager = NULL;
 
 
     HCURSOR activeCursor = NULL;
@@ -20,7 +19,7 @@ struct PowerPoint : AbstractAppData
     bool dClick = 0;
 
 
-    virtual void setColor(COLORREF color, HDC dc, int thickness = 1) override;
+    virtual void setColor(COLORREF color, M_HDC& dc, int thickness = 1) override;
     virtual int getColorComponent(COLORREF color, COLORREF component) override;
     virtual void setDrawColor(COLORREF color) override;
     virtual COLORREF getPixel(Vector pos, HDC dc) override;
@@ -74,7 +73,7 @@ struct PowerPoint : AbstractAppData
         unsigned format = DT_CENTER | DT_VCENTER | DT_WORDBREAK | DT_WORD_ELLIPSIS)  override;
     virtual Vector getTextExtent(const char* text, HDC finalDC) override;
 
-    virtual void selectFont(const char* text, int sizey, HDC& dc, int sizex = -1) override;
+    virtual void selectFont(const char* text, int sizey, M_HDC dc, int sizex = -1) override;
     virtual void setAlign(unsigned align, HDC dc) override;
 
     virtual void deleteDC(HDC dc) override;
@@ -83,9 +82,9 @@ struct PowerPoint : AbstractAppData
 
     virtual int messageBox(const char  text[] = "", const char  header[] = "", unsigned  flags = MB_ICONINFORMATION | MB_OKCANCEL);
 
-    virtual void drawCadre(Rect rect, HDC dc, COLORREF color, int thickness) override;
-    virtual void drawCadre(Vector pos1, Vector pos2, HDC dc, COLORREF color, int thickness) override;
-    virtual void drawCadre(int x1, int y1, int x2, int y2, HDC dc, COLORREF color, int thickness) override;
+    virtual void drawCadre(Rect rect, M_HDC dc, COLORREF color, int thickness) override;
+    virtual void drawCadre(Vector pos1, Vector pos2, M_HDC dc, COLORREF color, int thickness) override;
+    virtual void drawCadre(int x1, int y1, int x2, int y2, M_HDC dc, COLORREF color, int thickness) override;
 
     
 

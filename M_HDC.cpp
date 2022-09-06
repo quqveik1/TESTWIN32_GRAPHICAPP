@@ -11,11 +11,17 @@ M_HDC::M_HDC()
     defObjs[3] = GetCurrentObject((HDC)obj, OBJ_FONT);
 }
 
+M_HDC::operator HDC() const
+{
+    return (HDC)obj;
+}
+
 int M_HDC::selectObj(M_HGDIOBJ* _obj, HBITMAP map)
 {
     if (_obj->status >= 1)
     {
-        int wasntDelete = selectedObj[0]->deleteObj();
+        int wasntDelete = NULL;
+        if (selectedObj[0]) wasntDelete = selectedObj[0]->deleteObj();
         selectedObj[0] = _obj;
         return !wasntDelete;
     }
@@ -26,7 +32,8 @@ int M_HDC::selectObj(M_HGDIOBJ* _obj, HPEN pen)
 {
     if (_obj->status >= 1)
     {
-        int wasntDelete = selectedObj[1]->deleteObj();
+        int wasntDelete = NULL;
+        if (selectedObj[1]) wasntDelete = selectedObj[1]->deleteObj();
         selectedObj[1] = _obj;
         return !wasntDelete;
     }
@@ -37,7 +44,8 @@ int M_HDC::selectObj(M_HGDIOBJ* _obj, HBRUSH brush)
 {
     if (_obj->status >= 1)
     {
-        int wasntDelete = selectedObj[2]->deleteObj();
+        int wasntDelete = NULL;
+        if (selectedObj[2]) wasntDelete = selectedObj[2]->deleteObj();
         selectedObj[2] = _obj;
         return !wasntDelete;
     }
@@ -48,7 +56,8 @@ int M_HDC::selectObj(M_HGDIOBJ* _obj, HFONT font)
 {
     if (_obj->status >= 1)
     {
-        int wasntDelete = selectedObj[3]->deleteObj();
+        int wasntDelete = NULL;
+        if (selectedObj[3]) wasntDelete = selectedObj[3]->deleteObj();
         selectedObj[3] = _obj;
         return !wasntDelete;
     }

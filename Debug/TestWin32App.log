@@ -1,41 +1,41 @@
 ﻿  TestWin32App.cpp
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\Q_Rect.h(41,22): warning C4244: '=': conversion from 'const double' to 'LONG', possible loss of data
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\Q_Rect.h(42,21): warning C4244: '=': conversion from 'const double' to 'LONG', possible loss of data
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\Q_Rect.h(43,29): warning C4244: '=': conversion from 'const double' to 'LONG', possible loss of data
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\Q_Rect.h(44,30): warning C4244: '=': conversion from 'const double' to 'LONG', possible loss of data
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\WindowsLib.h(57,22): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\DrawBibliothek.cpp(84,10): warning C4551: function call missing argument list
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\M_HDC.cpp(60,45): warning C4838: conversion from 'double' to 'LONG' requires a narrowing conversion
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\M_HDC.cpp(60,45): warning C4244: 'initializing': conversion from 'double' to 'LONG', possible loss of data
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\M_HDC.cpp(60,53): warning C4838: conversion from 'double' to 'LONG' requires a narrowing conversion
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\M_HDC.cpp(60,53): warning C4244: 'initializing': conversion from 'double' to 'LONG', possible loss of data
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(165,1): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(194,41): warning C4838: conversion from 'double' to 'LONG' requires a narrowing conversion
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(194,41): warning C4244: 'initializing': conversion from 'double' to 'LONG', possible loss of data
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(194,48): warning C4838: conversion from 'double' to 'LONG' requires a narrowing conversion
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(194,48): warning C4244: 'initializing': conversion from 'double' to 'LONG', possible loss of data
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(197,29): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(197,22): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(280,20): warning C4838: conversion from 'double' to 'LONG' requires a narrowing conversion
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(280,20): warning C4244: 'initializing': conversion from 'double' to 'LONG', possible loss of data
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(280,24): warning C4838: conversion from 'double' to 'LONG' requires a narrowing conversion
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(280,24): warning C4244: 'initializing': conversion from 'double' to 'LONG', possible loss of data
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(280,28): warning C4838: conversion from 'double' to 'LONG' requires a narrowing conversion
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(280,28): warning C4244: 'initializing': conversion from 'double' to 'LONG', possible loss of data
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(280,32): warning C4838: conversion from 'double' to 'LONG' requires a narrowing conversion
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(280,32): warning C4244: 'initializing': conversion from 'double' to 'LONG', possible loss of data
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(361,5): warning C4804: '*=': unsafe use of type 'bool' in operation
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(748,10): warning C4551: function call missing argument list
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(781,10): warning C4551: function call missing argument list
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ZoneSizeControl.cpp(128,130): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\List.h(21,19): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\List.h(29,30): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\List.cpp(71,93): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\Tool.cpp(61,1): warning C4305: 'return': truncation from '__int64' to 'long'
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\Tool.cpp(61,12): warning C4309: 'return': truncation of constant value
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\StringButton2.h(79,30): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\StringButton2.cpp(90,26): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\DrawBibliothek.cpp(88): warning C4172: returning address of local variable or temporary: fileName
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(799): warning C4172: returning address of local variable or temporary: fileName
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(757): warning C4172: returning address of local variable or temporary: fileName
-  TestWin32App.vcxproj -> C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\Debug\TestWin32App.exe
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP-main\Q_Rect.h(41,22): warning C4244: =: преобразование "const double" в "LONG", возможна потеря данных
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP-main\Q_Rect.h(42,21): warning C4244: =: преобразование "const double" в "LONG", возможна потеря данных
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP-main\Q_Rect.h(43,29): warning C4244: =: преобразование "const double" в "LONG", возможна потеря данных
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP-main\Q_Rect.h(44,30): warning C4244: =: преобразование "const double" в "LONG", возможна потеря данных
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP-main\M_HDC.cpp(65,45): warning C4838: Преобразование из "double" в "LONG" требует сужающего преобразования.
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP-main\M_HDC.cpp(65,45): warning C4244: инициализация: преобразование "double" в "LONG", возможна потеря данных
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP-main\M_HDC.cpp(65,53): warning C4838: Преобразование из "double" в "LONG" требует сужающего преобразования.
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP-main\M_HDC.cpp(65,53): warning C4244: инициализация: преобразование "double" в "LONG", возможна потеря данных
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP-main\WindowsLib.h(58,22): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP-main\DrawBibliothek.cpp(84,10): warning C4551: в вызове функции отсутствует список аргументов
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP-main\AppApi.cpp(165,1): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP-main\AppApi.cpp(194,41): warning C4838: Преобразование из "double" в "LONG" требует сужающего преобразования.
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP-main\AppApi.cpp(194,41): warning C4244: инициализация: преобразование "double" в "LONG", возможна потеря данных
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP-main\AppApi.cpp(194,48): warning C4838: Преобразование из "double" в "LONG" требует сужающего преобразования.
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP-main\AppApi.cpp(194,48): warning C4244: инициализация: преобразование "double" в "LONG", возможна потеря данных
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP-main\AppApi.cpp(197,29): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP-main\AppApi.cpp(197,22): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP-main\AppApi.cpp(280,20): warning C4838: Преобразование из "double" в "LONG" требует сужающего преобразования.
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP-main\AppApi.cpp(280,20): warning C4244: инициализация: преобразование "double" в "LONG", возможна потеря данных
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP-main\AppApi.cpp(280,24): warning C4838: Преобразование из "double" в "LONG" требует сужающего преобразования.
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP-main\AppApi.cpp(280,24): warning C4244: инициализация: преобразование "double" в "LONG", возможна потеря данных
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP-main\AppApi.cpp(280,28): warning C4838: Преобразование из "double" в "LONG" требует сужающего преобразования.
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP-main\AppApi.cpp(280,28): warning C4244: инициализация: преобразование "double" в "LONG", возможна потеря данных
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP-main\AppApi.cpp(280,32): warning C4838: Преобразование из "double" в "LONG" требует сужающего преобразования.
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP-main\AppApi.cpp(280,32): warning C4244: инициализация: преобразование "double" в "LONG", возможна потеря данных
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP-main\AppApi.cpp(366,5): warning C4804: *=: небезопасное использование типа "bool" в операции
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP-main\AppApi.cpp(753,10): warning C4551: в вызове функции отсутствует список аргументов
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP-main\AppApi.cpp(786,10): warning C4551: в вызове функции отсутствует список аргументов
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP-main\ZoneSizeControl.cpp(128,130): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP-main\List.h(21,19): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP-main\List.h(29,30): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP-main\List.cpp(71,93): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP-main\Tool.cpp(61,1): warning C4305: return: усечение из "__int64" в "long"
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP-main\Tool.cpp(61,12): warning C4309: return: усечение константного значения
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP-main\StringButton2.h(79,30): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP-main\StringButton2.cpp(90,26): warning C4244: return: преобразование "double" в "int", возможна потеря данных
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP-main\DrawBibliothek.cpp(88): warning C4172: возвращение адреса локальной или временной переменной : fileName
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP-main\AppApi.cpp(762): warning C4172: возвращение адреса локальной или временной переменной : fileName
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP-main\AppApi.cpp(804): warning C4172: возвращение адреса локальной или временной переменной : fileName
+  TestWin32App.vcxproj -> C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP-main\Debug\TestWin32App.exe

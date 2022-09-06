@@ -10,6 +10,7 @@ struct M_HDC : M_HGDIOBJ
     int currLen = 0;
 
     M_HDC();
+    operator HDC() const;
 
     virtual int selectObj(M_HGDIOBJ* _obj, HBITMAP brush);
     virtual int selectObj(M_HGDIOBJ* _obj, HPEN pen);
@@ -21,3 +22,4 @@ struct M_HDC : M_HGDIOBJ
     virtual int deleteObj() override;
     //virtual HGDIOBJ setObj(HGDIOBJ  _obj) override;
 };
+

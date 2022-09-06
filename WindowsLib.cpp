@@ -51,6 +51,7 @@ void Window::resize(Vector newSize)
 
 void Window::reInit()
 {
+    /*
     if (rect.getSize().x > 0 && rect.getSize().y > 0)
     {
         finalDCSize = { rect.getSize().x, rect.getSize().y };
@@ -61,6 +62,7 @@ void Window::reInit()
     }
 
     originalRect = rect;
+    */
 }
 
 void Window::setStartRect(Vector pos, Vector finishPos)

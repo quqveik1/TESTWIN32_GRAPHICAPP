@@ -23,9 +23,9 @@ struct CLay
     virtual void addToolLay (ToolLay* tool);
     virtual void setActiveLastToolLay();
 
-    virtual HDC getOutputDC ();
+    virtual M_HDC getOutputDC ();
     virtual RGBQUAD* getOutputBuf();
-    virtual HDC getPermanentDC();
+    virtual M_HDC getPermanentDC();
     virtual RGBQUAD* getPermanentBuf();
 
 

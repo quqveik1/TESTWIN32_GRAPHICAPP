@@ -26,26 +26,6 @@ struct CHistoryStep
 	int thickness = 1;
 };
 
-#define gassert(condition)                                   \
-{                                                            \
-    if (condition == NULL)                                   \
-    {                                                        \
-        printf("[%s] == NULL", #condition);                   \
-        (void)_getch();                                      \
-    }                                                        \
-}                                                            \
-
-
-#define massert(condition, _app)                             \
-{                                                            \
-    if (condition == NULL)                                   \
-    {                                                        \
-        char _tempStr[MAX_PATH] = {};                        \
-        sprintf(_tempStr, "[%s] == NULL", #condition);        \
-        _app->messageBox(_tempStr, "Ошибка", MB_OK | MB_ICONINFORMATION);         \
-    }                                                        \
-}                                                            \
-
 
 
 

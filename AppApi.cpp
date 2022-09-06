@@ -229,7 +229,7 @@ void PowerPoint::rectangle(Rect rect, HDC dc)
     rectangle(rect.pos.x, rect.pos.y, rect.finishPos.x, rect.finishPos.y, dc);
 }
 
-void PowerPoint::drawCadre(Rect rect, HDC dc, COLORREF color, int thickness)
+void PowerPoint::drawCadre(Rect rect, M_HDC dc, COLORREF color, int thickness)
 {
     $s;
     if (systemSettings->debugMode == 5) printf("Rect: {%lf, %lf}\n", rect.pos.x, rect.pos.y);
@@ -242,14 +242,14 @@ void PowerPoint::drawCadre(Rect rect, HDC dc, COLORREF color, int thickness)
     line(rect.pos.x + halfThickness, rect.pos.y + halfThickness, rect.finishPos.x - halfThickness, rect.pos.y + halfThickness, dc);
 }
 
-void PowerPoint::drawCadre(Vector pos1, Vector pos2, HDC dc, COLORREF color, int thickness)
+void PowerPoint::drawCadre(Vector pos1, Vector pos2, M_HDC dc, COLORREF color, int thickness)
 {
     Rect rect = { .pos = pos1, .finishPos = pos2 };
 
     drawCadre(rect, dc, color, thickness);
 }
 
-void PowerPoint::drawCadre(int x1, int y1, int x2, int y2, HDC dc, COLORREF color, int thickness)
+void PowerPoint::drawCadre(int x1, int y1, int x2, int y2, M_HDC dc, COLORREF color, int thickness)
 {
     Vector pos1 = { (double)x1, (double)y1 };
     Vector pos2 = { (double)x2, (double)y2 };
@@ -307,7 +307,7 @@ void PowerPoint::setAlign(unsigned align, HDC dc)
     SetTextAlign(dc, align);
 }
 
-void PowerPoint::selectFont(const char* text, int sizey, HDC& dc, int sizex/* = -1*/)
+void PowerPoint::selectFont(const char* text, int sizey, M_HDC dc, int sizex/* = -1*/)
 {
     HFONT font = CreateFont(sizey,((sizex >= 0) ? sizex : sizey / 3),
         0, 0, FW_DONTCARE, false, false, false,
@@ -319,17 +319,21 @@ void PowerPoint::selectFont(const char* text, int sizey, HDC& dc, int sizex/* = 
 }
 
 
-void PowerPoint::setColor(COLORREF color, HDC dc, int thickness)
+void PowerPoint::setColor(COLORREF color, M_HDC& dc, int thickness)
 {
     if (systemSettings->debugMode == 5) printf("SetColor: %d|", color);
     gassert(dc);
 
     
     HBRUSH newSolidBrush = CreateSolidBrush(color);
-    selectGDIObject(dc, newSolidBrush);
+    M_HGDIOBJ* solidBrush = hgdiManager->getHGDIOBJ();
+    solidBrush->setObj(newSolidBrush);
+    dc.selectObj(solidBrush, newSolidBrush);
 
-    HPEN newPen = CreatePen(PS_SOLID, thickness, color);
-    selectGDIObject(dc, newPen);
+    HPEN newPen = CreatePen(PS_SOLID, thickness, color); 
+    M_HGDIOBJ* pen = hgdiManager->getHGDIOBJ();
+    pen->setObj(newPen);
+    dc.selectObj(pen, newPen);
 
     SetTextColor(dc, color);
 }

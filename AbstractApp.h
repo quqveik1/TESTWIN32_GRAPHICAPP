@@ -2,6 +2,7 @@
 
 #include "Q_Rect.h"
 #include "TXLib.cpp"
+#include "M_HDC.h"
 
 
 struct AbstractAppData
@@ -20,6 +21,7 @@ struct AbstractAppData
     struct CWindowsLibApi* windowsLibApi = NULL;    
     struct CLoadLib* loadLibManager = NULL;
     struct ConsoleOutput* consoleOutput = NULL;
+    struct HGDIManager* hgdiManager = NULL;
 
     COLORREF* currColor = NULL;
     bool isResized = false;
@@ -27,7 +29,7 @@ struct AbstractAppData
     bool isShowing = true;;
     HCURSOR defaultCursor = NULL;
 
-    virtual void setColor(COLORREF color, HDC dc, int thickness = 1) = 0;
+    virtual void setColor(COLORREF color, M_HDC& dc, int thickness = 1) = 0;
     virtual int getColorComponent(COLORREF color, COLORREF component) = 0;
     virtual void setDrawColor(COLORREF color) = 0;
     virtual COLORREF getPixel(Vector pos, HDC dc) = 0;
@@ -88,13 +90,13 @@ struct AbstractAppData
     virtual Vector getTextExtent(const char* text, HDC finalDC) = 0;
 
     virtual void setAlign(unsigned align, HDC dc) = 0;
-    virtual void selectFont(const char* text, int sizey, HDC& dc, int sizex = -1) = 0;
+    virtual void selectFont(const char* text, int sizey, M_HDC dc, int sizex = -1) = 0;
 
     virtual int saveImage(HDC dc, const char* path) = 0;
 
-    virtual void drawCadre(Rect rect, HDC dc, COLORREF color, int thickness) = 0;
-    virtual void drawCadre(Vector pos1, Vector pos2, HDC dc, COLORREF color, int thickness) = 0;
-    virtual void drawCadre(int x1, int y1, int x2, int y2, HDC dc, COLORREF color, int thickness) = 0;
+    virtual void drawCadre(Rect rect, M_HDC dc, COLORREF color, int thickness) = 0;
+    virtual void drawCadre(Vector pos1, Vector pos2, M_HDC dc, COLORREF color, int thickness) = 0;
+    virtual void drawCadre(int x1, int y1, int x2, int y2, M_HDC dc, COLORREF color, int thickness) = 0;
 
     
 

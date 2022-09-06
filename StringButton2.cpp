@@ -8,7 +8,7 @@ void Cursor::makeDefault()
     startPos = -1;
 }
 
-void Cursor::draw(HDC finalDC)
+void Cursor::draw(M_HDC finalDC)
 {
     int clockMS = clock();
 

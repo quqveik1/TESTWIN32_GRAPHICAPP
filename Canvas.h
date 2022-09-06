@@ -16,7 +16,7 @@ struct Canvas : Manager
     int currentLayersLength = 0;
     int activeLayNum = 0;
     Vector laysSize = {};
-    HDC finalLay = NULL;
+    M_HDC finalLay;
     bool needToRedrawBackground = false;
     COLORREF backgroungColor = TX_WHITE;
     CLay* lay = new CLay[LayersNum]{};

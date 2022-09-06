@@ -2,6 +2,8 @@
 #include "TXLib.cpp"
 #include "Tool.h"
 #include "AbstractApp.h"
+#include "M_HDC.cpp"
+#include "HGDIManager.h"
 
 
 struct Window
@@ -26,9 +28,9 @@ struct Window
 
     bool redrawStatus = false;
 
-    HDC dc = NULL;
+    HDC dc;
 
-    HDC finalDC = NULL;
+    M_HDC finalDC;
     RGBQUAD* finalDCArr = NULL;
     Vector finalDCSize = {};
     struct Manager* manager = NULL;
@@ -48,7 +50,6 @@ struct Window
         color(_color),
         manager(_manager),
         text(_text),
-        dc(_dc),
         needToShow(_needToShow),
         reDraw(true),
         loadManager(_app->loadManager),
@@ -56,8 +57,8 @@ struct Window
         fontName (_app->systemSettings->FONTNAME),
         sideThickness(_app->systemSettings->SIDETHICKNESS),
         format(_app->systemSettings->TEXTFORMAT)
-
     {
+        assert(_app);
         if (systemSettings->debugMode >= 0) printf("rect {%lf, %lf}; {%lf, %lf}\n", rect.pos.x, rect.pos.y, rect.finishPos.x, rect.finishPos.y);
 
         if (!color) color = systemSettings->MenuColor;

@@ -12,8 +12,9 @@ Canvas::Canvas(AbstractAppData* _app, Rect _rect, const char* _name) :
     laysSize(_rect.getSize()),
     DrawingModeLastTime(app->toolManager->getActiveToolNum()),
     zoneSizeControl(this, &rect, &needFrameToWork),
-    finalLay(app->createDIBSection(laysSize))
+    finalLay()
 {
+    finalLay.setSize(laysSize);
     app->setColor(backgroungColor, finalLay);
     app->rectangle({}, laysSize, finalLay);
     if (_name)strcpy(name, _name);
@@ -234,7 +235,7 @@ void Canvas::resize(Vector newSize)
         finalDCSize = newSize;
 
         app->deleteDC(finalDC);
-        finalDC = app->createDIBSection(finalDCSize, &finalDCArr);
+        finalDC.setSize(finalDCSize, &finalDCArr);
 
         app->setColor(color, finalDC);
         app->rectangle(0, 0, finalDCSize.x, finalDCSize.y, finalDC);
@@ -322,13 +323,16 @@ HDC Canvas::getImageForSaving()
     if (!getActiveLay()) return NULL;
     HDC notClearedDC = getActiveLay()->lay.lay;
 
-    HDC clearedDC = app->createDIBSection(getActiveLay()->lay.laySize.x, getActiveLay()->lay.laySize.y);
+    M_HDC clearedMDC;
+    clearedMDC.setSize(getActiveLay()->lay.laySize);
 
-    app->setColor(backgroungColor, clearedDC);
-    app->rectangle({}, getActiveLay()->lay.laySize, clearedDC);
+    app->setColor(backgroungColor, clearedMDC);
+    app->rectangle({}, getActiveLay()->lay.laySize, clearedMDC);
 
-    app->transparentBlt(clearedDC, 0, 0, 0, 0, notClearedDC);
+    app->transparentBlt(clearedMDC, 0, 0, 0, 0, notClearedDC);
 
+    HDC clearedDC = (HDC)clearedMDC.obj;
+    //утечка M_HDC
     return clearedDC;
     //выданный HDC следует удалить после использваония
 }

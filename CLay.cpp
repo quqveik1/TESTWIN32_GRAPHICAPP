@@ -135,7 +135,7 @@ int CLay::getCurrentSize()
     return toolLength;
 }
 
-HDC CLay::getOutputDC()
+M_HDC CLay::getOutputDC()
 {
     return lay.outputLay;
 }
@@ -163,7 +163,7 @@ Vector CLay::getLaySize()
 
 void CLay::redraw()
 {
-    lay.clean();
+    lay.clean(lay.lay);
     lay.clean(lay.outputLay);
 
     for (int toollay = 0; toollay < toolLength; toollay++)
@@ -175,7 +175,7 @@ void CLay::redraw()
     }
 }
 
-HDC CLay::getPermanentDC()
+M_HDC CLay::getPermanentDC()
 {
     return lay.lay;
 }

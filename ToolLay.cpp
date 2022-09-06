@@ -82,16 +82,16 @@ char*& ToolLay::getToolsData()
     return toolsData;
 }
 
-HDC ToolLay::getPermanentDC()
+M_HDC ToolLay::getPermanentDC()
 {
     if (lay) return lay->getPermanentDC();
-    else     return NULL;
+    else     return {};
 } 
 
-HDC ToolLay::getOutputDC()
+M_HDC ToolLay::getOutputDC()
 {
     if (lay) return lay->getOutputDC();
-    else     return NULL;
+    else     return {};
 }
 
 void ToolLay::setShowMode(int mode)
