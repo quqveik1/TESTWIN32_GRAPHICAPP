@@ -14,7 +14,7 @@ Canvas::Canvas(AbstractAppData* _app, Rect _rect, const char* _name) :
     zoneSizeControl(this, &rect, &needFrameToWork),
     finalLay()
 {
-    finalLay.setSize(laysSize);
+    finalLay.setSize(laysSize, app);
     app->setColor(backgroungColor, finalLay);
     app->rectangle({}, laysSize, finalLay);
     if (_name)strcpy(name, _name);
@@ -235,7 +235,7 @@ void Canvas::resize(Vector newSize)
         finalDCSize = newSize;
 
         app->deleteDC(finalDC);
-        finalDC.setSize(finalDCSize, &finalDCArr);
+        finalDC.setSize(finalDCSize, app, &finalDCArr);
 
         app->setColor(color, finalDC);
         app->rectangle(0, 0, finalDCSize.x, finalDCSize.y, finalDC);
@@ -274,7 +274,7 @@ void Canvas::copyFinalLayOnFinalDC()
 }
 
 
-void Canvas::print(HDC _dc, HWND wnd)
+void Canvas::print(HDC _dc)
 {
     draw();
     Vector outputPos = rect.pos;
@@ -324,7 +324,7 @@ HDC Canvas::getImageForSaving()
     HDC notClearedDC = getActiveLay()->lay.lay;
 
     M_HDC clearedMDC;
-    clearedMDC.setSize(getActiveLay()->lay.laySize);
+    clearedMDC.setSize(getActiveLay()->lay.laySize, app);
 
     app->setColor(backgroungColor, clearedMDC);
     app->rectangle({}, getActiveLay()->lay.laySize, clearedMDC);

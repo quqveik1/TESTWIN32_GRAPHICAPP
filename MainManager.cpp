@@ -34,7 +34,8 @@ void MainManager::draw()
     zone.finishPos = app->systemSettings->ScreenPos + app->systemSettings->SizeOfScreen;
     needFrameToWork = !app->isFullScreen();
     //zoneSizeControl.controlFrame();
-    app->setColor(RGB(255, 255, 255), finalDC);
+    app->setColor(RGB(255, 0, 0), finalDC);
+    app->rectangle({}, {100, 100}, finalDC);
 
     controlWorkSpace();
     
@@ -42,7 +43,7 @@ void MainManager::draw()
 
     app->windowsLibApi->standartManagerDraw(this);
 
-    if (app->systemSettings->debugMode >= 1)printf("Active Window: %p\n", isActiveWindowBelow());
+   // if (app->systemSettings->debugMode >= 1)printf("Active Window: %p\n", isActiveWindowBelow());
 
     //zoneSizeControl.drawFrame();
 

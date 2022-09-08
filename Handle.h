@@ -36,6 +36,8 @@ struct Handle : Manager
     Vector logoStart = { (double)deltaBetweenOptions, 0};
     double startOfOptions = logoStart.x + logoSize.x + deltaBetweenOptions;
     int activeOptionNum = -1;
+    int onWhichOptionIsMouse = -1;
+    int onWhichOptionMouseWasClicked = -1;
     COLORREF onMouseColor = NULL;
 
     Handle(AbstractAppData* _app, Rect _rect) :
@@ -63,6 +65,8 @@ struct Handle : Manager
     void drawOptions();
     void controlOptionClicking();
     int onWhichOptionIsMP();
+    int optionOnClick(Vector mp);
+    int getOptionNum(Vector mp);
     void clickIcon();
 
     virtual List* createMenuOption(const char* optionText, int* status, bool needToHideAfterClick = false);
@@ -74,5 +78,6 @@ struct Handle : Manager
     virtual void draw() override;
     virtual void onClick(Vector mp) override;
     virtual int onSize(Vector managerSize) override;
+    virtual int onMouseMove(Vector mp, Vector delta) override;
 
 };

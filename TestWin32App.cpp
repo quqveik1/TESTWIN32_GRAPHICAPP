@@ -10,6 +10,7 @@
 #include "List.cpp"
 #include "ConsoleOutput.cpp"
 #include "CanvasManager.cpp"
+#include "SetCanvasButton.cpp"
 
 int initProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam);
 int shutDownProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam);
@@ -91,7 +92,7 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
             HDC finalDC = BeginPaint(appData->MAINWINDOW, &ps);
             if (appData->mainManager)
             {
-                appData->mainManager->print(finalDC, window);
+                appData->mainManager->print(finalDC);
             }
             EndPaint(appData->MAINWINDOW, &ps);
         }
@@ -129,9 +130,11 @@ int initProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
     manager->addWindow(mainHandle);
 
 
-
     CanvasManager* canvasManager = new CanvasManager(appData, { 0, mainHandle->rect.finishPos.y });
     manager->addWindow(canvasManager);
+
+    SetCanvasButton* setCanvasButton = new SetCanvasButton(appData, canvasManager);    
+    createList->addNewItem(setCanvasButton, NULL, "Создать холст", NULL, 'N');
 
     return 0;
 }

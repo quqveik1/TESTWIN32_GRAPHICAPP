@@ -4,6 +4,8 @@
 #include "LoadLib.h"
 #include "HGDIManager.h"
 
+struct PowerPoint* appData = NULL;
+
 struct PowerPoint : AbstractAppData
 {
     struct Manager* mainManager = NULL;
@@ -17,6 +19,9 @@ struct PowerPoint : AbstractAppData
     int lastTimeLButtonClicked = 0;
     bool wasLastTimeLButtonClicked = 0;
     bool dClick = 0;
+
+    virtual M_HDC* getHDC() override;
+    virtual M_HGDIOBJ* getHGDIOBJ() override;
 
 
     virtual void setColor(COLORREF color, M_HDC& dc, int thickness = 1) override;

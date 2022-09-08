@@ -5,18 +5,6 @@
 void CloseButton::draw()
 {
     $s;
-    /*
-    if ((rect - rect.pos).inRect(getMousePos()))
-    {
-        app->setColor(trueRed, finalDC);
-        app->rectangle(rect - rect.pos, finalDC);
-    }
-    else
-    {
-        app->setColor(color, finalDC);
-        app->rectangle(rect - rect.pos, finalDC);
-    }
-    */
 
     app->setColor(color, finalDC);
     app->rectangle(rect - rect.pos, finalDC);

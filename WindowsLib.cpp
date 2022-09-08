@@ -9,7 +9,7 @@ bool Manager::addWindow(Window* window)
 }
 
 
-void Window::print(HDC DC, HWND parentWnd)
+void Window::print(HDC DC)
 {
     assert(DC);
     draw();

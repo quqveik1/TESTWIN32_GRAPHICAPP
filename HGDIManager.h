@@ -9,8 +9,9 @@ struct HGDIManager
     AbstractAppData* app = NULL;
 
     int currlen = 0;
-    const int maxLen = 10000;
-    M_HGDIOBJ* objs[10000] = {};
+    static const int maxLen = 100000;
+    M_HGDIOBJ* objs[maxLen] = {};
+    bool isActive[maxLen] = {};
 
     HGDIManager(AbstractAppData* _app) :
         app (_app)
@@ -20,4 +21,4 @@ struct HGDIManager
 
     virtual M_HDC* getHDC();
     virtual M_HGDIOBJ* getHGDIOBJ();
-};
+}; ;

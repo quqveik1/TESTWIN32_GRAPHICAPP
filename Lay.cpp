@@ -18,9 +18,9 @@ void Lay::createLay(AbstractAppData* _app, Vector _laySize/* = {}*/)
     Vector nullVector = { 0, 0 };
 
     if (laySize == nullVector) laySize = app->systemSettings->DCVECTORSIZE;
-    lay.setSize(laySize, &layBuf);
+    lay.setSize(laySize, _app, &layBuf);
     clean(lay);
-    outputLay.setSize(laySize, &outputBuf);
+    outputLay.setSize(laySize, _app, &outputBuf);
     clean(outputLay);
 }
 

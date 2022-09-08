@@ -22,6 +22,8 @@ struct AbstractAppData
     struct CLoadLib* loadLibManager = NULL;
     struct ConsoleOutput* consoleOutput = NULL;
     struct HGDIManager* hgdiManager = NULL;
+    virtual M_HDC* getHDC() = 0;
+    virtual M_HGDIOBJ* getHGDIOBJ() = 0;
 
     COLORREF* currColor = NULL;
     bool isResized = false;

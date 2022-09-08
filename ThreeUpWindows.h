@@ -7,7 +7,8 @@ struct CloseButton : Window
 
     CloseButton(AbstractAppData* _app) :
         Window(_app, {}, NULL, _app->loadManager->loadImage("CloseButton4.bmp"))
-    {}
+    {
+    }
 
     virtual void draw() override;
     virtual void onClick(Vector mp) override;

@@ -18,10 +18,6 @@
 #include "HGDIManager.cpp"
 
 
-
-PowerPoint* appData = NULL;
-
-
 void setWindowParameters(PowerPoint* app, HINSTANCE hInstance);
 bool checkVersionCompability(PowerPoint* app);
 void writeVersion(PowerPoint* app);
@@ -76,6 +72,7 @@ PowerPoint::~PowerPoint()
     delete systemSettings;
     delete loadLibManager;
     delete dcManager;
+    delete hgdiManager;
 }
 
 void writeVersion(PowerPoint* app)
@@ -316,6 +313,16 @@ void PowerPoint::selectFont(const char* text, int sizey, M_HDC dc, int sizex/* =
 
     if (font)selectGDIObject(dc, font);
 
+}
+
+M_HDC* PowerPoint::getHDC()
+{
+    return hgdiManager->getHDC();
+}  
+
+M_HGDIOBJ* PowerPoint::getHGDIOBJ()
+{
+    return hgdiManager->getHGDIOBJ();
 }
 
 

@@ -8,6 +8,7 @@ struct M_HDC : M_HGDIOBJ
     M_HGDIOBJ* selectedObj[10] = {};
     HGDIOBJ defObjs[10] = {};
     int currLen = 0;
+    struct AbstractAppData* app = NULL;
 
     M_HDC();
     operator HDC() const;
@@ -17,9 +18,8 @@ struct M_HDC : M_HGDIOBJ
     virtual int selectObj(M_HGDIOBJ* _obj, HBRUSH brush);
     virtual int selectObj(M_HGDIOBJ* _obj, HFONT brush);
     
-    virtual int setSize(Vector size, RGBQUAD** pixels = NULL);
+    virtual int setSize(Vector size, struct AbstractAppData* app, RGBQUAD** pixels = NULL);
 
     virtual int deleteObj() override;
-    //virtual HGDIOBJ setObj(HGDIOBJ  _obj) override;
 };
 

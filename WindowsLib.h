@@ -56,7 +56,8 @@ struct Window
         font(_app->systemSettings->MainFont),
         fontName (_app->systemSettings->FONTNAME),
         sideThickness(_app->systemSettings->SIDETHICKNESS),
-        format(_app->systemSettings->TEXTFORMAT)
+        format(_app->systemSettings->TEXTFORMAT),
+        dc (_dc)
     {
         assert(_app);
         if (systemSettings->debugMode >= 0) printf("rect {%lf, %lf}; {%lf, %lf}\n", rect.pos.x, rect.pos.y, rect.finishPos.x, rect.finishPos.y);
@@ -88,7 +89,7 @@ struct Window
     //void resize (Vector newSize, Vector oldSize);
     virtual void reInit();
     virtual void setStartRect(Vector pos, Vector finishPos);
-    virtual void print(HDC finalDC, HWND parentWnd);
+    virtual void print(HDC finalDC);
 
 
     virtual Vector getSize();

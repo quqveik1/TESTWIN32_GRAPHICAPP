@@ -55,11 +55,11 @@ void Handle::drawOptions()
     app->setColor(app->systemSettings->TextColor, finalDC);
     app->selectFont(fontName, font, finalDC);
 
-    controlOptionClicking();
+    
 
     for (int i = 0; i < currentOptionsLength; i++)
     {
-        if (numOfOption == i || activeOptionNum == i)
+        if (numOfOption == i)
         {
             app->setColor(onMouseColor, finalDC);
             app->rectangle(options[i].rect, finalDC);
@@ -72,6 +72,23 @@ void Handle::drawOptions()
 
 void Handle::controlOptionClicking()
 {
+    /*
+    int num = onWhichOptionIsMP();
+    if ((num) >= 0 && !isClickedLastTime())
+    {
+        if (num == activeOptionNum && !isClickedLastTime())
+        {
+            options[activeOptionNum].list->hide();
+            activeOptionNum = -1;
+            return;
+        }
+        activeOptionNum = num;
+        options[activeOptionNum].list->show();
+        return;
+    }
+
+    if (num >= 0) return;
+    */
     if (activeOptionNum >= 0)
     {
         if (!options[activeOptionNum].list->needToShow)
@@ -102,19 +119,7 @@ void Handle::controlOptionClicking()
 
 int Handle::onWhichOptionIsMP()
 {
-    Vector mp = getMousePos();
-
-    int answer = -1;
-
-    for (int i = 0; i < currentOptionsLength; i++)
-    {
-        if (options[i].rect.inRect(mp))
-        {
-            answer = i;
-        }
-    }
-
-    return answer;
+    return onWhichOptionIsMouse;
 }
 
 bool Handle::addWindowToStart(Window* window)
@@ -176,6 +181,7 @@ void Handle::draw()
 
     app->windowsLibApi->standartManagerDraw(this);
 
+    controlOptionClicking();
     drawOptions();
     
 
@@ -203,25 +209,30 @@ void Handle::draw()
     setMbLastTime();
 }
 
+int Handle::onMouseMove(Vector mp, Vector delta)
+{
+    
+    int answer = getOptionNum(mp);
+    
+    if (onWhichOptionIsMouse != answer)
+    {
+        InvalidateRect(app->MAINWINDOW, NULL, FALSE);
+    }
+    onWhichOptionIsMouse = answer;
+
+    app->windowsLibApi->standartManagerOnMouseMove(this, mp, delta);
+
+    return 0;
+}
+
 void Handle::onClick(Vector mp)
 {
     int resultOfClicking = app->windowsLibApi->standartManagerOnClick(this, mp);
 
-    int num = onWhichOptionIsMP();
-    if ((num) >=0 && !isClickedLastTime())
-    {
-        if (num == activeOptionNum && !isClickedLastTime())
-        {
-            options[activeOptionNum].list->hide();
-            activeOptionNum = -1;
-            return;
-        }
-        activeOptionNum = num;
-        options[activeOptionNum].list->show();
-        return;
-    }
+    //controlOptionClicking();
+    if (optionOnClick(mp) >= 0) return;
 
-    if (num >= 0) return;
+    
 
     if (logoRect.inRect(mp))
     {
@@ -241,6 +252,31 @@ void Handle::onClick(Vector mp)
         wasCommonHandlePlaceClicked = true;
     }
     setMbLastTime();
+}
+
+int Handle::getOptionNum(Vector mp)
+{
+    int answer = -1;
+    for (int i = 0; i < currentOptionsLength; i++)
+    {
+        if (options[i].rect.inRect(mp))
+        {
+            answer = i;
+
+        }
+    }
+
+    return answer;
+}
+
+int Handle::optionOnClick(Vector mp)
+{
+    int answer = getOptionNum(mp);
+    if (onWhichOptionMouseWasClicked != answer)
+    {
+        InvalidateRect(app->MAINWINDOW, NULL, FALSE);
+    }
+    return onWhichOptionMouseWasClicked;
 }
 
 int Handle::onSize(Vector managerSize)

@@ -1,6 +1,7 @@
 #pragma once
 #include "M_HGDIOBJ.h"
 #include "AppApi.h"
+#include "HGDIManager.h"
 
 int M_HGDIOBJ::deleteObj()
 {
@@ -8,7 +9,7 @@ int M_HGDIOBJ::deleteObj()
     {
         if (status <= 0)
         {
-            printf("ѕопытка удалить уже удаленный холст\n");
+            //printf("ѕопытка удалить уже удаленный холст\n");
             return (int)obj;
         }
         else
