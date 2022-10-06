@@ -121,9 +121,7 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
 int initProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
 {
     Handle* mainHandle = new Handle(appData, { .pos = {0, 0}, .finishPos = {appData->systemSettings->FullSizeOfScreen.x, appData->systemSettings->HANDLEHEIGHT} });
-    List* createList = mainHandle->createMenuOption("Создать", NULL, true);
-    List* openWindows = mainHandle->createMenuOption("Окна", NULL);
-    List* importList = mainHandle->createMenuOption("Импорт/Экспорт", NULL, true);
+    
 
     MainManager* manager = new MainManager(appData, { .pos = {0, 0}, .finishPos = appData->systemSettings->FullSizeOfScreen }, 21, mainHandle);
     appData->mainManager = manager;
@@ -132,6 +130,11 @@ int initProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
 
     CanvasManager* canvasManager = new CanvasManager(appData, { 0, mainHandle->rect.finishPos.y });
     manager->addWindow(canvasManager);
+
+    List* createList = mainHandle->createMenuOption("Создать", NULL, true);
+    manager->addWindow(createList);
+    List* openWindows = mainHandle->createMenuOption("Окна", NULL);
+    List* importList = mainHandle->createMenuOption("Импорт/Экспорт", NULL, true);
 
     SetCanvasButton* setCanvasButton = new SetCanvasButton(appData, canvasManager);    
     createList->addNewItem(setCanvasButton, NULL, "Создать холст", NULL, 'N');

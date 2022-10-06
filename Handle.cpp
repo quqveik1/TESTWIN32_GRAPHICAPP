@@ -89,6 +89,7 @@ void Handle::controlOptionClicking()
 
     if (num >= 0) return;
     */
+    /*
     if (activeOptionNum >= 0)
     {
         if (!options[activeOptionNum].list->needToShow)
@@ -114,6 +115,12 @@ void Handle::controlOptionClicking()
                 activeOptionNum = -1;
             }
         }
+    }
+    */
+
+    if (onWhichOptionMouseWasClicked >= 0)
+    {
+        options[onWhichOptionMouseWasClicked].list->show();
     }
 }
 
@@ -274,6 +281,7 @@ int Handle::optionOnClick(Vector mp)
     int answer = getOptionNum(mp);
     if (onWhichOptionMouseWasClicked != answer)
     {
+        onWhichOptionMouseWasClicked = answer;
         InvalidateRect(app->MAINWINDOW, NULL, FALSE);
     }
     return onWhichOptionMouseWasClicked;

@@ -95,6 +95,6 @@ C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\SetCanvasB
 C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\TestWin32App.cpp(42,19): warning C4244: 'return': conversion from 'WPARAM' to 'int', possible loss of data
 C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\TestWin32App.cpp(86,50): warning C4244: 'argument': conversion from 'WPARAM' to 'int', possible loss of data
 C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\DrawBibliothek.cpp(88): warning C4172: returning address of local variable or temporary: fileName
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(768): warning C4172: returning address of local variable or temporary: fileName
 C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(810): warning C4172: returning address of local variable or temporary: fileName
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(768): warning C4172: returning address of local variable or temporary: fileName
   TestWin32App.vcxproj -> C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\x64\Debug\TestWin32App.exe

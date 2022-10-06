@@ -55,5 +55,6 @@ void OpenManager::draw()
     showControl();
     
     app->setColor(app->systemSettings->TextColor, finalDC, app->systemSettings->MainFont);
+    app->drawText(rect- rect.pos, text, finalDC);
     setMbLastTime();
 }
