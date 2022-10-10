@@ -128,6 +128,12 @@ int Manager::clickHandle()
     return app->windowsLibApi->clickHandle(this);
 }
 
+int Manager::moveHandle(Vector delta)
+{
+    rect = rect + delta;
+    return 1;
+}
+
 void Manager::controlHandle()
 {
     app->windowsLibApi->controlHandle(this);
@@ -187,7 +193,7 @@ void Manager::defaultDestructor()
     if (finalDC) app->deleteDC(finalDC);
     for (int i = 0; i < getCurLen(); i++)
     {
-        if (pointers[i]) delete pointers[i];
+        //if (pointers[i]) delete pointers[i];
     }
 };
 

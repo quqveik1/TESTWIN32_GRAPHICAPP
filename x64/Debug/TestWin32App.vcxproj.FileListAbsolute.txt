@@ -1,1 +1,2 @@
 C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\x64\Debug\TestWin32App.exe
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\x64\Debug\TestWin32App.exe

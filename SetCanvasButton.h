@@ -86,6 +86,8 @@ struct SetCanvasButton : Manager
     virtual void show();
 
     virtual void draw() override;
+    virtual void print(HDC dc) override;
     virtual void onClick(Vector mp) override;
+    virtual int onMouseMove(Vector mp, Vector delta) override;
    
 };

@@ -66,7 +66,10 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
         {
             if (appData->mainManager)
             {
-                appData->mainManager->onMouseMove({ (double)LOWORD(lParam), (double)HIWORD(lParam) }, {});
+                static Vector lastTimeMp = { (double)LOWORD(lParam), (double)HIWORD(lParam) };
+                Vector mp = { (double)LOWORD(lParam), (double)HIWORD(lParam) };
+                appData->mainManager->onMouseMove(mp, mp - lastTimeMp);
+                lastTimeMp = mp;
             }
         }
 
@@ -75,6 +78,15 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
             if (appData->mainManager)
             {
                 appData->mainManager->onClick({ (double)LOWORD(lParam), (double)HIWORD(lParam) });
+                return 0;
+            }
+        }
+
+        if (message == WM_LBUTTONUP || message == WM_RBUTTONUP)
+        {
+            if (appData->mainManager)
+            {
+                appData->mainManager->onClickButtonUp({ (double)LOWORD(lParam), (double)HIWORD(lParam) });  
                 return 0;
             }
         }
@@ -129,6 +141,7 @@ int initProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
 
 
     CanvasManager* canvasManager = new CanvasManager(appData, { 0, mainHandle->rect.finishPos.y });
+    appData->canvasManager = canvasManager;
     manager->addWindow(canvasManager);
 
     List* createList = mainHandle->createMenuOption("Создать", NULL, true);
@@ -136,8 +149,8 @@ int initProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
     List* openWindows = mainHandle->createMenuOption("Окна", NULL);
     List* importList = mainHandle->createMenuOption("Импорт/Экспорт", NULL, true);
 
-    SetCanvasButton* setCanvasButton = new SetCanvasButton(appData, canvasManager);    
-    createList->addNewItem(setCanvasButton, NULL, "Создать холст", NULL, 'N');
+    
+    //createList->addNewItem(setCanvasButton, NULL, "Создать холст", NULL, 'N');
 
     return 0;
 }

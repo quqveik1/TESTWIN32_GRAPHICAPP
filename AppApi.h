@@ -29,6 +29,8 @@ struct PowerPoint : AbstractAppData
     virtual void setDrawColor(COLORREF color) override;
     virtual COLORREF getPixel(Vector pos, HDC dc) override;
 
+    virtual int updateScreen() override;
+
     virtual void rectangle(Rect rect, HDC dc) override;
     virtual void rectangle(double x1, double y1, double x2, double y2, HDC dc) override;
     virtual void rectangle(Vector pos1, Vector pos2, HDC dc) override;

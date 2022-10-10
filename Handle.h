@@ -36,9 +36,9 @@ struct Handle : Manager
     Vector logoStart = { (double)deltaBetweenOptions, 0};
     double startOfOptions = logoStart.x + logoSize.x + deltaBetweenOptions;
     int activeOptionNum = -1;
-    int onWhichOptionIsMouse = -1;
-    int onWhichOptionMouseWasClicked = -1;
     COLORREF onMouseColor = NULL;
+
+    int lastKeyMessage = 0;
 
     Handle(AbstractAppData* _app, Rect _rect) :
         Manager(_app, _rect, 10, true, NULL, {}, _app->systemSettings->MenuColor),
@@ -78,6 +78,7 @@ struct Handle : Manager
     virtual void draw() override;
     virtual void onClick(Vector mp) override;
     virtual int onSize(Vector managerSize) override;
+    virtual int onKeyboard(int key) override;
     virtual int onMouseMove(Vector mp, Vector delta) override;
 
 };

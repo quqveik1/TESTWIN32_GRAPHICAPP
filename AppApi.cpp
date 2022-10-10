@@ -360,6 +360,11 @@ COLORREF PowerPoint::getPixel(Vector pos, HDC dc)
     return GetPixel(dc, std::lround (pos.x), std::lround(pos.y));
 }
 
+int PowerPoint::updateScreen()
+{
+    return InvalidateRect(MAINWINDOW, NULL, FALSE);
+}
+
 void PowerPoint::line(Rect rect, HDC dc)
 {
     line(rect.pos.x, rect.pos.y, rect.finishPos.x, rect.finishPos.y, dc);

@@ -51,7 +51,7 @@ void Handle::setOptionsRect()
 void Handle::drawOptions()
 {
       
-    int numOfOption = onWhichOptionIsMP();
+    int numOfOption = activeOptionNum;
     app->setColor(app->systemSettings->TextColor, finalDC);
     app->selectFont(fontName, font, finalDC);
 
@@ -118,15 +118,15 @@ void Handle::controlOptionClicking()
     }
     */
 
-    if (onWhichOptionMouseWasClicked >= 0)
+   // if (onWhichOptionMouseWasClicked >= 0)
     {
-        options[onWhichOptionMouseWasClicked].list->show();
+       // options[onWhichOptionMouseWasClicked].list->show();
     }
 }
 
 int Handle::onWhichOptionIsMP()
 {
-    return onWhichOptionIsMouse;
+    return -1;
 }
 
 bool Handle::addWindowToStart(Window* window)
@@ -221,11 +221,12 @@ int Handle::onMouseMove(Vector mp, Vector delta)
     
     int answer = getOptionNum(mp);
     
-    if (onWhichOptionIsMouse != answer)
+    if (activeOptionNum != answer && answer != -1)
     {
+        activeOptionNum = answer;
         InvalidateRect(app->MAINWINDOW, NULL, FALSE);
     }
-    onWhichOptionIsMouse = answer;
+    
 
     app->windowsLibApi->standartManagerOnMouseMove(this, mp, delta);
 
@@ -279,12 +280,17 @@ int Handle::getOptionNum(Vector mp)
 int Handle::optionOnClick(Vector mp)
 {
     int answer = getOptionNum(mp);
-    if (onWhichOptionMouseWasClicked != answer)
+    if (activeOptionNum != answer)
     {
-        onWhichOptionMouseWasClicked = answer;
+        activeOptionNum = answer;
         InvalidateRect(app->MAINWINDOW, NULL, FALSE);
     }
-    return onWhichOptionMouseWasClicked;
+    else
+    {
+        activeOptionNum = -1;
+        InvalidateRect(app->MAINWINDOW, NULL, FALSE);
+    }
+    return activeOptionNum;
 }
 
 int Handle::onSize(Vector managerSize)
@@ -303,6 +309,16 @@ int Handle::onSize(Vector managerSize)
         windowRect.finishPos.x = rect.finishPos.x - app->systemSettings->BUTTONWIDTH * i;
         windowRect.finishPos.y = rect.finishPos.y;
         pointers[i]->resize(windowRect);
+    }
+    return 0;
+}
+
+
+int Handle::onKeyboard(int key)
+{
+    if (app->getKeyState(VK_CONTROL) && app->getKeyState('N'))
+    {
+        if (app->canvasManager)app->canvasManager->openCreatingCanvasMenu();
     }
     return 0;
 }

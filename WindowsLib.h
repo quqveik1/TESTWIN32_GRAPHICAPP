@@ -111,7 +111,11 @@ struct Window
         else                 return mbLastTime == getMBCondition();
     };
 
-    virtual void setMbLastTime() { mbLastTime = getMBCondition(); };
+    virtual void setMbLastTime(int pos = -1)
+    {
+        if (pos = -1) mbLastTime = getMBCondition();
+        else mbLastTime = pos;
+    };
 
     virtual Vector getMousePos() {
         if (getManager()) return ((Window*)getManager())->getMousePos() - rect.pos;
@@ -148,6 +152,7 @@ struct Window
     virtual int onKeyboardChar(int key) { return 0; };
     virtual int onSize(Vector managerSize) { return 0; };
     virtual int onMouseMove(Vector mp, Vector delta) { return 0; };
+    virtual int onClickButtonUp(Vector mp) { return 0; };
 
     virtual void deleteButton() {};
 };
@@ -192,6 +197,7 @@ struct Manager : Window
 
     virtual void controlHandle();
     virtual int clickHandle();
+    virtual int moveHandle(Vector delta);
     virtual void replaceWindow(int numOfWindow);
     virtual void hide() override;
     virtual void show() override;

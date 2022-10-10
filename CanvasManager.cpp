@@ -3,6 +3,7 @@
 #include "Canvas.cpp"
 #include "InputButton2.cpp"
 #include "ImportTool.cpp"
+#include "SetCanvasButton.h"
 
 CanvasManager::CanvasManager(AbstractAppData* _app, Vector _pos) :
     Manager(_app, { .pos = _pos, .finishPos = _app->systemSettings->FullSizeOfScreen }, 10, true, NULL, {}, TX_BLACK),
@@ -16,6 +17,7 @@ CanvasManager::CanvasManager(AbstractAppData* _app, Vector _pos) :
 {
     gassert(loadManager);
 
+    
     color = TX_BLACK;
 
     app->toolManager->addTool(importTool, true);
@@ -23,6 +25,8 @@ CanvasManager::CanvasManager(AbstractAppData* _app, Vector _pos) :
     tabCross = app->loadManager->loadImage("tabCross.bmp");
 
     addWindow(scaleButton);
+
+    setCanvasButton = new SetCanvasButton(app, this);
 }
 Canvas* CanvasManager::getActiveCanvas()
 {
@@ -120,6 +124,8 @@ void CanvasManager::draw()
     }
 
     drawTabs();
+
+    setCanvasButton->print(finalDC);
 
     setMbLastTime();
 }
@@ -223,6 +229,14 @@ bool CanvasManager::addCanvas(const char* name, Vector dcSize)
     currentCanvasesLength++;
     setTabsRect();
     return addWindow(canvases[currentCanvasesLength - 1]);
+}
+
+int CanvasManager::openCreatingCanvasMenu()
+{
+    setCanvasButton->show();
+    
+
+    return 0;
 }
 
 int CanvasManager::onKeyboard(int key)

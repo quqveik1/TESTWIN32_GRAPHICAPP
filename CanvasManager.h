@@ -29,12 +29,15 @@ struct CanvasManager : Manager
     int lastTimeMBWasClicked = 0;
     struct ImportTool* importTool = NULL;
 
+    struct SetCanvasButton* setCanvasButton = NULL;
+
 
     CanvasManager(AbstractAppData* _app, Vector _pos);
 
     virtual Canvas* getActiveCanvas();
     virtual int getActiveCanvasNum();
     virtual bool addCanvas(const char* name, Vector dcSize);
+    virtual int openCreatingCanvasMenu();
 
     virtual int setDrawingMode(int num);
 

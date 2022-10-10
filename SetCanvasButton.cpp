@@ -44,6 +44,7 @@ void SetCanvasButton::show()
     newCanvasSize = defaultCanvasSize;
     strcpy(canvasName, defaultCanvasName);
     MoveWindowTo(app->getCentrizedPos(getSize(), app->systemSettings->SizeOfScreen));
+    app->updateScreen();
 }
 
 void SetCanvasButton::draw()
@@ -99,6 +100,16 @@ void SetCanvasButton::draw()
 
 }
 
+void SetCanvasButton::print(HDC dc)
+{
+    if (needToShow)
+    {
+        assert(dc);
+        draw();
+        app->bitBlt(dc, rect.pos.x, rect.pos.y, rect.getSize().x, rect.getSize().y, finalDC);
+    }
+}
+
 void SetCanvasButton::onClick(Vector mp)
 {
     mp = getMousePos();
@@ -121,3 +132,5 @@ void SetCanvasButton::onClick(Vector mp)
         }
     }
 }
+
+int SetCanvasButton::onMouseMove(Vector mp, Vector delta)
