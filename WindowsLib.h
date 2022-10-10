@@ -148,11 +148,12 @@ struct Window
 
     virtual void draw();
     virtual void onClick(Vector mp) {};
+    virtual int mbDown(Vector mp, int button) { return 0; };
+    virtual int mbUp(Vector mp, int button) { return 0; };
     virtual int onKeyboard(int key) { return 0; };
     virtual int onKeyboardChar(int key) { return 0; };
     virtual int onSize(Vector managerSize) { return 0; };
     virtual int onMouseMove(Vector mp, Vector delta) { return 0; };
-    virtual int onClickButtonUp(Vector mp) { return 0; };
 
     virtual void deleteButton() {};
 };
@@ -197,6 +198,7 @@ struct Manager : Window
 
     virtual void controlHandle();
     virtual int clickHandle();
+    virtual int mbUpHandle();
     virtual int moveHandle(Vector delta);
     virtual void replaceWindow(int numOfWindow);
     virtual void hide() override;
@@ -211,6 +213,8 @@ struct Manager : Window
 
     virtual void draw()             override;
     virtual void onClick(Vector mp) override;
+    virtual int mbDown(Vector mp, int button) override;
+    virtual int mbUp(Vector mp, int button) override;
     virtual int onSize(Vector managerSize) override;
     virtual int onKeyboard(int key) override;
     virtual int onMouseMove(Vector mp, Vector delta) override;

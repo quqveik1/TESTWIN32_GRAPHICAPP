@@ -77,7 +77,10 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
         {
             if (appData->mainManager)
             {
-                appData->mainManager->onClick({ (double)LOWORD(lParam), (double)HIWORD(lParam) });
+                int button = 0;
+                if (message == WM_LBUTTONDOWN) button = 1;
+                if (message == WM_RBUTTONDOWN) button = 2;
+                appData->mainManager->mbDown({ (double)LOWORD(lParam), (double)HIWORD(lParam) }, button);
                 return 0;
             }
         }
@@ -86,7 +89,11 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
         {
             if (appData->mainManager)
             {
-                appData->mainManager->onClickButtonUp({ (double)LOWORD(lParam), (double)HIWORD(lParam) });  
+                int button = 0;
+                if (message == WM_LBUTTONUP) button = 1;
+                if (message == WM_RBUTTONUP) button = 2;
+                appData->mainManager->mbUp({ (double)LOWORD(lParam), (double)HIWORD(lParam) }, button); 
+                appData->mainManager->onClick({ (double)LOWORD(lParam), (double)HIWORD(lParam) });
                 return 0;
             }
         }

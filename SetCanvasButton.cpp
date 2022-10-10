@@ -116,8 +116,7 @@ void SetCanvasButton::onClick(Vector mp)
     if (needToShow)
     {
         int result = -1;
-        result = clickHandle();
-        if (result < 0) result = app->windowsLibApi->standartManagerOnClick(this, mp);
+        result = app->windowsLibApi->standartManagerOnClick(this, mp);
         if (result < 0)
         {
             if (confirmButton.inRect(mp))
@@ -133,4 +132,18 @@ void SetCanvasButton::onClick(Vector mp)
     }
 }
 
+int SetCanvasButton::mbDown(Vector mp, int button)
+{
+    return clickHandle();
+}
+
+int SetCanvasButton::mbUp(Vector mp, int button)
+{
+    return mbUpHandle();
+}
+
 int SetCanvasButton::onMouseMove(Vector mp, Vector delta)
+{
+    moveHandle(delta);
+    return 0;
+}

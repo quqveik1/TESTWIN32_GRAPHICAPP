@@ -316,6 +316,7 @@ int Handle::onSize(Vector managerSize)
 
 int Handle::onKeyboard(int key)
 {
+    int key1 = app->getKeyState(VK_CONTROL);
     if (app->getKeyState(VK_CONTROL) && app->getKeyState('N'))
     {
         if (app->canvasManager)app->canvasManager->openCreatingCanvasMenu();

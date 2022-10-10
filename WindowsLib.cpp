@@ -126,11 +126,20 @@ void Manager::draw()
 int Manager::clickHandle()
 {
     return app->windowsLibApi->clickHandle(this);
+}      
+int Manager::mbUpHandle()
+{
+    manager->handle.setMbLastTime();
+    return true;
 }
 
 int Manager::moveHandle(Vector delta)
 {
-    rect = rect + delta;
+    if (handle.mbLastTime == 1)
+    {
+        rect = rect + delta;
+    }
+    app->updateScreen();
     return 1;
 }
 
@@ -165,6 +174,16 @@ void Manager::replaceWindow(int numOfWindow)
 void Manager::onClick(Vector mp)
 {
     app->windowsLibApi->standartManagerOnClick(this, mp);
+}
+
+int Manager::mbDown(Vector mp, int button)
+{
+    return app->windowsLibApi->standartManagerMbDown(this, mp, button);
+}
+
+int Manager::mbUp(Vector mp, int button)
+{
+    return app->windowsLibApi->standartManagerMbUp(this, mp, button);
 }
 
 int Manager::onMouseMove(Vector mp, Vector delta)

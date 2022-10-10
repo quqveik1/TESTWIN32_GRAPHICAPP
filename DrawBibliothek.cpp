@@ -149,7 +149,7 @@ int standartManagerOnClick$ (Manager *manager, Vector mp)
 	if (manager->needToShow)
 	{
         manager->setActiveWindow(manager);
-		manager->clickHandle();
+		//manager->clickHandle();
 		for (int i = manager->currLen - 1; i >= 0; i--)
 		{
 			if (manager->pointers[i]->rect.inRect(mp))

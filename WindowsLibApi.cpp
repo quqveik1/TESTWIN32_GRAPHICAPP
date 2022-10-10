@@ -50,7 +50,7 @@ bool CWindowsLibApi::addWindow(Manager* manager, Window* window)
 
 int CWindowsLibApi::clickHandle(Manager* manager)
 {
-    if (manager->handle.rect.inRect(manager->getMousePos()))
+    if (manager->handle.rect.inRect(manager->getMousePos()) && manager->getMBCondition() == 1)
     {
         manager->startCursorPos.x = manager->getAbsMousePos().x;
         manager->startCursorPos.y = manager->getAbsMousePos().y;
@@ -148,6 +148,30 @@ int CWindowsLibApi::standartManagerDraw(Manager* manager)
 int CWindowsLibApi::standartManagerOnClick(Manager* manager, Vector mp)
 {
     return standartManagerOnClick$(manager, mp);
+}
+
+int CWindowsLibApi::standartManagerMbDown(struct Manager* manager, Vector mp, int button)
+{
+    for (int i = 0; i < manager->getCurLen(); i++)
+    {
+        if (manager->pointers[i])
+        {
+            manager->pointers[i]->mbDown(mp - manager->pointers[i]->rect.pos, button);
+        }
+    }
+    return 0;
+}
+
+int CWindowsLibApi::standartManagerMbUp(struct Manager* manager, Vector mp, int button)
+{
+    for (int i = 0; i < manager->getCurLen(); i++)
+    {
+        if (manager->pointers[i])
+        {
+            manager->pointers[i]->mbUp(mp - manager->pointers[i]->rect.pos, button);
+        }
+    }
+    return 0;
 }
 
 int CWindowsLibApi::standartManagerOnMouseMove(struct Manager* manager, Vector mp, Vector delta)

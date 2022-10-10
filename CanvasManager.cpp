@@ -27,6 +27,7 @@ CanvasManager::CanvasManager(AbstractAppData* _app, Vector _pos) :
     addWindow(scaleButton);
 
     setCanvasButton = new SetCanvasButton(app, this);
+    addWindow(setCanvasButton);
 }
 Canvas* CanvasManager::getActiveCanvas()
 {
@@ -249,6 +250,7 @@ int CanvasManager::onKeyboard(int key)
 void CanvasManager::onClick(Vector mp)
 {
     if (tabsOnClick() >= 0) return;
+    app->windowsLibApi->standartManagerOnClick(this, mp);
 
     if (getActiveCanvas())
     {
