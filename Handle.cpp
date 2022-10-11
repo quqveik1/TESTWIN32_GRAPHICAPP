@@ -224,7 +224,7 @@ int Handle::onMouseMove(Vector mp, Vector delta)
     if (activeOptionNum != answer && answer != -1)
     {
         activeOptionNum = answer;
-        InvalidateRect(app->MAINWINDOW, NULL, FALSE);
+        app->updateScreen();
     }
     
 
@@ -283,12 +283,12 @@ int Handle::optionOnClick(Vector mp)
     if (activeOptionNum != answer)
     {
         activeOptionNum = answer;
-        InvalidateRect(app->MAINWINDOW, NULL, FALSE);
+        app->updateScreen();
     }
     else
     {
         activeOptionNum = -1;
-        InvalidateRect(app->MAINWINDOW, NULL, FALSE);
+        app->updateScreen();
     }
     return activeOptionNum;
 }

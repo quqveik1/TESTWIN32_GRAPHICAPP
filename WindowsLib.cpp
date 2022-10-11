@@ -138,8 +138,9 @@ int Manager::moveHandle(Vector delta)
     if (handle.mbLastTime == 1)
     {
         rect = rect + delta;
+        app->updateScreen();
     }
-    app->updateScreen();
+    
     return 1;
 }
 

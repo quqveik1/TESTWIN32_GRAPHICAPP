@@ -80,7 +80,7 @@ struct PowerPoint : AbstractAppData
         unsigned format = DT_CENTER | DT_VCENTER | DT_WORDBREAK | DT_WORD_ELLIPSIS)  override;
     virtual Vector getTextExtent(const char* text, HDC finalDC) override;
 
-    virtual void selectFont(const char* text, int sizey, M_HDC dc, int sizex = -1) override;
+    virtual void selectFont(const char* text, int sizey, M_HDC& dc, int sizex = -1) override;
     virtual void setAlign(unsigned align, HDC dc) override;
 
     virtual void deleteDC(HDC dc) override;

@@ -116,6 +116,10 @@ struct StringButton2 : Manager
 
 
     virtual void draw() override;
+    virtual int onKeyboard(int key) override;
+    virtual int onMouseMove(Vector mp, Vector delta) override;
+    virtual int mbDown(Vector mp, int button) override;
+    virtual int mbUp(Vector mp, int button) override;
     virtual void onClick(Vector mp) override;
 
 

@@ -304,14 +304,15 @@ void PowerPoint::setAlign(unsigned align, HDC dc)
     SetTextAlign(dc, align);
 }
 
-void PowerPoint::selectFont(const char* text, int sizey, M_HDC dc, int sizex/* = -1*/)
+void PowerPoint::selectFont(const char* text, int sizey, M_HDC& dc, int sizex/* = -1*/)
 {
     HFONT font = CreateFont(sizey,((sizex >= 0) ? sizex : sizey / 3),
         0, 0, FW_DONTCARE, false, false, false,
         RUSSIAN_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
        DEFAULT_QUALITY, DEFAULT_PITCH, text);
 
-    if (font)selectGDIObject(dc, font);
+    if (font) dc.selectObj(font);
+    else printf("Ўрифт[""%s""] не существует!", text);
 
 }
 
@@ -333,14 +334,12 @@ void PowerPoint::setColor(COLORREF color, M_HDC& dc, int thickness)
 
     
     HBRUSH newSolidBrush = CreateSolidBrush(color);
-    M_HGDIOBJ* solidBrush = hgdiManager->getHGDIOBJ();
-    solidBrush->setObj(newSolidBrush);
-    dc.selectObj(solidBrush, newSolidBrush);
+    //M_HGDIOBJ* solidBrush = hgdiManager->getHGDIOBJ();
+    //solidBrush->setObj(newSolidBrush);
+    dc.selectObj(newSolidBrush);
 
     HPEN newPen = CreatePen(PS_SOLID, thickness, color); 
-    M_HGDIOBJ* pen = hgdiManager->getHGDIOBJ();
-    pen->setObj(newPen);
-    dc.selectObj(pen, newPen);
+    dc.selectObj(newPen);
 
     SetTextColor(dc, color);
 }

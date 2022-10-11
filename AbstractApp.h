@@ -94,7 +94,7 @@ struct AbstractAppData
     virtual Vector getTextExtent(const char* text, HDC finalDC) = 0;
 
     virtual void setAlign(unsigned align, HDC dc) = 0;
-    virtual void selectFont(const char* text, int sizey, M_HDC dc, int sizex = -1) = 0;
+    virtual void selectFont(const char* text, int sizey, M_HDC& dc, int sizex = -1) = 0;
 
     virtual int saveImage(HDC dc, const char* path) = 0;
 

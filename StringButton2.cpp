@@ -303,6 +303,53 @@ bool StringButton2::isSymbolAllowed(char _symbol)
     return false;
 }
 
+int StringButton2::onKeyboard(int key)
+{
+
+    if (getInputMode())
+    {
+        if (getActiveWindow() != this || app->getAsyncKeyState(VK_RETURN))
+        {
+            if (!cursor.isActiveSelection())
+            {
+                getInputMode() = 0;
+                confirmEnter();
+            }
+        }
+
+        if (app->getAsyncKeyState(VK_ESCAPE))
+        {
+            getInputMode() = 0;
+            if (textBeforeRedacting)
+            {
+                strcpy(text, textBeforeRedacting);
+            }
+        }
+
+        checkKeyboard();
+        if (currentTextSize > (int)strlen(text)) currentTextSize = strlen(text);
+
+        text[currentTextSize] = 0;
+        if (getInputMode() && getMBCondition() == 1) cursor.clickCursor(getMousePos());
+    }
+    return 0;
+}
+
+int StringButton2::onMouseMove(Vector mp, Vector delta)
+{
+    return 0;
+}
+
+
+int StringButton2::mbDown(Vector mp, int button)
+{
+    return 0;
+}
+
+int StringButton2::mbUp(Vector mp, int button)
+{
+    return 0;
+}
 
 void StringButton2::draw()
 {
@@ -320,29 +367,6 @@ void StringButton2::draw()
 
         if (getInputMode())
         {
-            if (getActiveWindow() != this || app->getAsyncKeyState(VK_RETURN))
-            {
-                if (!cursor.isActiveSelection())
-                {
-                    getInputMode() = 0;
-                    confirmEnter();
-                }
-            }
-
-            if (app->getAsyncKeyState(VK_ESCAPE))
-            {
-                getInputMode() = 0;
-                if (textBeforeRedacting)
-                {
-                    strcpy(text, textBeforeRedacting);
-                }
-            }
-
-            checkKeyboard();
-            if (currentTextSize > (int)strlen(text)) currentTextSize = strlen(text);
-
-            text[currentTextSize] = 0;
-            if (getInputMode() && getMBCondition() == 1) cursor.clickCursor(getMousePos());
             cursor.draw(finalDC);
            
         }

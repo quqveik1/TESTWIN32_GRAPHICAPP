@@ -50,6 +50,7 @@ M_HGDIOBJ* HGDIManager::getHGDIOBJ()
         M_HGDIOBJ* newOBJ = new M_HGDIOBJ();
         objs[currlen] = newOBJ;
         currlen++;
+        printf("Выдана %d обертка\n", currlen);
         return newOBJ;
     }
     else
