@@ -36,6 +36,7 @@ struct Handle : Manager
     Vector logoStart = { (double)deltaBetweenOptions, 0};
     double startOfOptions = logoStart.x + logoSize.x + deltaBetweenOptions;
     int activeOptionNum = -1;
+    int coloredOptionNum = -1;
     COLORREF onMouseColor = NULL;
 
     int lastKeyMessage = 0;
@@ -77,6 +78,7 @@ struct Handle : Manager
 
     virtual void draw() override;
     virtual void onClick(Vector mp) override;
+    virtual int mbDown(Vector mp, int button) override;
     virtual int onSize(Vector managerSize) override;
     virtual int onKeyboard(int key) override;
     virtual int onMouseMove(Vector mp, Vector delta) override;

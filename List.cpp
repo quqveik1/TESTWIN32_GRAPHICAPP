@@ -56,13 +56,6 @@ void List::draw()
 
     controlRect();
     app->windowsLibApi->standartManagerDraw(this);
-    if (!needToShow)
-    {
-        for (int i = 0; i < currLen; i++)
-        {
-            pointers[i]->draw();
-        }
-    }
 
     for (int i = 0; i < currLen; i++)
     {

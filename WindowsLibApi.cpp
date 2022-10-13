@@ -211,3 +211,16 @@ int CWindowsLibApi::standartManagerOnKeyboard(struct Manager* manager, int key)
     }
     return 0;
 }
+
+int CWindowsLibApi::standartManagerOnKeyboardChar(struct Manager* manager, int key)
+{
+    if (manager)
+    {
+        for (int i = 0; i < manager->getCurLen(); i++)
+        {
+            manager->pointers[i]->onKeyboardChar(key);
+        }
+        return manager->getCurLen();
+    }
+    return 0;
+}

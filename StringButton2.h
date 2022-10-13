@@ -15,6 +15,7 @@ struct Cursor
 
     int startPos = -1;
     int currPos = -1;
+    int isSelecting = 0;
     int lastTimeCursorConditionChanged = 0;
     bool wasClicked = false;
     bool shouldShowCursor = false;
@@ -84,7 +85,8 @@ struct StringButton2 : Manager
         cursorImage = LoadCursor(NULL, IDC_IBEAM);
     }
 
-    void checkKeyboard();
+    void checkKeyboardChar(int key);
+    void checkKeyboard(int key);
     void backSpace();
     void copyInBuf();
     void pasteFromBuf();
@@ -120,6 +122,7 @@ struct StringButton2 : Manager
 
     virtual void draw() override;
     virtual int onKeyboard(int key) override;
+    virtual int onKeyboardChar(int key) override;
     virtual int onMouseMove(Vector mp, Vector delta) override;
     virtual void onClick(Vector mp) override;
     virtual int mbDown(Vector mp, int button) override;

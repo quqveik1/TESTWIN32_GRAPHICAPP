@@ -51,6 +51,7 @@ void SetCanvasButton::show()
 
 int SetCanvasButton::onKeyboard(int key)
 {
+    app->windowsLibApi->standartManagerOnKeyboard(this, key);
     if (needToShow)
     {
         if (app->getKeyState(VK_RETURN))

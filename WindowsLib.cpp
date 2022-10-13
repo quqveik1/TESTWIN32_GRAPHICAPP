@@ -203,6 +203,11 @@ int Manager::onKeyboard(int key)
     return app->windowsLibApi->standartManagerOnKeyboard(this, key);
 }
 
+int Manager::onKeyboardChar(int key)
+{
+    return app->windowsLibApi->standartManagerOnKeyboardChar(this, key);
+}
+
 
 
 

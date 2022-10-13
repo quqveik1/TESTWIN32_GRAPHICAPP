@@ -116,6 +116,7 @@ int M_HDC::selectObj(HBRUSH brush)
         }
         else
         {
+            //gassert(app);
             M_HGDIOBJ* newObj = app->getHGDIOBJ();
             newObj->setObj(brush);
             selectedObj[2] = newObj;

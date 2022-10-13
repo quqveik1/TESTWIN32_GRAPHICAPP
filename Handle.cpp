@@ -51,7 +51,7 @@ void Handle::setOptionsRect()
 void Handle::drawOptions()
 {
       
-    int numOfOption = activeOptionNum;
+    int numOfOption = coloredOptionNum;
     app->setColor(app->systemSettings->TextColor, finalDC);
     app->selectFont(fontName, font, finalDC);
 
@@ -220,10 +220,16 @@ int Handle::onMouseMove(Vector mp, Vector delta)
 {
     
     int answer = getOptionNum(mp);
-    
-    if (activeOptionNum != answer && answer != -1)
+    if (activeOptionNum >= 0 && answer >= 0 && activeOptionNum != answer)
     {
         activeOptionNum = answer;
+        coloredOptionNum = answer;
+        app->updateScreen();
+    }
+    
+    if (activeOptionNum < 0 && coloredOptionNum != answer)
+    {
+        coloredOptionNum = answer;
         app->updateScreen();
     }
     
@@ -231,6 +237,17 @@ int Handle::onMouseMove(Vector mp, Vector delta)
     app->windowsLibApi->standartManagerOnMouseMove(this, mp, delta);
 
     return 0;
+}
+
+int Handle::mbDown(Vector mp, int button)
+{
+    /*
+    int was
+    for (int i = 0; i < currentOptionsLength; i++)
+    {
+        if ()
+    }
+    */
 }
 
 void Handle::onClick(Vector mp)
@@ -283,6 +300,7 @@ int Handle::optionOnClick(Vector mp)
     if (activeOptionNum != answer)
     {
         activeOptionNum = answer;
+        coloredOptionNum = answer;
         app->updateScreen();
     }
     else

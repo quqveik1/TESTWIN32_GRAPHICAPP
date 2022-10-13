@@ -53,6 +53,8 @@ struct CanvasManager : Manager
     void deleteCanvas(int num);
     int setActiveCanvas(int num);
 
+    Window* getSetCanvasButton();
+
 
     virtual void screenChanged() override;
 

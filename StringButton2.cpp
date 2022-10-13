@@ -57,7 +57,7 @@ int Cursor::moveRight(bool needToChangeStartPos/* = true*/)
 
 int Cursor::moveCursorTo(int pos, bool needToChangeStartPos/* = true*/)
 {
-    if (0 <= pos && pos <= stringButton->currentTextSize)
+    if (0 <= pos && pos <= stringButton->getTextSize())
     {
         currPos = pos;
         if (needToChangeStartPos)startPos = pos;
@@ -131,6 +131,7 @@ int Cursor::mbDownCursor(Vector mp)
 
     if (!app->isDoubleClick() && clock() - lastTimeDClick > 500 )
     {
+        isSelecting = 1;
         app->updateScreen();
         moveCursorTo(pos);
         
@@ -144,7 +145,7 @@ int Cursor::mMoveCursor(Vector mp)
 {
     int pos = cursorPosFromMouse(mp);
 
-    if (!app->isDoubleClick() && clock() - lastTimeDClick > 500)
+    if (isSelecting)
     {
         if (pos != currPos)app->updateScreen();
         moveCursorTo(pos, false);
@@ -157,6 +158,7 @@ int Cursor::mMoveCursor(Vector mp)
 
 int Cursor::mbUpCursor(Vector mp)
 {
+    isSelecting = 0;
     /*
     int pos = cursorPosFromMouse(mp);
 
@@ -182,7 +184,7 @@ void StringButton2::moveCursorLeft()
 {
     if (app->getAsyncKeyState(VK_SHIFT))
     {
-        if (app->getAsyncKeyState(VK_CONTROL))
+        if (app->getKeyState(VK_CONTROL))
         {
             cursor.moveCursorTo(nearestLeftWordStartPos(cursor.currPos), false);
         }
@@ -193,7 +195,7 @@ void StringButton2::moveCursorLeft()
     }
     else
     {
-        if (app->getAsyncKeyState(VK_CONTROL))
+        if (app->getKeyState(VK_CONTROL))
         {
             cursor.moveCursorTo(nearestLeftWordStartPos(cursor.currPos));
         }
@@ -206,9 +208,10 @@ void StringButton2::moveCursorLeft()
 
 void StringButton2::moveCursorRight()
 {
-    if (app->getAsyncKeyState(VK_SHIFT))
+    
+    if (app->getKeyState(VK_SHIFT))
     {
-        if (app->getAsyncKeyState(VK_CONTROL))
+        if (app->getKeyState(VK_CONTROL))
         {
             cursor.currPos = nearestRightWordStartPos(cursor.currPos);
         }
@@ -220,7 +223,7 @@ void StringButton2::moveCursorRight()
     else
     {
 
-        if (app->getAsyncKeyState(VK_CONTROL))
+        if (app->getKeyState(VK_CONTROL))
         {
             cursor.moveCursorTo (nearestRightWordStartPos(cursor.currPos));
         }
@@ -233,6 +236,10 @@ void StringButton2::moveCursorRight()
 
 void StringButton2::shiftTextForward(char* _text, int startPos, int finishPos, int delta/* = 1*/)
 {
+    if (startPos < 0 || finishPos > maxTextSize)
+    {
+        massert(startPos < 0, app);
+    }
     for (int localDelta = 0; localDelta < delta; localDelta++)
     {
         for (int i = finishPos + localDelta; i >= startPos + localDelta; i--)
@@ -247,6 +254,10 @@ void StringButton2::shiftTextForward(char* _text, int startPos, int finishPos, i
 
 void StringButton2::shiftTextBack(char* _text, int startPos, int finishPos, int delta/* = 1*/)
 {
+    if (startPos < 0 || finishPos > maxTextSize)
+    {
+        massert(startPos < 0, app);
+    }
     for (int localDelta = 0; localDelta < delta; localDelta++)
     {
         for (int i = startPos - localDelta; i <= finishPos - localDelta; i++)
@@ -344,12 +355,23 @@ bool StringButton2::isSymbolAllowed(char _symbol)
     return false;
 }
 
+int StringButton2::onKeyboardChar(int key)
+{
+    if (getInputMode())
+    {
+        checkKeyboardChar(key);
+    }
+    return 0;
+}
+
+
 int StringButton2::onKeyboard(int key)
 {
 
     if (getInputMode())
     {
-        if (getActiveWindow() != this || app->getAsyncKeyState(VK_RETURN))
+        /*
+        if (getActiveWindow() != this || app->getKeyState(VK_RETURN))
         {
             if (!cursor.isActiveSelection())
             {
@@ -357,8 +379,9 @@ int StringButton2::onKeyboard(int key)
                 confirmEnter();
             }
         }
+        */
 
-        if (app->getAsyncKeyState(VK_ESCAPE))
+        if (app->getKeyState(VK_ESCAPE))
         {
             getInputMode() = 0;
             if (textBeforeRedacting)
@@ -367,11 +390,13 @@ int StringButton2::onKeyboard(int key)
             }
         }
 
-        checkKeyboard();
+        checkKeyboard(key);
+
+        
         if (currentTextSize > (int)strlen(text)) currentTextSize = strlen(text);
 
         text[currentTextSize] = 0;
-        //if (getInputMode() && getMBCondition() == 1) cursor.clickCursor(getMousePos(), 0);
+        //if (getInputMode() && getMBCondition() == 1) cursor.clickCursor(getMousePos());
     }
     return 0;
 }
@@ -422,8 +447,8 @@ void StringButton2::draw()
 
 int StringButton2::onMouseMove(Vector mp, Vector delta)
 {
-    if (getInputMode())cursor.mMoveCursor(mp);
-    if ((rect - rect.pos).inRect(mp) || getInputMode())
+    if (cursor.isSelecting)cursor.mMoveCursor(mp);
+    if ((rect - rect.pos).inRect(mp) || cursor.isSelecting)
     {
         app->setCursor(cursorImage);
     }
@@ -473,12 +498,18 @@ int StringButton2::mbDown(Vector mp, int button)
         }
         getInputMode() = 1;
     }
+    else
+    {
+        getInputMode() = 0;
+        app->updateScreen();
+    }
     return 0;
 }
 
 int StringButton2::mbUp(Vector mp, int button)
 {
-    getInputMode() = 0;
+    cursor.mbUpCursor(mp);
+    //getInputMode() = 0;
     return 0;
 }
 
@@ -731,7 +762,7 @@ void StringButton2::backSpace()
     if (app->getAsyncKeyState(VK_CONTROL) && !app->getAsyncKeyState(VK_SHIFT) && !cursor.isActiveSelection())
     {
         int nearestWordPos = nearestLeftWordStartPos(cursor.currPos);
-        cursor.moveCursorTo(nearestWordPos, false);
+        //cursor.moveCursorTo(nearestWordPos, false);
     }
 
     if (cursor.isActiveSelection())
@@ -771,75 +802,87 @@ void StringButton2::selectAll()
     cursor.moveCursorTo(getTextSize(text), false);
 }
 
-void StringButton2::checkKeyboard()
+
+void StringButton2::checkKeyboard(int key)
 {
-    if (app->getAsyncKeyState(VK_RIGHT) && clock() - lastTimeClicked > specButtonsDelta)
+    
+    if (app->getKeyState(VK_RIGHT))
     {
         moveCursorRight();
         lastTimeClicked = clock();
         setActiveWindow(this);
+        app->updateScreen();
         return;
     }
 
-    if (app->getAsyncKeyState(VK_LEFT) && clock() - lastTimeClicked > specButtonsDelta)
+    if (app->getKeyState(VK_LEFT))
     {
         moveCursorLeft();
         lastTimeClicked = clock();
         setActiveWindow(this);
+        app->updateScreen();
         return;
     }
 
-    if (app->getAsyncKeyState(VK_BACK) && clock() - lastTimeClicked > specButtonsDelta)
+    if (app->getKeyState(VK_BACK))
     {
         backSpace();
         lastTimeClicked = clock();
         setActiveWindow(this);
+        app->updateScreen();
         return;
     }
 
-    if (app->getAsyncKeyState(VK_CONTROL) && app->getAsyncKeyState('C'))
+    if (app->getKeyState(VK_CONTROL) && app->getKeyState('C'))
     {
         copyInBuf();
         lastTimeClicked = clock();
         setActiveWindow(this);
+        app->updateScreen();
         return;
-    } 
-    
-    if (app->getAsyncKeyState(VK_CONTROL) && app->getAsyncKeyState('V') && clock() - lastTimeClicked > specButtonsDelta)
+    }
+
+    if (app->getKeyState(VK_CONTROL) && app->getKeyState('V'))
     {
         pasteFromBuf();
         lastTimeClicked = clock();
         setActiveWindow(this);
+        app->updateScreen();
         return;
     }
 
-    if (app->getAsyncKeyState(VK_CONTROL) && app->getAsyncKeyState('X') && clock() - lastTimeClicked > specButtonsDelta)
+    if (app->getKeyState(VK_CONTROL) && app->getKeyState('X'))
     {
         copyInBuf();
         backSpace();
         lastTimeClicked = clock();
         setActiveWindow(this);
+        app->updateScreen();
         return;
     }
 
-    if (app->getAsyncKeyState(VK_CONTROL) && app->getAsyncKeyState('A'))
+    if (app->getKeyState(VK_CONTROL) && app->getKeyState('A'))
     {
         selectAll();
+        app->updateScreen();
         return;
     }
 
+    /*
     if (app->isDoubleClick() && (rect-rect.pos).inRect(getMousePos()) && clock() - lastTimeClicked > specButtonsDelta)
-    {
-        int left = 0;
-        int right = 0;
-        startAndEndOfClickedWord(cursor.currPos, left, right);
-        cursor.moveCursorTo(left, true);
-        cursor.moveCursorTo(right, false);
-        lastTimeClicked = clock();
-    }
+    int left = 0;
+    int right = 0;
+    startAndEndOfClickedWord(cursor.currPos, left, right);
+    cursor.moveCursorTo(left, true);
+    cursor.moveCursorTo(right, false);
+    lastTimeClicked = clock();
+    */
+}
 
-    if (!_kbhit())	return;
-    int symbol = _getch();
+void StringButton2::checkKeyboardChar(int key)
+{
+    
+    int symbol = key;
    
     if (!isSymbolAllowed(symbol))
     {                    
@@ -857,15 +900,25 @@ void StringButton2::checkKeyboard()
             text[cursor.currPos] = symbol;
             currentTextSize = strlen(text);
             cursor.moveRight();
+            
         }
         else
         {
-            shiftTextBack(text, max(cursor.currPos, cursor.startPos), currentTextSize, abs(cursor.currPos - cursor.startPos));
-            text[cursor.currPos] = symbol;
+            shiftTextBack(text, max(cursor.currPos, cursor.startPos), currentTextSize, abs(cursor.currPos - cursor.startPos) - 1);
+            text[min(cursor.currPos, cursor.startPos)] = symbol;
             currentTextSize = strlen(text);
-            cursor.moveCursorTo(min(cursor.currPos, cursor.startPos));
+            if (cursor.currPos > cursor.startPos)
+            {
+                cursor.moveCursorTo(cursor.startPos);
+            }
+            else
+            {
+                cursor.moveCursorTo(cursor.currPos);
+            }
             cursor.moveRight();
         }
+
+        app->updateScreen();
         
     }
 

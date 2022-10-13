@@ -337,6 +337,11 @@ void CanvasManager::deleteButton()
     }
 }
 
+Window* CanvasManager::getSetCanvasButton()
+{
+    return setCanvasButton;
+}
+
 void CanvasManager::screenChanged()
 {
     rect.finishPos = app->systemSettings->SizeOfScreen;

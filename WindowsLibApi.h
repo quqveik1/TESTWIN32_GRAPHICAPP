@@ -26,4 +26,5 @@ struct CWindowsLibApi
     virtual int standartManagerOnMouseMove(struct Manager* manager, Vector mp, Vector delta);
     virtual int standartManagerOnSize(struct Manager* manager, Vector managerSize);
     virtual int standartManagerOnKeyboard(struct Manager* manager, int key);
+    virtual int standartManagerOnKeyboardChar(struct Manager* manager, int key);
 };

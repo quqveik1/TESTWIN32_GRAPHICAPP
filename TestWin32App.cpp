@@ -106,6 +106,14 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
             }
         }
 
+        if (message == WM_CHAR)
+        {
+            if (appData->mainManager)
+            {
+                appData->mainManager->onKeyboardChar(wParam);
+            }
+        }
+
         if (message == WM_PAINT)
         {
             HDC finalDC = BeginPaint(appData->MAINWINDOW, &ps);
@@ -153,11 +161,14 @@ int initProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
 
     List* createList = mainHandle->createMenuOption("Создать", NULL, true);
     manager->addWindow(createList);
+    createList->addNewItem(canvasManager->getSetCanvasButton(), NULL, "Создать холст", NULL, 'N');
+
     List* openWindows = mainHandle->createMenuOption("Окна", NULL);
+    manager->addWindow(openWindows);
     List* importList = mainHandle->createMenuOption("Импорт/Экспорт", NULL, true);
+    manager->addWindow(importList);
 
     
-    //createList->addNewItem(setCanvasButton, NULL, "Создать холст", NULL, 'N');
 
     return 0;
 }
