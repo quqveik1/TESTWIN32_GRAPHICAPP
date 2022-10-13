@@ -41,7 +41,10 @@ struct Cursor
     int moveCursorTo(int pos, bool needToChangeStartPos = true);
     int getCursorPosX();
     int getCertainCharPos(int num);
-    int clickCursor(Vector mp);
+    int cursorPosFromMouse(Vector mp);
+    int mbDownCursor(Vector mp);
+    int mMoveCursor(Vector mp);
+    int mbUpCursor(Vector mp);
     bool isActiveSelection();
 
 
@@ -118,9 +121,9 @@ struct StringButton2 : Manager
     virtual void draw() override;
     virtual int onKeyboard(int key) override;
     virtual int onMouseMove(Vector mp, Vector delta) override;
+    virtual void onClick(Vector mp) override;
     virtual int mbDown(Vector mp, int button) override;
     virtual int mbUp(Vector mp, int button) override;
-    virtual void onClick(Vector mp) override;
 
 
 };

@@ -24,12 +24,14 @@ void SetCanvasButton::confirmEnter()
     enterStatus = 1;
     canvasManager->addCanvas(getNewCanvasName(), defaultCanvasSize);
     hide();
+    app->updateScreen();
 }
 
 void SetCanvasButton::cancelEnter()
 {
     enterStatus = -1;
     hide();
+    app->updateScreen();
 }
 
 
@@ -47,11 +49,27 @@ void SetCanvasButton::show()
     app->updateScreen();
 }
 
+int SetCanvasButton::onKeyboard(int key)
+{
+    if (needToShow)
+    {
+        if (app->getKeyState(VK_RETURN))
+        {
+            confirmEnter();
+        }
+
+        if (app->getKeyState(VK_ESCAPE))
+        {
+            cancelEnter();
+        }
+    }
+    return 0;
+}
+
 void SetCanvasButton::draw()
 {
     if (needToShow)
     {
-        controlHandle();
         app->setColor(color, finalDC);
         app->rectangle(rect - rect.pos, finalDC);
 
@@ -81,18 +99,7 @@ void SetCanvasButton::draw()
         app->setColor(TX_BLACK, finalDC);
         app->selectFont(app->systemSettings->FONTNAME, buttonSize.y - 5, finalDC);
         app->drawText(confirmButton, "Ок", finalDC);
-        app->drawText(cancelButton, "Отмена", finalDC);
-
-
-        if (app->getAsyncKeyState(VK_RETURN))
-        {
-            confirmEnter();
-        } 
-        
-        if (app->getAsyncKeyState(VK_ESCAPE))
-        {
-            cancelEnter();
-        }
+        app->drawText(cancelButton, "Отмена", finalDC); 
     }
 
 
@@ -134,16 +141,19 @@ void SetCanvasButton::onClick(Vector mp)
 
 int SetCanvasButton::mbDown(Vector mp, int button)
 {
+    app->windowsLibApi->standartManagerMbDown(this, mp, button);
     return clickHandle();
 }
 
 int SetCanvasButton::mbUp(Vector mp, int button)
 {
+    app->windowsLibApi->standartManagerMbUp(this, mp, button);
     return mbUpHandle();
 }
 
 int SetCanvasButton::onMouseMove(Vector mp, Vector delta)
 {
+    app->windowsLibApi->standartManagerOnMouseMove(this, mp, delta);
     moveHandle(delta);
     return 0;
 }

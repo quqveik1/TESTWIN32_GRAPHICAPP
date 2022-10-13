@@ -90,7 +90,7 @@ int Cursor::getCertainCharPos(int num)
     return startOfText.x + positionX;
 }
 
-int Cursor::clickCursor(Vector mp)
+int Cursor::cursorPosFromMouse(Vector mp)
 {
     int pos = stringButton->getTextSize();
     for (int i = 0; i <= stringButton->getTextSize(); i++)
@@ -122,14 +122,55 @@ int Cursor::clickCursor(Vector mp)
         }
     }
 
+    return pos;
+}
+
+int Cursor::mbDownCursor(Vector mp)
+{
+    int pos = cursorPosFromMouse(mp);
+
     if (!app->isDoubleClick() && clock() - lastTimeDClick > 500 )
     {
-        moveCursorTo(pos, !stringButton->isClickedLastTime());
+        app->updateScreen();
+        moveCursorTo(pos);
+        
     }
 
     return pos;
 
 }
+
+int Cursor::mMoveCursor(Vector mp)
+{
+    int pos = cursorPosFromMouse(mp);
+
+    if (!app->isDoubleClick() && clock() - lastTimeDClick > 500)
+    {
+        if (pos != currPos)app->updateScreen();
+        moveCursorTo(pos, false);
+    }
+
+    return pos;
+
+}
+
+
+int Cursor::mbUpCursor(Vector mp)
+{
+    /*
+    int pos = cursorPosFromMouse(mp);
+
+    if (!app->isDoubleClick() && clock() - lastTimeDClick > 500)
+    {
+        if (pos != currPos)app->updateScreen();
+        moveCursorTo(pos, false);
+    }
+    */
+
+    return 0;
+
+}
+
 
 bool Cursor::isActiveSelection()
 {
@@ -330,25 +371,17 @@ int StringButton2::onKeyboard(int key)
         if (currentTextSize > (int)strlen(text)) currentTextSize = strlen(text);
 
         text[currentTextSize] = 0;
-        if (getInputMode() && getMBCondition() == 1) cursor.clickCursor(getMousePos());
+        //if (getInputMode() && getMBCondition() == 1) cursor.clickCursor(getMousePos(), 0);
     }
     return 0;
 }
 
-int StringButton2::onMouseMove(Vector mp, Vector delta)
+void StringButton2::modifyOutput(char* outputStr, char* originalStr)
 {
-    return 0;
-}
+    assert(outputStr);
+    assert(originalStr);
 
-
-int StringButton2::mbDown(Vector mp, int button)
-{
-    return 0;
-}
-
-int StringButton2::mbUp(Vector mp, int button)
-{
-    return 0;
+    sprintf(outputStr, "%s", originalStr);
 }
 
 void StringButton2::draw()
@@ -360,15 +393,9 @@ void StringButton2::draw()
         app->setColor(color, finalDC);
         app->rectangle({ 0, 0 }, getSize(), finalDC);
 
-        if (rect.inRect(getAbsMousePos()) || (cursor.isActiveSelection() && getMBCondition() == 1))
-        {
-            app->setCursor(cursorImage);
-        }
-
         if (getInputMode())
         {
             cursor.draw(finalDC);
-           
         }
 
         char parametrString[MAX_PATH] = {};
@@ -391,17 +418,27 @@ void StringButton2::draw()
     setMbLastTime();
 }
 
-void StringButton2::modifyOutput(char* outputStr, char* originalStr)
-{
-    assert(outputStr);
-    assert(originalStr);
 
-    sprintf(outputStr, "%s", originalStr);
+
+int StringButton2::onMouseMove(Vector mp, Vector delta)
+{
+    if (getInputMode())cursor.mMoveCursor(mp);
+    if ((rect - rect.pos).inRect(mp) || getInputMode())
+    {
+        app->setCursor(cursorImage);
+    }
+    else
+    {
+        app->setCursor();
+    }
+    return 0;
 }
+
 
 
 void StringButton2::onClick(Vector mp)
 {
+    /*
     setActiveWindow(this);
 
     cursor.clickCursor(mp);
@@ -417,7 +454,35 @@ void StringButton2::onClick(Vector mp)
         }
         getInputMode() = 1;
     }
+    */
 }
+
+int StringButton2::mbDown(Vector mp, int button)
+{
+    if ((rect - rect.pos).inRect(mp))
+    {
+        setActiveWindow(this);
+        cursor.mbDownCursor(mp);
+        if (!getInputMode())
+        {
+            if (textBeforeRedacting) delete textBeforeRedacting;
+            textBeforeRedacting = new char[maxTextSize];
+            currentTextSize = strlen(text);
+            assert(textBeforeRedacting);
+            strcpy(textBeforeRedacting, text);
+        }
+        getInputMode() = 1;
+    }
+    return 0;
+}
+
+int StringButton2::mbUp(Vector mp, int button)
+{
+    getInputMode() = 0;
+    return 0;
+}
+
+
 
 
 

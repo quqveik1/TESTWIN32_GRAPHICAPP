@@ -561,7 +561,10 @@ bool PowerPoint::getAsyncKeyState(int symbol)
 
 bool PowerPoint::getKeyState(int symbol)
 {
-    return GetKeyState(symbol);
+    short res = GetKeyState(symbol);
+    int hiword = HIBYTE(res);
+    if (hiword == 255) return 1;
+    return 0;
 }
 
 bool PowerPoint::isDoubleClick()
@@ -655,8 +658,9 @@ void PowerPoint::changeWindow(Vector size/* = {}*/, Vector pos/* = {}*/)
 }
 
 
-void PowerPoint::setCursor(HCURSOR cursor)
+void PowerPoint::setCursor(HCURSOR cursor/*= NULL*/)
 {
+    if (cursor == NULL) cursor = defaultCursor;
     activeCursor = cursor;
     lastTimeCursorSetTime = clock();
 }

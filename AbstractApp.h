@@ -105,7 +105,7 @@ struct AbstractAppData
     
 
     virtual void changeWindow(Vector size = {}, Vector pos = {}) = 0;
-    virtual void setCursor(HCURSOR cursor) = 0;
+    virtual void setCursor(HCURSOR cursor = NULL) = 0;
     virtual Vector getCursorPos() = 0;
 
     virtual void setResized(bool state = true) = 0;
