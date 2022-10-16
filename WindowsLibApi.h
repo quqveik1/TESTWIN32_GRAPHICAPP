@@ -24,6 +24,7 @@ struct CWindowsLibApi
     virtual int standartManagerMbDown(struct Manager* manager, Vector mp, int button);
     virtual int standartManagerMbUp(struct Manager* manager, Vector mp, int button);
     virtual int standartManagerOnMouseMove(struct Manager* manager, Vector mp, Vector delta);
+    virtual int standartManagerOnTimer(struct Manager* manager, UINT_PTR timerName);
     virtual int standartManagerOnSize(struct Manager* manager, Vector managerSize);
     virtual int standartManagerOnKeyboard(struct Manager* manager, int key);
     virtual int standartManagerOnKeyboardChar(struct Manager* manager, int key);

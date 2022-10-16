@@ -114,6 +114,14 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
             }
         }
 
+        if (message == WM_TIMER)
+        {
+            if (appData->mainManager)
+            {
+                appData->mainManager->onTimer(wParam);
+            }
+        }
+
         if (message == WM_PAINT)
         {
             HDC finalDC = BeginPaint(appData->MAINWINDOW, &ps);

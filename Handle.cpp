@@ -248,6 +248,7 @@ int Handle::mbDown(Vector mp, int button)
         if ()
     }
     */
+    return 0;
 }
 
 void Handle::onClick(Vector mp)

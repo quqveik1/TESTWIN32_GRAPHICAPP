@@ -22,6 +22,7 @@ struct AbstractAppData
     struct CLoadLib* loadLibManager = NULL;
     struct ConsoleOutput* consoleOutput = NULL;
     struct HGDIManager* hgdiManager = NULL;
+    struct TimerManager* timerManager = NULL;
     virtual M_HDC* getHDC() = 0;
     virtual M_HGDIOBJ* getHGDIOBJ() = 0;
 

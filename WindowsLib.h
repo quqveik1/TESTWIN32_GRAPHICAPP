@@ -154,6 +154,7 @@ struct Window
     virtual int onKeyboardChar(int key) { return 0; };
     virtual int onSize(Vector managerSize) { return 0; };
     virtual int onMouseMove(Vector mp, Vector delta) { return 0; };
+    virtual int onTimer(UINT_PTR timerName) { return 0; };
 
     virtual void deleteButton() {};
 };
@@ -219,5 +220,6 @@ struct Manager : Window
     virtual int onKeyboard(int key) override;
     virtual int onKeyboardChar(int key) override;
     virtual int onMouseMove(Vector mp, Vector delta) override;
+    virtual int onTimer(UINT_PTR timerName) override;
 
 };

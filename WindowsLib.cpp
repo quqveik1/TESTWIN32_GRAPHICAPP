@@ -189,8 +189,13 @@ int Manager::mbUp(Vector mp, int button)
 
 int Manager::onMouseMove(Vector mp, Vector delta)
 {
-    app->windowsLibApi->standartManagerOnMouseMove(this, mp, delta);
-    return 0;
+    return app->windowsLibApi->standartManagerOnMouseMove(this, mp, delta);
+}
+
+
+int Manager::onTimer(UINT_PTR timerName)
+{
+    return app->windowsLibApi->standartManagerOnTimer(this, timerName);
 }
 
 int Manager::onSize(Vector managerSize)

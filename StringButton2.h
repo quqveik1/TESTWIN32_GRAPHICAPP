@@ -1,5 +1,6 @@
 #pragma once
 #include "WindowsLib.cpp"
+#include "TimerManager.h"
 
 
 struct StringButton2;
@@ -20,7 +21,8 @@ struct Cursor
     bool wasClicked = false;
     bool shouldShowCursor = false;
     int lastTimeCursorPosChanged = 0;
-    int delta = 300;
+    int delta = 200;
+    UINT_PTR timerName = 0;
 
     int lastTimeDClick = 0;
 
@@ -32,6 +34,7 @@ struct Cursor
     {
         assert(app);
         assert(stringButton);
+        timerName = app->timerManager->getNewTimerNum();
     }
 
 
@@ -47,6 +50,7 @@ struct Cursor
     int mMoveCursor(Vector mp);
     int mbUpCursor(Vector mp);
     bool isActiveSelection();
+    int onTimer(UINT_PTR tm);
 
 
 };
@@ -69,6 +73,7 @@ struct StringButton2 : Manager
     COLORREF cadreColor = NULL;
     
     Cursor cursor;
+    
 
     StringButton2(AbstractAppData* _app, Rect _rect, char* _text, int _maxTextSize, COLORREF _mainColor, COLORREF _cadreColor = RGB(144, 144, 144), COLORREF _cursorColor = RGB(200, 200, 200)) :
         Manager(_app, _rect, 1, true, NULL, {}, _mainColor),
@@ -124,6 +129,7 @@ struct StringButton2 : Manager
     virtual int onKeyboard(int key) override;
     virtual int onKeyboardChar(int key) override;
     virtual int onMouseMove(Vector mp, Vector delta) override;
+    virtual int onTimer(UINT_PTR timerName) override;
     virtual void onClick(Vector mp) override;
     virtual int mbDown(Vector mp, int button) override;
     virtual int mbUp(Vector mp, int button) override;

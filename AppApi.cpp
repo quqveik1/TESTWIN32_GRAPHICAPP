@@ -16,6 +16,7 @@
 #include "M_HGDIOBJ.cpp"
 #include "M_HDC.cpp"
 #include "HGDIManager.cpp"
+#include "TimerManager.cpp"
 
 
 void setWindowParameters(PowerPoint* app, HINSTANCE hInstance);
@@ -56,6 +57,7 @@ PowerPoint::PowerPoint(HINSTANCE hInstance)
     dcManager = new DCManager(this);
 
     hgdiManager = new HGDIManager(this);
+    timerManager = new TimerManager();
 
     setWindowParameters(this, hInstance);
 }

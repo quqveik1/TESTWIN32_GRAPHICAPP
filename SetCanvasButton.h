@@ -61,8 +61,8 @@ struct SetCanvasButton : Manager
         inputY.MoveWindowTo({ sizeYText.finishPos.x,  sizeYText.pos.y });
 
         
-        //addWindow(&inputX);
-        //addWindow(&inputY);
+        addWindow(&inputX);
+        addWindow(&inputY);
 
         downSectionPosY = getSize().y - 40;
         buttonPos.y = downSectionPosY + (((getSize().y - downSectionPosY) - buttonSize.y)) * 0.5;

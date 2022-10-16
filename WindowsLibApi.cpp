@@ -186,6 +186,18 @@ int CWindowsLibApi::standartManagerOnMouseMove(struct Manager* manager, Vector m
     return 0;
 }
 
+int CWindowsLibApi::standartManagerOnTimer(struct Manager* manager, UINT_PTR timerName)
+{
+    if (manager)
+    {
+        for (int i = 0; i < manager->getCurLen(); i++)
+        {
+            if (manager->pointers[i]) manager->pointers[i]->onTimer(timerName);
+        }
+    }
+    return 0;
+}
+
 int CWindowsLibApi::standartManagerOnSize(struct Manager* manager, Vector managerSize)
 {
     if (manager)

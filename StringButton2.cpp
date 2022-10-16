@@ -179,6 +179,21 @@ bool Cursor::isActiveSelection()
     return currPos != startPos;
 }
 
+int Cursor::onTimer(UINT_PTR tm)
+{
+    
+    if (tm == timerName)
+    {
+        app->updateScreen();
+        if (stringButton->getInputMode())
+        {
+            SetTimer(app->MAINWINDOW, timerName, delta, NULL);
+            shouldShowCursor != shouldShowCursor;
+        }
+    }
+    return shouldShowCursor;
+}
+
 
 void StringButton2::moveCursorLeft()
 {
@@ -459,6 +474,12 @@ int StringButton2::onMouseMove(Vector mp, Vector delta)
     return 0;
 }
 
+int StringButton2::onTimer(UINT_PTR timerName)
+{
+
+    return cursor.onTimer(timerName);
+}
+
 
 
 void StringButton2::onClick(Vector mp)
@@ -509,6 +530,7 @@ int StringButton2::mbDown(Vector mp, int button)
 int StringButton2::mbUp(Vector mp, int button)
 {
     cursor.mbUpCursor(mp);
+    if (getInputMode())SetTimer(app->MAINWINDOW, cursor.timerName, cursor.delta, NULL);
     //getInputMode() = 0;
     return 0;
 }
