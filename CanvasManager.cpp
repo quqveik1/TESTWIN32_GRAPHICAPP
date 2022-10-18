@@ -24,7 +24,7 @@ CanvasManager::CanvasManager(AbstractAppData* _app, Vector _pos) :
 
     tabCross = app->loadManager->loadImage("tabCross.bmp");
 
-    addWindow(scaleButton);
+    //addWindow(scaleButton);
 
     setCanvasButton = new SetCanvasButton(app, this);
     addWindow(setCanvasButton);

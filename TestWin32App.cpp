@@ -11,6 +11,7 @@
 #include "ConsoleOutput.cpp"
 #include "CanvasManager.cpp"
 #include "SetCanvasButton.cpp"
+#include "ColorMenu.cpp"
 
 int initProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam);
 int shutDownProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam);
@@ -29,7 +30,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR szCmdLine,
 
     MSG message = {};
 
-    for (;;)
+    for (;;)                                                         
     {
         if (!GetMessage(&message, NULL, 0, 0)) break;
         else
@@ -111,7 +112,7 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
             if (appData->mainManager)
             {
                 appData->mainManager->onKeyboardChar(wParam);
-            }
+             }
         }
 
         if (message == WM_TIMER)
@@ -125,8 +126,10 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
         if (message == WM_PAINT)
         {
             HDC finalDC = BeginPaint(appData->MAINWINDOW, &ps);
+            
             if (appData->mainManager)
             {
+                appData->bitBlt(finalDC, {}, {}, appData->mainManager->finalDC);
                 appData->mainManager->print(finalDC);
             }
             EndPaint(appData->MAINWINDOW, &ps);
@@ -168,13 +171,17 @@ int initProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
     manager->addWindow(canvasManager);
 
     List* createList = mainHandle->createMenuOption("Создать", NULL, true);
-    manager->addWindow(createList);
     createList->addNewItem(canvasManager->getSetCanvasButton(), NULL, "Создать холст", NULL, 'N');
 
+
+    ColorMenu* colorMenu = new ColorMenu(appData, {300, 300}, NULL);
+    manager->addWindow(colorMenu);
+
     List* openWindows = mainHandle->createMenuOption("Окна", NULL);
-    manager->addWindow(openWindows);
-    List* importList = mainHandle->createMenuOption("Импорт/Экспорт", NULL, true);
-    manager->addWindow(importList);
+    openWindows->addNewItem(colorMenu, NULL, "Цвет", NULL, 'I');
+    //manager->addWindow(openWindows);
+    //List* importList = mainHandle->createMenuOption("Импорт/Экспорт", NULL, true);
+    //manager->addWindow(importList);
 
     
 

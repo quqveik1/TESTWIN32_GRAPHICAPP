@@ -58,7 +58,10 @@ struct ColorMenu : Manager
 
         needTransparencyOutput = true;
 
-        strcpy(pathToSaveHistory, _pathToHistory);
+        if (_pathToHistory)
+        {
+            strcpy(pathToSaveHistory, _pathToHistory);
+        }
         loadHistory();
         colorExamplesNum = colorHistory.HistoryLength;
         exampleColorRects = new ColorSection[colorExamplesNum]{};

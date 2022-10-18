@@ -129,7 +129,7 @@ int Manager::clickHandle()
 }      
 int Manager::mbUpHandle()
 {
-    manager->handle.setMbLastTime();
+    handle.setMbLastTime(0);
     return true;
 }
 
@@ -138,7 +138,10 @@ int Manager::moveHandle(Vector delta)
     if (handle.mbLastTime == 1)
     {
         rect = rect + delta;
-        app->updateScreen();
+        if (needToShow)
+        {
+            app->updateScreen(this);
+        }
     }
     
     return 1;
@@ -146,7 +149,8 @@ int Manager::moveHandle(Vector delta)
 
 void Manager::controlHandle()
 {
-    app->windowsLibApi->controlHandle(this);
+    //handle.print(finalDC);
+    //app->windowsLibApi->controlHandle(this);
 }
 
 

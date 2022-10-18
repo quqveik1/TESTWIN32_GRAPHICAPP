@@ -25,29 +25,9 @@ void Slider2::draw()
 
         app->transparentBlt(finalDC, pointSliderPos.x, 0, 0, 0, pointSlider);
 
-        if (isSliderClicked)
-        {
-            if (!getMBCondition())
-            {
-                isSliderClicked = false;
-                confirm();
-            }
+        doubleVersionOfParameter = *parametr;
 
-            if (app->systemSettings->debugMode >= 5)printf("slider2 mp delta: %lf\n", getMousePos().x - mousePosLastTime.x);
-
-            pointSliderPos.x += getMousePos().x - mousePosLastTime.x;
-            if (isSmaller(pointSliderPos.x, 0)) pointSliderPos.x = 0;
-            if (isBigger(pointSliderPos.x, getSize().x - pointSliderSize.x)) pointSliderPos.x = getSize().x - pointSliderSize.x;
-            doubleVersionOfParameter = pointSliderPos.x * kOfParametr;
-            *parametr = doubleVersionOfParameter;
-            setMPLastTime();
-        }
-        else
-        {
-            doubleVersionOfParameter = *parametr;
-        }
-
-        pointSliderPos.x = doubleVersionOfParameter / kOfParametr;
+        
     }
     setMbLastTime();
 
@@ -65,3 +45,44 @@ void Slider2::onClick(Vector mp)
         setMPLastTime();
     }
 }
+
+int Slider2::onMouseMove(Vector mp, Vector delta)
+{
+    if (isBigger(fabs(delta.x), 0))
+    {
+        if (isSliderClicked)
+        {
+            pointSliderPos.x += delta.x;
+            if (isSmaller(pointSliderPos.x, 0)) pointSliderPos.x = 0;
+            if (isBigger(pointSliderPos.x, getSize().x - pointSliderSize.x)) pointSliderPos.x = getSize().x - pointSliderSize.x;
+            doubleVersionOfParameter = pointSliderPos.x * kOfParametr;
+            *parametr = doubleVersionOfParameter;
+            pointSliderPos.x = doubleVersionOfParameter / kOfParametr;
+
+            app->updateScreen(this);
+        }
+    }
+    return 0;
+}
+
+
+int Slider2::mbDown(Vector mp, int button)
+{
+    if ((rect - rect.pos).inRect(mp))
+    {
+        isSliderClicked = true;
+    }
+    return 0;
+}
+
+int Slider2::mbUp(Vector mp, int button)
+{
+    if (isSliderClicked)
+    {
+        app->updateScreen(this);
+        isSliderClicked = false;
+        confirm();
+    }
+    return 0;
+}
+

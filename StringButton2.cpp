@@ -132,7 +132,7 @@ int Cursor::mbDownCursor(Vector mp)
     if (!app->isDoubleClick() && clock() - lastTimeDClick > 500 )
     {
         isSelecting = 1;
-        app->updateScreen();
+        app->updateScreen(stringButton);
         moveCursorTo(pos);
         
     }
@@ -147,7 +147,10 @@ int Cursor::mMoveCursor(Vector mp)
 
     if (isSelecting)
     {
-        if (pos != currPos)app->updateScreen();
+        if (pos != currPos)
+        {
+            app->updateScreen(stringButton);
+        }
         moveCursorTo(pos, false);
     }
 
@@ -184,9 +187,10 @@ int Cursor::onTimer(UINT_PTR tm)
     
     if (tm == timerName)
     {
-        app->updateScreen();
+        
         if (stringButton->getInputMode())
         {
+            app->updateScreen(stringButton);
             SetTimer(app->MAINWINDOW, timerName, delta, NULL);
             shouldShowCursor != shouldShowCursor;
         }
@@ -505,7 +509,7 @@ void StringButton2::onClick(Vector mp)
 
 int StringButton2::mbDown(Vector mp, int button)
 {
-    if ((rect - rect.pos).inRect(mp))
+    if ((rect - rect.pos).inRect(mp) && isVisible())
     {
         setActiveWindow(this);
         cursor.mbDownCursor(mp);
@@ -521,8 +525,9 @@ int StringButton2::mbDown(Vector mp, int button)
     }
     else
     {
+        if (getInputMode())app->updateScreen(this);
         getInputMode() = 0;
-        app->updateScreen();
+        
     }
     return 0;
 }
@@ -530,7 +535,10 @@ int StringButton2::mbDown(Vector mp, int button)
 int StringButton2::mbUp(Vector mp, int button)
 {
     cursor.mbUpCursor(mp);
-    if (getInputMode())SetTimer(app->MAINWINDOW, cursor.timerName, cursor.delta, NULL);
+    if (getInputMode())
+    {
+        SetTimer(app->MAINWINDOW, cursor.timerName, cursor.delta, NULL);
+    }
     //getInputMode() = 0;
     return 0;
 }
@@ -833,7 +841,7 @@ void StringButton2::checkKeyboard(int key)
         moveCursorRight();
         lastTimeClicked = clock();
         setActiveWindow(this);
-        app->updateScreen();
+        app->updateScreen(this);
         return;
     }
 
@@ -842,7 +850,7 @@ void StringButton2::checkKeyboard(int key)
         moveCursorLeft();
         lastTimeClicked = clock();
         setActiveWindow(this);
-        app->updateScreen();
+        app->updateScreen(this);
         return;
     }
 
@@ -851,7 +859,7 @@ void StringButton2::checkKeyboard(int key)
         backSpace();
         lastTimeClicked = clock();
         setActiveWindow(this);
-        app->updateScreen();
+        app->updateScreen(this);
         return;
     }
 
@@ -860,7 +868,7 @@ void StringButton2::checkKeyboard(int key)
         copyInBuf();
         lastTimeClicked = clock();
         setActiveWindow(this);
-        app->updateScreen();
+        app->updateScreen(this);
         return;
     }
 
@@ -869,7 +877,7 @@ void StringButton2::checkKeyboard(int key)
         pasteFromBuf();
         lastTimeClicked = clock();
         setActiveWindow(this);
-        app->updateScreen();
+        app->updateScreen(this);
         return;
     }
 
@@ -879,14 +887,14 @@ void StringButton2::checkKeyboard(int key)
         backSpace();
         lastTimeClicked = clock();
         setActiveWindow(this);
-        app->updateScreen();
+        app->updateScreen(this);
         return;
     }
 
     if (app->getKeyState(VK_CONTROL) && app->getKeyState('A'))
     {
         selectAll();
-        app->updateScreen();
+        app->updateScreen(this);
         return;
     }
 
@@ -940,7 +948,7 @@ void StringButton2::checkKeyboardChar(int key)
             cursor.moveRight();
         }
 
-        app->updateScreen();
+        app->updateScreen(this);
         
     }
 

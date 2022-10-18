@@ -152,7 +152,7 @@ int CWindowsLibApi::standartManagerOnClick(Manager* manager, Vector mp)
 
 int CWindowsLibApi::standartManagerMbDown(struct Manager* manager, Vector mp, int button)
 {
-    for (int i = 0; i < manager->getCurLen(); i++)
+    for (int i = manager->getCurLen() - 1; i >=0; i--)
     {
         if (manager->pointers[i])
         {
@@ -164,7 +164,7 @@ int CWindowsLibApi::standartManagerMbDown(struct Manager* manager, Vector mp, in
 
 int CWindowsLibApi::standartManagerMbUp(struct Manager* manager, Vector mp, int button)
 {
-    for (int i = 0; i < manager->getCurLen(); i++)
+    for (int i = manager->getCurLen() - 1; i >= 0; i--)
     {
         if (manager->pointers[i])
         {

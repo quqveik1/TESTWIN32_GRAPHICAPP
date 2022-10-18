@@ -11,6 +11,7 @@ struct List : Manager
     bool mayFewWindowsBeOpenedAtTheSameTime;
     int activeItemCircleSize = 3;
     double deltaAfterTextBeforeFrame = 50;
+    int isOnMeMbDown = 0;
 
     bool needToHideAfterClick = false;
 
@@ -22,7 +23,7 @@ struct List : Manager
         needToHideAfterClick (_needToHideAfterClick)
     {
         items = new OpenManager * [length];
-        for (int i = 0; i < length; i++)  items[i] = new OpenManager(app);
+        for (int i = 0; i < length; i++)  items[i] = new OpenManager(app, oneItemSize);
 
         isThisItemList = new bool[length] {};
 
@@ -42,5 +43,7 @@ struct List : Manager
     void controlRect();
 
     virtual void draw() override;
+    virtual int mbDown(Vector mp, int button) override;
+    virtual int mbUp(Vector mp, int button) override;
     virtual void onClick(Vector mp) override;
 };

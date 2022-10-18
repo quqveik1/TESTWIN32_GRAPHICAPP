@@ -102,6 +102,19 @@ struct Window
     virtual void MoveWindowTo(Vector delta);
 
 
+    virtual int isVisible()
+    {
+        if (getManager())
+        {
+            if (needToShow) return ((Window*)getManager())->isVisible();
+            else return false;
+        }
+        else
+        {
+            return needToShow;
+        }
+    };
+
     virtual int getMBCondition() {
         if (getManager()) return ((Window*)getManager())->getMBCondition();
         else              return 0;
@@ -113,8 +126,14 @@ struct Window
 
     virtual void setMbLastTime(int pos = -1)
     {
-        if (pos = -1) mbLastTime = getMBCondition();
-        else mbLastTime = pos;
+        if (pos == -1)
+        {
+            mbLastTime = getMBCondition();
+        }
+        else
+        {
+            mbLastTime = pos;
+        }
     };
 
     virtual Vector getMousePos() {

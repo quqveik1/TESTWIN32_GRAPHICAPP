@@ -69,6 +69,7 @@ struct Handle : Manager
     int optionOnClick(Vector mp);
     int getOptionNum(Vector mp);
     void clickIcon();
+    int isOnOptionsDown();
 
     virtual List* createMenuOption(const char* optionText, int* status, bool needToHideAfterClick = false);
     virtual bool addWindowToStart(Window* window);

@@ -361,9 +361,18 @@ COLORREF PowerPoint::getPixel(Vector pos, HDC dc)
     return GetPixel(dc, std::lround (pos.x), std::lround(pos.y));
 }
 
-int PowerPoint::updateScreen()
-{
-    return InvalidateRect(MAINWINDOW, NULL, FALSE);
+int PowerPoint::updateScreen(Window* window)
+{       
+    if (window)
+    {
+        int isVisible = window->isVisible();
+        if (true)
+        {
+            InvalidateRect(MAINWINDOW, NULL, FALSE);
+            printf("[%p] InvalidetedRect\n", window);
+        }
+    }
+    return 0;
 }
 
 void PowerPoint::line(Rect rect, HDC dc)

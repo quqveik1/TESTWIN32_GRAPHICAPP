@@ -37,7 +37,7 @@ struct AbstractAppData
     virtual void setDrawColor(COLORREF color) = 0;
     virtual COLORREF getPixel(Vector pos, HDC dc) = 0;
 
-    virtual int updateScreen() = 0;
+    virtual int updateScreen(struct Window* window) = 0;
 
     //+Function to draw figures
     virtual void rectangle(Rect rect, HDC dc) = 0;

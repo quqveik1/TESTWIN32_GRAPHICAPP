@@ -9,12 +9,13 @@ void OpenManager::click()
         if (getOpeningManager()->needToShow)
         {
             getOpeningManager()->hide();
+            app->updateScreen(this);
         }
         else
         {
             getOpeningManager()->show();
+            app->updateScreen(this);
         }
-        getOpeningManager()->draw();
     }
 
     if (mode == 1)
@@ -27,18 +28,20 @@ void OpenManager::click()
 void OpenManager::onClick(Vector mp)
 {
     setActiveWindow(this);
-    if (!isClickedLastTime())
-    {
-        click(); 
-    }
+
+    click();
     setMbLastTime();
 }
 
-void OpenManager::draw()
-{
-    app->windowsLibApi->standartWindowDraw(this);
 
-    if (app->getAsyncKeyState(VK_CONTROL) && app->getAsyncKeyState(keyBind) && !wasListTimeKeyBoardClicked)
+int OpenManager::onMouseMove(Vector mp, Vector delta)
+{
+    return 0;
+}
+
+int OpenManager::onKeyboard(int key)
+{
+    if (app->getKeyState(VK_CONTROL) && app->getKeyState(keyBind) && !wasListTimeKeyBoardClicked)
     {
         click();
         wasListTimeKeyBoardClicked = true;
@@ -46,15 +49,23 @@ void OpenManager::draw()
 
     if (wasListTimeKeyBoardClicked)
     {
-        if (!app->getAsyncKeyState(keyBind))
+        if (!app->getKeyState(keyBind))
         {
             wasListTimeKeyBoardClicked = false;
         }
     }
+    return 0;
+}
+
+void OpenManager::draw()
+{
+    app->windowsLibApi->standartWindowDraw(this);
+
+    
 
     showControl();
     
-    app->setColor(app->systemSettings->TextColor, finalDC, app->systemSettings->MainFont);
-    app->drawText(rect- rect.pos, text, finalDC);
+    //app->setColor(app->systemSettings->TextColor, finalDC, app->systemSettings->MainFont);
+    //app->drawText(rect- rect.pos, text, finalDC);
     setMbLastTime();
 }

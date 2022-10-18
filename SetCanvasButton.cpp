@@ -24,14 +24,14 @@ void SetCanvasButton::confirmEnter()
     enterStatus = 1;
     canvasManager->addCanvas(getNewCanvasName(), defaultCanvasSize);
     hide();
-    app->updateScreen();
+    app->updateScreen(this);
 }
 
 void SetCanvasButton::cancelEnter()
 {
     enterStatus = -1;
     hide();
-    app->updateScreen();
+    app->updateScreen(this);
 }
 
 
@@ -46,7 +46,7 @@ void SetCanvasButton::show()
     newCanvasSize = defaultCanvasSize;
     strcpy(canvasName, defaultCanvasName);
     MoveWindowTo(app->getCentrizedPos(getSize(), app->systemSettings->SizeOfScreen));
-    app->updateScreen();
+    app->updateScreen(this);
 }
 
 int SetCanvasButton::onKeyboard(int key)
@@ -149,7 +149,8 @@ int SetCanvasButton::mbDown(Vector mp, int button)
 int SetCanvasButton::mbUp(Vector mp, int button)
 {
     app->windowsLibApi->standartManagerMbUp(this, mp, button);
-    return mbUpHandle();
+    if (button == 1) mbUpHandle();
+    return 0;
 }
 
 int SetCanvasButton::onMouseMove(Vector mp, Vector delta)

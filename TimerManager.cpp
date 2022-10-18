@@ -33,7 +33,7 @@ UINT_PTR TimerManager::getNewTimerNum()
 {
     for (;;)
     {
-        UINT_PTR num = rand();
+        UINT_PTR num = rand() %100000;
         if (regNum(num))
         {
             return num;

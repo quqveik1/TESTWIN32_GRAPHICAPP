@@ -18,8 +18,8 @@ struct OpenManager : Window
         format = DT_LEFT | DT_VCENTER;
     }
 
-    OpenManager(AbstractAppData* _app) :
-        Window(_app),
+    OpenManager(AbstractAppData* _app, Vector _size) :
+        Window(_app, { .pos = {}, .finishPos = _size }),
         openingManager(NULL)
     {
         format = DT_LEFT | DT_VCENTER;
@@ -29,7 +29,9 @@ struct OpenManager : Window
 
     virtual void draw() override;
     virtual void onClick(Vector mp) override;
+    virtual int onKeyboard(int key) override;
     virtual void showControl() {};
+    virtual int onMouseMove(Vector mp, Vector delta)  override;
 
     virtual Manager*& getOpeningManager() { return openingManager; };
     virtual void setOpeningManager(Manager* _manager) { openingManager = _manager; };

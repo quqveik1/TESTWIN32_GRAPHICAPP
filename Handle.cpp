@@ -19,6 +19,8 @@ List* Handle::createMenuOption(const char* optionText, int* status, bool needToH
         options[currentOptionsLength].list = newList;
 
         currentOptionsLength++;
+        manager->addWindow(newList);
+
         return newList;
     }
     return NULL;
@@ -67,6 +69,16 @@ void Handle::drawOptions()
         }
 
         app->drawText(options[i].rect, options[i].name, finalDC);
+
+        if (activeOptionNum < 0)
+        {
+            options[i].list->needToShow = false;
+        }
+    }
+
+    if (activeOptionNum >= 0)
+    {
+        options[activeOptionNum].list->show();
     }
 }
 
@@ -222,20 +234,33 @@ int Handle::onMouseMove(Vector mp, Vector delta)
     int answer = getOptionNum(mp);
     if (activeOptionNum >= 0 && answer >= 0 && activeOptionNum != answer)
     {
+        options[activeOptionNum].list->hide();
         activeOptionNum = answer;
         coloredOptionNum = answer;
-        app->updateScreen();
+        app->updateScreen(this);
     }
     
     if (activeOptionNum < 0 && coloredOptionNum != answer)
     {
         coloredOptionNum = answer;
-        app->updateScreen();
+        app->updateScreen(this);
     }
     
 
     app->windowsLibApi->standartManagerOnMouseMove(this, mp, delta);
 
+    return 0;
+}
+
+int Handle::isOnOptionsDown()
+{
+    for (int i = 0; i < currentOptionsLength; i++)
+    {
+        if (options[i].list->isOnMeMbDown)
+        {
+            return i + 1;
+        }
+    }
     return 0;
 }
 
@@ -248,6 +273,13 @@ int Handle::mbDown(Vector mp, int button)
         if ()
     }
     */
+    int isonOptDown = isOnOptionsDown();
+    if (getOptionNum(mp) == -1 && !isonOptDown)
+    {
+        activeOptionNum = -1;
+        coloredOptionNum = -1;
+        app->updateScreen(this);
+    }
     return 0;
 }
 
@@ -302,12 +334,12 @@ int Handle::optionOnClick(Vector mp)
     {
         activeOptionNum = answer;
         coloredOptionNum = answer;
-        app->updateScreen();
+        app->updateScreen(this);
     }
     else
     {
         activeOptionNum = -1;
-        app->updateScreen();
+        app->updateScreen(this);
     }
     return activeOptionNum;
 }
@@ -337,9 +369,10 @@ int Handle::onKeyboard(int key)
 {
     int key1 = app->getKeyState(VK_CONTROL);
     int key2 = app->getKeyState('N');
+
     if (key1 && key2)
     {
-        if (app->canvasManager)app->canvasManager->openCreatingCanvasMenu();
+        //if (app->canvasManager)app->canvasManager->openCreatingCanvasMenu();
     }
     return 0;
 }

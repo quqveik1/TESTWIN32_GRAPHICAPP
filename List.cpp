@@ -49,13 +49,32 @@ Vector List::getNewSubItemCoordinats()
 }
 
 
+int List::mbDown(Vector mp, int button)
+{
+    Rect sizeRect = rect - rect.pos;
+    if (sizeRect.inRect(mp))
+    {
+        isOnMeMbDown = true;
+    }
+
+    return 0;
+}
 
 
-void List::draw()
+int List::mbUp(Vector mp, int button)
+{
+    isOnMeMbDown = false;
+    return 0;
+}
+
+
+
+void List::draw()                                                                                                                               
 {
 
     controlRect();
     app->windowsLibApi->standartManagerDraw(this);
+    Vector size = app->getHDCSize(finalDC);
 
     for (int i = 0; i < currLen; i++)
     {
@@ -89,7 +108,7 @@ void List::onClick(Vector mp)
         //printf ("last: %d, current: %d\n", lastClickedItemNum, clikedButtonNum);
         if (pointers[clikedButtonNum]->needToShow && mayFewWindowsBeOpenedAtTheSameTime)
         {
-            clickButton(pointers[clikedButtonNum], this, mp);
+            //clickButton(pointers[clikedButtonNum], this, mp);
             if (needToHideAfterClick) hide();
         }
         lastClickedItemNum = clikedButtonNum;
