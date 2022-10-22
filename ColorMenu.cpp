@@ -22,12 +22,42 @@ void ColorMenu::loadHistory()
     fclose(saveFile);
 }
 
+
+int ColorMenu::onMouseMove(Vector mp, Vector delta)
+{
+    app->windowsLibApi->standartManagerOnMouseMove(this, mp, delta);
+    moveHandle(delta);
+    return 0;
+}
+
+int ColorMenu::mbDown(Vector mp, int button)
+{
+    app->windowsLibApi->standartManagerMbDown(this, mp, button);
+    clickHandle();
+
+    return 0;
+}
+
+int ColorMenu::mbUp(Vector mp, int button)
+{
+    app->windowsLibApi->standartManagerMbUp(this, mp, button);
+    mbUpHandle();
+
+    return 0;
+}
+
+void ColorMenu::show()
+{
+    setColorComponents();
+    app->windowsLibApi->standartManagerShow(this);
+}
+
 void ColorMenu::draw()
 {
     assert(app);
     assert(app->systemSettings);
 
-    setColorComponents();
+    //setColorComponents();
 
     app->windowsLibApi->standartManagerDraw(this);
 
@@ -81,13 +111,14 @@ void ColorMenu::controlHistoryClick()
     colorHistory.colorHistory[colorHistory.currentPos - 1] = copyColor;
     app->systemSettings->DrawColor = copyColor;
     setColorComponents();
+    app->updateScreen(this);
 }
 
 void ColorMenu::setColorComponents()
 {
-    redComponent = app->getColorComponent(app->systemSettings->DrawColor, TX_RED);
-    greenComponent = app->getColorComponent(app->systemSettings->DrawColor, TX_GREEN);
-    blueComponent = app->getColorComponent(app->systemSettings->DrawColor, TX_BLUE);
+    redComponent = GetRValue (app->systemSettings->DrawColor);
+    greenComponent = GetGValue (app->systemSettings->DrawColor);
+    blueComponent = GetBValue(app->systemSettings->DrawColor);
 }
 
 
@@ -137,7 +168,9 @@ void ColorMenu::controlExampleClick()
         if (exampleColorRects[i].section.inRect(mp))
         {
             app->setDrawColor(exampleColorRects[i].color);
+            setColorComponents();
             if (colorLastTime != exampleColorRects[i].color) confirmColor();
+            app->updateScreen(this);
         }
     }
 }
@@ -187,11 +220,40 @@ void ColorMenu::moveHistory(int clickedNumOfColorRect)
 
 void ColorMenu::confirmColor()
 {
-    if (colorHistory.currHistoryLen < colorHistory.HistoryLength) colorHistory.currHistoryLen++;
-    colorHistory.colorHistory[colorHistory.currentPos] = app->systemSettings->DrawColor;
+    bool needToSaveColor = false;
+    if (colorHistory.currentPos > 0)
+    {
+        if (colorHistory.colorHistory[colorHistory.currentPos - 1] != app->systemSettings->DrawColor)
+        {
+            needToSaveColor = true;
+        }
+    }
+    else 
+    {
+        if (colorHistory.currHistoryLen == colorHistory.HistoryLength)
+        {
+            if (colorHistory.colorHistory[colorHistory.currHistoryLen - 1] != app->systemSettings->DrawColor)
+            {
+                needToSaveColor = true;
+            }
+        }
 
-    if (colorHistory.currentPos < colorHistory.HistoryLength - 1) colorHistory.currentPos++;
-    else                colorHistory.currentPos = 0;
+
+        if (colorHistory.currHistoryLen == 0)
+        {
+            needToSaveColor = true;
+        }
+    }
+
+    if (needToSaveColor)
+    {
+
+        if (colorHistory.currHistoryLen < colorHistory.HistoryLength) colorHistory.currHistoryLen++;
+        colorHistory.colorHistory[colorHistory.currentPos] = app->systemSettings->DrawColor;
+
+        if (colorHistory.currentPos < colorHistory.HistoryLength - 1) colorHistory.currentPos++;
+        else                colorHistory.currentPos = 0;
+    }
 
     confirmedColor = false;
 }

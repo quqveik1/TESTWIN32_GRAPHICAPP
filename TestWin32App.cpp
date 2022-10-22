@@ -81,7 +81,10 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
                 int button = 0;
                 if (message == WM_LBUTTONDOWN) button = 1;
                 if (message == WM_RBUTTONDOWN) button = 2;
+                printf("WM_MBDOWN_START\n");
                 appData->mainManager->mbDown({ (double)LOWORD(lParam), (double)HIWORD(lParam) }, button);
+                appData->captureMouse();
+                printf("WM_MBDOWN_END\n");
                 return 0;
             }
         }
@@ -93,8 +96,11 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
                 int button = 0;
                 if (message == WM_LBUTTONUP) button = 1;
                 if (message == WM_RBUTTONUP) button = 2;
+                printf("WM_MBUP_START\n");
                 appData->mainManager->mbUp({ (double)LOWORD(lParam), (double)HIWORD(lParam) }, button); 
                 appData->mainManager->onClick({ (double)LOWORD(lParam), (double)HIWORD(lParam) });
+                appData->releaseMouse();
+                printf("WM_MBUP_END\n");
                 return 0;
             }
         }
@@ -104,6 +110,7 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
             if (appData->mainManager)
             {
                 appData->mainManager->onKeyboard(wParam);
+                appData->captureMouse();
             }
         }
 

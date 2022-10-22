@@ -17,6 +17,8 @@ void Slider2::draw()
 {
     if (needToShow)
     {
+        doubleVersionOfParameter = *parametr;
+        pointSliderPos.x = doubleVersionOfParameter / kOfParametr;
         app->setColor(app->systemSettings->TRANSPARENTCOLOR, finalDC);
         app->rectangle(0, 0, getSize().x, getSize().y, finalDC);
 
@@ -24,10 +26,6 @@ void Slider2::draw()
         app->rectangle(pointSliderSize.x / 2, pointSliderSize.y, getSize().x - pointSliderSize.x / 2, getSize().y, finalDC);
 
         app->transparentBlt(finalDC, pointSliderPos.x, 0, 0, 0, pointSlider);
-
-        doubleVersionOfParameter = *parametr;
-
-        
     }
     setMbLastTime();
 
@@ -36,14 +34,16 @@ void Slider2::draw()
 
 void Slider2::onClick(Vector mp)
 { 
+    /*
     setActiveWindow(this);
     Rect sliderRect = getPointSliderRect();
     bool lastTimeCLicked = isClickedLastTime();
     if (sliderRect.inRect(mp) && !lastTimeCLicked)
     {
-        isSliderClicked = true;
+        //isSliderClicked = true;
         setMPLastTime();
     }
+    */
 }
 
 int Slider2::onMouseMove(Vector mp, Vector delta)
@@ -68,8 +68,10 @@ int Slider2::onMouseMove(Vector mp, Vector delta)
 
 int Slider2::mbDown(Vector mp, int button)
 {
+    //printf("MbDown\n");
     if ((rect - rect.pos).inRect(mp))
     {
+        
         isSliderClicked = true;
     }
     return 0;
@@ -77,12 +79,14 @@ int Slider2::mbDown(Vector mp, int button)
 
 int Slider2::mbUp(Vector mp, int button)
 {
+    //printf("MbUp\n");
     if (isSliderClicked)
     {
         app->updateScreen(this);
         isSliderClicked = false;
         confirm();
     }
+    
     return 0;
 }
 

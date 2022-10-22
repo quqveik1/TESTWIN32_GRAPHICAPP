@@ -898,6 +898,16 @@ void StringButton2::checkKeyboard(int key)
         return;
     }
 
+    if (app->getKeyState(VK_RETURN))
+    {
+        confirmEnter();
+        cursor.mbUpCursor({});
+        if (getInputMode())app->updateScreen(this);
+        getInputMode() = 0;
+        app->setCursor();
+        return;
+    }
+
     /*
     if (app->isDoubleClick() && (rect-rect.pos).inRect(getMousePos()) && clock() - lastTimeClicked > specButtonsDelta)
     int left = 0;

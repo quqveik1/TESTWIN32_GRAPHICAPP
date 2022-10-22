@@ -30,6 +30,8 @@ struct PowerPoint : AbstractAppData
     virtual COLORREF getPixel(Vector pos, HDC dc) override;
 
     virtual int updateScreen(struct Window* window) override;
+    virtual int captureMouse(HWND wnd = NULL) override;
+    virtual int releaseMouse(HWND wnd = NULL) override;
 
     virtual void rectangle(Rect rect, HDC dc) override;
     virtual void rectangle(double x1, double y1, double x2, double y2, HDC dc) override;

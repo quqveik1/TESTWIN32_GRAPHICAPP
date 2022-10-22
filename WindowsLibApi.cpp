@@ -132,6 +132,26 @@ void CWindowsLibApi::screenChanged(Manager* manager)
     }
 }
 
+int CWindowsLibApi::standartManagerShow(struct Manager* manager)
+{
+    manager->needToShow = true;
+    for (int i = 0; i < manager->getCurLen(); i++)
+    {
+        manager->pointers[i]->show();
+    }
+    return 0;
+} 
+
+int CWindowsLibApi::standartManagerHide(struct Manager* manager)
+{
+    manager->needToShow = false;
+    for (int i = 0; i < manager->getCurLen(); i++)
+    {
+        manager->pointers[i]->hide();
+    }
+    return 0;
+}
+
 int CWindowsLibApi::standartWindowDraw(struct Window* window)
 {
     standartDraw$(window);

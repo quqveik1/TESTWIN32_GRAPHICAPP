@@ -35,5 +35,6 @@ struct ColorComponentChanger : Manager
         addWindow(inputButton);
     }
     virtual void draw() override;
+    virtual int onMouseMove(Vector mp,Vector delta) override;
     virtual void onClick(Vector mp) override;
 };

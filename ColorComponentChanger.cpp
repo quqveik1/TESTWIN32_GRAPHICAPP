@@ -12,6 +12,13 @@ void ColorComponentChanger::draw()
     app->transparentBlt(finalDC, inputButton->rect.pos.x, inputButton->rect.pos.y, 0, 0, inputButton->finalDC);
 }
 
+int ColorComponentChanger::onMouseMove(Vector mp, Vector delta)
+{
+    app->windowsLibApi->standartManagerOnMouseMove(this, mp, delta);
+
+    return 0;
+}
+
 void ColorComponentChanger::onClick(Vector mp)
 {
     setActiveWindow(this);

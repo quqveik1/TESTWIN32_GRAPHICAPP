@@ -178,7 +178,7 @@ void setWindowParameters(PowerPoint* app, HINSTANCE hInstance)
     if (!app->MAINWINDOW) massert(!"Главное окно не создалось:(", app);
 
     ShowWindow(appData->MAINWINDOW, SW_SHOW);
-    UpdateWindow(appData->MAINWINDOW);
+    app->updateScreen(NULL);
 }
 
 HDC PowerPoint::createDIBSection(Vector size, RGBQUAD** pixels/* = NULL*/)
@@ -369,10 +369,26 @@ int PowerPoint::updateScreen(Window* window)
         if (true)
         {
             InvalidateRect(MAINWINDOW, NULL, FALSE);
-            printf("[%p] InvalidetedRect\n", window);
+            //printf("[%p] InvalidetedRect\n", window);
         }
     }
     return 0;
+}
+
+int PowerPoint::captureMouse(HWND wnd/*= NULL*/)
+{
+    if (wnd == NULL) wnd = MAINWINDOW;
+    printf("Mouse was captured\n");
+
+    return (int)SetCapture(wnd);
+}
+
+int PowerPoint::releaseMouse(HWND wnd/*= NULL*/)
+{
+    if (wnd == NULL) wnd = MAINWINDOW;
+    printf("Mouse was released\n");
+
+    return (int)ReleaseCapture();
 }
 
 void PowerPoint::line(Rect rect, HDC dc)

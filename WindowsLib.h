@@ -200,7 +200,7 @@ struct Manager : Window
     {
         assert(app->windowsLibApi);
         handle.manager = this;
-        handle.rect.finishPos.x = getSize().x;
+        //handle.rect.finishPos.x = getSize().x;
         handle.color = systemSettings->MenuColor;
     }
 

@@ -18,6 +18,9 @@ struct CWindowsLibApi
     virtual void controlHandle(Manager* manager);
     virtual void screenChanged(Manager* manager);
 
+    virtual int standartManagerShow(struct Manager* manager);
+    virtual int standartManagerHide(struct Manager* manager);
+
     virtual int standartWindowDraw(struct Window* window);
     virtual int standartManagerDraw(struct Manager* manager);
     virtual int standartManagerOnClick(struct Manager* manager, Vector mp);

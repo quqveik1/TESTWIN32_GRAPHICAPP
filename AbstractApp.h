@@ -38,6 +38,8 @@ struct AbstractAppData
     virtual COLORREF getPixel(Vector pos, HDC dc) = 0;
 
     virtual int updateScreen(struct Window* window) = 0;
+    virtual int captureMouse(HWND wnd = NULL) = 0;
+    virtual int releaseMouse(HWND wnd = NULL) = 0;
 
     //+Function to draw figures
     virtual void rectangle(Rect rect, HDC dc) = 0;
