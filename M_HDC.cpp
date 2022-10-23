@@ -160,7 +160,21 @@ int M_HDC::selectObj(HFONT font)
         return !wasntDelete;
     }
     return -1;
+}  
+
+
+Vector M_HDC::getSize()
+{
+    HBITMAP _bitmap = (HBITMAP)GetCurrentObject((HDC)obj, OBJ_BITMAP);
+    BITMAP bm = {};
+    GetObject(_bitmap, sizeof(bm), (LPVOID)&bm);
+    Vector answer = {};
+    answer.x = bm.bmWidth;
+    answer.y = bm.bmHeight;
+
+    return answer;
 }
+
 
 int M_HDC::setSize(Vector size, struct AbstractAppData* _app, RGBQUAD** pixels/* = NULL*/)
 {

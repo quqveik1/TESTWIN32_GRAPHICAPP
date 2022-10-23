@@ -23,6 +23,7 @@ struct M_HDC : M_HGDIOBJ
     virtual int selectObj(HFONT font);
     
     virtual int setSize(Vector size, struct AbstractAppData* app, RGBQUAD** pixels = NULL);
+    virtual Vector getSize();
 
     virtual int deleteObj() override;
 };

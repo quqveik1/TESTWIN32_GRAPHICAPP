@@ -57,9 +57,10 @@ void ColorMenu::draw()
     assert(app);
     assert(app->systemSettings);
 
-    //setColorComponents();
-
+    app->setColor(color, finalDC);
+    app->rectangle(rect - rect.pos, finalDC);
     app->windowsLibApi->standartManagerDraw(this);
+    handle.print(finalDC);
 
     if (app->systemSettings->debugMode >= 3)printf("colorHistory.currentPos: %d\n", colorHistory.currentPos);
     
@@ -69,8 +70,10 @@ void ColorMenu::draw()
     }
     if (needToShow)
     {
-        app->setColor(app->systemSettings->DrawColor, finalDC);
-        app->rectangle(20, 85, 45, 110, finalDC);
+        app->setColor(splitLinesColor, finalDC);
+        app->line(0, handle.rect.finishPos.y, getSize().x, handle.rect.finishPos.y, finalDC);
+        //app->setColor(app->systemSettings->DrawColor, finalDC);
+        //app->rectangle(220, 85, 245, 110, finalDC);
 
         drawColorHistory();
         drawColorExamples();
@@ -173,6 +176,12 @@ void ColorMenu::controlExampleClick()
             app->updateScreen(this);
         }
     }
+}
+
+void ColorMenu::initPalette()
+{
+    palette.setSize(paletteSize, app);
+    for(int hue = 0; hue)
 }
 
 

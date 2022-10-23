@@ -467,12 +467,20 @@ void StringButton2::draw()
 int StringButton2::onMouseMove(Vector mp, Vector delta)
 {
     if (cursor.isSelecting)cursor.mMoveCursor(mp);
+
+    if (cursor.isSelecting) cursor.isLastTimeSelecting = true;
     if ((rect - rect.pos).inRect(mp) || cursor.isSelecting)
     {
         app->setCursor(cursorImage);
     }
-    else
+    else if ((rect - rect.pos).inRect(mp - delta))
     {
+        app->setCursor();
+    }
+
+    if (cursor.isLastTimeSelecting && cursor.isSelecting == 0)
+    {
+        cursor.isLastTimeSelecting = false;
         app->setCursor();
     }
     return 0;

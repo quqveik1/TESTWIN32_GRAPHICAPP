@@ -33,7 +33,8 @@ struct ColorMenu : Manager
     //saveable part
     char pathToSaveHistory[MAX_PATH] = {};
     
-    Vector colorHistoryStartPos = {45, 175};
+
+    Vector colorHistoryStartPos = {45, 275};
     Vector colorSectionSize = {25, 25};
     Vector exampleColorStartPos = { colorHistoryStartPos.x,  colorHistoryStartPos.y + colorSectionSize.x  + 15};
     ColorSection* exampleColorRects = NULL;
@@ -41,17 +42,21 @@ struct ColorMenu : Manager
     COLORREF colorLastTime = NULL;
 
     COLORREF frameColor = RGB(144, 144, 144);
+    COLORREF splitLinesColor = RGB(144, 144, 144);
     
     Vector sizeOfColorMenu = {412, 227};
     bool confirmedColor = false;
+
+    M_HDC palette = {};
+    Vector paletteSize = {256, 256};
     
 
     void loadHistory();
 
 
     ColorMenu(AbstractAppData* _app, Vector _pos, const char* _pathToHistory, bool _needToShow = false) :
-        sizeOfColorMenu({ 412, 257 }),
-        Manager(_app, {}, 3, _needToShow, _app->loadManager->loadImage("ColorsMenu-2.bmp"), { .pos = {0, 0}, .finishPos = { 412, 50 } })
+        sizeOfColorMenu({ 512, 357 }),
+        Manager(_app, {}, 3, _needToShow, NULL, { .pos = {0, 0}, .finishPos = { 512, 50 } })
     {
         assert(app);
         assert(app->systemSettings);
@@ -89,15 +94,19 @@ struct ColorMenu : Manager
         Rect newRect = { .pos = _pos, .finishPos = _pos + sizeOfColorMenu };
         resize(newRect);
 
+        palette.setSize(paletteSize, app);
+
+        handle.text = "Цвет";
+
         setColorComponents();
 
-        redChanger = new ColorComponentChanger(app, { .pos = {75, 55}, .finishPos = {390, 80} }, &redComponent, &confirmedColor);
+        redChanger = new ColorComponentChanger(app, { .pos = {275, 55}, .finishPos = {490, 80} }, &redComponent, &confirmedColor);
         addWindow(redChanger);
 
-        greenChanger = new ColorComponentChanger(app, { .pos = {75, 85}, .finishPos = {390, 110} }, &greenComponent, &confirmedColor);
+        greenChanger = new ColorComponentChanger(app, { .pos = {275, 85}, .finishPos = {490, 110} }, &greenComponent, &confirmedColor);
         addWindow(greenChanger);
 
-        blueChanger = new ColorComponentChanger(app, { .pos = {75, 115}, .finishPos = {390, 140} }, &blueComponent, &confirmedColor);
+        blueChanger = new ColorComponentChanger(app, { .pos = {275, 115}, .finishPos = {490, 140} }, &blueComponent, &confirmedColor);
         addWindow(blueChanger);
     }
 
@@ -113,6 +122,8 @@ struct ColorMenu : Manager
     void drawColorExamples();
     void drawOneColorSection(Rect sectionRect, COLORREF sectionColor);
     void controlExampleClick();
+    
+    void initPalette();
     
     
     virtual void show() override;

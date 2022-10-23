@@ -28,6 +28,7 @@ struct PowerPoint : AbstractAppData
     virtual int getColorComponent(COLORREF color, COLORREF component) override;
     virtual void setDrawColor(COLORREF color) override;
     virtual COLORREF getPixel(Vector pos, HDC dc) override;
+    virtual COLORREF HSL2RGB(COLORREF HSL) override;
 
     virtual int updateScreen(struct Window* window) override;
     virtual int captureMouse(HWND wnd = NULL) override;

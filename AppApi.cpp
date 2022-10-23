@@ -356,6 +356,41 @@ void PowerPoint::setDrawColor(COLORREF color)
     systemSettings->DrawColor = color;
 }
 
+COLORREF PowerPoint::HSL2RGB(COLORREF HSL)
+{
+
+    struct xRGB
+    {
+        static double calc(double h, double m1, double m2)
+        {
+                      while (h < 0)   h += 360;
+                       while (h > 360) h -= 360;
+
+                       return (h < 60) ? m1 + (m2 - m1) * h / 60 :
+                (h < 180) ? m2 :
+                (h < 240) ? m1 + (m2 - m1) * (240 - h) / 60 :
+                m1;
+        }
+    };
+
+      int    si = GetGValue(HSL);
+
+      double h = GetRValue(HSL) / 256.0 * 360,
+        s = GetGValue(HSL) / 255.0,
+        l = GetBValue(HSL) / 255.0,
+
+        m2 = (l <= 0.5) ? l * (1 + s) : l + s - l * s,
+        m1 = 2 * l - m2,
+
+        r = (si) ? xRGB::calc(h + 120, m1, m2) : l,
+        g = (si) ? xRGB::calc(h, m1, m2) : l,
+        b = (si) ? xRGB::calc(h - 120, m1, m2) : l;
+
+      COLORREF rgbColor = RGB(std::lround(r * 255), std::lround(g * 255), std::lround(b * 255));
+
+       return rgbColor;
+}
+
 COLORREF PowerPoint::getPixel(Vector pos, HDC dc)
 {
     return GetPixel(dc, std::lround (pos.x), std::lround(pos.y));
@@ -689,6 +724,7 @@ void PowerPoint::setCursor(HCURSOR cursor/*= NULL*/)
 {
     if (cursor == NULL) cursor = defaultCursor;
     activeCursor = cursor;
+    printf("Cursor[%d] was set\n", cursor);
     lastTimeCursorSetTime = clock();
 }
 

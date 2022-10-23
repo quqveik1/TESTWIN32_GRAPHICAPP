@@ -17,6 +17,7 @@ struct Cursor
     int startPos = -1;
     int currPos = -1;
     int isSelecting = 0;
+    int isLastTimeSelecting = false;
     int lastTimeCursorConditionChanged = 0;
     bool wasClicked = false;
     bool shouldShowCursor = false;

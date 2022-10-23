@@ -36,6 +36,7 @@ struct AbstractAppData
     virtual int getColorComponent(COLORREF color, COLORREF component) = 0;
     virtual void setDrawColor(COLORREF color) = 0;
     virtual COLORREF getPixel(Vector pos, HDC dc) = 0;
+    virtual COLORREF HSL2RGB(COLORREF HSL) = 0;
 
     virtual int updateScreen(struct Window* window) = 0;
     virtual int captureMouse(HWND wnd = NULL) = 0;
