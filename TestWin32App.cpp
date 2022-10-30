@@ -181,7 +181,7 @@ int initProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
     createList->addNewItem(canvasManager->getSetCanvasButton(), NULL, "Создать холст", NULL, 'N');
 
 
-    ColorMenu* colorMenu = new ColorMenu(appData, {300, 300}, NULL);
+    ColorMenu* colorMenu = new ColorMenu(appData, {300, 200}, NULL);
     manager->addWindow(colorMenu);
 
     List* openWindows = mainHandle->createMenuOption("Окна", NULL);

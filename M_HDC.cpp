@@ -178,17 +178,23 @@ Vector M_HDC::getSize()
 
 int M_HDC::setSize(Vector size, struct AbstractAppData* _app, RGBQUAD** pixels/* = NULL*/)
 {
-    BITMAPINFO info = { { sizeof(info), size.x, size.y, 1, WORD(sizeof(RGBQUAD) * 8), BI_RGB } };
-    HBITMAP bmap = CreateDIBSection(NULL, &info, DIB_RGB_COLORS, (void**)pixels, NULL, 0);
-    if (!bmap)
+    if (size != getSize())
     {
-        printf("bitmap с размером %s не создалась(\n", size.getStr());
-        return 0;
+        BITMAPINFO info = { { sizeof(info), size.x, size.y, 1, WORD(sizeof(RGBQUAD) * 8), BI_RGB } };
+        HBITMAP bmap = CreateDIBSection(NULL, &info, DIB_RGB_COLORS, (void**)pixels, NULL, 0);
+        if (!bmap)
+        {
+            printf("bitmap с размером %s не создалась(\n", size.getStr());
+            return 0;
+        }
+        app = _app;
+        assert(app);
+        selectObj(bmap);
+        return (int)bmap;
     }
-    app = _app;
-    assert(app);
-    selectObj(bmap);
-    return (int)bmap;
+
+    return NULL;
+    
 }
 
 int M_HDC::deleteObj()

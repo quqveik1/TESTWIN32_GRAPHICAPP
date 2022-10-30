@@ -1,10 +1,79 @@
 #pragma once
 #include "ColorMenu.h"
+#include "HSLPalette.cpp"
+
+
 
 
 int ColorHistory::getByteSize()
 {                      
     return sizeof(*this);
+}
+
+
+ColorMenu::ColorMenu(AbstractAppData* _app, Vector _pos, const char* _pathToHistory, bool _needToShow /*= false*/) :
+    sizeOfColorMenu({ 512, 457 }),
+    Manager(_app, {}, 3, _needToShow, NULL, { .pos = {0, 0}, .finishPos = { 512, 50 } }),
+    hslPalette(app, palettePos)
+{
+    assert(app);
+    assert(app->systemSettings);
+    addWindow(&hslPalette);
+
+    colorHistoryStartPos = { hslPalette.rect.pos.x, hslPalette.rect.finishPos.y + 25 };
+    exampleColorStartPos = { colorHistoryStartPos.x,  colorHistoryStartPos.y + colorSectionSize.x + 15 };
+
+    needTransparencyOutput = true;
+
+    if (_pathToHistory)
+    {
+        strcpy(pathToSaveHistory, _pathToHistory);
+    }
+    loadHistory();
+    colorExamplesNum = colorHistory.HistoryLength;
+    exampleColorRects = new ColorSection[colorExamplesNum]{};
+    setColorExamples();
+
+    colorLastTime = app->systemSettings->DrawColor;
+
+
+    if (colorHistory.currentPos - 1 < 0)
+    {
+        if (colorHistory.currHistoryLen == colorHistory.HistoryLength && colorHistory.colorHistory[colorHistory.HistoryLength - 1] != app->systemSettings->DrawColor)
+        {
+            confirmColor();
+        }
+        if (colorHistory.currHistoryLen == 0)
+        {
+            confirmColor();
+        }
+    }
+    else if (colorHistory.colorHistory[colorHistory.currentPos - 1] != app->systemSettings->DrawColor)
+    {
+        confirmColor();
+    }
+
+    Rect newRect = { .pos = _pos, .finishPos = _pos + sizeOfColorMenu };
+    resize(newRect);
+
+    initPalette();
+
+    handle.text = "Цвет";
+
+    setColorComponents();
+
+    redChanger = new ColorComponentChanger(app, { .pos = {hslPalette.rect.finishPos.x + 25, handle.rect.finishPos.y + 25}, .finishPos = {hslPalette.rect.finishPos.x + 215, handle.rect.finishPos.y + 50} }, &redComponent, &confirmedColor);
+    addWindow(redChanger);
+
+    greenChanger = new ColorComponentChanger(app, { .pos = {hslPalette.rect.finishPos.x + 25, redChanger->rect.finishPos.y + 5}, .finishPos = {hslPalette.rect.finishPos.x + 215, redChanger->rect.finishPos.y + 30} }, &greenComponent, &confirmedColor);
+    addWindow(greenChanger);
+
+    blueChanger = new ColorComponentChanger(app, { .pos = {hslPalette.rect.finishPos.x + 25, greenChanger->rect.finishPos.y + 5}, .finishPos = {hslPalette.rect.finishPos.x + 215, greenChanger->rect.finishPos.y + 30} }, &blueComponent, &confirmedColor);
+    addWindow(blueChanger);
+
+    currColorPos = app->getCentrizedPos({ 25, 25 }, { rect.getSize().x - hslPalette.rect.finishPos.x, 0 });
+    currColorPos.x += hslPalette.rect.finishPos.x;
+    currColorPos.y = blueChanger->rect.finishPos.y + 25;
 }
 
 
@@ -72,9 +141,13 @@ void ColorMenu::draw()
     {
         app->setColor(splitLinesColor, finalDC);
         app->line(0, handle.rect.finishPos.y, getSize().x, handle.rect.finishPos.y, finalDC);
-        //app->setColor(app->systemSettings->DrawColor, finalDC);
-        //app->rectangle(220, 85, 245, 110, finalDC);
+        
 
+        //app->bitBlt(finalDC, palettePos, {}, palette);
+
+        
+        app->setColor(app->systemSettings->DrawColor, finalDC);
+        app->rectangle(currColorPos.x, currColorPos.y, currColorPos.x + 25, currColorPos.y + 25, finalDC);
         drawColorHistory();
         drawColorExamples();
 
@@ -180,8 +253,19 @@ void ColorMenu::controlExampleClick()
 
 void ColorMenu::initPalette()
 {
-    palette.setSize(paletteSize, app);
-    for(int hue = 0; hue)
+    /*
+    palette.setSize(paletteRect.getSize(), app);
+    for (int hue = 0; hue < 256; hue++)
+    {
+        for (int sat = 0; sat < 256; sat++)
+        {
+            //COLORREF pixelPos = sat * paletteSize.x + hue;
+            COLORREF _hsl = RGB(hue, sat, lightness);
+            COLORREF _rgb = app->HSL2RGB(_hsl);
+            app->setPixel({ (double)hue, (double)sat }, _rgb, palette);
+        }
+    }
+    */
 }
 
 

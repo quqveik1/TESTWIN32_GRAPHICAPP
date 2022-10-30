@@ -391,6 +391,11 @@ COLORREF PowerPoint::HSL2RGB(COLORREF HSL)
        return rgbColor;
 }
 
+int PowerPoint::setPixel(Vector pos, COLORREF _color, HDC dc)
+{
+    return SetPixel(dc, pos.x, pos.y, _color);
+}
+
 COLORREF PowerPoint::getPixel(Vector pos, HDC dc)
 {
     return GetPixel(dc, std::lround (pos.x), std::lround(pos.y));

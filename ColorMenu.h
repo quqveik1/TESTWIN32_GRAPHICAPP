@@ -1,11 +1,12 @@
 #pragma once
 #include "ColorComponentChanger.cpp" 
+#include "HSLPalette.h"
 
 struct ColorHistory
 {
-    int HistoryLength = 11;
-    COLORREF colorHistory[11] = {};
-    Rect colorRect[11] = {};
+    static const int HistoryLength = 15;
+    COLORREF colorHistory[HistoryLength] = {};
+    Rect colorRect[HistoryLength] = {};
     int currentPos = 0;
     int currHistoryLen = 0;
 
@@ -32,11 +33,21 @@ struct ColorMenu : Manager
     ColorHistory colorHistory;
     //saveable part
     char pathToSaveHistory[MAX_PATH] = {};
+
+    //M_HDC palette = {};
+    //Vector paletteSize = { 256, 256 };
+    Vector palettePos = { 25, handle.rect.finishPos.y + 25 };
+    //Rect paletteRect = { .pos = palettePos,  .finishPos = palettePos + paletteSize };
     
 
-    Vector colorHistoryStartPos = {45, 275};
-    Vector colorSectionSize = {25, 25};
-    Vector exampleColorStartPos = { colorHistoryStartPos.x,  colorHistoryStartPos.y + colorSectionSize.x  + 15};
+    HSLPalette hslPalette;
+
+    Vector currColorPos = {};
+    
+
+    Vector colorSectionSize = { 25, 25 };
+    Vector colorHistoryStartPos = {};
+    Vector exampleColorStartPos = {};
     ColorSection* exampleColorRects = NULL;
     int colorExamplesNum = NULL;
     COLORREF colorLastTime = NULL;
@@ -47,68 +58,13 @@ struct ColorMenu : Manager
     Vector sizeOfColorMenu = {412, 227};
     bool confirmedColor = false;
 
-    M_HDC palette = {};
-    Vector paletteSize = {256, 256};
+    
     
 
     void loadHistory();
 
 
-    ColorMenu(AbstractAppData* _app, Vector _pos, const char* _pathToHistory, bool _needToShow = false) :
-        sizeOfColorMenu({ 512, 357 }),
-        Manager(_app, {}, 3, _needToShow, NULL, { .pos = {0, 0}, .finishPos = { 512, 50 } })
-    {
-        assert(app);
-        assert(app->systemSettings);
-
-        needTransparencyOutput = true;
-
-        if (_pathToHistory)
-        {
-            strcpy(pathToSaveHistory, _pathToHistory);
-        }
-        loadHistory();
-        colorExamplesNum = colorHistory.HistoryLength;
-        exampleColorRects = new ColorSection[colorExamplesNum]{};
-        setColorExamples();
-
-        colorLastTime = app->systemSettings->DrawColor;
-
-
-        if (colorHistory.currentPos - 1 < 0)
-        {
-            if (colorHistory.currHistoryLen == colorHistory.HistoryLength && colorHistory.colorHistory[colorHistory.HistoryLength - 1] != app->systemSettings->DrawColor)
-            {
-                confirmColor();
-            }
-            if (colorHistory.currHistoryLen == 0)
-            {
-                confirmColor();
-            }
-        }
-        else if (colorHistory.colorHistory[colorHistory.currentPos - 1] != app->systemSettings->DrawColor)
-        {
-            confirmColor();
-        }
-
-        Rect newRect = { .pos = _pos, .finishPos = _pos + sizeOfColorMenu };
-        resize(newRect);
-
-        palette.setSize(paletteSize, app);
-
-        handle.text = "Цвет";
-
-        setColorComponents();
-
-        redChanger = new ColorComponentChanger(app, { .pos = {275, 55}, .finishPos = {490, 80} }, &redComponent, &confirmedColor);
-        addWindow(redChanger);
-
-        greenChanger = new ColorComponentChanger(app, { .pos = {275, 85}, .finishPos = {490, 110} }, &greenComponent, &confirmedColor);
-        addWindow(greenChanger);
-
-        blueChanger = new ColorComponentChanger(app, { .pos = {275, 115}, .finishPos = {490, 140} }, &blueComponent, &confirmedColor);
-        addWindow(blueChanger);
-    }
+    ColorMenu(AbstractAppData* _app, Vector _pos, const char* _pathToHistory, bool _needToShow = false);
 
 
     virtual void saveMenu();
