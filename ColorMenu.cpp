@@ -12,9 +12,9 @@ int ColorHistory::getByteSize()
 
 
 ColorMenu::ColorMenu(AbstractAppData* _app, Vector _pos, const char* _pathToHistory, bool _needToShow /*= false*/) :
-    sizeOfColorMenu({ 512, 457 }),
-    Manager(_app, {}, 3, _needToShow, NULL, { .pos = {0, 0}, .finishPos = { 512, 50 } }),
-    hslPalette(app, palettePos)
+    sizeOfColorMenu({ 512, 410 }),
+    Manager(_app, {}, 4, _needToShow, NULL, { .pos = {0, 0}, .finishPos = { 512, 25 } }),
+    hslPalette(app, palettePos, &confirmedColor)
 {
     assert(app);
     assert(app->systemSettings);
@@ -59,16 +59,17 @@ ColorMenu::ColorMenu(AbstractAppData* _app, Vector _pos, const char* _pathToHist
     initPalette();
 
     handle.text = "Цвет";
+    handle.font = app->systemSettings->MainFont + 5;
 
     setColorComponents();
 
-    redChanger = new ColorComponentChanger(app, { .pos = {hslPalette.rect.finishPos.x + 25, handle.rect.finishPos.y + 25}, .finishPos = {hslPalette.rect.finishPos.x + 215, handle.rect.finishPos.y + 50} }, &redComponent, &confirmedColor);
+    redChanger = new ColorComponentChanger(app, { .pos = {hslPalette.rect.finishPos.x + 25, handle.rect.finishPos.y + 25}, .finishPos = {hslPalette.rect.finishPos.x + 215, handle.rect.finishPos.y + 50} }, &redComponent, &confirmedColor, 1);
     addWindow(redChanger);
 
-    greenChanger = new ColorComponentChanger(app, { .pos = {hslPalette.rect.finishPos.x + 25, redChanger->rect.finishPos.y + 5}, .finishPos = {hslPalette.rect.finishPos.x + 215, redChanger->rect.finishPos.y + 30} }, &greenComponent, &confirmedColor);
+    greenChanger = new ColorComponentChanger(app, { .pos = {hslPalette.rect.finishPos.x + 25, redChanger->rect.finishPos.y + 5}, .finishPos = {hslPalette.rect.finishPos.x + 215, redChanger->rect.finishPos.y + 30} }, &greenComponent, &confirmedColor, 2);
     addWindow(greenChanger);
 
-    blueChanger = new ColorComponentChanger(app, { .pos = {hslPalette.rect.finishPos.x + 25, greenChanger->rect.finishPos.y + 5}, .finishPos = {hslPalette.rect.finishPos.x + 215, greenChanger->rect.finishPos.y + 30} }, &blueComponent, &confirmedColor);
+    blueChanger = new ColorComponentChanger(app, { .pos = {hslPalette.rect.finishPos.x + 25, greenChanger->rect.finishPos.y + 5}, .finishPos = {hslPalette.rect.finishPos.x + 215, greenChanger->rect.finishPos.y + 30} }, &blueComponent, &confirmedColor, 3);
     addWindow(blueChanger);
 
     currColorPos = app->getCentrizedPos({ 25, 25 }, { rect.getSize().x - hslPalette.rect.finishPos.x, 0 });
@@ -94,8 +95,11 @@ void ColorMenu::loadHistory()
 
 int ColorMenu::onMouseMove(Vector mp, Vector delta)
 {
+    //app->systemSettings->DrawColor = RGB(redComponent, greenComponent, blueComponent);
     app->windowsLibApi->standartManagerOnMouseMove(this, mp, delta);
     moveHandle(delta);
+
+    
     return 0;
 }
 
@@ -125,6 +129,10 @@ void ColorMenu::draw()
 {
     assert(app);
     assert(app->systemSettings);
+
+    //redComponent = GetRValue(app->systemSettings->DrawColor);
+    //greenComponent = GetGValue(app->systemSettings->DrawColor);
+    //blueComponent = GetBValue(app->systemSettings->DrawColor);
 
     app->setColor(color, finalDC);
     app->rectangle(rect - rect.pos, finalDC);
@@ -168,6 +176,17 @@ void ColorMenu::onClick(Vector mp)
 
     controlHistoryClick();
     controlExampleClick();
+}
+
+int ColorMenu::onKeyboard(int key)
+{
+    if (key == VK_ESCAPE)
+    {
+        hide(); 
+        app->updateScreen(this);
+    }
+    app->windowsLibApi->standartManagerOnKeyboard(this, key);
+    return 0;
 }
 
 void ColorMenu::controlHistoryClick()
@@ -224,16 +243,21 @@ void ColorMenu::setColorExamples()
     }
 
     exampleColorRects[0].color = TX_RED;
-    exampleColorRects[1].color = TX_BLUE;
-    exampleColorRects[2].color = TX_GREEN;
-    exampleColorRects[3].color = TX_CYAN;
-    exampleColorRects[4].color = TX_MAGENTA;
-    exampleColorRects[5].color = TX_BROWN;
-    exampleColorRects[6].color = TX_GRAY;
-    exampleColorRects[7].color = TX_PINK;
-    exampleColorRects[8].color = TX_WHITE;
-    exampleColorRects[9].color = TX_BLACK;
-    exampleColorRects[10].color = TX_YELLOW;
+    exampleColorRects[1].color = TX_LIGHTRED;
+    exampleColorRects[2].color = TX_BLUE;
+    exampleColorRects[3].color = TX_LIGHTBLUE;
+    exampleColorRects[4].color = TX_GREEN;
+    exampleColorRects[5].color = TX_LIGHTGREEN;
+    exampleColorRects[6].color = TX_YELLOW;
+    exampleColorRects[7].color = TX_CYAN;
+    exampleColorRects[8].color = TX_LIGHTCYAN;
+    exampleColorRects[9].color = TX_MAGENTA;
+    exampleColorRects[10].color = TX_BROWN;
+    exampleColorRects[11].color = TX_GRAY;
+    exampleColorRects[12].color = TX_PINK;
+    exampleColorRects[13].color = TX_WHITE;
+    exampleColorRects[14].color = TX_BLACK;
+    
 }
 
 void ColorMenu::controlExampleClick()

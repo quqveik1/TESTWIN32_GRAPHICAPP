@@ -389,17 +389,6 @@ int StringButton2::onKeyboard(int key)
 
     if (getInputMode())
     {
-        /*
-        if (getActiveWindow() != this || app->getKeyState(VK_RETURN))
-        {
-            if (!cursor.isActiveSelection())
-            {
-                getInputMode() = 0;
-                confirmEnter();
-            }
-        }
-        */
-
         if (app->getKeyState(VK_ESCAPE))
         {
             getInputMode() = 0;

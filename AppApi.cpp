@@ -391,6 +391,51 @@ COLORREF PowerPoint::HSL2RGB(COLORREF HSL)
        return rgbColor;
 }
 
+
+COLORREF PowerPoint::RGB2HSL(COLORREF rgbColor)
+{
+    struct xRGB
+    {
+        static bool zero(double val)
+        {
+            const double prec = 0.001;
+
+            return (fabs(val) < prec);
+        }
+    };
+
+    double r = GetRValue(rgbColor) / 255.0,  //-V2551
+        g = GetGValue(rgbColor) / 255.0,  //-V2551
+        b = GetBValue(rgbColor) / 255.0,  //-V2551
+
+        m1 = max(max(r, g), b),
+        m2 = min(min(r, g), b),
+        dm = m1 - m2,
+        sm = m1 + m2,
+
+        h = 0,
+        s = 0,
+        l = sm / 2;
+
+    if (!xRGB::zero(dm))
+    {
+        sm = (sm <= 1) ? sm : (2 - sm);
+        s = (!xRGB::zero(sm)) ? dm / sm : 0;
+
+        double cr = (!xRGB::zero(dm)) ? (m1 - r) / dm : 0,
+        cg = (!xRGB::zero(dm)) ? (m1 - g) / dm : 0,
+        cb = (!xRGB::zero(dm)) ? (m1 - b) / dm : 0;
+
+        if (xRGB::zero(r - m1)) h = cb - cg;
+        if (xRGB::zero(g - m1)) h = 2 + cr - cb;
+        if (xRGB::zero(b - m1)) h = 4 + cg - cr;
+    }
+
+        h = (h >= 0) ? h * 60 : h * 60 + 360;
+
+       return RGB(std::lround(h / 360.0 * 256), std::lround(s * 255), std::lround(l * 255));
+}
+
 int PowerPoint::setPixel(Vector pos, COLORREF _color, HDC dc)
 {
     return SetPixel(dc, pos.x, pos.y, _color);

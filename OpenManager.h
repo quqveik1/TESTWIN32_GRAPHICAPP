@@ -15,14 +15,14 @@ struct OpenManager : Window
         Window(_app, _rect, _color, _dc, NULL, _text),
         openingManager(_manager)
     {
-        format = DT_LEFT | DT_VCENTER;
+        format = DT_LEFT | DT_VCENTER | DT_SINGLELINE;
     }
 
     OpenManager(AbstractAppData* _app, Vector _size) :
         Window(_app, { .pos = {}, .finishPos = _size }),
         openingManager(NULL)
     {
-        format = DT_LEFT | DT_VCENTER;
+        format = DT_LEFT | DT_VCENTER | DT_SINGLELINE;
     }
 
     void click();

@@ -110,7 +110,7 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
             if (appData->mainManager)
             {
                 appData->mainManager->onKeyboard(wParam);
-                appData->captureMouse();
+                //appData->captureMouse();
             }
         }
 

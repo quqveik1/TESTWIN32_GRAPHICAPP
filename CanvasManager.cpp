@@ -52,7 +52,7 @@ void CanvasManager::drawTabs()
     {
         app->setColor(app->systemSettings->TextColor, finalDC);
         app->selectFont(app->systemSettings->FONTNAME, font, finalDC);
-        app->drawText({ .pos = {}, .finishPos = {getSize().x, oneTabSize.y} }, "FAQ доступен при клике на логотип слева наверху", finalDC, DT_BOTTOM | DT_CENTER);
+        app->drawText({ .pos = {}, .finishPos = {getSize().x, oneTabSize.y} }, "FAQ доступен при клике на логотип слева наверху", finalDC, DT_VCENTER | DT_SINGLELINE| DT_CENTER);
     }
 
     for (int i = 0; i < currentCanvasesLength; i++)

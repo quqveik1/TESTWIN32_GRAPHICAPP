@@ -14,7 +14,35 @@ void ColorComponentChanger::draw()
 
 int ColorComponentChanger::onMouseMove(Vector mp, Vector delta)
 {
+    if (componentType == 1)
+    {
+        *component = GetRValue(app->systemSettings->DrawColor);
+    }
+    if (componentType == 2)
+    {
+        *component = GetGValue(app->systemSettings->DrawColor);
+    }
+    if (componentType == 3)
+    {
+        *component = GetBValue(app->systemSettings->DrawColor);
+    }
+
     app->windowsLibApi->standartManagerOnMouseMove(this, mp, delta);
+
+
+    if (componentType == 1)
+    {
+        app->systemSettings->DrawColor = RGB(*component, GetGValue(app->systemSettings->DrawColor), GetBValue(app->systemSettings->DrawColor));
+    }
+    if (componentType == 2)
+    {
+        app->systemSettings->DrawColor = RGB(GetRValue(app->systemSettings->DrawColor), *component, GetBValue(app->systemSettings->DrawColor));
+    }
+    if (componentType == 3)
+    {
+        app->systemSettings->DrawColor = RGB(GetRValue(app->systemSettings->DrawColor), GetGValue(app->systemSettings->DrawColor), *component);
+    }
+
 
     return 0;
 }

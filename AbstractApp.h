@@ -38,6 +38,7 @@ struct AbstractAppData
     virtual COLORREF getPixel(Vector pos, HDC dc) = 0;
     virtual int setPixel(Vector pos, COLORREF _color, HDC dc) = 0;
     virtual COLORREF HSL2RGB(COLORREF HSL) = 0;
+    virtual COLORREF RGB2HSL(COLORREF rgbColor) = 0;
 
     virtual int updateScreen(struct Window* window) = 0;
     virtual int captureMouse(HWND wnd = NULL) = 0;

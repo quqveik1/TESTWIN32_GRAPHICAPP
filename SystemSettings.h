@@ -26,7 +26,7 @@ struct CSystemSettings
 
     int MainFont = NULL;
     char FONTNAME[256] = {};
-    int TEXTFORMAT = NULL;// = DT_CENTER | DT_VCENTER | DT_WORDBREAK | DT_WORD_ELLIPSIS;
+    int TEXTFORMAT = NULL;// = DT_CENTER | DT_VCENTER | DT_SINGLELINE;
 
     double HANDLEHEIGHT = NULL;
     double BUTTONWIDTH = NULL;

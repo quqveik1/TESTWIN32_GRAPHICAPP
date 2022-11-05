@@ -135,7 +135,7 @@ void CSystemSettings::setDefaultSettings()
 
     MainFont = 20;
     strcpy(FONTNAME, "Arial");
-    TEXTFORMAT = 262165;
+    TEXTFORMAT = DT_SINGLELINE | DT_VCENTER | DT_CENTER;
 
     HANDLEHEIGHT = 25.000000;
     BUTTONWIDTH = 50.000000;
