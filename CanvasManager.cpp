@@ -138,7 +138,7 @@ void CanvasManager::controlActiveCanvas()
         getActiveCanvas()->getScale() = (double)intScale / 100.0;
 
         //controlStretching();
-        //controlPosition();
+        controlPosition();
 
         getActiveCanvas()->print(finalDC);
     }
@@ -250,8 +250,15 @@ int CanvasManager::onKeyboard(int key)
 
 void CanvasManager::onClick(Vector mp)
 {
+    if (setCanvasButton->rect.inRect(mp))
+    {
+        setCanvasButton->onClick(mp);
+        return;
+    }
+
     if (tabsOnClick() >= 0) return;
-    app->windowsLibApi->standartManagerOnClick(this, mp);
+    //app->windowsLibApi->standartManagerOnClick(this, mp);
+    
 
     if (getActiveCanvas())
     {
@@ -288,6 +295,7 @@ int CanvasManager::tabsOnClick()
         if (tabs[i].inRect(mp))
         {
             activeCanvasNum = i;
+            app->updateScreen(this);
             Rect crossRect = { .pos = {tabs[i].finishPos.x - tabCrossSize.x, tabs[i].pos.y}, .finishPos = {tabs[i].finishPos.x, tabs[i].finishPos.y} };
             if (crossRect.inRect(mp) && !isClickedLastTime())
             {

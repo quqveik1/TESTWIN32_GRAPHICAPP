@@ -33,10 +33,8 @@ const char* findExtensionStart(const char* text, int extensionPos);
 PowerPoint::PowerPoint(HINSTANCE hInstance)
 {
     appVersion = "v0.2.3.0";
-    if (_mkdir("Settings") == -1)
-    {
-        if (errno == ENOENT) massert(!"Папка Settings не создалась", this);
-    }
+     massert (!makeDir("Settings"), this);
+    
 
     filesCompability = checkVersionCompability(this);
 
@@ -80,11 +78,11 @@ PowerPoint::~PowerPoint()
 void writeVersion(PowerPoint* app)
 {
     assert(app);
-    FILE* versionFile = fopen("Settings\\Version.//txt", "w");
+    FILE* versionFile = fopen("Settings\\Version.txt", "w");
 
     if (versionFile)
     {
-        (void)fprintf(versionFile, "%s", app->appVersion);
+        if (fprintf(versionFile, "%s", app->appVersion) == 0) massert(!"Версия приложения не записалась.", app);
     }
     if (versionFile)fclose(versionFile);
 }
@@ -111,7 +109,7 @@ bool checkVersionCompability(PowerPoint* app)
 {
     assert(app);
     bool needLoadSaves = false;
-    FILE* versionFile = fopen("Settings\\Version.//txt", "r");
+    FILE* versionFile = fopen("Settings\\Version.txt", "r");
 
     if (versionFile)
     {
@@ -328,6 +326,16 @@ M_HGDIOBJ* PowerPoint::getHGDIOBJ()
     return hgdiManager->getHGDIOBJ();
 }
 
+int PowerPoint::makeDir(const char* path)
+{
+    if (_mkdir("Settings") == -1)
+    {
+        if (errno == ENOENT) return ENOENT;
+    }
+    return 0;
+}
+
+
 
 void PowerPoint::setColor(COLORREF color, M_HDC& dc, int thickness)
 {
@@ -450,8 +458,22 @@ int PowerPoint::updateScreen(Window* window)
 {       
     if (window)
     {
-        int isVisible = window->isVisible();
+        //int isVisible = window->isVisible();
         if (true)
+        {
+            InvalidateRect(MAINWINDOW, NULL, FALSE);
+            //printf("[%p] InvalidetedRect\n", window);
+        }
+    }
+    return 0;
+}
+
+int PowerPoint::invalidateRect(struct Window* window, Rect _rect, bool _erase /*= false*/)
+{
+    if (window)
+    {
+        int isVisible = window->isVisible();
+        if (isVisible)
         {
             InvalidateRect(MAINWINDOW, NULL, FALSE);
             //printf("[%p] InvalidetedRect\n", window);

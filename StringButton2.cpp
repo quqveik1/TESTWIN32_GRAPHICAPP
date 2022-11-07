@@ -460,7 +460,7 @@ int StringButton2::onMouseMove(Vector mp, Vector delta)
     if (cursor.isSelecting) cursor.isLastTimeSelecting = true;
     if ((rect - rect.pos).inRect(mp) || cursor.isSelecting)
     {
-        app->setCursor(cursorImage);
+        if (isVisible())app->setCursor(cursorImage);
     }
     else if ((rect - rect.pos).inRect(mp - delta))
     {

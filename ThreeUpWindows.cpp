@@ -86,6 +86,8 @@ void MinimizeWindow::onClick(Vector mp)
     {
         app->isShowing = false;
         ShowWindow(app->MAINWINDOW, SW_SHOWMINIMIZED);
+        color = app->systemSettings->MenuColor;
+        app->updateScreen(this);
     }
 }
 

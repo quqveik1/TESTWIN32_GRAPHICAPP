@@ -8,9 +8,11 @@
 
 struct ToolsPalette : Menu
 {
+    Vector defaultSize = {};
 
-    ToolsPalette(AbstractAppData* _app, Rect _rect, int _length) :
-        Menu(_app, _rect, { .pos = {0, 0}, .finishPos = {(double)_app->systemSettings->DCMAXSIZE, (double)_app->systemSettings->HANDLEHEIGHT} }, _length, true)
+    ToolsPalette(AbstractAppData* _app, Vector _pos, int _length) :
+        defaultSize ({ appData->systemSettings->BUTTONWIDTH , (double)appData->toolManager->currentLength * 50 + appData->systemSettings->HANDLEHEIGHT }),
+        Menu(_app, {.pos = _pos, .finishPos = {_pos.x + appData->systemSettings->BUTTONWIDTH, _pos.y + (double)appData->toolManager->currentLength * 50 + appData->systemSettings->HANDLEHEIGHT } }, { .pos = {0, 0}, .finishPos = {(double)_app->systemSettings->BUTTONWIDTH, (double)_app->systemSettings->HANDLEHEIGHT} }, _length, true)
     {
         Window** tools = new Window* [app->toolManager->currentLength];
         for (int i = 0; i < app->toolManager->currentLength; i++)
@@ -22,7 +24,7 @@ struct ToolsPalette : Menu
         {
             tools[i]->rect = { .pos = {0, (double)i * 50}, .finishPos = {50, (double)(i + 1) * 50} };
             tools[i]->dc = app->toolManager->tools[i]->getIconDC();
-            tools[i]->finalDC = app->createDIBSection(tools[i]->getSize().x, tools[i]->getSize().y);
+            tools[i]->finalDC.setSize(tools[i]->getSize(), app);
             tools[i]->originalRect = tools[i]->rect;
             addWindow(tools[i]);
             currentSize++;

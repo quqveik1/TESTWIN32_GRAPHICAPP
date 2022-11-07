@@ -12,6 +12,7 @@
 #include "CanvasManager.cpp"
 #include "SetCanvasButton.cpp"
 #include "ColorMenu.cpp"
+#include "ToolsMenu.cpp"
 
 int initProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam);
 int shutDownProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam);
@@ -85,7 +86,6 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
                 appData->mainManager->mbDown({ (double)LOWORD(lParam), (double)HIWORD(lParam) }, button);
                 appData->captureMouse();
                 printf("WM_MBDOWN_END\n");
-                return 0;
             }
         }
 
@@ -101,7 +101,6 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
                 appData->mainManager->onClick({ (double)LOWORD(lParam), (double)HIWORD(lParam) });
                 appData->releaseMouse();
                 printf("WM_MBUP_END\n");
-                return 0;
             }
         }
 
@@ -147,15 +146,51 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
             if (appData->mainManager)
             {
                 appData->systemSettings->SizeOfScreen = { (double)LOWORD(lParam), (double)HIWORD(lParam) };
+                /*
+                if (appData->systemSettings->SizeOfScreen.x < appData->systemSettings->MINSCREENSIZE.x)
+                {
+                    return 0;
+                }
+                if (appData->systemSettings->SizeOfScreen.y < appData->systemSettings->MINSCREENSIZE.y)
+                {
+                    return 0;
+                } 
+                */
+                //int cxScreen = GetSystemMetrics(SM_CXSCREEN);
+                //int cyScreen = GetSystemMetrics(SM_CYSCREEN);
+
+                //MoveWindow(appData->MAINWINDOW, cxScreen, cyScreen, appData->systemSettings->SizeOfScreen.x, appData->systemSettings->SizeOfScreen.y, FALSE);
                 appData->mainManager->onSize(appData->systemSettings->SizeOfScreen);
+                
+            }
+        }
+
+        if (message == WM_CLOSE)
+        {
+            bool canShutProg = true;
+            if (appData->mainManager)
+            {
+                if (appData->mainManager->onClose())
+                {
+                    canShutProg = false;
+                }
+            }
+            if (!canShutProg)
+            {
+                return 1;
             }
         }
 
         if (message == WM_DESTROY)
         {
+            if (appData->mainManager)
+            {
+                appData->mainManager->onDestroy();
+            }
             shutDownProg(window, message, wParam, lParam);
             PostQuitMessage(0);
-            return 1;
+
+
         }
     }
 
@@ -165,6 +200,7 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
 
 int initProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
 {
+
     Handle* mainHandle = new Handle(appData, { .pos = {0, 0}, .finishPos = {appData->systemSettings->FullSizeOfScreen.x, appData->systemSettings->HANDLEHEIGHT} });
     
 
@@ -181,7 +217,7 @@ int initProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
     createList->addNewItem(canvasManager->getSetCanvasButton(), NULL, "Создать холст", NULL, 'N');
 
 
-    ColorMenu* colorMenu = new ColorMenu(appData, {300, 200}, NULL);
+    ColorMenu* colorMenu = new ColorMenu(appData, {300, 200});
     manager->addWindow(colorMenu);
 
     List* openWindows = mainHandle->createMenuOption("Окна", NULL);
@@ -189,6 +225,10 @@ int initProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
     //manager->addWindow(openWindows);
     //List* importList = mainHandle->createMenuOption("Импорт/Экспорт", NULL, true);
     //manager->addWindow(importList);
+
+
+    ToolsPalette* toolsPallette = new ToolsPalette(appData, {5, 100}, appData->toolManager->currentLength);
+    manager->addWindow(toolsPallette);
 
     
 

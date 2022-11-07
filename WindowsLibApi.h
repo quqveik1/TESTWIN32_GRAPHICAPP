@@ -31,4 +31,6 @@ struct CWindowsLibApi
     virtual int standartManagerOnSize(struct Manager* manager, Vector managerSize);
     virtual int standartManagerOnKeyboard(struct Manager* manager, int key);
     virtual int standartManagerOnKeyboardChar(struct Manager* manager, int key);
+    virtual int standartManagerOnClose(struct Manager* manager);
+    virtual int standartManagerOnDestroy(struct Manager* manager);
 };

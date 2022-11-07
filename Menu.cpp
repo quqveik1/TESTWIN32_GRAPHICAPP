@@ -23,7 +23,6 @@ void Menu::onClick(Vector mp)
     setActiveWindow(this);
 
     int missClicked = true;
-    clickHandle();
 
     mp.y -= handle.rect.finishPos.y;
 
@@ -38,4 +37,22 @@ void Menu::onClick(Vector mp)
         reDraw = true;
         missClicked = onClickLine(mp);
     }
+}
+
+int Menu::mbDown(Vector mp, int button)
+{
+    clickHandle();
+    return 0;
+}
+
+int Menu::mbUp(Vector mp, int button)
+{
+    mbUpHandle();
+    return 0;
+} 
+
+int Menu::onMouseMove(Vector mp, Vector delta)
+{
+    moveHandle(delta);
+    return 0;
 }

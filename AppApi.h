@@ -23,6 +23,7 @@ struct PowerPoint : AbstractAppData
     virtual M_HDC* getHDC() override;
     virtual M_HGDIOBJ* getHGDIOBJ() override;
 
+    virtual int makeDir(const char* path) override;
 
     virtual void setColor(COLORREF color, M_HDC& dc, int thickness = 1) override;
     virtual int getColorComponent(COLORREF color, COLORREF component) override;
@@ -33,6 +34,7 @@ struct PowerPoint : AbstractAppData
     virtual COLORREF RGB2HSL(COLORREF rgbColor) override;
 
     virtual int updateScreen(struct Window* window) override;
+    virtual int invalidateRect(struct Window* window, Rect _rect, bool _erase = false) override;
     virtual int captureMouse(HWND wnd = NULL) override;
     virtual int releaseMouse(HWND wnd = NULL) override;
 
@@ -80,9 +82,9 @@ struct PowerPoint : AbstractAppData
 
 
     virtual void drawText(double x0, double y0, double x1, double y1, const char text[], HDC dc,
-        unsigned format = DT_CENTER | DT_VCENTER | DT_WORDBREAK | DT_WORD_ELLIPSIS)  override;
+        unsigned format = DT_CENTER | DT_VCENTER | DT_SINGLELINE)  override;
     virtual void drawText(Rect rect, const char text[], HDC dc,
-        unsigned format = DT_CENTER | DT_VCENTER | DT_WORDBREAK | DT_WORD_ELLIPSIS)  override;
+        unsigned format = DT_CENTER | DT_VCENTER | DT_SINGLELINE)  override;
     virtual Vector getTextExtent(const char* text, HDC finalDC) override;
 
     virtual void selectFont(const char* text, int sizey, M_HDC& dc, int sizex = -1) override;

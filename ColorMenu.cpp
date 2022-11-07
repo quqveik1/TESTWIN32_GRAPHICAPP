@@ -11,7 +11,7 @@ int ColorHistory::getByteSize()
 }
 
 
-ColorMenu::ColorMenu(AbstractAppData* _app, Vector _pos, const char* _pathToHistory, bool _needToShow /*= false*/) :
+ColorMenu::ColorMenu(AbstractAppData* _app, Vector _pos, bool _needToShow /*= false*/) :
     sizeOfColorMenu({ 512, 410 }),
     Manager(_app, {}, 4, _needToShow, NULL, { .pos = {0, 0}, .finishPos = { 512, 25 } }),
     hslPalette(app, palettePos, &confirmedColor)
@@ -25,10 +25,9 @@ ColorMenu::ColorMenu(AbstractAppData* _app, Vector _pos, const char* _pathToHist
 
     needTransparencyOutput = true;
 
-    if (_pathToHistory)
-    {
-        strcpy(pathToSaveHistory, _pathToHistory);
-    }
+
+    if (!app->makeDir("Settings"))strcpy(pathToSaveHistory, "Settings\\ColorMenu.save");
+
     loadHistory();
     colorExamplesNum = colorHistory.HistoryLength;
     exampleColorRects = new ColorSection[colorExamplesNum]{};
@@ -118,6 +117,14 @@ int ColorMenu::mbUp(Vector mp, int button)
 
     return 0;
 }
+
+
+int ColorMenu::onDestroy()
+{
+    saveMenu();
+    return app->windowsLibApi->standartManagerOnDestroy(this);
+}
+
 
 void ColorMenu::show()
 {

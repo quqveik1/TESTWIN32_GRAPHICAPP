@@ -182,7 +182,7 @@ void Canvas::draw()
     if (systemSettings->debugMode >= 3) printf("Canvas clicked: %d\n", getMBCondition());
     if (systemSettings->debugMode >= 3) printf(" Canvasrect.pos: {%lf, %lf}\n", rect.pos.x, rect.pos.y);
 
-    controlStretching();
+    //controlStretching();
 
     CLay* activeLay = getActiveLay();
     if (activeLay)
@@ -234,8 +234,9 @@ void Canvas::resize(Vector newSize)
         if (isBigger(newSize.y, app->systemSettings->SizeOfScreen.y)) newSize.y = app->systemSettings->SizeOfScreen.y;
         finalDCSize = newSize;
 
-        app->deleteDC(finalDC);
+        //app->deleteDC(finalDC);
         finalDC.setSize(finalDCSize, app, &finalDCArr);
+        Vector _s = finalDC.getSize();
 
         app->setColor(color, finalDC);
         app->rectangle(0, 0, finalDCSize.x, finalDCSize.y, finalDC);
@@ -248,10 +249,18 @@ void Canvas::copyFinalLayOnFinalDC()
     {
         if (laysSize == getSize())
         {
+            COLORREF pixCol = GetPixel(finalLay, 0, 0);
+            app->setColor(TX_WHITE, finalDC);
+            app->rectangle({}, { 1000, 1000 }, finalDC);
             app->bitBlt(finalDC, {}, laysSize, finalLay);
+            //Vector finalDCSize = finalDC.getSize();
+            //Vector finalLaySize = finalLay.getSize();
+            //COLORREF pix2Col = GetPixel(finalDC, 0, 0);
+            //printf ("");
         }
         else
         {
+            
             Vector layStartPos = {};
             if (isSmaller(rect.pos.x, 0))
             {
@@ -265,7 +274,9 @@ void Canvas::copyFinalLayOnFinalDC()
 
             Vector necessaryLaySize = {};
             if (getSize() > 0) necessaryLaySize = (finalDCSize / getSize()) * laysSize;
+            
             app->stretchBlt(finalDC, {}, finalDCSize, finalLay, layStartPos, necessaryLaySize);
+            //app->bitBlt(finalDC, {}, laysSize, finalLay);
         }
         reDraw = false;
     }
@@ -294,6 +305,7 @@ Vector Canvas::setNewCanvasSize(Vector newSize)
         scale = newSize.x / laysSize.x;
 
         resize(newSize);
+        app->updateScreen(this);
 
         reDraw = true;
     }

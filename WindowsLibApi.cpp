@@ -256,3 +256,30 @@ int CWindowsLibApi::standartManagerOnKeyboardChar(struct Manager* manager, int k
     }
     return 0;
 }
+
+
+int CWindowsLibApi::standartManagerOnClose(struct Manager* manager)
+{
+    if (manager)
+    {
+        for (int i = 0; i < manager->getCurLen(); i++)
+        {
+            int retVal = manager->pointers[i]->onClose();
+            if (retVal != 0) return retVal;
+        }
+    }
+    return 0;
+}
+
+
+int CWindowsLibApi::standartManagerOnDestroy(struct Manager* manager)
+{
+    if (manager)
+    {
+        for (int i = 0; i < manager->getCurLen(); i++)
+        {
+            (void)manager->pointers[i]->onDestroy();
+        }
+    }
+    return 0;
+}

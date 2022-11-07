@@ -64,7 +64,7 @@ struct ColorMenu : Manager
     void loadHistory();
 
 
-    ColorMenu(AbstractAppData* _app, Vector _pos, const char* _pathToHistory, bool _needToShow = false);
+    ColorMenu(AbstractAppData* _app, Vector _pos, bool _needToShow = false);
 
 
     virtual void saveMenu();
@@ -90,4 +90,5 @@ struct ColorMenu : Manager
     virtual int onKeyboard(int key) override;
     virtual int mbDown(Vector mp, int button) override;
     virtual int mbUp(Vector mp, int button) override;
+    virtual int onDestroy() override;
 };

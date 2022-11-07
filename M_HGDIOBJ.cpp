@@ -10,16 +10,17 @@ int M_HGDIOBJ::deleteObj()
         if (status <= 0)
         {
             //printf("Попытка удалить уже удаленный холст\n");
-            return (int)obj;
+            return (int)1;
         }
         else
         {
-            status--;
+            
             if (status >= 2)
             {
                 printf("Попытка удалить активный и выбранный где-то объект\n");
-                return (int)obj;
+                return (int)1;
             }
+            status--;
             DeleteObject(obj);
             status = 0;
             return 0;

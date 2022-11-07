@@ -11,50 +11,46 @@ C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\M_HDC.cpp(
 C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\M_HDC.cpp(193,25): warning C4302: 'type cast': truncation from 'HBITMAP' to 'int'
 C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\WindowsLib.h(58,22): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
 C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\DrawBibliothek.cpp(84,10): warning C4551: function call missing argument list
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\SystemSettings.cpp(46,27): warning C4311: 'type cast': pointer truncation from 'FILE *' to 'int'
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\SystemSettings.cpp(46,27): warning C4302: 'type cast': truncation from 'FILE *' to 'int'
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\SystemSettings.cpp(63,23): warning C4311: 'type cast': pointer truncation from 'FILE *' to 'int'
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\SystemSettings.cpp(63,23): warning C4302: 'type cast': truncation from 'FILE *' to 'int'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\SystemSettings.cpp(47,27): warning C4311: 'type cast': pointer truncation from 'FILE *' to 'int'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\SystemSettings.cpp(47,27): warning C4302: 'type cast': truncation from 'FILE *' to 'int'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\SystemSettings.cpp(64,23): warning C4311: 'type cast': pointer truncation from 'FILE *' to 'int'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\SystemSettings.cpp(64,23): warning C4302: 'type cast': truncation from 'FILE *' to 'int'
 C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\Loadmanager.cpp(26,132): warning C4311: 'type cast': pointer truncation from 'HDC' to 'int'
 C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\Loadmanager.cpp(26,132): warning C4302: 'type cast': truncation from 'HDC' to 'int'
 C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\Loadmanager.cpp(33,134): warning C4311: 'type cast': pointer truncation from 'HDC' to 'int'
 C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\Loadmanager.cpp(33,134): warning C4302: 'type cast': truncation from 'HDC' to 'int'
 C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(75,24): warning C4311: 'type cast': pointer truncation from 'const char *' to 'int'
 C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(75,24): warning C4302: 'type cast': truncation from 'const char *' to 'int'
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\M_HGDIOBJ.cpp(13,28): warning C4311: 'type cast': pointer truncation from 'HGDIOBJ' to 'int'
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\M_HGDIOBJ.cpp(13,28): warning C4302: 'type cast': truncation from 'HGDIOBJ' to 'int'
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\M_HGDIOBJ.cpp(21,32): warning C4311: 'type cast': pointer truncation from 'HGDIOBJ' to 'int'
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\M_HGDIOBJ.cpp(21,32): warning C4302: 'type cast': truncation from 'HGDIOBJ' to 'int'
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(164,1): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(193,41): warning C4838: conversion from 'double' to 'LONG' requires a narrowing conversion
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(193,41): warning C4244: 'initializing': conversion from 'double' to 'LONG', possible loss of data
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(193,48): warning C4838: conversion from 'double' to 'LONG' requires a narrowing conversion
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(193,48): warning C4244: 'initializing': conversion from 'double' to 'LONG', possible loss of data
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(196,29): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(196,22): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(279,20): warning C4838: conversion from 'double' to 'LONG' requires a narrowing conversion
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(279,20): warning C4244: 'initializing': conversion from 'double' to 'LONG', possible loss of data
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(279,24): warning C4838: conversion from 'double' to 'LONG' requires a narrowing conversion
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(279,24): warning C4244: 'initializing': conversion from 'double' to 'LONG', possible loss of data
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(279,28): warning C4838: conversion from 'double' to 'LONG' requires a narrowing conversion
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(279,28): warning C4244: 'initializing': conversion from 'double' to 'LONG', possible loss of data
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(279,32): warning C4838: conversion from 'double' to 'LONG' requires a narrowing conversion
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(279,32): warning C4244: 'initializing': conversion from 'double' to 'LONG', possible loss of data
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(441,35): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(441,28): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(468,32): warning C4311: 'type cast': pointer truncation from 'HWND' to 'int'
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(468,32): warning C4302: 'type cast': truncation from 'HWND' to 'int'
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(488,5): warning C4804: '*=': unsafe use of type 'bool' in operation
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(715,111): warning C4311: 'type cast': pointer truncation from 'HDC' to 'int'
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(715,111): warning C4302: 'type cast': truncation from 'HDC' to 'int'
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(777,12): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'HCURSOR'
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(777,12): warning C4313: 'printf': '%d' in format string conflicts with argument 1 of type 'HCURSOR'
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(880,10): warning C4551: function call missing argument list
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(913,10): warning C4551: function call missing argument list
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(924,42): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(925,44): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(940,48): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(943,52): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(162,1): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(191,41): warning C4838: conversion from 'double' to 'LONG' requires a narrowing conversion
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(191,41): warning C4244: 'initializing': conversion from 'double' to 'LONG', possible loss of data
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(191,48): warning C4838: conversion from 'double' to 'LONG' requires a narrowing conversion
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(191,48): warning C4244: 'initializing': conversion from 'double' to 'LONG', possible loss of data
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(194,29): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(194,22): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(277,20): warning C4838: conversion from 'double' to 'LONG' requires a narrowing conversion
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(277,20): warning C4244: 'initializing': conversion from 'double' to 'LONG', possible loss of data
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(277,24): warning C4838: conversion from 'double' to 'LONG' requires a narrowing conversion
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(277,24): warning C4244: 'initializing': conversion from 'double' to 'LONG', possible loss of data
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(277,28): warning C4838: conversion from 'double' to 'LONG' requires a narrowing conversion
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(277,28): warning C4244: 'initializing': conversion from 'double' to 'LONG', possible loss of data
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(277,32): warning C4838: conversion from 'double' to 'LONG' requires a narrowing conversion
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(277,32): warning C4244: 'initializing': conversion from 'double' to 'LONG', possible loss of data
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(449,35): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(449,28): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(490,32): warning C4311: 'type cast': pointer truncation from 'HWND' to 'int'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(490,32): warning C4302: 'type cast': truncation from 'HWND' to 'int'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(510,5): warning C4804: '*=': unsafe use of type 'bool' in operation
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(737,111): warning C4311: 'type cast': pointer truncation from 'HDC' to 'int'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(737,111): warning C4302: 'type cast': truncation from 'HDC' to 'int'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(799,12): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'HCURSOR'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(799,12): warning C4313: 'printf': '%d' in format string conflicts with argument 1 of type 'HCURSOR'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(902,10): warning C4551: function call missing argument list
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(935,10): warning C4551: function call missing argument list
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(946,42): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(947,44): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(962,48): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(965,52): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
 C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ZoneSizeControl.cpp(128,130): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
 C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\List.h(22,19): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
 C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\List.h(30,30): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
@@ -93,18 +89,21 @@ C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\InputButto
 C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\InputButton.cpp(133,70): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
 C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\InputButton.cpp(196,67): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
 C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\InputButton.cpp(218,40): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\CanvasManager.cpp(328,24): warning C4311: 'type cast': pointer truncation from 'const char *' to 'int'
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\CanvasManager.cpp(328,24): warning C4302: 'type cast': truncation from 'const char *' to 'int'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\CanvasManager.cpp(336,24): warning C4311: 'type cast': pointer truncation from 'const char *' to 'int'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\CanvasManager.cpp(336,24): warning C4302: 'type cast': truncation from 'const char *' to 'int'
 C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\SetCanvasButton.cpp(83,34): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
 C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\SetCanvasButton.cpp(84,34): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
 C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\SetCanvasButton.cpp(90,67): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
 C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\SetCanvasButton.cpp(101,69): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
 C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\Slider2.cpp(59,25): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
 C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\HSLPalette.cpp(32,55): warning C4244: 'argument': conversion from 'const double' to 'int', possible loss of data
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\TestWin32App.cpp(43,19): warning C4244: 'return': conversion from 'WPARAM' to 'int', possible loss of data
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\TestWin32App.cpp(112,50): warning C4244: 'argument': conversion from 'WPARAM' to 'int', possible loss of data
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\TestWin32App.cpp(121,54): warning C4244: 'argument': conversion from 'WPARAM' to 'int', possible loss of data
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolsMenu.cpp(62,18): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolsMenu.cpp(63,24): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolsMenu.cpp(161,19): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\TestWin32App.cpp(44,19): warning C4244: 'return': conversion from 'WPARAM' to 'int', possible loss of data
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\TestWin32App.cpp(111,50): warning C4244: 'argument': conversion from 'WPARAM' to 'int', possible loss of data
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\TestWin32App.cpp(120,54): warning C4244: 'argument': conversion from 'WPARAM' to 'int', possible loss of data
 C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\DrawBibliothek.cpp(88): warning C4172: returning address of local variable or temporary: fileName
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(889): warning C4172: returning address of local variable or temporary: fileName
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(931): warning C4172: returning address of local variable or temporary: fileName
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(953): warning C4172: returning address of local variable or temporary: fileName
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.cpp(911): warning C4172: returning address of local variable or temporary: fileName
   TestWin32App.vcxproj -> C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\x64\Debug\TestWin32App.exe

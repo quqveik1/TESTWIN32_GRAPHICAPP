@@ -50,7 +50,7 @@ int M_HDC::selectObj(HBITMAP map)
             newObj->setObj(map);
             selectedObj[0] = newObj;
         }
-        SelectObject((HDC)obj, map);
+        HGDIOBJ res = SelectObject((HDC)obj, map);
         return !wasntDelete;
     }
     return -1;

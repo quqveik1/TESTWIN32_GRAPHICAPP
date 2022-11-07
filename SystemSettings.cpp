@@ -5,7 +5,8 @@
 
 
 CSystemSettings::CSystemSettings(struct AbstractAppData* _app) :
-    app (_app)
+    app(_app)
+    //MINSCREENSIZE({300, 100})
 {
     setDefaultSettings();
     read("Settings\\FullSettings.settings");

@@ -32,6 +32,8 @@ struct AbstractAppData
     bool isShowing = true;;
     HCURSOR defaultCursor = NULL;
 
+    virtual int makeDir(const char* path) = 0;
+
     virtual void setColor(COLORREF color, M_HDC& dc, int thickness = 1) = 0;
     virtual int getColorComponent(COLORREF color, COLORREF component) = 0;
     virtual void setDrawColor(COLORREF color) = 0;
@@ -41,6 +43,7 @@ struct AbstractAppData
     virtual COLORREF RGB2HSL(COLORREF rgbColor) = 0;
 
     virtual int updateScreen(struct Window* window) = 0;
+    virtual int invalidateRect(struct Window* window, Rect _rect, bool _erase = false) = 0;
     virtual int captureMouse(HWND wnd = NULL) = 0;
     virtual int releaseMouse(HWND wnd = NULL) = 0;
 
@@ -94,9 +97,9 @@ struct AbstractAppData
 
 
     virtual void drawText(double x0, double y0, double x1, double y1, const char text[], HDC dc,
-        unsigned format = DT_CENTER | DT_VCENTER | DT_WORDBREAK | DT_WORD_ELLIPSIS) = 0;
+        unsigned format = DT_CENTER | DT_VCENTER | DT_SINGLELINE) = 0;
     virtual void drawText(Rect rect, const char text[], HDC dc,
-        unsigned format = DT_CENTER | DT_VCENTER | DT_WORDBREAK | DT_WORD_ELLIPSIS) = 0;
+        unsigned format = DT_CENTER | DT_VCENTER | DT_SINGLELINE) = 0;
     virtual Vector getTextExtent(const char* text, HDC finalDC) = 0;
 
     virtual void setAlign(unsigned align, HDC dc) = 0;

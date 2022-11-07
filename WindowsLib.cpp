@@ -202,6 +202,16 @@ int Manager::onTimer(UINT_PTR timerName)
     return app->windowsLibApi->standartManagerOnTimer(this, timerName);
 }
 
+int Manager::onClose()
+{
+    return app->windowsLibApi->standartManagerOnClose(this);
+}
+
+int Manager::onDestroy()
+{
+    return app->windowsLibApi->standartManagerOnDestroy(this);
+}
+
 int Manager::onSize(Vector managerSize)
 {    
     return app->windowsLibApi->standartManagerOnSize(this, managerSize);
