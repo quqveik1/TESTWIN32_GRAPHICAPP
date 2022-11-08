@@ -1,0 +1,16 @@
+﻿  pch.cpp
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\DLLTools\dllmain.h(2,1): warning C4005: _CRT_SECURE_NO_WARNINGS: изменение макроопределения
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\DLLTools\pch.h(10): message : см. предыдущее определение "_CRT_SECURE_NO_WARNINGS"
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\Q_Rect.h(41,22): warning C4244: =: преобразование "const double" в "LONG", возможна потеря данных
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\Q_Rect.h(42,21): warning C4244: =: преобразование "const double" в "LONG", возможна потеря данных
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\Q_Rect.h(43,29): warning C4244: =: преобразование "const double" в "LONG", возможна потеря данных
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\Q_Rect.h(44,30): warning C4244: =: преобразование "const double" в "LONG", возможна потеря данных
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\M_HDC.cpp(183,49): warning C4838: Преобразование из "double" в "LONG" требует сужающего преобразования.
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\M_HDC.cpp(183,49): warning C4244: инициализация: преобразование "double" в "LONG", возможна потеря данных
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\M_HDC.cpp(183,57): warning C4838: Преобразование из "double" в "LONG" требует сужающего преобразования.
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\M_HDC.cpp(183,57): warning C4244: инициализация: преобразование "double" в "LONG", возможна потеря данных
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\M_HDC.cpp(193,25): warning C4311: приведение типов: усечение указателя из "HBITMAP" в "int"
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\M_HDC.cpp(193,25): warning C4302: приведение типов: усечение из "HBITMAP" к "int"
+C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\WindowsLib.h(59,22): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+  dllmain.cpp
+  DLLTools.vcxproj -> C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\x64\Debug\DLLTools.dll

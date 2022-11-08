@@ -3,7 +3,8 @@
 #include "Tool.h"
 #include "AbstractApp.h"
 #include "M_HDC.cpp"
-#include "HGDIManager.h"
+#include "HGDIManager.h" 
+
 
 
 struct Window

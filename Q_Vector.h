@@ -56,7 +56,7 @@ void Vector::print (const char *str /* = NULL*/)
 const char* Vector::getStr(const char* str /*= NULL*/)
 {
     static char answer[MAX_PATH] = {};
-    sprintf(answer, "%s: {%lf, %lf}", str, x, y);
+    //sprintf(answer, "%s: {%lf, %lf}", str, x, y);
     return answer;
 }
 

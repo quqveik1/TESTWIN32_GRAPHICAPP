@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.32602.291
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestWin32App", "TestWin32App.vcxproj", "{968A5147-CB2F-44F4-B016-D8BF76B032D5}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DLLTools", "DLLTools\DLLTools.vcxproj", "{727A2479-9089-4782-868E-1B108B418C8B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,14 @@ Global
 		{968A5147-CB2F-44F4-B016-D8BF76B032D5}.Release|x64.Build.0 = Release|x64
 		{968A5147-CB2F-44F4-B016-D8BF76B032D5}.Release|x86.ActiveCfg = Release|Win32
 		{968A5147-CB2F-44F4-B016-D8BF76B032D5}.Release|x86.Build.0 = Release|Win32
+		{727A2479-9089-4782-868E-1B108B418C8B}.Debug|x64.ActiveCfg = Debug|x64
+		{727A2479-9089-4782-868E-1B108B418C8B}.Debug|x64.Build.0 = Debug|x64
+		{727A2479-9089-4782-868E-1B108B418C8B}.Debug|x86.ActiveCfg = Debug|Win32
+		{727A2479-9089-4782-868E-1B108B418C8B}.Debug|x86.Build.0 = Debug|Win32
+		{727A2479-9089-4782-868E-1B108B418C8B}.Release|x64.ActiveCfg = Release|x64
+		{727A2479-9089-4782-868E-1B108B418C8B}.Release|x64.Build.0 = Release|x64
+		{727A2479-9089-4782-868E-1B108B418C8B}.Release|x86.ActiveCfg = Release|Win32
+		{727A2479-9089-4782-868E-1B108B418C8B}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
