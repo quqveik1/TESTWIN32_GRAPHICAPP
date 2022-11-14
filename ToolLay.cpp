@@ -1,5 +1,6 @@
 #pragma once
 #include "ToolLay.h"
+#include "Clay.h"
 
 ToolLay::~ToolLay()
 {
@@ -11,44 +12,56 @@ void ToolLay::needRedraw()
     lay->needRedraw();
 }
 
-Tool* ToolLay::getTool()
+Tool2* ToolLay::getTool()
 {
     return tool;
 }
 
 bool ToolLay::isFinished()
 {
-    if (!getTool()) return false;
-    return getTool()->handler(T_ISFINISHED, this);
+    return NULL;
+    //if (!getTool()) return false;
+    //return getTool()->handler(T_ISFINISHED, this);
 }
 
 bool ToolLay::isStarted()
 {
-    if (!getTool()) return false;
-    return getTool()->handler(T_ISSTARTED, this);
+    return NULL;
+    //if (!getTool()) return false;
+    //return getTool()->handler(T_ISSTARTED, this);
 }
 
 bool ToolLay::useTool(ProgrammeDate* _data)
 {
+    return NULL;
+    /*
     if (!getTool()) return false;
     data = _data;
     assert(data);
     return getTool()->handler(T_USE, this);
+    */
 }
 
 HDC ToolLay::drawTool(HDC dc /*= NULL*/)
 {
+    return NULL;
+    /*
     if (getTool() && isStarted() && needToShow) return (HDC)getTool()->handler(T_LOAD, this);
     return NULL;
+    */
 }
 
 void ToolLay::editTool(ProgrammeDate* _data)
 {
+    return;
+
+    /*
     if (!getTool()) return;
     data = _data;
     assert(data);
 
     if (needToShow)isEditing = !getTool()->handler(T_EDIT, this);
+    */
 }
 
 
@@ -100,8 +113,9 @@ void ToolLay::setShowMode(int mode)
 }
 
 
-void ToolLay::addTool(Tool* _tool)
+void ToolLay::addTool(Tool2* _tool)
 {
+    /*
     if (tool != _tool)
     {
         if (tool)
@@ -114,5 +128,6 @@ void ToolLay::addTool(Tool* _tool)
     {
         tool->handler(T_CREATE, this);
     }
+    */
     return;
 }

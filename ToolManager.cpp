@@ -18,7 +18,7 @@ CToolManager::~CToolManager()
     delete[] tools;
 }
 
-int CToolManager::addTool(Tool* tool, bool needToHide/* = false*/)
+int CToolManager::addTool(Tool2* tool, bool needToHide/* = false*/)
 {
     assert(tool);
 
@@ -40,7 +40,7 @@ int CToolManager::addTool(Tool* tool, bool needToHide/* = false*/)
     return -1;
 }
 
-Tool* CToolManager::getActiveTool()
+Tool2* CToolManager::getActiveTool()
 {
 
     if (activeToolNum >= currentLength)
@@ -75,7 +75,7 @@ int CToolManager::setActiveToolNum(int num)
     return (int)"ERROR";
 }
 
-int CToolManager::setActiveTool(Tool* tool)
+int CToolManager::setActiveTool(Tool2* tool)
 {
     for (int i = 0; i < currentLength; i++)
     {

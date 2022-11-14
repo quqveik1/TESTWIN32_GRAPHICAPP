@@ -38,10 +38,10 @@ Rect& Rect::operator = (const Rect &a1)
 Rect::operator RECT() const
 {
     RECT result = {};
-    result.left = pos.x;
-    result.top = pos.y;
-    result.right = finishPos.x;
-    result.bottom = finishPos.y;
+    result.left = std::lround(pos.x);
+    result.top = std::lround(pos.y);
+    result.right = std::lround(finishPos.x);
+    result.bottom = std::lround(finishPos.y;
 
     return result;
 }

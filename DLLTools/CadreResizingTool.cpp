@@ -1,8 +1,9 @@
 #pragma once
-#include "CadreResizingTool.h"
+//#include "CadreResizingTool.h"
 
 
-bool CadreResizingTool::edit(ToolLay* toollay, HDC dc/* = NULL*/)
+/*
+bool CadreResizingTool::edit(ToolLay* toollay, HDC dc)
 {
     assert(toollay);
     if (app->systemSettings->debugMode >= 5) printf("Tool getMBCondition(): %d\n", appData->clickedMB);
@@ -14,9 +15,9 @@ bool CadreResizingTool::edit(ToolLay* toollay, HDC dc/* = NULL*/)
     setControlSquares();
     controlMoving();
 
-    app->drawCadre(toolLay->toolZone, dc, cadreColor, 2);
+    //app->drawCadre(toolLay->toolZone, dc, cadreColor, 2);
     
-    app->setColor(cadreColor, dc);
+    //app->setColor(cadreColor, dc);
     for (int i = 0; i < controlSquareLength; i++)
     {
         Rect drawRect = controlSquare[i] + toollay->toolZone.pos;
@@ -26,7 +27,23 @@ bool CadreResizingTool::edit(ToolLay* toollay, HDC dc/* = NULL*/)
     return false;
 }
 
+void CadreResizingTool::setControlSquares()
+{
+    Vector size = toolLay->toolZone.getSize();
+    controlSquare[0] = { .pos = {0, 0}, .finishPos = deltaForControlButtons };
+    controlSquare[1] = { .pos = {toolLay->toolZone.getSize().x - deltaForControlButtons.x, 0}, .finishPos = {toolLay->toolZone.getSize().x, deltaForControlButtons.y} };
+    controlSquare[2] = { .pos = toolLay->toolZone.getSize() - deltaForControlButtons, .finishPos = toolLay->toolZone.getSize() };
+    controlSquare[3] = { .pos = {0, toolLay->toolZone.getSize().y - deltaForControlButtons.y}, .finishPos = {deltaForControlButtons.x, toolLay->toolZone.getSize().y} };
+}
+void CadreResizingTool::controlMoving()
+{
+    controlLeftButton();
+    controlRightButton();
 
+    lastTimeMP = appData->getMousePos();
+}
+
+ 
 void CadreResizingTool::countDeltaForControlButtons()
 {
     int isSizePositivX = (toolLay->toolZone.getSize().x > 0);
@@ -53,24 +70,11 @@ void CadreResizingTool::drawControlButtons(HDC outDC)
 }
 
 
-void CadreResizingTool::setControlSquares()
-{
-    Vector size = toolLay->toolZone.getSize();
-    controlSquare[0] = { .pos = {0, 0}, .finishPos = deltaForControlButtons };
-    controlSquare[1] = { .pos = {toolLay->toolZone.getSize().x - deltaForControlButtons.x, 0}, .finishPos = {toolLay->toolZone.getSize().x, deltaForControlButtons.y} };
-    controlSquare[2] = { .pos = toolLay->toolZone.getSize() - deltaForControlButtons, .finishPos = toolLay->toolZone.getSize() };
-    controlSquare[3] = { .pos = {0, toolLay->toolZone.getSize().y - deltaForControlButtons.y}, .finishPos = {deltaForControlButtons.x, toolLay->toolZone.getSize().y} };
-}
 
 
 
-void CadreResizingTool::controlMoving()
-{
-    controlLeftButton();
-    controlRightButton();
 
-    lastTimeMP = appData->getMousePos();
-}
+
 
 
 void CadreResizingTool::controlLeftButton()
@@ -162,3 +166,4 @@ void CadreResizingTool::controlRightButton()
     }
 
 }
+*/

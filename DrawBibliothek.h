@@ -8,7 +8,7 @@
 #include "SystemSettings.h"
 #include "DebugInfo.h"
 #include "LoadManager.h"
-#include "Tool.h"
+#include "Tool2.h"
 #include "ProgrammeDate.h"
 #include "commdlg.h"
 #include "AbstractApp.h"
@@ -21,7 +21,7 @@
 struct CHistoryStep
 {
 	int toolsNum = 0;
-	struct Tool* tools = NULL;
+	struct Tool2* tools = NULL;
     void* toolsData = NULL;
 	int thickness = 1;
 };

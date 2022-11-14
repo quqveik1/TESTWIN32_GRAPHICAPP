@@ -4,12 +4,24 @@
 #include "..\AbstractApp.h"
 #include "ToolExportData.cpp"
 #include "..\M_HGDIOBJ.cpp"
-#include "CadreResizingTool.h"
+//#include "CadreResizingTool.h"
+#include "..\Tool2.h"
 
-//extern "C" __declspec (dllexport) DLLToolExportData* initDLL(struct AbstractAppData* data);
+extern "C" __declspec (dllexport) DLLToolExportData* initDLL(struct AbstractAppData* data);
 
 //struct AbstractAppData* appData = NULL;
-//ÑDllSettings DllSettings;
+ÑDllSettings DllSettings;
+
+struct Line : Tool2
+{
+    Line(AbstractAppData* _data, ÑDllSettings* _dllSettings, const char* _name, const int _ToolSaveLen, HDC _dc) :
+        Tool2 (_data, _name)
+    {}
+
+
+
+
+};
 
 /*
 struct Tool4Squares : CadreResizingTool

@@ -1,6 +1,5 @@
 #pragma once
 #include "TXLib.cpp"
-#include "Tool.h"
 #include "AbstractApp.h"
 #include "M_HDC.cpp"
 #include "HGDIManager.h" 

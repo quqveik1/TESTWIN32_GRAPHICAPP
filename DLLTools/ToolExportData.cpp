@@ -1,7 +1,7 @@
 #pragma once
 #include "..\ToolExportData.h"
 
-void DLLToolExportData::addTool(Tool* tool)
+void DLLToolExportData::addTool(Tool2* tool)
 { 
 
     if (currlen >= size)

@@ -86,7 +86,7 @@ struct Canvas : Manager
     int getActiveLayNum();
     ToolLay* getNewToolLay();
     bool isDrawingModeChanged();
-    Tool* getActiveTool();
+    Tool2* getActiveTool();
     void setActiveToolLayNum(int num);
     int getLastNotStartedToolNum();
 

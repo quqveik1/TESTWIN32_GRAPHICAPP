@@ -1,139 +1,140 @@
 ﻿  TestWin32App.cpp
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\Q_Rect.h(41,22): warning C4244: =: преобразование "const double" в "LONG", возможна потеря данных
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\Q_Rect.h(42,21): warning C4244: =: преобразование "const double" в "LONG", возможна потеря данных
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\Q_Rect.h(43,29): warning C4244: =: преобразование "const double" в "LONG", возможна потеря данных
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\Q_Rect.h(44,30): warning C4244: =: преобразование "const double" в "LONG", возможна потеря данных
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\M_HDC.cpp(183,49): warning C4838: Преобразование из "double" в "LONG" требует сужающего преобразования.
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\M_HDC.cpp(183,49): warning C4244: инициализация: преобразование "double" в "LONG", возможна потеря данных
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\M_HDC.cpp(183,57): warning C4838: Преобразование из "double" в "LONG" требует сужающего преобразования.
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\M_HDC.cpp(183,57): warning C4244: инициализация: преобразование "double" в "LONG", возможна потеря данных
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\M_HDC.cpp(193,25): warning C4311: приведение типов: усечение указателя из "HBITMAP" в "int"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\M_HDC.cpp(193,25): warning C4302: приведение типов: усечение из "HBITMAP" к "int"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\WindowsLib.h(58,22): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\DrawBibliothek.cpp(84,10): warning C4551: в вызове функции отсутствует список аргументов
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\SystemSettings.cpp(47,27): warning C4311: приведение типов: усечение указателя из "FILE *" в "int"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\SystemSettings.cpp(47,27): warning C4302: приведение типов: усечение из "FILE *" к "int"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\SystemSettings.cpp(64,23): warning C4311: приведение типов: усечение указателя из "FILE *" в "int"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\SystemSettings.cpp(64,23): warning C4302: приведение типов: усечение из "FILE *" к "int"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.h(6,1): error C2011: CToolManager: переопределение типа "struct"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\MainTools.h(3): message : см. объявление "CToolManager"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\Loadmanager.cpp(26,132): warning C4311: приведение типов: усечение указателя из "HDC" в "int"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\Loadmanager.cpp(26,132): warning C4302: приведение типов: усечение из "HDC" к "int"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\Loadmanager.cpp(33,134): warning C4311: приведение типов: усечение указателя из "HDC" в "int"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\Loadmanager.cpp(33,134): warning C4302: приведение типов: усечение из "HDC" к "int"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolLay.h(8,1): error C2011: ToolLay: переопределение типа "struct"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\Tool.h(11): message : см. объявление "ToolLay"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(6,15): error C2027: использование неопределенного типа "CToolManager"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\MainTools.h(3): message : см. объявление "CToolManager"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(6,51): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(8,1): error C2550: {ctor}: список инициализации конструктора должен использоваться только в месте определения конструктора
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(9,1): warning C4508: {ctor}: функция должна возвращать значение; предполагается возвращаемый тип "void"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(11,16): error C2027: использование неопределенного типа "CToolManager"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\MainTools.h(3): message : см. объявление "CToolManager"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(12,1): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(13,25): error C2065: currentLength: необъявленный идентификатор
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(15,16): error C2065: tools: необъявленный идентификатор
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(18,14): error C2065: tools: необъявленный идентификатор
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(18,19): error C2541: delete: нельзя удалять объекты, не являющиеся указателями
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(19,1): warning C4508: {dtor}: функция должна возвращать значение; предполагается возвращаемый тип "void"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(21,19): error C2027: использование неопределенного типа "CToolManager"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\MainTools.h(3): message : см. объявление "CToolManager"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(27,39): error C2065: ToolsLength: необъявленный идентификатор
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(27,54): error C2059: синтаксическая ошибка: )
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(28,9): error C2143: синтаксическая ошибка: отсутствие ";" перед "{"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(32,9): error C2143: синтаксическая ошибка: отсутствие ";" перед "}"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(33,5): error C2143: синтаксическая ошибка: отсутствие ";" перед "}"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(34,25): error C2065: ToolsLength: необъявленный идентификатор
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(34,40): error C2059: синтаксическая ошибка: )
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(35,5): error C2143: синтаксическая ошибка: отсутствие ";" перед "{"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(39,5): error C2143: синтаксическая ошибка: отсутствие ";" перед "}"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(41,1): error C2143: синтаксическая ошибка: отсутствие ";" перед "}"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(43,21): error C2027: использование неопределенного типа "CToolManager"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\MainTools.h(3): message : см. объявление "CToolManager"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(44,1): error C2143: синтаксическая ошибка: отсутствие ";" перед "{"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(46,23): error C2947: требуется ">" для завершения список аргументов шаблона, обнаружено ">="
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(47,5): error C2143: синтаксическая ошибка: отсутствие ";" перед "{"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(49,5): error C2143: синтаксическая ошибка: отсутствие ";" перед "}"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(51,1): error C2143: синтаксическая ошибка: отсутствие ";" перед "}"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(54,19): error C2027: использование неопределенного типа "CToolManager"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\MainTools.h(3): message : см. объявление "CToolManager"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(55,1): error C2143: синтаксическая ошибка: отсутствие ";" перед "{"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(57,1): error C2143: синтаксическая ошибка: отсутствие ";" перед "}"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(60,19): error C2027: использование неопределенного типа "CToolManager"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\MainTools.h(3): message : см. объявление "CToolManager"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(61,1): error C2143: синтаксическая ошибка: отсутствие ";" перед "{"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(63,5): error C2143: синтаксическая ошибка: отсутствие ";" перед "{"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(65,9): error C2143: синтаксическая ошибка: отсутствие ";" перед "{"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(67,9): error C2143: синтаксическая ошибка: отсутствие ";" перед "}"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(68,5): error C2143: синтаксическая ошибка: отсутствие ";" перед "}"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(70,15): error C2065: currentLength: необъявленный идентификатор
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(70,28): error C2059: синтаксическая ошибка: )
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(71,5): error C2143: синтаксическая ошибка: отсутствие ";" перед "{"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(74,5): error C2143: синтаксическая ошибка: отсутствие ";" перед "}"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(76,1): error C2143: синтаксическая ошибка: отсутствие ";" перед "}"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(78,19): error C2027: использование неопределенного типа "CToolManager"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\MainTools.h(3): message : см. объявление "CToolManager"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(79,1): error C2143: синтаксическая ошибка: отсутствие ";" перед "{"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(80,25): error C2065: currentLength: необъявленный идентификатор
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(80,38): error C2059: синтаксическая ошибка: ;
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(81,5): error C2143: синтаксическая ошибка: отсутствие ";" перед "{"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(83,9): error C2143: синтаксическая ошибка: отсутствие ";" перед "{"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(86,9): error C2143: синтаксическая ошибка: отсутствие ";" перед "}"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(87,5): error C2143: синтаксическая ошибка: отсутствие ";" перед "}"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(89,25): error C2065: currentHidenToolsLength: необъявленный идентификатор
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(89,48): error C2059: синтаксическая ошибка: ;
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(90,5): error C2143: синтаксическая ошибка: отсутствие ";" перед "{"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(92,9): error C2143: синтаксическая ошибка: отсутствие ";" перед "{"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(95,9): error C2143: синтаксическая ошибка: отсутствие ";" перед "}"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(96,5): error C2143: синтаксическая ошибка: отсутствие ";" перед "}"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\ToolManager.cpp(99,1): error C2143: синтаксическая ошибка: отсутствие ";" перед "}"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\DCManager.h(6,1): error C2143: синтаксическая ошибка: отсутствие ";" перед "{"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\DCManager.h(11,22): error C2143: синтаксическая ошибка: отсутствие ";" перед "{"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\DCManager.h(17,1): error C2143: синтаксическая ошибка: отсутствие ";" перед "}"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\DCManager.cpp(4,16): error C2027: использование неопределенного типа "DCManager"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\AppApi.h(12): message : см. объявление "DCManager"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\DCManager.cpp(5,1): error C2143: синтаксическая ошибка: отсутствие ";" перед "{"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\DCManager.cpp(6,21): error C2947: требуется ">" для завершения список аргументов шаблона, обнаружено "<"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\DCManager.cpp(7,5): error C2143: синтаксическая ошибка: отсутствие ";" перед "{"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\DCManager.cpp(11,5): error C2143: синтаксическая ошибка: отсутствие ";" перед "}"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\DCManager.cpp(13,1): error C2143: синтаксическая ошибка: отсутствие ";" перед "}"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\DCManager.cpp(15,13): error C2027: использование неопределенного типа "DCManager"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\AppApi.h(12): message : см. объявление "DCManager"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\DCManager.cpp(16,1): error C2143: синтаксическая ошибка: отсутствие ";" перед "{"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\DCManager.cpp(17,25): error C2065: currLen: необъявленный идентификатор
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\DCManager.cpp(17,32): error C2059: синтаксическая ошибка: ;
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\DCManager.cpp(18,5): error C2143: синтаксическая ошибка: отсутствие ";" перед "{"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\DCManager.cpp(20,5): error C2143: синтаксическая ошибка: отсутствие ";" перед "}"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\DCManager.cpp(21,1): error C2143: синтаксическая ошибка: отсутствие ";" перед "}"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\DCManager.cpp(23,12): error C2027: использование неопределенного типа "DCManager"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\AppApi.h(12): message : см. объявление "DCManager"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\DCManager.cpp(25,1): error C2143: синтаксическая ошибка: отсутствие ";" перед "{"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\DCManager.cpp(26,1): error C2143: синтаксическая ошибка: отсутствие ";" перед "}"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\M_HGDIOBJ.cpp(7,1): error C2143: синтаксическая ошибка: отсутствие ";" перед "{"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\M_HGDIOBJ.cpp(9,5): error C2143: синтаксическая ошибка: отсутствие ";" перед "{"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\M_HGDIOBJ.cpp(10,20): error C2947: требуется ">" для завершения список аргументов шаблона, обнаружено "<="
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\M_HGDIOBJ.cpp(11,9): error C2143: синтаксическая ошибка: отсутствие ";" перед "{"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\M_HGDIOBJ.cpp(14,9): error C2143: синтаксическая ошибка: отсутствие ";" перед "}"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\M_HGDIOBJ.cpp(16,9): error C2143: синтаксическая ошибка: отсутствие ";" перед "{"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\M_HGDIOBJ.cpp(18,24): error C2947: требуется ">" для завершения список аргументов шаблона, обнаружено ">="
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\M_HGDIOBJ.cpp(19,13): error C2143: синтаксическая ошибка: отсутствие ";" перед "{"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\M_HGDIOBJ.cpp(22,13): error C2143: синтаксическая ошибка: отсутствие ";" перед "}"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\M_HGDIOBJ.cpp(27,9): error C2143: синтаксическая ошибка: отсутствие ";" перед "}"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\M_HGDIOBJ.cpp(28,5): error C2143: синтаксическая ошибка: отсутствие ";" перед "}"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\M_HGDIOBJ.cpp(30,1): error C2143: синтаксическая ошибка: отсутствие ";" перед "}"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\M_HGDIOBJ.cpp(33,1): error C2143: синтаксическая ошибка: отсутствие ";" перед "{"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\M_HGDIOBJ.cpp(35,5): error C2143: синтаксическая ошибка: отсутствие ";" перед "{"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\M_HGDIOBJ.cpp(39,5): error C2143: синтаксическая ошибка: отсутствие ";" перед "}"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\M_HGDIOBJ.cpp(43,1): error C2143: синтаксическая ошибка: отсутствие ";" перед "}"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\HGDIManager.cpp(6,1): error C2143: синтаксическая ошибка: отсутствие ";" перед "{"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\HGDIManager.cpp(8,25): error C2065: currlen: необъявленный идентификатор
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\HGDIManager.cpp(8,32): error C2059: синтаксическая ошибка: ;
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\HGDIManager.cpp(9,5): error C2143: синтаксическая ошибка: отсутствие ";" перед "{"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\HGDIManager.cpp(11,9): error C2143: синтаксическая ошибка: отсутствие ";" перед "{"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\HGDIManager.cpp(14,9): error C2143: синтаксическая ошибка: отсутствие ";" перед "}"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\HGDIManager.cpp(15,5): error C2143: синтаксическая ошибка: отсутствие ";" перед "}"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\HGDIManager.cpp(17,25): error C2065: currlen: необъявленный идентификатор
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\HGDIManager.cpp(17,32): error C2059: синтаксическая ошибка: ;
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\HGDIManager.cpp(18,5): error C2143: синтаксическая ошибка: отсутствие ";" перед "{"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\HGDIManager.cpp(20,9): error C2143: синтаксическая ошибка: отсутствие ";" перед "{"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\HGDIManager.cpp(20,9): fatal  error C1003: число ошибок превышает 100; остановка компиляции
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\Q_Rect.h(41,22): warning C4244: '=': conversion from 'const double' to 'LONG', possible loss of data
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\Q_Rect.h(42,21): warning C4244: '=': conversion from 'const double' to 'LONG', possible loss of data
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\Q_Rect.h(43,29): warning C4244: '=': conversion from 'const double' to 'LONG', possible loss of data
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\Q_Rect.h(44,30): warning C4244: '=': conversion from 'const double' to 'LONG', possible loss of data
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\MainTools.h(37,31): error C2061: syntax error: identifier 'ProgrammeDate'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\M_HDC.cpp(183,49): warning C4838: conversion from 'double' to 'LONG' requires a narrowing conversion
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\M_HDC.cpp(183,49): warning C4244: 'initializing': conversion from 'double' to 'LONG', possible loss of data
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\M_HDC.cpp(183,57): warning C4838: conversion from 'double' to 'LONG' requires a narrowing conversion
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\M_HDC.cpp(183,57): warning C4244: 'initializing': conversion from 'double' to 'LONG', possible loss of data
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\M_HDC.cpp(193,25): warning C4311: 'type cast': pointer truncation from 'HBITMAP' to 'int'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\M_HDC.cpp(193,25): warning C4302: 'type cast': truncation from 'HBITMAP' to 'int'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\WindowsLib.h(58,22): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\DrawBibliothek.cpp(84,10): warning C4551: function call missing argument list
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\SystemSettings.cpp(47,27): warning C4311: 'type cast': pointer truncation from 'FILE *' to 'int'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\SystemSettings.cpp(47,27): warning C4302: 'type cast': truncation from 'FILE *' to 'int'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\SystemSettings.cpp(64,23): warning C4311: 'type cast': pointer truncation from 'FILE *' to 'int'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\SystemSettings.cpp(64,23): warning C4302: 'type cast': truncation from 'FILE *' to 'int'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.h(6,1): error C2011: 'CToolManager': 'struct' type redefinition
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\MainTools.h(4): message : see declaration of 'CToolManager'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\Loadmanager.cpp(26,132): warning C4311: 'type cast': pointer truncation from 'HDC' to 'int'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\Loadmanager.cpp(26,132): warning C4302: 'type cast': truncation from 'HDC' to 'int'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\Loadmanager.cpp(33,134): warning C4311: 'type cast': pointer truncation from 'HDC' to 'int'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\Loadmanager.cpp(33,134): warning C4302: 'type cast': truncation from 'HDC' to 'int'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\CLay.h(9,9): error C3646: 'lay': unknown override specifier
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\CLay.h(9,13): error C2059: syntax error: '='
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\CLay.h(9,15): error C2334: unexpected token(s) preceding '{'; skipping apparent function body
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\CLay.h(38,8): error C2143: syntax error: missing ';' before '*'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\CLay.h(38,8): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\CLay.h(38,18): error C2238: unexpected token(s) preceding ';'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolLay.h(8,1): error C2011: 'ToolLay': 'struct' type redefinition
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\MainTools.h(15): message : see declaration of 'ToolLay'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\Canvas.h(64,21): error C2061: syntax error: identifier 'Tool'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\Canvas.h(67,45): error C2061: syntax error: identifier 'Tool'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(6,15): error C2027: use of undefined type 'CToolManager'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\MainTools.h(4): message : see declaration of 'CToolManager'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(6,51): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(8,1): error C2550: '{ctor}': constructor initializer lists are only allowed on constructor definitions
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(9,1): warning C4508: '{ctor}': function should return a value; 'void' return type assumed
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(11,16): error C2027: use of undefined type 'CToolManager'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\MainTools.h(4): message : see declaration of 'CToolManager'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(12,1): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(13,25): error C2065: 'currentLength': undeclared identifier
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(15,16): error C2065: 'tools': undeclared identifier
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(18,14): error C2065: 'tools': undeclared identifier
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(18,19): error C2541: 'delete': cannot delete objects that are not pointers
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(19,1): warning C4508: '{dtor}': function should return a value; 'void' return type assumed
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(21,19): error C2027: use of undefined type 'CToolManager'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\MainTools.h(4): message : see declaration of 'CToolManager'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(27,39): error C2065: 'ToolsLength': undeclared identifier
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(27,54): error C2059: syntax error: ')'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(28,9): error C2143: syntax error: missing ';' before '{'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(32,9): error C2143: syntax error: missing ';' before '}'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(33,5): error C2143: syntax error: missing ';' before '}'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(34,25): error C2065: 'ToolsLength': undeclared identifier
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(34,40): error C2059: syntax error: ')'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(35,5): error C2143: syntax error: missing ';' before '{'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(39,5): error C2143: syntax error: missing ';' before '}'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(41,1): error C2143: syntax error: missing ';' before '}'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(43,22): error C2027: use of undefined type 'CToolManager'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\MainTools.h(4): message : see declaration of 'CToolManager'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(44,1): error C2143: syntax error: missing ';' before '{'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(46,23): error C2947: expecting '>' to terminate template-argument-list, found '>='
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(47,5): error C2143: syntax error: missing ';' before '{'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(49,5): error C2143: syntax error: missing ';' before '}'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(51,1): error C2143: syntax error: missing ';' before '}'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(54,19): error C2027: use of undefined type 'CToolManager'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\MainTools.h(4): message : see declaration of 'CToolManager'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(55,1): error C2143: syntax error: missing ';' before '{'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(57,1): error C2143: syntax error: missing ';' before '}'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(60,19): error C2027: use of undefined type 'CToolManager'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\MainTools.h(4): message : see declaration of 'CToolManager'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(61,1): error C2143: syntax error: missing ';' before '{'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(63,5): error C2143: syntax error: missing ';' before '{'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(65,9): error C2143: syntax error: missing ';' before '{'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(67,9): error C2143: syntax error: missing ';' before '}'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(68,5): error C2143: syntax error: missing ';' before '}'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(70,15): error C2065: 'currentLength': undeclared identifier
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(70,28): error C2059: syntax error: ')'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(71,5): error C2143: syntax error: missing ';' before '{'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(74,5): error C2143: syntax error: missing ';' before '}'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(76,1): error C2143: syntax error: missing ';' before '}'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(78,19): error C2027: use of undefined type 'CToolManager'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\MainTools.h(4): message : see declaration of 'CToolManager'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(79,1): error C2143: syntax error: missing ';' before '{'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(80,25): error C2065: 'currentLength': undeclared identifier
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(80,38): error C2059: syntax error: ';'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(81,5): error C2143: syntax error: missing ';' before '{'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(83,9): error C2143: syntax error: missing ';' before '{'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(86,9): error C2143: syntax error: missing ';' before '}'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(87,5): error C2143: syntax error: missing ';' before '}'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(89,25): error C2065: 'currentHidenToolsLength': undeclared identifier
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(89,48): error C2059: syntax error: ';'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(90,5): error C2143: syntax error: missing ';' before '{'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(92,9): error C2143: syntax error: missing ';' before '{'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(95,9): error C2143: syntax error: missing ';' before '}'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(96,5): error C2143: syntax error: missing ';' before '}'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\ToolManager.cpp(99,1): error C2143: syntax error: missing ';' before '}'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\DCManager.h(6,1): error C2143: syntax error: missing ';' before '{'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\DCManager.h(11,22): error C2143: syntax error: missing ';' before '{'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\DCManager.h(17,1): error C2143: syntax error: missing ';' before '}'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\DCManager.cpp(4,16): error C2027: use of undefined type 'DCManager'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.h(12): message : see declaration of 'DCManager'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\DCManager.cpp(5,1): error C2143: syntax error: missing ';' before '{'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\DCManager.cpp(6,21): error C2947: expecting '>' to terminate template-argument-list, found '<'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\DCManager.cpp(7,5): error C2143: syntax error: missing ';' before '{'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\DCManager.cpp(11,5): error C2143: syntax error: missing ';' before '}'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\DCManager.cpp(13,1): error C2143: syntax error: missing ';' before '}'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\DCManager.cpp(15,13): error C2027: use of undefined type 'DCManager'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.h(12): message : see declaration of 'DCManager'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\DCManager.cpp(16,1): error C2143: syntax error: missing ';' before '{'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\DCManager.cpp(17,25): error C2065: 'currLen': undeclared identifier
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\DCManager.cpp(17,32): error C2059: syntax error: ';'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\DCManager.cpp(18,5): error C2143: syntax error: missing ';' before '{'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\DCManager.cpp(20,5): error C2143: syntax error: missing ';' before '}'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\DCManager.cpp(21,1): error C2143: syntax error: missing ';' before '}'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\DCManager.cpp(23,12): error C2027: use of undefined type 'DCManager'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\AppApi.h(12): message : see declaration of 'DCManager'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\DCManager.cpp(25,1): error C2143: syntax error: missing ';' before '{'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\DCManager.cpp(26,1): error C2143: syntax error: missing ';' before '}'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\M_HGDIOBJ.cpp(7,1): error C2143: syntax error: missing ';' before '{'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\M_HGDIOBJ.cpp(9,5): error C2143: syntax error: missing ';' before '{'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\M_HGDIOBJ.cpp(10,20): error C2947: expecting '>' to terminate template-argument-list, found '<='
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\M_HGDIOBJ.cpp(11,9): error C2143: syntax error: missing ';' before '{'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\M_HGDIOBJ.cpp(14,9): error C2143: syntax error: missing ';' before '}'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\M_HGDIOBJ.cpp(16,9): error C2143: syntax error: missing ';' before '{'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\M_HGDIOBJ.cpp(18,24): error C2947: expecting '>' to terminate template-argument-list, found '>='
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\M_HGDIOBJ.cpp(19,13): error C2143: syntax error: missing ';' before '{'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\M_HGDIOBJ.cpp(22,13): error C2143: syntax error: missing ';' before '}'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\M_HGDIOBJ.cpp(27,9): error C2143: syntax error: missing ';' before '}'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\M_HGDIOBJ.cpp(28,5): error C2143: syntax error: missing ';' before '}'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\M_HGDIOBJ.cpp(30,1): error C2143: syntax error: missing ';' before '}'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\M_HGDIOBJ.cpp(33,1): error C2143: syntax error: missing ';' before '{'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\M_HGDIOBJ.cpp(35,5): error C2143: syntax error: missing ';' before '{'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\M_HGDIOBJ.cpp(39,5): error C2143: syntax error: missing ';' before '}'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\M_HGDIOBJ.cpp(43,1): error C2143: syntax error: missing ';' before '}'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\HGDIManager.cpp(6,1): error C2143: syntax error: missing ';' before '{'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\HGDIManager.cpp(8,25): error C2065: 'currlen': undeclared identifier
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\HGDIManager.cpp(8,32): error C2059: syntax error: ';'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\HGDIManager.cpp(8,32): fatal error C1003: error count exceeds 100; stopping compilation
