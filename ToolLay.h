@@ -6,7 +6,7 @@
 
 struct ToolLay
 {
-    CLay* lay = NULL;
+    struct CLay* lay = NULL;
     Rect toolZone = {};
     Vector size = { 1, 1 };//rotates between[0; unlim)
     const char* name = NULL;

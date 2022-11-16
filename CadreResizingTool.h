@@ -1,7 +1,7 @@
 #pragma once
-#include "Tool.cpp"
 
-struct CadreResizingTool : Tool
+/*
+struct CadreResizingTool : Tool2
 {
 
     const int controlSquareLength = 4;
@@ -31,3 +31,4 @@ struct CadreResizingTool : Tool
 
     long edit(ToolLay* toollay) override;
 };
+*/

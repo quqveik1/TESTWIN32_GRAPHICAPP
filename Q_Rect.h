@@ -41,7 +41,7 @@ Rect::operator RECT() const
     result.left = std::lround(pos.x);
     result.top = std::lround(pos.y);
     result.right = std::lround(finishPos.x);
-    result.bottom = std::lround(finishPos.y;
+    result.bottom = std::lround(finishPos.y);
 
     return result;
 }

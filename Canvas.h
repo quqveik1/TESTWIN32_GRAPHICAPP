@@ -61,10 +61,10 @@ struct Canvas : Manager
     void finishTool();
     void controlTool();
     void startTool();
-    void changeTool(Tool* tool);
+    void changeTool(Tool2* tool);
     void initToolLay();
     void addToolLay();
-    void setToolToToolLay(ToolLay* toollay, Tool* tool);
+    void setToolToToolLay(ToolLay* toollay, Tool2* tool);
     void setCurrentData();
 
     void controlImportingImages();

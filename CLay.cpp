@@ -23,7 +23,8 @@ void CLay::createLay(AbstractAppData* _app, Canvas* _canvas, Vector _size /* = {
 
     if (_size == _size.getNullVector()) _size = app->systemSettings->DCVECTORSIZE;
 
-    lay.createLay(app, _size);
+    //lay.createLay(app, _size);
+    lay.setSize(_size, app);
     createToolLay();
 }
 
@@ -137,13 +138,13 @@ int CLay::getCurrentSize()
 
 M_HDC CLay::getOutputDC()
 {
-    return lay.outputLay;
+    return lay;
 }
 
 
 RGBQUAD* CLay::getOutputBuf()
 {
-    return lay.outputBuf;
+    return NULL;
 }
 
 ToolLay** CLay::getToolLays()
@@ -153,16 +154,17 @@ ToolLay** CLay::getToolLays()
 
 Lay* CLay::getLay()
 {
-    return &lay;
+    return NULL;
 }
 
 Vector CLay::getLaySize()
 {
-    return lay.laySize;
+    return lay.getSize();
 }
 
 void CLay::redraw()
 {
+    /*
     lay.clean(lay.lay);
     lay.clean(lay.outputLay);
 
@@ -173,14 +175,15 @@ void CLay::redraw()
         HDC outDC = toolLays[toollay]->drawTool();
         if (outDC != lay.outputLay && outDC) app->transparentBlt(lay.outputLay, 0, 0, 0, 0, outDC);
     }
+    */
 }
 
 M_HDC CLay::getPermanentDC()
 {
-    return lay.lay;
+    return lay;
 }
 
 RGBQUAD* CLay::getPermanentBuf()
 {
-    return lay.layBuf;
+    return NULL;
 }

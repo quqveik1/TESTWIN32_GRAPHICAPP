@@ -56,11 +56,13 @@ void Canvas::controlImportingImages()
     if (getCurrentlyImportingImage())
     {
         lastTimetoolNum = app->toolManager->getActiveToolNum();
+        /*
         int settedToolNum = app->toolManager->setActiveTool(app->canvasManager->importTool);
         if (settedToolNum >= 0)
         {
             wasLastTimeImporting = true;
         }
+        */
     }
 }
 
@@ -69,7 +71,7 @@ void Canvas::startTool()
     initToolLay();
 }
 
-void Canvas::changeTool(Tool* tool)
+void Canvas::changeTool(Tool2* tool)
 {
     setToolToToolLay(getActiveLay()->getActiveToolLay(), getActiveTool());
     getActiveLay()->needRedraw();
@@ -94,7 +96,7 @@ void Canvas::addToolLay()
 }
 
 
-void Canvas::setToolToToolLay(ToolLay* toollay, Tool* tool)
+void Canvas::setToolToToolLay(ToolLay* toollay, Tool2* tool)
 {
     toollay->addTool(tool);
 }
@@ -120,7 +122,7 @@ return false;
     //return DrawingModeLastTime != systemSettings->DrawingMode;
 }
 
-Tool* Canvas::getActiveTool()
+Tool2* Canvas::getActiveTool()
 {
     return NULL;
     //if (app->systemSettings->DrawingMode <= 0 || app->toolManager->currentLength <= 0) return NULL;

@@ -99,12 +99,12 @@ void ToolMenu::drawOneLine(int lineNum)
     }
     else
     {
-        Tool* tool = lay->getToolLays()[lineNum]->getTool();
+        Tool2* tool = lay->getToolLays()[lineNum]->getTool();
 
         assert(tool);
 
-        toolDC = tool->getIconDC();
-        nameOfTool = tool->getName();
+        //toolDC = tool->getIconDC();
+        //nameOfTool = tool->getName();
     }
 
     lastSelected = lay->getActiveToolLayNum();

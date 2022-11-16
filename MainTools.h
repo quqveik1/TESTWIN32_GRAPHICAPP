@@ -1,17 +1,10 @@
 #pragma once
 #include "DrawBibliothek.h"
 #include "Tool2.h"
-struct CToolManager
-{
-    const int ToolsLength = 10;
-    struct Tool2** tools = new Tool2* [ToolsLength];
-    int currentLength = 0;
+#include "ToolLay.h"
 
 
-    virtual void addTool(struct Tool2* tool);
-};
-
-
+/*
 struct ToolLay
 {
     struct CLay* lay = NULL;
@@ -43,3 +36,4 @@ struct ToolLay
     virtual bool isStarted();
     virtual Tool2* getTool();
 };
+*/

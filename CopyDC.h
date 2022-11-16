@@ -1,4 +1,5 @@
 #pragma once
+/*
 #include "Tool.h"
 #include "DrawBibliothek.h"  
 #include "CadreResizingTool.cpp"
@@ -34,3 +35,4 @@ struct CopyDC : CadreResizingTool
     virtual HDC load(ToolLay* toollay) override;
     virtual long destroy(ToolLay* toollay) override;
 };
+*/

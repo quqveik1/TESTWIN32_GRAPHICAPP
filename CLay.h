@@ -1,12 +1,15 @@
 #pragma once
 #include "DrawBibliothek.h"
+#include "Lay.h"
+
 struct CLay
 {
     AbstractAppData* app = NULL;
 
     struct Canvas* canvas = NULL;
 
-    Lay lay = {};
+    //Lay lay = {};
+    M_HDC lay; 
     int toolLength = 0;
     int activeToolNum = -1;
     bool isNewToolLayCreated = false;

@@ -1,4 +1,5 @@
-#pragma once
+#pragma once   
+/*
 #include "Tool.cpp"
 #include "CopyDC.cpp"
 
@@ -14,3 +15,4 @@ struct ImportTool : CopyDC
     
 
 };
+*/

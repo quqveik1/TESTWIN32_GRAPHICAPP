@@ -1,5 +1,4 @@
 #pragma once
-#include "Tool2.h"
 
 
 struct CToolManager
@@ -15,11 +14,11 @@ struct CToolManager
     
 
 
-    virtual Tool2* getActiveTool();
+    virtual struct Tool2* getActiveTool();
     virtual int getActiveToolNum();
     virtual int setActiveToolNum(int num);
-    virtual int setActiveTool(Tool2* tool);
-    virtual int addTool(Tool2* tool, bool needToHide = false);
+    virtual int setActiveTool(struct Tool2* tool);
+    virtual int addTool(struct Tool2* tool, bool needToHide = false);
 
     CToolManager(AbstractAppData* _app);
     ~CToolManager();

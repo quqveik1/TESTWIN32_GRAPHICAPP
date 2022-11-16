@@ -1,5 +1,6 @@
 #pragma once
 #include "ImportTool.h"
+/*
 
 long ImportTool::use(ToolLay* lay)
 {
@@ -31,3 +32,4 @@ long ImportTool::use(ToolLay* lay)
     countToolZone();
     return 1;
 }
+*/

@@ -55,7 +55,7 @@ struct Window
         loadManager(_app->loadManager),
         font(_app->systemSettings->MainFont),
         fontName (_app->systemSettings->FONTNAME),
-        sideThickness(_app->systemSettings->SIDETHICKNESS),
+        sideThickness(std::lround (_app->systemSettings->SIDETHICKNESS)),
         format(_app->systemSettings->TEXTFORMAT),
         dc (_dc)
     {

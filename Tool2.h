@@ -8,6 +8,7 @@ struct Tool2 : Window
 {
     const char* name = NULL;
     int ToolSaveLen = 0;
+    ToolLay* activeToolLay = NULL;
 
     Tool2(AbstractAppData* _app, const char* _name) :
         Window(_app),
@@ -15,8 +16,9 @@ struct Tool2 : Window
     {
     }
 
-    virtual int selectToolLay(ToolLay* toollay);
+    virtual ToolLay* selectToolLay(ToolLay* toollay);
 
-    virtual int createNewToolCopy(ToolLay* toollay);
-    virtual int finishToolCopy(ToolLay* toollay);
+    virtual int createNewToolCopy(ToolLay* toollay) = NULL;
+    virtual int deleteToolCopy(ToolLay* toollay) = NULL;
+    virtual int finishToolCopy(ToolLay* toollay) = NULL;
 };

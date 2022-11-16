@@ -13,14 +13,14 @@ CanvasManager::CanvasManager(AbstractAppData* _app, Vector _pos) :
     plusButtonDC(app->loadManager->loadImage("plusScaleButton.bmp")),
     minusButtonDC(app->loadManager->loadImage("minusScaleButton.bmp")),
     scaleButton(new InputButton2 (_app, { .pos = {}, .finishPos = scaleButtonSize }, &intScale, &minScale, &maxScale, 1, color)),
-    importTool(new ImportTool(_app))
+    importTool(NULL)
 {
     gassert(loadManager);
 
     
     color = TX_BLACK;
 
-    app->toolManager->addTool(importTool, true);
+    //app->toolManager->addTool(NULL, true);
 
     tabCross = app->loadManager->loadImage("tabCross.bmp");
 
