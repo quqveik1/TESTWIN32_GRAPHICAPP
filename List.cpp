@@ -80,7 +80,7 @@ void List::draw()
     {
         if (needToShow)
         {
-            app->setColor(app->systemSettings->SecondMenuColor, finalDC, app->systemSettings->SIDETHICKNESS);
+            app->setColor(app->systemSettings->SecondMenuColor, finalDC, lround(app->systemSettings->SIDETHICKNESS));
             app->line(0, i * itemHeight, rect.getSize().x, i * itemHeight, finalDC);
 
             if (items[i]->getOpeningManager())

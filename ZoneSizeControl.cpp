@@ -125,7 +125,7 @@ void ZoneSizeControl::drawFrame()
 {
     if (*needFrameToWork)
     {
-        manager->app->drawCadre({ .pos = {0, -frameThickness}, .finishPos = zone->getSize() }, manager->finalDC, manager->color, frameThickness);
+        manager->app->drawCadre({ .pos = {0, -frameThickness}, .finishPos = zone->getSize() }, manager->finalDC, manager->color, lround(frameThickness));
     }
 }
 

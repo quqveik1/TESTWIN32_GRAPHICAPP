@@ -216,6 +216,7 @@ struct Manager : Window
 
 
     virtual bool addWindow(Window* window);
+    virtual int separateWindow(int pos);
 
 
     virtual void controlHandle();

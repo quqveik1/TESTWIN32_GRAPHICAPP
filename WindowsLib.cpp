@@ -9,6 +9,12 @@ bool Manager::addWindow(Window* window)
 }
 
 
+int Manager::separateWindow(int pos)
+{
+    return app->windowsLibApi->separateWindow(this, pos);
+}
+
+
 void Window::print(HDC DC)
 {
     assert(DC);

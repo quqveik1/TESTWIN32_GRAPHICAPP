@@ -1,10 +1,11 @@
 #pragma once
 #include "DrawBibliothek.h"
 #include "ProgrammeDate.h"
+#include "WindowsLib.h"
 
 
 
-struct ToolLay
+struct ToolLay : Manager
 {
     struct CLay* lay = NULL;
     Rect toolZone = {};
@@ -21,6 +22,10 @@ struct ToolLay
     //condition block
     bool isToolFinished = false;
     bool isEditing = false;
+
+
+    ToolLay(AbstractAppData* _app);
+    ~ToolLay();
 
 
     virtual void needRedraw();
@@ -42,5 +47,5 @@ struct ToolLay
     virtual bool isStarted();
     virtual Tool2* getTool();
 
-    ~ToolLay();
+    
 };

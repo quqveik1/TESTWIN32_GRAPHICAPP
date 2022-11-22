@@ -48,6 +48,31 @@ bool CWindowsLibApi::addWindow(Manager* manager, Window* window)
 }
 
 
+int CWindowsLibApi::separateWindow(Manager* manager, int pos)
+{
+    massert(manager, manager->app)
+    if (pos < 0 || pos >= manager->getCurLen())
+    {
+        massert(!"Попытка отделить от менеджера окно с несущуствующим позицией", manager->app);
+        return -1;
+    }
+
+    Window* sepMan = manager->pointers[pos];
+    if (sepMan)
+    {
+        sepMan->manager = NULL;
+        for (int i = pos; i < manager->getCurLen() - 1; i++)
+        {
+            manager->pointers[i] = manager->pointers[i + 1];
+        }
+        manager->currLen--;
+        return manager->currLen;
+    }
+
+    return -1;
+}
+
+
 int CWindowsLibApi::clickHandle(Manager* manager)
 {
     if (manager->handle.rect.inRect(manager->getMousePos()) && manager->getMBCondition() == 1)

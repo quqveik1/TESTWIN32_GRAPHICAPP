@@ -19,7 +19,7 @@ struct List : Manager
         Manager(_app, { .pos = _pos, .finishPos = {_pos.x + _oneItemSize.x, _pos.y + _maxLength * _oneItemSize.y } }, _maxLength, false, NULL, {}, (RGB(60, 60, 60))),
         mayFewWindowsBeOpenedAtTheSameTime(_mayFewWindowsBeOpenedAtTheSameTime),
         oneItemSize(_oneItemSize),
-        itemHeight(systemSettings->HANDLEHEIGHT),
+        itemHeight(lround(systemSettings->HANDLEHEIGHT)),
         needToHideAfterClick (_needToHideAfterClick)
     {
         items = new OpenManager * [length];
@@ -27,7 +27,7 @@ struct List : Manager
 
         isThisItemList = new bool[length] {};
 
-        font = oneItemSize.y - 6;
+        font = lround(oneItemSize.y - 6);
 
     }
 

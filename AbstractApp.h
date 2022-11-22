@@ -121,6 +121,9 @@ struct AbstractAppData
     virtual bool wasResized() = 0;
     virtual bool isFullScreen() = 0;
 
+
+    virtual long lround(double num) = 0;
+
     virtual Vector getCentrizedPos(Vector localSize, Vector globalSize) = 0;
     virtual void shiftArrBack(char* arr, int oneItemSize, int firstPosOfShifting, int finishPosOfShifting) = 0;
 

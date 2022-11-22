@@ -29,13 +29,27 @@ Canvas::~Canvas()
 }
 
 
+int Canvas::separateWindow(int pos)
+{
+    if (getCurLen() == 1)
+    {
+        pointers[getCurLen() - 1] = NULL;
+        getCurLen()--; 
+        return getCurLen();
+    }
+    return -1;
+}
+
+
 
 
 
 void Canvas::createLay()
 {
     assert(!(currentLayersLength >= LayersNum));
-    lay[currentLayersLength].createLay(app, this, laysSize);
+    CLay* newlay = new CLay(app, this, laysSize);
+    lay[currentLayersLength] = newlay;
+    //lay[currentLayersLength].createLay(app, this, laysSize);
     if (currentLayersLength <= LayersNum) currentLayersLength++;
 
     activeLayNum = currentLayersLength - 1;
@@ -334,6 +348,7 @@ void Canvas::stretchCanvas(double percantageFromOriginal)
 
 HDC Canvas::getImageForSaving()
 {
+    /*
     if (!getActiveLay()) return NULL;
     HDC notClearedDC = getActiveLay()->lay.lay;
 
@@ -348,6 +363,8 @@ HDC Canvas::getImageForSaving()
     HDC clearedDC = (HDC)clearedMDC.obj;
     //утечка M_HDC
     return clearedDC;
+    */
+    return NULL;
     //выданный HDC следует удалить после использваония
 }
 
@@ -381,8 +398,8 @@ int Canvas::getCurrentLayLength()
 
 CLay* Canvas::getActiveLay()
 {
-    if (activeLayNum < 0 || !lay[activeLayNum].toolLays) return NULL;
-    return &(lay[activeLayNum]);
+    if (activeLayNum < 0 /*|| !lay[activeLayNum]->toolLays*/) return NULL;
+    return (lay[activeLayNum]);
 }
 
 
@@ -390,7 +407,7 @@ Vector Canvas::getLaySize()
 {
     if (getActiveLay())
     {
-        return getActiveLay()->lay.laySize;
+        //return getActiveLay()->lay.laySize;
     }
     return {};
 }
@@ -478,6 +495,35 @@ int Canvas::controlLay()
     return 0;
 }
 
+
+int Canvas::setActiveLay(int pos)
+{
+    if (pos >= 0 && pos < LayersNum)
+    {
+        CLay* _lay = lay[pos];
+        if (_lay)
+        {
+            separateWindow(getCurLen() - 1);
+            addWindow(_lay);
+            return getCurLen();
+        }
+    }
+
+    return -1;
+}
+
+int Canvas::setActiveLay(CLay* _lay)
+{
+    if (_lay)
+    {
+        separateWindow(getCurLen() - 1);
+        addWindow(_lay);
+        return getCurLen();
+    }
+
+    return -1;
+}
+
 void Canvas::finishTool()
 {
     CLay* clay = getActiveLay();
@@ -527,19 +573,20 @@ void Canvas::drawLays()
 
     for (int lays = 0; lays < currentLayersLength; lays++)
     {
-        if (lay[lays].redrawStatus())
+        if (lay[lays]->redrawStatus())
         {
-            lay[lays].redraw();
-            lay[lays].noMoreRedraw();
+            lay[lays]->print(finalLay);
+            //lay[lays]->redraw();
+            //lay[lays]->noMoreRedraw();
             reDraw = true;
         }
 
         if (editingMode && (lays == getActiveLayNum()))
         {
-            lay[lays].editTool(&currentDate);
+            lay[lays]->editTool(&currentDate);
         }
 
-        app->transparentBlt(finalLay, lay[lays].lay.layCoordinats.x, lay[lays].lay.layCoordinats.y, 0, 0, lay[lays].lay.outputLay);
+        //app->transparentBlt(finalLay, lay[lays].lay.layCoordinats.x, lay[lays].lay.layCoordinats.y, 0, 0, lay[lays].lay.outputLay);
 
     }
 }

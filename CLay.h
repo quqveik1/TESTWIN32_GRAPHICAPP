@@ -1,24 +1,25 @@
 #pragma once
 #include "DrawBibliothek.h"
-#include "Lay.h"
 
-struct CLay
+struct CLay : Manager
 {
-    AbstractAppData* app = NULL;
 
     struct Canvas* canvas = NULL;
 
     //Lay lay = {};
     M_HDC lay; 
-    int toolLength = 0;
+    //int toolLength = 0;
     int activeToolNum = -1;
     bool isNewToolLayCreated = false;
     bool needToRedraw = false;
-    int oneLayToolLimit = NULL;
+    //int oneLayToolLimit = NULL;
     int DrawingModeLastTime = -1;
 
     struct PragrammeDate* data = NULL;
-    struct ToolLay** toolLays = NULL;
+    //struct ToolLay** toolLays = NULL;
+
+    CLay(AbstractAppData* _app, Canvas* _canvas, Vector _size = {});
+    //~CLay();
 
 
     virtual void createLay(AbstractAppData* _app, struct Canvas* _canvas, Vector _size = {});
@@ -38,7 +39,7 @@ struct CLay
     virtual int getActiveToolLayNum();
     virtual void setActiveToolLayNum(int num);
     virtual ToolLay** getToolLays();
-    Lay* getLay();
+    //Lay* getLay();
     virtual Vector getLaySize();
 
     virtual void needRedraw();
@@ -48,5 +49,5 @@ struct CLay
     virtual void editTool(ProgrammeDate* data);
     virtual void controlTool(ProgrammeDate* data);
 
-    ~CLay();
+    
 };

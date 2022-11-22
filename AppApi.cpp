@@ -165,8 +165,8 @@ void setWindowParameters(PowerPoint* app, HINSTANCE hInstance)
         (WS_POPUP | WS_BORDER | WS_CAPTION| WS_OVERLAPPEDWINDOW),
         CW_USEDEFAULT,
         CW_USEDEFAULT,
-        app->systemSettings->SizeOfScreen.x,
-        app->systemSettings->SizeOfScreen.y,
+        lround(app->systemSettings->SizeOfScreen.x),
+        lround(app->systemSettings->SizeOfScreen.y),
         NULL, NULL,
         hInstance,
         NULL);
@@ -188,10 +188,10 @@ HDC PowerPoint::createDIBSection(double sizex, double sizey, RGBQUAD** pixels/* 
 {
     HDC wndDC = GetDC(MAINWINDOW);
     HDC dc = CreateCompatibleDC(wndDC);
-    BITMAPINFO info = { { sizeof(info), sizex, sizey, 1, WORD(sizeof(RGBQUAD) * 8), BI_RGB } };
+    BITMAPINFO info = { { sizeof(info), lround(sizex), lround(sizey), 1, WORD(sizeof(RGBQUAD) * 8), BI_RGB } };
     HBITMAP bmap = CreateDIBSection(NULL, &info, DIB_RGB_COLORS, (void**)pixels, NULL, 0);
     selectGDIObject(dc, bmap);
-    PatBlt(dc, 0, 0, sizex, sizey, BLACKNESS);
+    PatBlt(dc, 0, 0, lround (sizex), lround(sizey), BLACKNESS);
     SetBkMode(dc, TRANSPARENT);
     ReleaseDC(MAINWINDOW, wndDC);
 
@@ -274,7 +274,7 @@ void PowerPoint::shiftArrBack(char* arr, int oneItemSize, int firstPosOfShifting
 void PowerPoint::drawText(double x0, double y0, double x1, double y1, const char text[], HDC dc,
     unsigned format /*= DT_CENTER | DT_VCENTER | DT_WORDBREAK | DT_WORD_ELLIPSIS*/)
 {
-    RECT _rect = { x0, y0, x1, y1 };
+    RECT _rect = { lround(x0), lround(y0), lround(x1), lround(y1) };
     DrawText(dc, text, -1, &_rect, format);
 }
 
@@ -446,7 +446,7 @@ COLORREF PowerPoint::RGB2HSL(COLORREF rgbColor)
 
 int PowerPoint::setPixel(Vector pos, COLORREF _color, HDC dc)
 {
-    return SetPixel(dc, pos.x, pos.y, _color);
+    return SetPixel(dc, lround(pos.x), lround(pos.y), _color);
 }
 
 COLORREF PowerPoint::getPixel(Vector pos, HDC dc)
@@ -796,7 +796,7 @@ void PowerPoint::setCursor(HCURSOR cursor/*= NULL*/)
 {
     if (cursor == NULL) cursor = defaultCursor;
     activeCursor = cursor;
-    printf("Cursor[%d] was set\n", cursor);
+    printf("Cursor[%d] was set\n", (int)cursor);
     lastTimeCursorSetTime = clock();
 }
 
@@ -808,6 +808,12 @@ Vector PowerPoint::getCursorPos()
     vector.x = point.x;
     vector.y = point.y;
     return vector;
+}
+
+
+long PowerPoint::lround(double num)
+{
+    return std::lround(num);
 }
 
 
@@ -882,7 +888,7 @@ void PowerPoint::controlApp()
 char* PowerPoint::getOpenFileName(const char* question, const char* fileTypeDescribtion, const char* defaultFilename)
 {
     int fileNameLength = MAX_PATH;
-    char fileName[MAX_PATH] = "";
+    static char fileName[MAX_PATH] = "";
 
     sprintf(fileName, "%s", defaultFilename);
 
@@ -916,7 +922,7 @@ char* PowerPoint::getOpenFileName(const char* question, const char* fileTypeDesc
 char* PowerPoint::getSaveFileName(const char* question, const char* fileTypeDescribtion, const char* defaultFilename/* = NULL*/)
 {
     int fileNameLength = MAX_PATH;
-    char fileName[MAX_PATH] = "";
+    static char fileName[MAX_PATH] = "";
 
     sprintf(fileName, "%s", defaultFilename);
 

@@ -15,7 +15,7 @@ InputButton::InputButton(AbstractAppData* _app, Rect _rect, int* _parameter, int
 {
     needTransparencyOutput = true;
 
-    font = rect.getSize().y - 1;
+    font = lround(rect.getSize().y - 1);
     fontSizeX = font / 3;
     spaceBetween2Symbols = fontSizeX * 0.4;
     if (parameter) cursorPos = getAmountOfNumbers(*parameter);
@@ -50,7 +50,7 @@ void InputButton::backSpace()
     int newNum = *parameter;
     if (newNum == 0 || cursorPos <= 0) return;
     int numLength = getAmountOfNumbers(*parameter);;
-    newNum /= pow(10, numLength - cursorPos + 1);
+    newNum /= lround(pow(10, numLength - cursorPos + 1));
 
     int numsAfterEnteredNum = *parameter % ((int)pow(10, numLength - cursorPos));
 

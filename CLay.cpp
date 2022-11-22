@@ -5,34 +5,43 @@
 #include "ProgrammeDate.h"
 #include "ToolManager.h"
 
-CLay::~CLay()
+
+CLay::CLay(AbstractAppData* _app, Canvas* _canvas, Vector _size /* = {}*/) : 
+    Manager(_app, { .pos = {}, .finishPos = _size }, app->systemSettings->ONELAYTOOLSLIMIT),
+    canvas(_canvas)
+
 {
-    if (toolLays) delete[] toolLays;
-}
-
-void CLay::createLay(AbstractAppData* _app, Canvas* _canvas, Vector _size /* = {}*/)
-{
-    assert(_app);
-    app = _app;   
-    oneLayToolLimit = app->systemSettings->ONELAYTOOLSLIMIT;
-    canvas = _canvas;
-    assert(canvas);
-
-    toolLays = new ToolLay* [app->systemSettings->ONELAYTOOLSLIMIT];
-
-
-    if (_size == _size.getNullVector()) _size = app->systemSettings->DCVECTORSIZE;
-
-    //lay.createLay(app, _size);
+    if (_size == _size.getNullVector())
+    {
+        _size = app->systemSettings->DCVECTORSIZE;
+        resize({ .pos = {}, .finishPos = _size });
+    }
     lay.setSize(_size, app);
     createToolLay();
 }
 
+void CLay::createLay(AbstractAppData* _app, Canvas* _canvas, Vector _size /* = {}*/)
+{
+    assert(_app);  
+    //oneLayToolLimit = app->systemSettings->ONELAYTOOLSLIMIT;
+    canvas = _canvas;
+    assert(canvas);
+
+    //toolLays = new ToolLay* [app->systemSettings->ONELAYTOOLSLIMIT];
+
+
+    
+
+    //lay.createLay(app, _size);
+    //lay.setSize(_size, app);
+    //createToolLay();
+}
+
 ToolLay* CLay::createToolLay()
 {
-    if (toolLength >= oneLayToolLimit) return NULL;
+    //if (toolLength >= oneLayToolLimit) return NULL;
 
-    ToolLay* newToolLay = new ToolLay();
+    ToolLay* newToolLay = new ToolLay(app);
     addToolLay(newToolLay);
 
     return newToolLay;
@@ -41,18 +50,29 @@ ToolLay* CLay::createToolLay()
 
 void CLay::addToolLay(ToolLay* tool)
 {
-    assert(toolLength < oneLayToolLimit);
+   // assert(toolLength < oneLayToolLimit);
 
-    toolLength++;
-    activeToolNum = toolLength - 1;
-    toolLays[activeToolNum] = tool;
-    tool->lay = this;
-    tool->addTool(app->toolManager->getActiveTool());
+    //toolLength++;
+    //activeToolNum = toolLength - 1;
+    //toolLays[activeToolNum] = tool;
+
+    bool result = addWindow(tool);
+    if (result)
+    {
+        activeToolNum = getCurLen() - 1;
+        tool->lay = this;
+        tool->addTool(app->toolManager->getActiveTool());
+    }
+    else
+    {
+        massert("Нельзя добавить новый объект на слой", app);
+    }
+    
 }
 
 void CLay::setActiveLastToolLay()
 {
-    activeToolNum = toolLength - 1;
+    //activeToolNum = toolLength - 1;
 }
 
 void CLay::needRedraw()
@@ -107,15 +127,16 @@ bool CLay::redrawStatus()
 
 ToolLay* CLay::getActiveToolLay()
 {
-    if (activeToolNum < 0 || !toolLays) return NULL;
-    return toolLays[activeToolNum];
+    return NULL;
+   // if (activeToolNum < 0 || !toolLays) return NULL;
+    //return toolLays[activeToolNum];
 }
 
 ToolLay* CLay::getToolLay(int num)
 {
     if (0 <= num && num < getCurrentSize())
     {
-        return toolLays[num];
+        //return toolLays[num];
     }
     return NULL;
 }
@@ -133,7 +154,8 @@ void CLay::setActiveToolLayNum(int num)
 
 int CLay::getCurrentSize()
 {
-    return toolLength;
+    return getCurLen();
+    //return toolLength;
 }
 
 M_HDC CLay::getOutputDC()
@@ -149,13 +171,16 @@ RGBQUAD* CLay::getOutputBuf()
 
 ToolLay** CLay::getToolLays()
 {
-    return &(toolLays[0]);
+    return NULL;
+    //return &(toolLays[0]);
 }
 
+/*
 Lay* CLay::getLay()
 {
     return NULL;
 }
+*/
 
 Vector CLay::getLaySize()
 {

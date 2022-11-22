@@ -59,8 +59,8 @@ void ToolMenu::onUpdate()
 
 Rect ToolMenu::getLineRect(int numberOfLine)
 {
-    int linePosY = app->systemSettings->BUTTONHEIGHT * numberOfLine + handle.rect.finishPos.y;
-    int lineFinishPosY = app->systemSettings->BUTTONHEIGHT * (numberOfLine + 1) + handle.rect.finishPos.y;
+    int linePosY = lround(app->systemSettings->BUTTONHEIGHT * numberOfLine + handle.rect.finishPos.y);
+    int lineFinishPosY = lround(app->systemSettings->BUTTONHEIGHT * (numberOfLine + 1) + handle.rect.finishPos.y);
     Rect lineRect = { .pos = {0, (double)linePosY}, .finishPos = {getSize().x, (double)lineFinishPosY} };
     return lineRect;
 }

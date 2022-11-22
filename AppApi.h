@@ -112,6 +112,8 @@ struct PowerPoint : AbstractAppData
     virtual bool isFullScreen() override;
     virtual Rect getUserRect() override;
 
+    virtual long lround(double num) override;
+
     virtual Vector getCentrizedPos(Vector localSize, Vector globalSize) override;
     void shiftArrBack(char* arr, int oneItemSize, int firstPosOfShifting, int finishPosOfShifting) override;
 

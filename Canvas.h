@@ -19,7 +19,7 @@ struct Canvas : Manager
     M_HDC finalLay;
     bool needToRedrawBackground = false;
     COLORREF backgroungColor = TX_WHITE;
-    CLay* lay = new CLay[LayersNum]{};
+    CLay** lay = new CLay*[LayersNum]{};
     int currentToolLength = 0;
     bool editingMode = false;
     int DrawingModeLastTime = 0;
@@ -44,6 +44,8 @@ struct Canvas : Manager
     Canvas(AbstractAppData* _app, Rect _rect, const char* _name);
     ~Canvas();
 
+    virtual int separateWindow(int pos) override;
+
 	void controlSize();
     void controlStretching();
     virtual Vector setNewCanvasSize(Vector newSize);
@@ -52,6 +54,8 @@ struct Canvas : Manager
 
 	virtual void createLay ();
 	int controlLay ();
+	int setActiveLay (int pos);
+	int setActiveLay (CLay* _lay);
     void controlEditLay();
 	void drawLays();
     void cleanOutputLay();

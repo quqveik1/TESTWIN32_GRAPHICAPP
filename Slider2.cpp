@@ -56,7 +56,7 @@ int Slider2::onMouseMove(Vector mp, Vector delta)
             if (isSmaller(pointSliderPos.x, 0)) pointSliderPos.x = 0;
             if (isBigger(pointSliderPos.x, getSize().x - pointSliderSize.x)) pointSliderPos.x = getSize().x - pointSliderSize.x;
             doubleVersionOfParameter = pointSliderPos.x * kOfParametr;
-            *parametr = doubleVersionOfParameter;
+            *parametr = lround(doubleVersionOfParameter);
             pointSliderPos.x = doubleVersionOfParameter / kOfParametr;
 
             app->updateScreen(this);

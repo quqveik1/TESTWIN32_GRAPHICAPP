@@ -1,10 +1,17 @@
 #pragma once
 #include "ToolLay.h"
 #include "Clay.h"
+#include "WindowsLib.cpp"
 
 ToolLay::~ToolLay()
 {
     delete toolsData;
+}
+
+
+ToolLay::ToolLay(AbstractAppData* _app) :
+    Manager(_app, {}, 1)
+{
 }
 
 void ToolLay::needRedraw()
@@ -69,7 +76,7 @@ bool ToolLay::isInToolZone(ProgrammeDate* data, Vector mp)
 {
     if (toolZone.inRect(mp))
     {
-        HDC outDC = lay->lay.outputLay;
+        //HDC outDC = lay->lay.outputLay;
         if (!getTool()) return false;
         //getTool()->setMBCondition(mbCondition);
         //isEditing = !tool->edit(this, outDC);
