@@ -1,11 +1,15 @@
 #pragma once
+//#define _CRT_SECURE_NO_WARNINGS
 #define _CRT_SECURE_NO_WARNINGS
 #include "DLLSettings.h"
-#include "..\AbstractApp.h"
-#include "ToolExportData.cpp"
+//#include "..\AbstractApp.h"
+//#include "ToolExportData.cpp"
+#include "..\DLLToolExportData.cpp"
 #include "..\M_HGDIOBJ.cpp"
 //#include "CadreResizingTool.h"
-#include "..\Tool2.h"
+
+#include "..\Tool2.cpp"
+//struct DLLToolExportData;
 
 extern "C" __declspec (dllexport) DLLToolExportData* initDLL(struct AbstractAppData* data);
 
@@ -14,9 +18,17 @@ extern "C" __declspec (dllexport) DLLToolExportData* initDLL(struct AbstractAppD
 
 struct Line : Tool2
 {
-    Line(AbstractAppData* _data, ÑDllSettings* _dllSettings, const char* _name, const int _ToolSaveLen, HDC _dc) :
+    Line(AbstractAppData* _data, ÑDllSettings* _dllSettings, const char* _name) :
         Tool2 (_data, _name)
-    {}
+    {
+        assert(_data);
+        dc = app->loadManager->loadImage("Line.bmp");
+        printf("Line dc[%d]\n", dc);
+    }
+
+    virtual int createNewToolCopy(ToolLay* toollay) override { return 0; };
+    virtual int deleteToolCopy(ToolLay* toollay) override { return 0; };
+    virtual int finishToolCopy(ToolLay* toollay) override { return 0; };
 
 
 

@@ -1,6 +1,5 @@
 #pragma once
 #include "DrawBibliothek.h"
-#include "MainTools.h"
 #include "WindowsLib.h"
 
 
@@ -8,7 +7,7 @@ struct Tool2 : Window
 {
     const char* name = NULL;
     int ToolSaveLen = 0;
-    ToolLay* activeToolLay = NULL;
+    struct ToolLay* activeToolLay = NULL;
 
     Tool2(AbstractAppData* _app, const char* _name) :
         Window(_app),
@@ -16,9 +15,9 @@ struct Tool2 : Window
     {
     }
 
-    virtual ToolLay* selectToolLay(ToolLay* toollay);
+    virtual struct ToolLay* selectToolLay(struct ToolLay* toollay);
 
-    virtual int createNewToolCopy(ToolLay* toollay) = NULL;
-    virtual int deleteToolCopy(ToolLay* toollay) = NULL;
-    virtual int finishToolCopy(ToolLay* toollay) = NULL;
+    virtual int createNewToolCopy(struct ToolLay* toollay) = 0;
+    virtual int deleteToolCopy(struct ToolLay* toollay)  = 0;
+    virtual int finishToolCopy(struct ToolLay* toollay)  = 0;
 };

@@ -1,5 +1,6 @@
 #pragma once
 #include "DLLManager.h"
+#include "io.h"
 
 int findSymbol(const char* text, int size, char symbol)
 {
@@ -32,7 +33,7 @@ bool DLLManager::loadLibs()
             char pattern[100] = {};
             sprintf(pattern, "%s*.%s", path, fileExtension);
 
-            struct _finddata_t fileinfo;
+            _finddata_t fileinfo;
             int placeData = 0;
 
 

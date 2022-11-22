@@ -1,5 +1,6 @@
 ﻿// dllmain.cpp : Определяет точку входа для приложения DLL.
-#include "pch.h"
+//#include "pch.h"
+#include "dllmain.h"
 //#include "CadreResizingTool.cpp"
 
 BOOL APIENTRY DllMain( HMODULE hModule,
@@ -21,11 +22,15 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 
 
 
-/*
+
 DLLToolExportData* initDLL(AbstractAppData* data)
 {
-    return NULL;
+    DLLToolExportData* dllTools = new DLLToolExportData(1);
+    Line* line = new Line(data, NULL, "Линия");
+    dllTools->addTool(line);
+
+    return dllTools;
 };
-*/
+
 
 

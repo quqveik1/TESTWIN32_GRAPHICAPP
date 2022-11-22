@@ -17,6 +17,7 @@
 #include "M_HDC.cpp"
 #include "HGDIManager.cpp"
 #include "TimerManager.cpp"
+#include "DLLToolsManager.cpp"
 
 
 void setWindowParameters(PowerPoint* app, HINSTANCE hInstance);
@@ -42,8 +43,6 @@ PowerPoint::PowerPoint(HINSTANCE hInstance)
 
     loadLibManager = new CLoadLib();
 
-    toolManager = new CToolManager(this);
-
     loadManager = new CLoadManager(this);
 
     windowsLibApi = new CWindowsLibApi();
@@ -56,6 +55,11 @@ PowerPoint::PowerPoint(HINSTANCE hInstance)
 
     hgdiManager = new HGDIManager(this);
     timerManager = new TimerManager();
+
+    toolManager = new CToolManager(this);
+    DLLToolsManager dlltoolsmanager(this, "Settings\\DLLToolsPathList.txt");
+    dlltoolsmanager.loadLibs();
+    dlltoolsmanager.addToManager(toolManager);
 
     setWindowParameters(this, hInstance);
 }

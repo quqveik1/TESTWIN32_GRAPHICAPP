@@ -1,6 +1,6 @@
 #pragma once
-#include "DLLManager.h"
-#include "ToolExportData.h"
+#include "DLLManager.cpp"
+#include "DLLToolExportData.h"
 
 
 struct DLLToolsManager : DLLManager

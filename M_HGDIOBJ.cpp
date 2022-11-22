@@ -1,6 +1,6 @@
 #pragma once
 #include "M_HGDIOBJ.h"
-#include "AppApi.h"
+#include "AbstractApp.h"
 #include "HGDIManager.h"
 
 int M_HGDIOBJ::deleteObj()
