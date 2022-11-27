@@ -23,7 +23,7 @@ struct ToolsPalette : Menu
         for (int i = 0; i < app->toolManager->currentLength; i++)
         {
             tools[i]->rect = { .pos = {0, (double)i * 50}, .finishPos = {50, (double)(i + 1) * 50} };
-            //tools[i]->dc = app->toolManager->tools[i]->getIconDC();
+            if (app->toolManager->tools[i])tools[i]->dc = app->toolManager->tools[i]->dc;
             tools[i]->finalDC.setSize(tools[i]->getSize(), app);
             tools[i]->originalRect = tools[i]->rect;
             addWindow(tools[i]);

@@ -61,6 +61,9 @@ PowerPoint::PowerPoint(HINSTANCE hInstance)
     dlltoolsmanager.loadLibs();
     dlltoolsmanager.addToManager(toolManager);
 
+    HMODULE _saveImagesLib = loadLibManager->loadLib("SaveImage.dll");
+    dllsaveImage = (int (*) (HDC dc, const char* path))GetProcAddress(_saveImagesLib, "saveImage");
+
     setWindowParameters(this, hInstance);
 }
 
@@ -748,9 +751,16 @@ int PowerPoint::smartDeleteDC(HDC dc)
 
 int PowerPoint::saveImage(HDC dc, const char* path)
 {
-    return 0;
-    //return //txSaveImage(path, dc);
+    int res = dllsaveImage(dc, path);
+    return res;
 }
+
+
+int PowerPoint::DEBUGsaveImage(HDC dc)
+{
+    int res = dllsaveImage(dc, ".debug_screenshots");
+    return res;
+};
 
 
 int PowerPoint::messageBox(const char  text[]/* = ""*/, const char  header[]/* = ""*/, unsigned  flags/* = MB_ICONINFORMATION | MB_OKCANCEL*/)

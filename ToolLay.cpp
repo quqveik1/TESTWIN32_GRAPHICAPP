@@ -24,6 +24,17 @@ Tool2* ToolLay::getTool()
     return tool;
 }
 
+
+int ToolLay::finishThisTool()
+{
+    if (lay)
+    {
+        lay->createToolLay();
+        return 1;
+    }
+    return 0;
+}
+
 bool ToolLay::isFinished()
 {
     return NULL;
@@ -71,6 +82,51 @@ void ToolLay::editTool(ProgrammeDate* _data)
     */
 }
 
+void ToolLay::draw()
+{
+    Tool2* _tool = getTool();
+    if (_tool)
+    {
+        ToolLay* _prevLay = _tool->selectToolLay(this);
+        _tool->draw();
+    }
+}
+
+
+
+int ToolLay::mbDown(Vector pos, int button)
+{
+    Tool2* _tool = getTool();
+    if (_tool)
+    {
+        ToolLay* _prevLay = _tool->selectToolLay(this);
+        _tool->mbDown(pos, button);
+    }
+    return 0;
+}
+
+int ToolLay::mbUp(Vector pos, int button)
+{
+    Tool2* _tool = getTool();
+    if (_tool)
+    {
+        ToolLay* _prevLay = _tool->selectToolLay(this);
+        _tool->mbUp(pos, button);
+    }
+    return 0;
+}
+
+int ToolLay::onMouseMove(Vector pos, Vector delta)
+{
+
+    Tool2* _tool = getTool();
+    if (_tool)
+    {
+        ToolLay* _prevLay = _tool->selectToolLay(this);
+        _tool->onMouseMove(pos, delta);
+    }
+    return 0;
+}
 
 bool ToolLay::isInToolZone(ProgrammeDate* data, Vector mp)
 {
@@ -108,10 +164,10 @@ M_HDC ToolLay::getPermanentDC()
     else     return {};
 } 
 
-M_HDC ToolLay::getOutputDC()
+M_HDC* ToolLay::getOutputDC()
 {
     if (lay) return lay->getOutputDC();
-    else     return {};
+    else     return NULL;
 }
 
 void ToolLay::setShowMode(int mode)
@@ -122,6 +178,11 @@ void ToolLay::setShowMode(int mode)
 
 void ToolLay::addTool(Tool2* _tool)
 {
+    if (_tool)
+    {
+        tool = _tool;
+        tool->createNewToolCopy(this);
+    }
     /*
     if (tool != _tool)
     {

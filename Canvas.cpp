@@ -18,6 +18,7 @@ Canvas::Canvas(AbstractAppData* _app, Rect _rect, const char* _name) :
     app->setColor(backgroungColor, finalLay);
     app->rectangle({}, laysSize, finalLay);
     if (_name)strcpy(name, _name);
+    createLay();
 }
 
 Canvas::~Canvas()
@@ -176,6 +177,36 @@ void Canvas::onClick(Vector mp)
 
 
     setMbLastTime();
+}
+
+
+int Canvas::mbDown(Vector mp, int button)
+{
+    CLay* _clay = getActiveLay();
+    if (_clay)
+    {
+        _clay->mbDown(mp - _clay->rect.pos, button);
+    }
+    return 0;
+}
+
+int Canvas::mbUp(Vector mp, int button)
+{
+    if (getActiveLay())
+    {
+        getActiveLay()->mbDown(mp - rect.pos, button);
+    }
+    return 0;
+}
+
+int Canvas::onMouseMove(Vector mp, Vector delta)
+{
+    if (getActiveLay())
+    {
+        getActiveLay()->onMouseMove(mp - rect.pos, delta);
+    }
+
+    return 0;
 }
 
 Vector Canvas::getMousePos()
@@ -573,7 +604,7 @@ void Canvas::drawLays()
 
     for (int lays = 0; lays < currentLayersLength; lays++)
     {
-        if (lay[lays]->redrawStatus())
+        if (true/*lay[lays]->redrawStatus()*/)
         {
             lay[lays]->print(finalLay);
             //lay[lays]->redraw();

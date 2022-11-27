@@ -92,7 +92,9 @@ struct PowerPoint : AbstractAppData
 
     virtual void deleteDC(HDC dc) override;
     virtual int smartDeleteDC(HDC dc) override;
+    int (*dllsaveImage) (HDC dc, const char* path) = NULL;
     virtual int saveImage(HDC dc, const char* path) override;
+    virtual int DEBUGsaveImage(HDC dc) override;
 
     virtual int messageBox(const char  text[] = "", const char  header[] = "", unsigned  flags = MB_ICONINFORMATION | MB_OKCANCEL);
 

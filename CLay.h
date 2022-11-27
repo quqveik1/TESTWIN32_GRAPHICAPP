@@ -27,7 +27,7 @@ struct CLay : Manager
     virtual void addToolLay (ToolLay* tool);
     virtual void setActiveLastToolLay();
 
-    virtual M_HDC getOutputDC ();
+    virtual M_HDC* getOutputDC ();
     virtual RGBQUAD* getOutputBuf();
     virtual M_HDC getPermanentDC();
     virtual RGBQUAD* getPermanentBuf();
@@ -46,6 +46,9 @@ struct CLay : Manager
     virtual void noMoreRedraw();
     virtual bool redrawStatus();
     virtual void redraw();
+    virtual int mbDown(Vector pos, int button) override;
+    virtual int mbUp(Vector pos, int button) override;
+    virtual int onMouseMove(Vector pos, Vector delta) override;
     virtual void editTool(ProgrammeDate* data);
     virtual void controlTool(ProgrammeDate* data);
 

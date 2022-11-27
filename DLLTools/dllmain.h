@@ -30,6 +30,11 @@ struct Line : Tool2
     virtual int deleteToolCopy(ToolLay* toollay) override { return 0; };
     virtual int finishToolCopy(ToolLay* toollay) override { return 0; };
 
+    virtual void draw() override;
+    virtual int mbDown(Vector pos, int button) override;
+    virtual int mbUp(Vector pos, int button) override;
+    virtual int onMouseMove(Vector pos, Vector delta) override;
+
 
 
 

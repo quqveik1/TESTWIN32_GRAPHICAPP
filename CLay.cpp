@@ -7,7 +7,7 @@
 
 
 CLay::CLay(AbstractAppData* _app, Canvas* _canvas, Vector _size /* = {}*/) : 
-    Manager(_app, { .pos = {}, .finishPos = _size }, app->systemSettings->ONELAYTOOLSLIMIT),
+    Manager(_app, { .pos = {}, .finishPos = _size }, _app->systemSettings->ONELAYTOOLSLIMIT),
     canvas(_canvas)
 
 {
@@ -59,6 +59,7 @@ void CLay::addToolLay(ToolLay* tool)
     bool result = addWindow(tool);
     if (result)
     {
+        int _cl = getCurLen();
         activeToolNum = getCurLen() - 1;
         tool->lay = this;
         tool->addTool(app->toolManager->getActiveTool());
@@ -90,6 +91,7 @@ void CLay::editTool(ProgrammeDate* _data)
 
 void CLay::controlTool(ProgrammeDate* _data)
 {
+    /*
     ToolLay* activeToolLay = getActiveToolLay();
 
     int isFinished = activeToolLay->isFinished();
@@ -109,6 +111,7 @@ void CLay::controlTool(ProgrammeDate* _data)
         }
     }
     DrawingModeLastTime = app->toolManager->getActiveToolNum();
+    */
 
 }
 
@@ -127,6 +130,12 @@ bool CLay::redrawStatus()
 
 ToolLay* CLay::getActiveToolLay()
 {
+    int _num = getActiveToolLayNum();
+    int _cl = getCurLen();
+    if (-1 < _num && _num < _cl)
+    {
+        return (ToolLay*)pointers[_num];
+    }
     return NULL;
    // if (activeToolNum < 0 || !toolLays) return NULL;
     //return toolLays[activeToolNum];
@@ -158,9 +167,9 @@ int CLay::getCurrentSize()
     //return toolLength;
 }
 
-M_HDC CLay::getOutputDC()
+M_HDC* CLay::getOutputDC()
 {
-    return lay;
+    return &lay;
 }
 
 
@@ -185,6 +194,38 @@ Lay* CLay::getLay()
 Vector CLay::getLaySize()
 {
     return lay.getSize();
+
+}
+
+
+int CLay::mbDown(Vector pos, int button)
+{
+    ToolLay* _activeLay = getActiveToolLay();
+    if (_activeLay)
+    {
+        _activeLay->mbDown(pos, button);
+    }
+    return 0;
+}
+
+int CLay::mbUp(Vector pos, int button)
+{
+    ToolLay* _activeLay = getActiveToolLay();
+    if (_activeLay)
+    {
+        _activeLay->mbUp(pos, button);
+    }
+    return 0;
+}
+
+int CLay::onMouseMove(Vector pos, Vector delta)
+{
+    ToolLay* _activeLay = getActiveToolLay();
+    if (_activeLay)
+    {
+        _activeLay->onMouseMove(pos, delta);
+    }
+    return 0;
 }
 
 void CLay::redraw()

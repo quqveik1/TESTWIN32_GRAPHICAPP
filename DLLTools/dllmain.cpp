@@ -33,4 +33,35 @@ DLLToolExportData* initDLL(AbstractAppData* data)
 };
 
 
+void Line::draw()
+{
+    if (activeToolLay)
+    {
+        M_HDC* outDC = activeToolLay->getOutputDC();
+        app->setColor(TX_RED, *outDC);
+        app->rectangle({}, { 100, 100 }, *outDC);
+        app->saveImage();
+    }
+}
+
+
+
+int Line::mbDown(Vector pos, int button)
+{
+
+    return 0;
+}
+
+ int Line::mbUp(Vector pos, int button)
+{
+    return 0;
+}
+
+ int Line::onMouseMove(Vector pos, Vector delta)
+{
+    return 0;
+}
+
+
+
 

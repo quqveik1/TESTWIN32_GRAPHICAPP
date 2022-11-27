@@ -40,8 +40,15 @@ struct ToolLay : Manager
     virtual ProgrammeDate* getProgDate();
     virtual int setProgDate(ProgrammeDate* data);
     virtual M_HDC getPermanentDC();
-    virtual M_HDC getOutputDC();
+    virtual M_HDC* getOutputDC();
     virtual void setShowMode(int mode);
+    virtual int finishThisTool();
+
+
+    virtual void draw() override;
+    virtual int mbDown(Vector pos, int button) override;
+    virtual int mbUp(Vector pos, int button) override;
+    virtual int onMouseMove(Vector pos, Vector delta) override;
 
     virtual bool isFinished();
     virtual bool isStarted();
