@@ -20,7 +20,7 @@ struct Vector
 
 
 
-    Vector getNullVector() { return Vector { 0,0 }; };
+    static Vector getNullVector() { return Vector { 0,0 }; };
     void print (const char *str = NULL);
     const char* getStr (const char *str = NULL);
 };
@@ -41,6 +41,7 @@ inline Vector operator / (const double a, const Vector &b);
        Vector operator ^ (const Vector &vector, int degree);
        bool   operator > (const Vector &a, const Vector &b);
        bool   operator > (const Vector &a, const int &b);
+       bool   operator < (const Vector &a, const int &b);
        bool   operator < (const Vector &a, const Vector &b);
        bool operator == (const Vector &a, const Vector &b);
        bool operator != (const Vector &a, const Vector &b); 
@@ -86,6 +87,19 @@ bool operator == (const Vector& a, const double& b)
 bool operator > (const Vector &a, const int &b)
 {                                   
     if (isBigger(a.x, (double)b))
+    {
+        if (isBigger(a.y, (double)b))
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+ bool operator < (const Vector &a, const int &b)
+{                                   
+    if (isSmaller(a.x, (double)b))
     {
         if (isBigger(a.y, (double)b))
         {

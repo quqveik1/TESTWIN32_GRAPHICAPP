@@ -12,6 +12,7 @@ ToolLay::~ToolLay()
 ToolLay::ToolLay(AbstractAppData* _app) :
     Manager(_app, {}, 1)
 {
+
 }
 
 void ToolLay::needRedraw()
@@ -89,6 +90,9 @@ void ToolLay::draw()
     {
         ToolLay* _prevLay = _tool->selectToolLay(this);
         _tool->draw();
+        app->DEBUGsaveImage(*getOutputDC());
+        printf("");
+        return;
     }
 }
 

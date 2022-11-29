@@ -16,6 +16,13 @@ extern "C" __declspec (dllexport) DLLToolExportData* initDLL(struct AbstractAppD
 //struct AbstractAppData* appData = NULL;
 ÑDllSettings DllSettings;
 
+struct LineData
+{
+    Rect rect = {};
+    COLORREF color = NULL;
+    int status = 0;
+};
+
 struct Line : Tool2
 {
     Line(AbstractAppData* _data, ÑDllSettings* _dllSettings, const char* _name) :
@@ -26,7 +33,7 @@ struct Line : Tool2
         printf("Line dc[%d]\n", dc);
     }
 
-    virtual int createNewToolCopy(ToolLay* toollay) override { return 0; };
+    virtual int createNewToolCopy(ToolLay* toollay) override;
     virtual int deleteToolCopy(ToolLay* toollay) override { return 0; };
     virtual int finishToolCopy(ToolLay* toollay) override { return 0; };
 

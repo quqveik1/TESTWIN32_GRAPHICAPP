@@ -208,6 +208,29 @@ int CLay::mbDown(Vector pos, int button)
     return 0;
 }
 
+
+void CLay::draw()
+{
+    for (int i = 0; i < getCurLen(); i++)
+    {
+        if (pointers[i])
+        {
+            app->DEBUGsaveImage(lay);
+            pointers[i]->draw();
+            app->DEBUGsaveImage(lay);
+            printf("");
+        }
+    }
+}
+
+void CLay::print(HDC _dc)
+{
+    app->setColor(app->systemSettings->BackgroundColor, lay);
+    app->rectangle({}, {1000, 1000}, lay);
+    draw();
+    app->bitBlt(_dc, {}, {}, lay);
+}
+
 int CLay::mbUp(Vector pos, int button)
 {
     ToolLay* _activeLay = getActiveToolLay();

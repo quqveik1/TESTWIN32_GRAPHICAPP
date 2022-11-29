@@ -33,14 +33,38 @@ DLLToolExportData* initDLL(AbstractAppData* data)
 };
 
 
+int Line::createNewToolCopy(ToolLay* toollay)
+{
+    activeToolLay = toollay;
+    LineData* _data = new LineData();
+    if (activeToolLay)
+    {
+        activeToolLay->getToolsData() = (char*)_data;
+        return 1;
+    }
+    return 0;
+}
+
+
 void Line::draw()
 {
     if (activeToolLay)
     {
         M_HDC* outDC = activeToolLay->getOutputDC();
-        app->setColor(TX_RED, *outDC);
-        app->rectangle({}, { 100, 100 }, *outDC);
-        app->saveImage();
+        LineData* _data = (LineData*)activeToolLay->getToolsData();
+        if (_data && outDC)
+        {
+        
+            if (_data->rect.finishPos != 0)
+            {
+                app->setColor(_data->color, *outDC);
+                app->line(_data->rect, *outDC);
+                app->DEBUGsaveImage(*outDC);
+                printf("");
+            }
+        }
+        //app->rectangle({}, { 100, 100 }, *outDC);
+        //app->DEBUGsaveImage(*outDC);
     }
 }
 
@@ -48,17 +72,65 @@ void Line::draw()
 
 int Line::mbDown(Vector pos, int button)
 {
-
+    if (activeToolLay)
+    {
+        if (button == 1)
+        {
+            LineData* _data = (LineData*)activeToolLay->getToolsData();
+            if (_data)
+            {
+                _data->rect.pos = pos;
+                _data->status = 1;
+                _data->color = app->systemSettings->DrawColor;
+            }
+            
+        }
+    }
     return 0;
 }
 
  int Line::mbUp(Vector pos, int button)
 {
+     if (activeToolLay)
+     {
+         if (button == 1)
+         {
+            LineData* _data = (LineData*)activeToolLay->getToolsData();
+             if (_data)
+             {
+                 if (_data->status == 1)
+                 {
+                     _data->rect.finishPos = pos;
+                     _data->status = 2;
+                     activeToolLay->finishThisTool();
+                 }
+             }
+
+         }
+     }
     return 0;
 }
 
  int Line::onMouseMove(Vector pos, Vector delta)
 {
+     if (activeToolLay)
+     {
+         LineData* _data = (LineData*)activeToolLay->getToolsData();
+         if (_data)
+         {
+             if (_data->status == 1/*!(_data->rect.pos  0)*/)
+             {
+                 if (delta != 0)
+                 {
+                     _data->rect.finishPos = pos;
+                     //_data->rect.finishPos.print("_data->rect.finishPos:");
+                     //printf("_data->rect.finishPos:{%lf, %lf}\n", ;
+                     app->updateScreen(this);
+                 }
+
+             }
+         }
+     }
     return 0;
 }
 

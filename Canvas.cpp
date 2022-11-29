@@ -182,19 +182,23 @@ void Canvas::onClick(Vector mp)
 
 int Canvas::mbDown(Vector mp, int button)
 {
-    CLay* _clay = getActiveLay();
-    if (_clay)
+    if (rect.inRect(mp + rect.pos))
     {
-        _clay->mbDown(mp - _clay->rect.pos, button);
+        CLay* _clay = getActiveLay();
+        if (_clay)
+        {
+            _clay->mbDown(mp, button);
+        }
     }
     return 0;
 }
 
 int Canvas::mbUp(Vector mp, int button)
 {
-    if (getActiveLay())
+    CLay* _clay = getActiveLay();
+    if (_clay)
     {
-        getActiveLay()->mbDown(mp - rect.pos, button);
+        _clay->mbUp(mp, button);
     }
     return 0;
 }
@@ -203,7 +207,7 @@ int Canvas::onMouseMove(Vector mp, Vector delta)
 {
     if (getActiveLay())
     {
-        getActiveLay()->onMouseMove(mp - rect.pos, delta);
+        getActiveLay()->onMouseMove(mp, delta);
     }
 
     return 0;
@@ -247,6 +251,8 @@ void Canvas::draw()
     setMbLastTime();
 
     posLastTime = rect.pos;
+
+    app->DEBUGsaveImage(finalDC);
 
 
 }
@@ -599,14 +605,15 @@ void Canvas::drawLays()
 {
     static int debugMode = 0;
 
-    app->setColor(backgroungColor, finalLay);
-    app->rectangle({}, laysSize, finalLay);
+    app->rectangle(rect - rect.pos, finalLay);
 
     for (int lays = 0; lays < currentLayersLength; lays++)
     {
         if (true/*lay[lays]->redrawStatus()*/)
         {
+            app->DEBUGsaveImage(finalLay);
             lay[lays]->print(finalLay);
+            app->DEBUGsaveImage(finalLay);
             //lay[lays]->redraw();
             //lay[lays]->noMoreRedraw();
             reDraw = true;

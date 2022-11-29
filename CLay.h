@@ -46,11 +46,14 @@ struct CLay : Manager
     virtual void noMoreRedraw();
     virtual bool redrawStatus();
     virtual void redraw();
+    virtual void editTool(ProgrammeDate* data);
+    virtual void controlTool(ProgrammeDate* data);
+    virtual void draw() override;
+    virtual void print(HDC _dc) override;
     virtual int mbDown(Vector pos, int button) override;
     virtual int mbUp(Vector pos, int button) override;
     virtual int onMouseMove(Vector pos, Vector delta) override;
-    virtual void editTool(ProgrammeDate* data);
-    virtual void controlTool(ProgrammeDate* data);
+    
 
     
 };

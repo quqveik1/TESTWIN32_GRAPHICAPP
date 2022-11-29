@@ -750,16 +750,26 @@ int PowerPoint::smartDeleteDC(HDC dc)
 }
 
 int PowerPoint::saveImage(HDC dc, const char* path)
-{
-    int res = dllsaveImage(dc, path);
-    return res;
+{      
+    if (dllsaveImage)
+    {
+        int res = dllsaveImage(dc, path);
+        return res;
+    }
+    printf("dllsaveImage не загрузилось\n");
+    return NULL;
 }
 
 
 int PowerPoint::DEBUGsaveImage(HDC dc)
 {
-    int res = dllsaveImage(dc, ".debug_screenshots");
-    return res;
+    if (dllsaveImage)
+    {
+        int res = dllsaveImage(dc, ".debug_screenshots\\screenshot1.bmp");
+        return res;
+    }
+    printf("dllsaveImage не загрузилось\n");
+    return NULL;
 };
 
 
