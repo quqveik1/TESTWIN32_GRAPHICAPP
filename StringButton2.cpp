@@ -519,6 +519,7 @@ int StringButton2::mbDown(Vector mp, int button)
             strcpy(textBeforeRedacting, text);
         }
         getInputMode() = 1;
+        return 0;
     }
     else
     {

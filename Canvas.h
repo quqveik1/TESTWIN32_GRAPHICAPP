@@ -94,7 +94,9 @@ struct Canvas : Manager
     void setActiveToolLayNum(int num);
     int getLastNotStartedToolNum();
 
+    Vector convertMousePosForLay(Vector m);
     virtual Vector getMousePos() override;
+    
 
     virtual void MoveWindow(Vector delta) override;
     virtual void MoveWindowTo(Vector pos) override;

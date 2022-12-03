@@ -90,7 +90,7 @@ void ToolLay::draw()
     {
         ToolLay* _prevLay = _tool->selectToolLay(this);
         _tool->draw();
-        app->DEBUGsaveImage(*getOutputDC());
+        //app->DEBUGsaveImage(*getOutputDC());
         printf("");
         return;
     }

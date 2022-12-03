@@ -59,7 +59,7 @@ void Line::draw()
             {
                 app->setColor(_data->color, *outDC);
                 app->line(_data->rect, *outDC);
-                app->DEBUGsaveImage(*outDC);
+                //app->DEBUGsaveImage(*outDC);
                 printf("");
             }
         }

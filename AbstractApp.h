@@ -131,5 +131,9 @@ struct AbstractAppData
     virtual char* getSaveFileName(const char* question, const char* fileTypeDescribtion, const char* defaultFilename = "") = 0;
     virtual char* getOpenFileName(const char* question, const char* fileTypeDescribtion, const char* defaultFilename = "") = 0;
 
+
+    virtual int declareReactionOnMSG(int reaction = 0) = 0;//reaction = 0 on default
+    virtual int getReactionOnMSG() = 0;
+
     virtual Rect getUserRect() = 0;
 };

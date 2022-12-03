@@ -123,7 +123,14 @@ struct PowerPoint : AbstractAppData
     virtual char* getOpenFileName(const char* question, const char* fileTypeDescribtion, const char* defaultFilename = "") override;
 
 
-    virtual void controlApp();
+    //logic part of engine
+    struct MSGReaction* msgReaction = NULL;
+    virtual int declareReactionOnMSG(int reaction = 0);//reaction = 0 on default
+    virtual int getReactionOnMSG();
+
+    virtual int beforeMessage();
+
+    virtual void controlApp();//txver
 
     PowerPoint(HINSTANCE hInstance);
     ~PowerPoint();

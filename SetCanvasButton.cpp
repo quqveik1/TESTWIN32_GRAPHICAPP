@@ -142,8 +142,10 @@ void SetCanvasButton::onClick(Vector mp)
 
 int SetCanvasButton::mbDown(Vector mp, int button)
 {
-    app->windowsLibApi->standartManagerMbDown(this, mp, button);
-    return clickHandle();
+    
+    int _val = app->windowsLibApi->standartManagerMbDown(this, mp, button);
+    clickHandle();
+    return _val;
 }
 
 int SetCanvasButton::mbUp(Vector mp, int button)

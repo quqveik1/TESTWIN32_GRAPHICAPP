@@ -82,7 +82,7 @@ int CWindowsLibApi::clickHandle(Manager* manager)
         manager->handle.setMbLastTime();
         return true;
     }
-    return -1;
+    return 0;
 }
 
 
@@ -201,8 +201,17 @@ int CWindowsLibApi::standartManagerMbDown(struct Manager* manager, Vector mp, in
     {
         if (manager->pointers[i])
         {
-            manager->pointers[i]->mbDown(mp - manager->pointers[i]->rect.pos, button);
+            int _val = manager->pointers[i]->mbDown(mp - manager->pointers[i]->rect.pos, button);
+            if (_val > 0)
+            {
+                return 1;
+            }
         }
+    }
+    int _visible = manager->isVisible();
+    if ((manager->rect-manager->rect.pos).inRect(mp) && _visible)
+    {
+        manager->app->declareReactionOnMSG(1);
     }
     return 0;
 }

@@ -185,9 +185,12 @@ int Canvas::mbDown(Vector mp, int button)
     if (rect.inRect(mp + rect.pos))
     {
         CLay* _clay = getActiveLay();
-        if (_clay)
+        int _reaction = app->getReactionOnMSG();
+        if (_clay && _reaction == 0)
         {
-            _clay->mbDown(mp, button);
+            Vector laymp = convertMousePosForLay(mp);
+            _clay->mbDown(laymp, button);
+            app->declareReactionOnMSG(1);
         }
     }
     return 0;
@@ -198,16 +201,19 @@ int Canvas::mbUp(Vector mp, int button)
     CLay* _clay = getActiveLay();
     if (_clay)
     {
-        _clay->mbUp(mp, button);
+        Vector laymp = convertMousePosForLay(mp);
+        _clay->mbUp(laymp, button);
     }
     return 0;
 }
 
 int Canvas::onMouseMove(Vector mp, Vector delta)
 {
-    if (getActiveLay())
+    CLay* _clay = getActiveLay();
+    if (_clay)
     {
-        getActiveLay()->onMouseMove(mp, delta);
+        Vector laymp = convertMousePosForLay(mp);
+        _clay->onMouseMove(laymp, delta);
     }
 
     return 0;
@@ -219,6 +225,18 @@ Vector Canvas::getMousePos()
     if (!isEqual(rect.getSize().x, 0)) mp.x *= laysSize.x / rect.getSize().x;
     else mp.x = 0;
     if (!isEqual(rect.getSize().y, 0)) mp.y *= laysSize.y / rect.getSize().y;
+    else mp.y = 0;
+    return mp;
+
+}
+
+Vector Canvas::convertMousePosForLay(Vector mp)
+{
+    Vector _laySize = getLaySize();
+    Vector _size = rect.getSize();
+    if (!isEqual(_size.x, 0)) mp.x *= _laySize.x / _size.x;
+    else mp.x = 0;
+    if (!isEqual(_size.y, 0)) mp.y *= _laySize.y / _size.y;
     else mp.y = 0;
     return mp;
 
@@ -252,7 +270,6 @@ void Canvas::draw()
 
     posLastTime = rect.pos;
 
-    app->DEBUGsaveImage(finalDC);
 
 
 }
@@ -442,8 +459,10 @@ CLay* Canvas::getActiveLay()
 
 Vector Canvas::getLaySize()
 {
-    if (getActiveLay())
+    CLay* _lay = getActiveLay();
+    if (_lay)
     {
+        return _lay->getSize();
         //return getActiveLay()->lay.laySize;
     }
     return {};
@@ -611,9 +630,9 @@ void Canvas::drawLays()
     {
         if (true/*lay[lays]->redrawStatus()*/)
         {
-            app->DEBUGsaveImage(finalLay);
+            //app->DEBUGsaveImage(finalLay);
             lay[lays]->print(finalLay);
-            app->DEBUGsaveImage(finalLay);
+            //app->DEBUGsaveImage(finalLay);
             //lay[lays]->redraw();
             //lay[lays]->noMoreRedraw();
             reDraw = true;

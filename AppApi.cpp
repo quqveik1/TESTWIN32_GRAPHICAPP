@@ -18,6 +18,7 @@
 #include "HGDIManager.cpp"
 #include "TimerManager.cpp"
 #include "DLLToolsManager.cpp"
+#include "MSGReaction.cpp"
 
 
 void setWindowParameters(PowerPoint* app, HINSTANCE hInstance);
@@ -63,6 +64,9 @@ PowerPoint::PowerPoint(HINSTANCE hInstance)
 
     HMODULE _saveImagesLib = loadLibManager->loadLib("SaveImage.dll");
     dllsaveImage = (int (*) (HDC dc, const char* path))GetProcAddress(_saveImagesLib, "saveImage");
+
+
+    msgReaction = new MSGReaction();
 
     setWindowParameters(this, hInstance);
 }
@@ -997,4 +1001,33 @@ const char* findExtensionStart(const char* text, int extensionPos)
     }
 
     return &text[startPos];
+}
+
+
+int PowerPoint::declareReactionOnMSG(int reaction/* = 0*/)
+{
+    if (msgReaction)
+    {
+        msgReaction->setReaction(reaction);
+        return reaction;
+    }
+    return 0;
+}
+
+int PowerPoint::getReactionOnMSG()
+{
+    if (msgReaction)
+    {
+        int answer = msgReaction->getReaction();
+        return answer;
+    }
+    return 0;
+
+}
+
+
+int PowerPoint::beforeMessage()
+{
+    declareReactionOnMSG(0);//clean reactions
+    return 0;
 }

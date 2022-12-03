@@ -56,6 +56,7 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
 
     if (appData)
     {
+        appData->beforeMessage();
         if (message == WM_SETCURSOR)
         {
             if (appData->activeCursor)

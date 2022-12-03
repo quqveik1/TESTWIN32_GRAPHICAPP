@@ -167,7 +167,7 @@ struct Window
 
     virtual void draw();
     virtual void onClick(Vector mp) {};
-    virtual int mbDown(Vector mp, int button) { return 0; };
+    virtual int mbDown(Vector mp, int button) { if (rect.inRect(mp)) { app->declareReactionOnMSG(1); return 0; } };
     virtual int mbUp(Vector mp, int button) { return 0; };
     virtual int onKeyboard(int key) { return 0; };
     virtual int onKeyboardChar(int key) { return 0; };

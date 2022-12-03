@@ -107,6 +107,41 @@ void CanvasManager::drawScaleButtons()
 
 
 
+int CanvasManager::mbDown(Vector mp, int button)
+{
+    setCanvasButton->mbDown(mp - setCanvasButton->rect.pos, button);
+    Canvas* _canvas = getActiveCanvas();
+    if (_canvas)
+    {
+        _canvas->mbDown(mp - _canvas->rect.pos, button);
+    }
+    return 0;
+}
+
+
+int CanvasManager::mbUp(Vector mp, int button)
+{
+    setCanvasButton->mbUp(mp - setCanvasButton->rect.pos, button);
+    Canvas* _canvas = getActiveCanvas();
+    if (_canvas)
+    {
+        _canvas->mbUp(mp - _canvas->rect.pos, button);
+    }
+    return 0;
+}
+
+
+int CanvasManager::onMouseMove(Vector mp, Vector delta)
+{
+    setCanvasButton->onMouseMove(mp - setCanvasButton->rect.pos, delta);
+    Canvas* _canvas = getActiveCanvas();
+    if (_canvas)
+    {
+        _canvas->onMouseMove(mp - _canvas->rect.pos, delta);
+    }
+    return 0;
+}
+
 
 void CanvasManager::draw()
 {

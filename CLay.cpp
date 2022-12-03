@@ -211,13 +211,14 @@ int CLay::mbDown(Vector pos, int button)
 
 void CLay::draw()
 {
-    for (int i = 0; i < getCurLen(); i++)
+    int _len = getCurLen();
+    for (int i = 0; i < _len; i++)
     {
         if (pointers[i])
         {
-            app->DEBUGsaveImage(lay);
+            //app->DEBUGsaveImage(lay);
             pointers[i]->draw();
-            app->DEBUGsaveImage(lay);
+            //app->DEBUGsaveImage(lay);
             printf("");
         }
     }
