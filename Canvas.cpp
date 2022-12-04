@@ -26,7 +26,13 @@ Canvas::~Canvas()
     if (finalDC) app->deleteDC(finalDC);
     if (finalLay) app->deleteDC(finalLay);
 
-    delete[] lay;
+    int _ll = getCurrentLayLength();
+    for (int i = 0; i < _ll; i++)
+    {
+        delete lay[i];
+    }
+
+    //delete lay;
 }
 
 

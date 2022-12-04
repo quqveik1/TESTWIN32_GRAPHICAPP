@@ -61,8 +61,8 @@ struct SetCanvasButton : Manager
         inputY.MoveWindowTo({ sizeYText.finishPos.x,  sizeYText.pos.y });
 
         
-        addWindow(&inputX);
-        addWindow(&inputY);
+        addWindow(inputX);
+        addWindow(inputY);
 
         downSectionPosY = getSize().y - 40;
         buttonPos.y = downSectionPosY + (((getSize().y - downSectionPosY) - buttonSize.y)) * 0.5;
@@ -71,7 +71,7 @@ struct SetCanvasButton : Manager
 
         Vector inputCentrizedPos = app->getCentrizedPos(inputName.getSize(), getSize());
         inputName.MoveWindow({ inputCentrizedPos.x,  downSectionPosY - inputName.getSize().y - 5 });
-        addWindow(&inputName);
+        addWindow(inputName);
         nameTextRect = { .pos = {centralizedPos.x, inputName.rect.pos.y - oneLineSize.y - 5}, .finishPos = {centralizedPos.x + oneLineSize.x, inputName.rect.pos.y - 5} };
         
     }

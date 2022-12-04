@@ -43,6 +43,8 @@ struct Window
     Vector mousePosLastTime = {};
     int mbLastTime = 0;
 
+    int memType = 0;// 0 - dynamic; 1 - static
+
     Window(AbstractAppData* _app, Rect _rect = {}, COLORREF _color = NULL, HDC _dc = NULL, Manager* _manager = NULL, const char* _text = NULL, bool _needToShow = true) :
         app(_app),
         systemSettings(_app->systemSettings),
@@ -74,7 +76,10 @@ struct Window
 
     virtual ~Window()
     {
-        defaultDestructor();
+        //defaultDestructor();
+        assert(app);
+        if (dc) app->deleteDC(dc);
+        if (finalDC) finalDC.deleteObj();
     }
 
 
@@ -162,7 +167,9 @@ struct Window
 
     virtual Vector getAbsMousePos() { return getMousePos() + rect.pos; };
 
-    virtual void setMPLastTime() { mousePosLastTime = getMousePos(); }
+    virtual void setMPLastTime() { mousePosLastTime = getMousePos(); };
+
+    virtual int mayBeDeletedInDestructor() { if (memType == 0) { return 1; } return 0; };
 
 
     virtual void draw();
@@ -215,7 +222,8 @@ struct Manager : Window
     }
 
 
-    virtual bool addWindow(Window* window);
+    virtual bool addWindow(Window* window, int _memtype = 0);
+    virtual bool addWindow(Window& window, int _memtype = 1);
     virtual int separateWindow(int pos);
 
 

@@ -33,6 +33,7 @@ struct CanvasManager : Manager
 
 
     CanvasManager(AbstractAppData* _app, Vector _pos);
+    virtual ~CanvasManager();
 
     virtual Canvas* getActiveCanvas();
     virtual int getActiveCanvasNum();

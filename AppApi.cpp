@@ -73,7 +73,7 @@ PowerPoint::PowerPoint(HINSTANCE hInstance)
 
 PowerPoint::~PowerPoint()
 {
-    writeVersion(appData);
+    writeVersion(this);
 
     delete mainManager;
 
@@ -84,6 +84,9 @@ PowerPoint::~PowerPoint()
     delete loadLibManager;
     delete dcManager;
     delete hgdiManager;
+    delete timerManager;
+    delete msgReaction;
+
 }
 
 void writeVersion(PowerPoint* app)

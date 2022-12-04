@@ -42,7 +42,7 @@ struct Canvas : Manager
     bool wasLastTimeImporting = false;
 
     Canvas(AbstractAppData* _app, Rect _rect, const char* _name);
-    ~Canvas();
+    virtual ~Canvas();
 
     virtual int separateWindow(int pos) override;
 

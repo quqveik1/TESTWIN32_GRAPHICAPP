@@ -34,8 +34,6 @@ void MainManager::draw()
     zone.finishPos = app->systemSettings->ScreenPos + app->systemSettings->SizeOfScreen;
     needFrameToWork = !app->isFullScreen();
     //zoneSizeControl.controlFrame();
-    app->setColor(RGB(255, 0, 0), finalDC);
-    app->rectangle({}, {100, 100}, finalDC);
 
     controlWorkSpace();
     

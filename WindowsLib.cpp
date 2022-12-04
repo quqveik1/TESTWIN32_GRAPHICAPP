@@ -3,9 +3,16 @@
 #include "WindowsLibApi.h"
 
 
-bool Manager::addWindow(Window* window)
+bool Manager::addWindow(Window* window, int _memtype/* = 0*/)
 {
+    window->memType = _memtype;
     return app->windowsLibApi->addWindow(this, window);
+}  
+
+bool Manager::addWindow(Window& window, int _memtype/* = 1*/)
+{
+    window.memType = _memtype;
+    return app->windowsLibApi->addWindow(this, &window);
 }
 
 
@@ -239,19 +246,25 @@ int Manager::onKeyboardChar(int key)
 void Manager::defaultDestructor()
 {
     assert(app);
-    if (dc) app->deleteDC(dc);
-    if (finalDC) app->deleteDC(finalDC);
-    for (int i = 0; i < getCurLen(); i++)
+    //if (dc) app->deleteDC(dc);
+    //if (finalDC) app->deleteDC(finalDC);
+    int _l = getCurLen();
+    for (int i = 0; i < _l; i++)
     {
-        //if (pointers[i]) delete pointers[i];
+        if (pointers[i])
+        {
+            int _may = pointers[i]->mayBeDeletedInDestructor();
+            if (_may)
+            {
+                delete pointers[i];
+            }
+        }
     }
 };
 
 void Window::defaultDestructor()
 {
-    assert(app);
-    if (dc) app->deleteDC(dc);
-    if (finalDC) app->deleteDC(dc);
+    
 }
 
 void Manager::hide()

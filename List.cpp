@@ -22,7 +22,7 @@ void List::addNewItem(Window* openButton, HDC dc/* = NULL*/, const char* text/* 
     items[currLen]->reInit();
 
 
-    addWindow(items[currLen]);
+    addWindow(items[currLen], 1);
 }
 
 

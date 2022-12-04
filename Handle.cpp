@@ -19,7 +19,7 @@ List* Handle::createMenuOption(const char* optionText, int* status, bool needToH
         options[currentOptionsLength].list = newList;
 
         currentOptionsLength++;
-        manager->addWindow(newList);
+        manager->addWindow(newList, 1);
 
         return newList;
     }

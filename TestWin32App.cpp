@@ -13,6 +13,7 @@
 #include "SetCanvasButton.cpp"
 #include "ColorMenu.cpp"
 #include "ToolsMenu.cpp"
+#include "Thickness.cpp"
 
 int initProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam);
 int shutDownProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam);
@@ -214,22 +215,32 @@ int initProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
     appData->canvasManager = canvasManager;
     manager->addWindow(canvasManager);
 
+    
     List* createList = mainHandle->createMenuOption("Создать", NULL, true);
     createList->addNewItem(canvasManager->getSetCanvasButton(), NULL, "Создать холст", NULL, 'N');
-
 
     ColorMenu* colorMenu = new ColorMenu(appData, {300, 200});
     manager->addWindow(colorMenu);
 
+    
+    ThicknessMenu* thickness = new ThicknessMenu(appData, { 100, 100 }, true);
+    manager->addWindow(thickness);
+    
+
+    ToolsPalette* toolsPallette = new ToolsPalette(appData, { 5, 100 }, appData->toolManager->currentLength);
+    manager->addWindow(toolsPallette);
+    
+
     List* openWindows = mainHandle->createMenuOption("Окна", NULL);
     openWindows->addNewItem(colorMenu, NULL, "Цвет", NULL, 'I');
-    //manager->addWindow(openWindows);
+    openWindows->addNewItem(thickness, NULL, "Толщина", NULL, 'W');
+    openWindows->addNewItem(toolsPallette, NULL, "Инструменты", NULL, 'T');
+    
     //List* importList = mainHandle->createMenuOption("Импорт/Экспорт", NULL, true);
     //manager->addWindow(importList);
 
 
-    ToolsPalette* toolsPallette = new ToolsPalette(appData, {5, 100}, appData->toolManager->currentLength);
-    manager->addWindow(toolsPallette);
+    
 
     
 
@@ -239,6 +250,7 @@ int initProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
 int shutDownProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
 {
     delete appData;
+    appData = NULL;
 
     return 0;
 }

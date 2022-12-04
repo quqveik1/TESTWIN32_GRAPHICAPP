@@ -29,6 +29,13 @@ CanvasManager::CanvasManager(AbstractAppData* _app, Vector _pos) :
     setCanvasButton = new SetCanvasButton(app, this);
     addWindow(setCanvasButton);
 }
+
+
+CanvasManager::~CanvasManager()
+{
+    delete importTool;
+}
+
 Canvas* CanvasManager::getActiveCanvas()
 {
     if (activeCanvasNum < 0) return NULL;

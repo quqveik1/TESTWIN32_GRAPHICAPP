@@ -18,7 +18,7 @@ ColorMenu::ColorMenu(AbstractAppData* _app, Vector _pos, bool _needToShow /*= fa
 {
     assert(app);
     assert(app->systemSettings);
-    addWindow(&hslPalette);
+    addWindow(hslPalette);
 
     colorHistoryStartPos = { hslPalette.rect.pos.x, hslPalette.rect.finishPos.y + 25 };
     exampleColorStartPos = { colorHistoryStartPos.x,  colorHistoryStartPos.y + colorSectionSize.x + 15 };

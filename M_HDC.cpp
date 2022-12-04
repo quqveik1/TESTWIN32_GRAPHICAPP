@@ -203,8 +203,11 @@ int M_HDC::deleteObj()
     for (int i = 0; i < 4; i++)
     {
         SelectObject((HDC)obj, defObjs[i]);
-        int wasnotDeleted = selectedObj[i]->deleteObj();
-        if (!wasnotDeleted) numOfDeletedObjs++;
+        if (selectedObj[i])
+        {
+            int wasnotDeleted = selectedObj[i]->deleteObj();
+            if (!wasnotDeleted) numOfDeletedObjs++;
+        }
     }
     return numOfDeletedObjs;
 }
