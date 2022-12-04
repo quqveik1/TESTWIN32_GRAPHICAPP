@@ -18,6 +18,7 @@ struct ThicknessMenu : Manager
         Manager(_app, {}, 2, _advancedMode, NULL, {}),
         inputButtonSize({50, getSize().y})
     {
+        needToControlHandleInDefaultFuncs = 1;
         Rect newRect = { .pos = _pos, .finishPos = _pos + buttonSize };
         resize(newRect);
 

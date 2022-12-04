@@ -60,6 +60,7 @@ void Canvas::createLay()
     if (currentLayersLength <= LayersNum) currentLayersLength++;
 
     activeLayNum = currentLayersLength - 1;
+    app->updateScreen(this);    
 }
 
 void Canvas::controlImportingImages()
@@ -565,9 +566,7 @@ int Canvas::setActiveLay(int pos)
         CLay* _lay = lay[pos];
         if (_lay)
         {
-            separateWindow(getCurLen() - 1);
-            addWindow(_lay);
-            return getCurLen();
+            return activeLayNum = pos;
         }
     }
 
@@ -578,9 +577,14 @@ int Canvas::setActiveLay(CLay* _lay)
 {
     if (_lay)
     {
-        separateWindow(getCurLen() - 1);
-        addWindow(_lay);
-        return getCurLen();
+        int _l = getCurrentLayLength();
+        for (int i = 0; i < _l; i++)
+        {
+            if (lay[i] == _lay)
+            {
+                return setActiveLay(i);
+            }
+        }
     }
 
     return -1;
@@ -630,6 +634,7 @@ void Canvas::drawLays()
 {
     static int debugMode = 0;
 
+    app->setColor(backgroungColor, finalLay);
     app->rectangle(rect - rect.pos, finalLay);
 
     for (int lays = 0; lays < currentLayersLength; lays++)
@@ -637,10 +642,11 @@ void Canvas::drawLays()
         if (true/*lay[lays]->redrawStatus()*/)
         {
             //app->DEBUGsaveImage(finalLay);
-            lay[lays]->print(finalLay);
+            lay[lays]->print(&finalLay);
             //app->DEBUGsaveImage(finalLay);
             //lay[lays]->redraw();
             //lay[lays]->noMoreRedraw();
+
             reDraw = true;
         }
 

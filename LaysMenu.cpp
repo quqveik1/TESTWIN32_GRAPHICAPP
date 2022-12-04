@@ -8,23 +8,33 @@ void LaysMenu::onClick(Vector mp)
     {
         if (needToShow && !isClickedLastTime())
         {
-            clickHandle();
-
-            if (canvasManager->getActiveCanvas() != NULL)
+            //clickHandle();
+            Canvas* _canvas = canvasManager->getActiveCanvas();
+            if (_canvas != NULL)
             {
-                for (int i = 0; i < (canvasManager->getActiveCanvas())->currentLayersLength; i++)
+                for (int i = 0; i < _canvas->getCurrentLayLength(); i++)
                 {
                     Rect button = { .pos = {(double)i, handle.rect.getSize().y + i * sectionHeight}, .finishPos = {rect.getSize().x, handle.rect.getSize().y + (i + 1) * sectionHeight} };
                     if (button.inRect(mp))
                     {
-                        canvasManager->getActiveCanvas()->activeLayNum = i;
+                        _canvas->setActiveLay(i);
+                        app->updateScreen(this);
                     }
                 }
 
                 Rect addLayButton = { .pos = {0, rect.getSize().y - buttonSize.y}, .finishPos = {rect.getSize().x,  rect.getSize().y} };
                 if (addLayButton.inRect(mp) && canvasManager->getActiveCanvas())
                 {
-                    needToCreateLay = true;
+                    assert(canvasManager);
+                    if (canvasManager->getActiveCanvas())
+                    {
+                        canvasManager->getActiveCanvas()->createLay();
+                    }
+                    else
+                    {
+                        app->messageBox("Нет активного холста, на который можно добавить слой", "Ошибка", MB_OK);
+                        //txMessageBox("Нет активного холста, на который можно добавить слой", "Ошибка", MB_OK);
+                    }
                 }
             }
         }
@@ -38,21 +48,8 @@ void LaysMenu::draw()
     char text[30] = {};
 
     handle.print(finalDC);
-    controlHandle();
 
-    if (needToCreateLay)
-    {
-        assert(canvasManager);
-        if (canvasManager->getActiveCanvas())
-        {
-            canvasManager->getActiveCanvas()->createLay();
-        }
-        else
-        {
-            txMessageBox("Нет активного холста, на который можно добавить слой", "Ошибка", MB_OK);
-        }
-        needToCreateLay = false;
-    }
+    
 
     rect.finishPos.y = handle.rect.getSize().y + rect.pos.y;
     if (canvasManager->getActiveCanvas())

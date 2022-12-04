@@ -116,10 +116,13 @@ int M_HDC::selectObj(HBRUSH brush)
         }
         else
         {
-            //gassert(app);
-            M_HGDIOBJ* newObj = app->getHGDIOBJ();
-            newObj->setObj(brush);
-            selectedObj[2] = newObj;
+            gassert(app);
+            if (app)
+            {
+                M_HGDIOBJ* newObj = app->getHGDIOBJ();
+                newObj->setObj(brush);
+                selectedObj[2] = newObj;
+            }
         }
         SelectObject((HDC)obj, brush);
         return !wasntDelete;
@@ -152,9 +155,13 @@ int M_HDC::selectObj(HFONT font)
         }
         else
         {
-            M_HGDIOBJ* newObj = app->getHGDIOBJ();
-            newObj->setObj(font);
-            selectedObj[3] = newObj;
+            gassert(app);
+            if (app)
+            {
+                M_HGDIOBJ* newObj = app->getHGDIOBJ();
+                newObj->setObj(font);
+                selectedObj[3] = newObj;
+            }
         }
         SelectObject((HDC)obj, font);
         return !wasntDelete;
@@ -195,6 +202,34 @@ int M_HDC::setSize(Vector size, struct AbstractAppData* _app, RGBQUAD** pixels/*
 
     return NULL;
     
+}
+
+
+int M_HDC::loadImage(struct AbstractAppData* _app, const char* _path, Vector _size /*={}*/)
+{
+    app = _app;
+    if (app)
+    {
+        HDC _loadIMG = app->loadManager->loadImage(_path, _size);
+        int res = copyFrom(app, _loadIMG);
+        app->deleteDC(_loadIMG);
+        return res;
+    }
+    return 0;
+
+}
+
+int M_HDC::copyFrom(struct AbstractAppData* _app, HDC _dc)
+{
+    app = _app;
+    if (app)
+    {
+        Vector _dcsize = app->getHDCSize(_dc);
+        setSize(_dcsize, app);
+        app->bitBlt(*this, {}, {}, _dc);      
+        return 1;
+    }
+    return 0;
 }
 
 int M_HDC::deleteObj()

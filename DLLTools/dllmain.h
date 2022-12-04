@@ -21,6 +21,7 @@ struct LineData
     Rect rect = {};
     COLORREF color = NULL;
     int status = 0;
+    int thickness = 0;
 };
 
 struct Line : Tool2

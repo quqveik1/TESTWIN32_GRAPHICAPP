@@ -39,7 +39,7 @@ struct ToolLay : Manager
     virtual char*& getToolsData();
     virtual ProgrammeDate* getProgDate();
     virtual int setProgDate(ProgrammeDate* data);
-    virtual M_HDC getPermanentDC();
+    virtual M_HDC* getPermanentDC();
     virtual M_HDC* getOutputDC();
     virtual void setShowMode(int mode);
     virtual int finishThisTool();

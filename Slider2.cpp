@@ -17,7 +17,10 @@ void Slider2::draw()
 {
     if (needToShow)
     {
-        doubleVersionOfParameter = *parametr;
+        if (!isSliderClicked)
+        {
+            doubleVersionOfParameter = *parametr;
+        }
         pointSliderPos.x = doubleVersionOfParameter / kOfParametr;
         app->setColor(app->systemSettings->TRANSPARENTCOLOR, finalDC);
         app->rectangle(0, 0, getSize().x, getSize().y, finalDC);

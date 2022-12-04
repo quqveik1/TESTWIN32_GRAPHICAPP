@@ -22,7 +22,9 @@ struct M_HDC : M_HGDIOBJ
     virtual int selectObj(M_HGDIOBJ* _obj, HFONT font);
     virtual int selectObj(HFONT font);
     
-    virtual int setSize(Vector size, struct AbstractAppData* app, RGBQUAD** pixels = NULL);
+    virtual int setSize(Vector size, struct AbstractAppData* _app, RGBQUAD** pixels = NULL);
+    virtual int loadImage(struct AbstractAppData* _app, const char* _path, Vector _size = {});
+    virtual int copyFrom(struct AbstractAppData* _app, HDC _dc);
     virtual Vector getSize();
 
     virtual int deleteObj() override;

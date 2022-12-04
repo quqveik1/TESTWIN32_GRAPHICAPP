@@ -1,4 +1,5 @@
 #pragma once
+#define _CRT_SECURE_NO_WARNINGS
 #include "..\AbstractApp.h"
 #include "pch.h"
 #include "..\Q_Vector.h"

@@ -1,7 +1,7 @@
 MainFont = 20;
 FONTNAME = Arial;
 debugMode = -1;
-Thickness = 71;
+Thickness = 7;
 WindowStyle = -2146959360;
-SizeOfScreen.x = 877.000000;
-SizeOfScreen.y = 708.000000;
+SizeOfScreen.x = 1872.000000;
+SizeOfScreen.y = 892.000000;

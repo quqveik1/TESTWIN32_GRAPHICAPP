@@ -169,7 +169,7 @@ int CLay::getCurrentSize()
 
 M_HDC* CLay::getOutputDC()
 {
-    return &lay;
+    return outputDC;
 }
 
 
@@ -224,12 +224,12 @@ void CLay::draw()
     }
 }
 
-void CLay::print(HDC _dc)
+void CLay::print(M_HDC* _dc)
 {
     app->setColor(app->systemSettings->BackgroundColor, lay);
     app->rectangle({}, {1000, 1000}, lay);
+    outputDC = _dc;
     draw();
-    app->bitBlt(_dc, {}, {}, lay);
 }
 
 int CLay::mbUp(Vector pos, int button)
@@ -268,9 +268,9 @@ void CLay::redraw()
     */
 }
 
-M_HDC CLay::getPermanentDC()
+M_HDC* CLay::getPermanentDC()
 {
-    return lay;
+    return outputDC;
 }
 
 RGBQUAD* CLay::getPermanentBuf()

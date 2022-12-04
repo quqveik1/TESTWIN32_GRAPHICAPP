@@ -4,16 +4,20 @@
 void CWindowsLibApi::resize(Window* window, Rect newRect)
 {
     if (window->systemSettings->debugMode >= 2) printf("newRect {%lf, %lf}; {%lf, %lf}\n", newRect.pos.x, newRect.pos.y, newRect.finishPos.x, newRect.finishPos.y);
+    window->finalDCSize = { newRect.getSize().x, newRect.getSize().y };
     if (isBigger (newRect.getSize().x, 0) && isBigger (newRect.getSize().y, 0))
     {
-        window->finalDCSize = { newRect.getSize().x, newRect.getSize().y };
-        if (window->systemSettings->debugMode >= 2) printf("finalDCSize {%lf, %lf}; \n", window->finalDCSize.x, window->finalDCSize.y);
 
         window->finalDC.setSize(window->finalDCSize, window->app, &window->finalDCArr);
 
-        window->app->setColor(window->color, window->finalDC);
-        window->app->rectangle(0, 0, newRect.getSize().x, newRect.getSize().y, window->finalDC);
+        //window->app->setColor(window->color, window->finalDC);
+        //window->app->rectangle(0, 0, newRect.getSize().x, newRect.getSize().y, window->finalDC);
+
         if (window->systemSettings->debugMode == 5) window->app->drawOnScreen(window->finalDC);
+    }
+    else
+    {
+        window->finalDC.setSize(window->finalDCSize, window->app, &window->finalDCArr);
     }
     window->rect = newRect;
 }
@@ -192,37 +196,80 @@ int CWindowsLibApi::standartManagerDraw(Manager* manager)
 
 int CWindowsLibApi::standartManagerOnClick(Manager* manager, Vector mp)
 {
-    return standartManagerOnClick$(manager, mp);
+    gassert(manager);
+
+    bool missClicked = true;
+
+    int returnableVal = -1;
+
+    //if (HideIfIsNotActive) unHide ();
+
+    if (manager->needToShow)
+    {
+        manager->setActiveWindow(manager);
+        //manager->clickHandle();
+        for (int i = manager->currLen - 1; i >= 0; i--)
+        {
+            if (manager->pointers[i]->rect.inRect(mp))
+            {
+                clickButton(manager->pointers[i], manager, mp);
+
+                missClicked = false;
+                returnableVal = i;
+                if (manager->pointers[i]->needToShow) break;
+            }
+            else
+            {
+                missClicked = true;
+            }
+        }
+    }
+
+    return returnableVal;
 }
 
 int CWindowsLibApi::standartManagerMbDown(struct Manager* manager, Vector mp, int button)
 {
-    for (int i = manager->getCurLen() - 1; i >=0; i--)
+    if (manager)
     {
-        if (manager->pointers[i])
+        if (manager->needToControlHandleInDefaultFuncs)
         {
-            int _val = manager->pointers[i]->mbDown(mp - manager->pointers[i]->rect.pos, button);
-            if (_val > 0)
+            manager->clickHandle();
+        }
+        for (int i = manager->getCurLen() - 1; i >= 0; i--)
+        {
+            if (manager->pointers[i])
             {
-                return 1;
+                int _val = manager->pointers[i]->mbDown(mp - manager->pointers[i]->rect.pos, button);
+                if (_val > 0)
+                {
+                    return 1;
+                }
             }
         }
-    }
-    int _visible = manager->isVisible();
-    if ((manager->rect-manager->rect.pos).inRect(mp) && _visible)
-    {
-        manager->app->declareReactionOnMSG(1);
+        int _visible = manager->isVisible();
+        if ((manager->rect - manager->rect.pos).inRect(mp) && _visible)
+        {
+            manager->app->declareReactionOnMSG(1);
+        }
     }
     return 0;
 }
 
 int CWindowsLibApi::standartManagerMbUp(struct Manager* manager, Vector mp, int button)
 {
-    for (int i = manager->getCurLen() - 1; i >= 0; i--)
+    if (manager)
     {
-        if (manager->pointers[i])
+        if (manager->needToControlHandleInDefaultFuncs)
         {
-            manager->pointers[i]->mbUp(mp - manager->pointers[i]->rect.pos, button);
+            manager->mbUpHandle();
+        }
+        for (int i = manager->getCurLen() - 1; i >= 0; i--)
+        {
+            if (manager->pointers[i])
+            {
+                manager->pointers[i]->mbUp(mp - manager->pointers[i]->rect.pos, button);
+            }
         }
     }
     return 0;
@@ -232,6 +279,10 @@ int CWindowsLibApi::standartManagerOnMouseMove(struct Manager* manager, Vector m
 {
     if (manager)
     {
+        if (manager->needToControlHandleInDefaultFuncs)
+        {
+            manager->moveHandle(delta);
+        }
         for (int i = 0; i < manager->getCurLen(); i++)
         {
            if (manager->pointers[i]) manager->pointers[i]->onMouseMove(mp - manager->pointers[i]->rect.pos, delta);

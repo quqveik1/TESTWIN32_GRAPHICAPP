@@ -258,6 +258,7 @@ void Manager::defaultDestructor()
             {
                 delete pointers[i];
             }
+
         }
     }
 };

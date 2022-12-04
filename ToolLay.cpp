@@ -162,7 +162,7 @@ char*& ToolLay::getToolsData()
     return toolsData;
 }
 
-M_HDC ToolLay::getPermanentDC()
+M_HDC* ToolLay::getPermanentDC()
 {
     if (lay) return lay->getPermanentDC();
     else     return {};

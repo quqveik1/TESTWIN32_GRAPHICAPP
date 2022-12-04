@@ -57,10 +57,10 @@ void Line::draw()
         
             if (_data->rect.finishPos != 0)
             {
-                app->setColor(_data->color, *outDC);
+
+                app->setColor(_data->color, *outDC, _data->thickness);
                 app->line(_data->rect, *outDC);
                 //app->DEBUGsaveImage(*outDC);
-                printf("");
             }
         }
         //app->rectangle({}, { 100, 100 }, *outDC);
@@ -82,6 +82,7 @@ int Line::mbDown(Vector pos, int button)
                 _data->rect.pos = pos;
                 _data->status = 1;
                 _data->color = app->systemSettings->DrawColor;
+                _data->thickness = app->lround(app->systemSettings->Thickness);
             }
             
         }

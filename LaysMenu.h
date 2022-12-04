@@ -11,19 +11,20 @@ struct LaysMenu : Manager
     Vector buttonSize;
     int needToCreateLay = false;
 
-    LaysMenu(AbstractAppData* _app, Rect _rect, CanvasManager* _canvasManager) :
-        Manager(_app, _rect, 0, true, NULL, { .pos = {0, 0}, .finishPos = {_rect.getSize().x, _app->systemSettings->HANDLEHEIGHT} }),
+    LaysMenu(AbstractAppData* _app, Vector _pos, CanvasManager* _canvasManager) :
+        Manager(_app, { .pos = _pos, .finishPos = {_pos.x + appData->systemSettings->BUTTONWIDTH * 2, _pos.y + 800} }, 0, true, NULL),
         canvasManager(_canvasManager),
         sectionHeight(systemSettings->HANDLEHEIGHT),
         sectionFont(sectionHeight - 4),
         addNewLayButton(_app->loadManager->loadImage("AddNewCanvas2.bmp")),
         buttonSize({ _app->systemSettings->BUTTONWIDTH, _app->systemSettings->HANDLEHEIGHT })
     {
-        rect.finishPos.y = rect.pos.y + handle.rect.getSize().y;
-        handle.rect.finishPos.x = rect.getSize().x;
+        needToControlHandleInDefaultFuncs = 1;
+        handle.resize({ .pos = {0, 0}, .finishPos = {rect.getSize().x, _app->systemSettings->HANDLEHEIGHT} });
         handle.color = color;
         handle.text = "Слои";
         handle.font = app->systemSettings->MainFont;
+        rect.finishPos.y = rect.pos.y + handle.rect.getSize().y;
     }
 
     virtual void draw() override;

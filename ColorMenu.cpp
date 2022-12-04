@@ -16,6 +16,7 @@ ColorMenu::ColorMenu(AbstractAppData* _app, Vector _pos, bool _needToShow /*= fa
     Manager(_app, {}, 4, _needToShow, NULL, { .pos = {0, 0}, .finishPos = { 512, 25 } }),
     hslPalette(app, palettePos, &confirmedColor)
 {
+    needToControlHandleInDefaultFuncs = 1;
     assert(app);
     assert(app->systemSettings);
     addWindow(hslPalette);
@@ -96,7 +97,6 @@ int ColorMenu::onMouseMove(Vector mp, Vector delta)
 {
     //app->systemSettings->DrawColor = RGB(redComponent, greenComponent, blueComponent);
     app->windowsLibApi->standartManagerOnMouseMove(this, mp, delta);
-    moveHandle(delta);
 
     
     return 0;
@@ -105,7 +105,6 @@ int ColorMenu::onMouseMove(Vector mp, Vector delta)
 int ColorMenu::mbDown(Vector mp, int button)
 {
     app->windowsLibApi->standartManagerMbDown(this, mp, button);
-    clickHandle();
 
     return 0;
 }
@@ -178,11 +177,14 @@ void ColorMenu::draw()
 
 void ColorMenu::onClick(Vector mp)
 {
-    setActiveWindow(this);
-    app->windowsLibApi->standartManagerOnClick(this, mp);
+    if (needToShow)
+    {
+        setActiveWindow(this);
+        app->windowsLibApi->standartManagerOnClick(this, mp);
 
-    controlHistoryClick();
-    controlExampleClick();
+        controlHistoryClick();
+        controlExampleClick();
+    }
 }
 
 int ColorMenu::onKeyboard(int key)

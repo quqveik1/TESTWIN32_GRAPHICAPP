@@ -7,7 +7,8 @@ struct CLay : Manager
     struct Canvas* canvas = NULL;
 
     //Lay lay = {};
-    M_HDC lay; 
+    M_HDC lay;
+    M_HDC* outputDC = NULL;
     //int toolLength = 0;
     int activeToolNum = -1;
     bool isNewToolLayCreated = false;
@@ -29,7 +30,7 @@ struct CLay : Manager
 
     virtual M_HDC* getOutputDC ();
     virtual RGBQUAD* getOutputBuf();
-    virtual M_HDC getPermanentDC();
+    virtual M_HDC* getPermanentDC();
     virtual RGBQUAD* getPermanentBuf();
 
 
@@ -49,7 +50,7 @@ struct CLay : Manager
     virtual void editTool(ProgrammeDate* data);
     virtual void controlTool(ProgrammeDate* data);
     virtual void draw() override;
-    virtual void print(HDC _dc) override;
+    virtual void print(M_HDC* _dc);
     virtual int mbDown(Vector pos, int button) override;
     virtual int mbUp(Vector pos, int button) override;
     virtual int onMouseMove(Vector pos, Vector delta) override;

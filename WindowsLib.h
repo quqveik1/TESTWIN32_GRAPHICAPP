@@ -174,7 +174,7 @@ struct Window
 
     virtual void draw();
     virtual void onClick(Vector mp) {};
-    virtual int mbDown(Vector mp, int button) { if (rect.inRect(mp)) { app->declareReactionOnMSG(1); return 0; } };
+    virtual int mbDown(Vector mp, int button) { if (rect.inRect(mp)) { app->declareReactionOnMSG(1); }; return 0; };
     virtual int mbUp(Vector mp, int button) { return 0; };
     virtual int onKeyboard(int key) { return 0; };
     virtual int onKeyboardChar(int key) { return 0; };
@@ -193,9 +193,11 @@ struct Manager : Window
     Window** pointers = NULL;
     int currLen;
     Window handle;
+    int needToControlHandleInDefaultFuncs = 0;
     Vector startCursorPos;
     bool coordinatSysFromHandle;
     bool HideIfIsNotActive;
+
 
     Manager(AbstractAppData* _app, Rect _rect, int _length, bool _needToShow = true, HDC _dc = NULL, Rect _handle = {}, COLORREF _color = NULL, bool _coordinatSysFromHandle = false, bool _HideIfIsNotActive = false) :
         Window(_app, _rect, _color, _dc, NULL, NULL, _needToShow),
