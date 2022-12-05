@@ -15,7 +15,6 @@
 #include "ToolsMenu.cpp"
 #include "Thickness.cpp"
 #include "LaysMenu.cpp"
-#include "Slider3.cpp"
 
 int initProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam);
 int shutDownProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam);
