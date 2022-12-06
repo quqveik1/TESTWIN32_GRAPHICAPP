@@ -1,6 +1,5 @@
 #pragma once
 #include "AppApi.h"
-#include "DrawBibliothek.cpp"
 #include "SystemSettings.cpp"
 #include "ToolManager.h"
 #include "FileSavings.cpp"
@@ -35,7 +34,7 @@ const char* findExtensionStart(const char* text, int extensionPos);
 PowerPoint::PowerPoint(HINSTANCE hInstance)
 {
     appVersion = "v0.2.3.0";
-     massert (!makeDir("Settings"), this);
+    massert (!makeDir("Settings"), this);
     
 
     filesCompability = checkVersionCompability(this);
@@ -57,13 +56,16 @@ PowerPoint::PowerPoint(HINSTANCE hInstance)
     hgdiManager = new HGDIManager(this);
     timerManager = new TimerManager();
 
+    HMODULE _saveImagesLib = loadLibManager->loadLib("SaveImage.dll");
+    dllsaveImage = (int (*) (HDC dc, const char* path))GetProcAddress(_saveImagesLib, "saveImage");
+    dllloadImage = (HDC(*) (const char* path, Vector & _size, AbstractAppData * _app))GetProcAddress(_saveImagesLib, "loadImage");
+
     toolManager = new CToolManager(this);
     DLLToolsManager dlltoolsmanager(this, "Settings\\DLLToolsPathList.txt");
     dlltoolsmanager.loadLibs();
     dlltoolsmanager.addToManager(toolManager);
 
-    HMODULE _saveImagesLib = loadLibManager->loadLib("SaveImage.dll");
-    dllsaveImage = (int (*) (HDC dc, const char* path))GetProcAddress(_saveImagesLib, "saveImage");
+    
 
 
     msgReaction = new MSGReaction();
@@ -151,7 +153,7 @@ void setWindowParameters(PowerPoint* app, HINSTANCE hInstance)
     WNDCLASSEX wndClass = {};
 
     char handleName[MAX_PATH] = {};
-    (void)sprintf(handleName, "IMRED - %s[TXLib]", app->appVersion);
+    (void)sprintf(handleName, "IMRED - %s[AbstractApp/WindowsLibApi]", app->appVersion);
 
     wndClass.cbSize = sizeof(wndClass);
     wndClass.style = (CS_VREDRAW | CS_HREDRAW);// &~WS_CAPTION;
@@ -260,12 +262,24 @@ void PowerPoint::drawCadre(Vector pos1, Vector pos2, M_HDC dc, COLORREF color, i
     drawCadre(rect, dc, color, thickness);
 }
 
+
 void PowerPoint::drawCadre(int x1, int y1, int x2, int y2, M_HDC dc, COLORREF color, int thickness)
 {
     Vector pos1 = { (double)x1, (double)y1 };
     Vector pos2 = { (double)x2, (double)y2 };
 
     drawCadre(pos1, pos2, dc, color, thickness);
+}
+
+
+int PowerPoint::isHDCValid(HDC _dc)
+{
+    COLORREF _color = getPixel({ 1, 1 }, _dc);
+    if (_color == CLR_INVALID)
+    {
+        return 0;
+    }
+    return 1;
 }
 
 Vector PowerPoint::getCentrizedPos(Vector localSize, Vector globalSize)
@@ -778,6 +792,18 @@ int PowerPoint::DEBUGsaveImage(HDC dc)
     printf("dllsaveImage не загрузилось\n");
     return NULL;
 };
+
+
+HDC PowerPoint::loadImage(const char* path, Vector _size/* = {}*/)
+{
+    if (dllloadImage)
+    {
+        HDC _dc = dllloadImage(path, _size, this);
+        return _dc;
+    }
+    printf("dllloadImage не загрузилось\n");
+    return NULL;
+}
 
 
 int PowerPoint::messageBox(const char  text[]/* = ""*/, const char  header[]/* = ""*/, unsigned  flags/* = MB_ICONINFORMATION | MB_OKCANCEL*/)

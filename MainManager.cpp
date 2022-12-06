@@ -72,7 +72,7 @@ int MainManager::mbUp(Vector mp, int button)
     return app->windowsLibApi->standartManagerMbUp(this, mp, button);
 }
 
-int MainManager::onSize(Vector managerSize)
+int MainManager::onSize(Vector managerSize, Rect newRect)
 {
     rect = { .pos = {}, .finishPos = managerSize };
     //zoneSizeControl.setFrameZones();

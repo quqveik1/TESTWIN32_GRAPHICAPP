@@ -82,13 +82,11 @@ void MinimizeWindow::onClick(Vector mp)
     assert(app);
     assert(app->systemSettings);
     assert(app->MAINWINDOW);
-    if (!isClickedLastTime())
-    {
-        app->isShowing = false;
-        ShowWindow(app->MAINWINDOW, SW_SHOWMINIMIZED);
-        color = app->systemSettings->MenuColor;
-        app->updateScreen(this);
-    }
+
+    app->isShowing = false;
+    ShowWindow(app->MAINWINDOW, SW_SHOWMINIMIZED);
+    color = app->systemSettings->MenuColor;
+    app->updateScreen(this);
 }
 
 

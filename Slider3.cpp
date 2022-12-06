@@ -8,7 +8,7 @@ Slider3Horizontal::Slider3Horizontal(AbstractAppData* _app, Rect _rect, int* _pa
 {
     leftArrow.loadImage(app, "arrow3HorizontalLeft.bmp");
     rightArrow.loadImage(app, "arrow3HorizontalRight.bmp");
-    pointSliderSize = { 20, _rect.getSize().y };
+    
     //scrollRect.loadImage(app, "SliderRect.bmp");
     
     app->DEBUGsaveImage(rightArrow);
@@ -40,5 +40,42 @@ void Slider3Horizontal::draw()
         //app->transparentBlt(finalDC, pointSliderPos.x, 0, 0, 0, scrollRect);
     }
     setMbLastTime();
+}
+
+
+
+int Slider3Horizontal::onSize(Vector managerSize, Rect newRect/* = {}*/)
+{
+    if (newRect.getSize() != 0)
+    {
+        resize(newRect);
+    }
+    pointSliderSize = { 20, rect.getSize().y };
+
+
+    Vector leftArrowSize = leftArrow.getSize();
+    Vector rightArrowSize = rightArrow.getSize();
+ 
+    possibleSliderPos = { .pos = {leftArrowSize.x, 0}, .finishPos = {getSize().x - rightArrowSize.x - pointSliderSize.x, 0} };
+    kOfParametr = (*maxParameter - *minParameter) / (possibleSliderPos.getSize().x);
+    setParameter(*parametr);
+    
+    return 0;
+}
+
+
+
+void Slider3Horizontal::onClick(Vector mp)
+{
+    Vector leftArrowSize = leftArrow.getSize();
+    Vector rightArrowSize = rightArrow.getSize();
+    Rect _leftArrow = { .pos = {}, .finishPos = leftArrowSize };
+    Rect _rightArrow = { .pos = {getSize().x - rightArrowSize.x, 0}, .finishPos = {getSize().x, rightArrowSize.y} };
+    if (_leftArrow.inRect(mp))
+    {
+    }
+    if (_rightArrow.inRect(mp))
+    {
+    }
 }
 

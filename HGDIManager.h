@@ -2,7 +2,7 @@
 #include "AbstractApp.h"
 #include "M_HGDIOBJ.h"
 #include "M_HDC.h"
-#include "DrawBibliothek.h"
+#include "AbstractApp.h"
 
 struct HGDIManager
 {

@@ -49,6 +49,14 @@ void Slider2::onClick(Vector mp)
     */
 }
 
+int Slider2::setParameter(double _data)
+{
+    doubleVersionOfParameter = _data;
+    *parametr = lround(doubleVersionOfParameter);
+    pointSliderPos.x = (doubleVersionOfParameter / kOfParametr) + possibleSliderPos.pos.x;
+    return 0;
+}
+
 int Slider2::onMouseMove(Vector mp, Vector delta)
 {
     if (isBigger(fabs(delta.x), 0))
@@ -56,11 +64,14 @@ int Slider2::onMouseMove(Vector mp, Vector delta)
         if (isSliderClicked)
         {
             pointSliderPos.x += delta.x;
-            if (isSmaller(pointSliderPos.x, 0)) pointSliderPos.x = 0;
-            if (isBigger(pointSliderPos.x, getSize().x - pointSliderSize.x)) pointSliderPos.x = getSize().x - pointSliderSize.x;
-            doubleVersionOfParameter = pointSliderPos.x * kOfParametr;
+            if (isSmaller(pointSliderPos.x, possibleSliderPos.pos.x)) pointSliderPos.x = possibleSliderPos.pos.x;
+            if (isBigger(pointSliderPos.x, possibleSliderPos.finishPos.x)) pointSliderPos.x = possibleSliderPos.finishPos.x;
+            setParameter((pointSliderPos.x - possibleSliderPos.pos.x) * kOfParametr);
+            /*
+            doubleVersionOfParameter = (pointSliderPos.x - possibleSliderPos.pos.x) * kOfParametr;
             *parametr = lround(doubleVersionOfParameter);
             pointSliderPos.x = doubleVersionOfParameter / kOfParametr;
+            */
 
             app->updateScreen(this);
         }
@@ -90,6 +101,19 @@ int Slider2::mbUp(Vector mp, int button)
         confirm();
     }
     
+    return 0;
+}
+
+
+int Slider2::onSize(Vector newManagerSize, Rect newRect/* = {}*/)
+{
+    if (newRect.getSize() != 0)
+    {
+        resize(newRect);
+    }
+    kOfParametr = (*maxParameter - *minParameter) / (getSize().x - pointSliderSize.x);
+    pointSliderPos.x = *parametr / kOfParametr;
+    possibleSliderPos = { .pos = {0, 0}, .finishPos = {getSize().x - pointSliderSize.x, 0} };
     return 0;
 }
 

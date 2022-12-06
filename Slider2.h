@@ -1,5 +1,5 @@
 #pragma once
-#include "DrawBibliothek.h"
+#include "WindowsLib.h"
 
 struct Slider2 : Manager
 {
@@ -10,6 +10,7 @@ struct Slider2 : Manager
     HDC    pointSlider = NULL; 
     Vector pointSliderPos = {};
     Vector pointSliderSize = {10, 9};
+    Rect possibleSliderPos = {};
     bool isSliderClicked = false;
     double kOfParametr = 0;
 
@@ -25,18 +26,18 @@ struct Slider2 : Manager
     {
         needTransparencyOutput = true;
 
-        kOfParametr = (*maxParameter - *minParameter) / (getSize().x - pointSliderSize.x);
-        pointSliderPos.x = *parametr / kOfParametr;
-
         doubleVersionOfParameter = *parametr;
+        
     };
 
     Rect getPointSliderRect();
     void confirm();
+    virtual int setParameter(double _data);
 
     virtual void draw() override;
     virtual void onClick(Vector mp) override;
     virtual int onMouseMove(Vector mp, Vector delta) override;
     virtual int mbDown(Vector mp, int button) override;
     virtual int mbUp(Vector mp, int button) override;
+    virtual int onSize(Vector newManagerSize, Rect newRect = {}) override;
 };

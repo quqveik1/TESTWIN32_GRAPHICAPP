@@ -44,12 +44,16 @@ HDC loadImage(const char* path, Vector& size, AbstractAppData* _app)
     {
         return 0;
     }
-
+    
     size.x = image.GetWidth();
     size.y = image.GetHeight();
     HDC imageDC = image.GetDC();
-    HDC newdc = _app->createDIBSection(size);
-    _app->bitBlt(newdc, {}, {}, imageDC);
+    HDC newdc = NULL;
+    if (_app)
+    {
+        newdc = _app->createDIBSection(size);
+        _app->bitBlt(newdc, {}, {}, imageDC);
+    }
     image.ReleaseDC();
     return newdc;
 }

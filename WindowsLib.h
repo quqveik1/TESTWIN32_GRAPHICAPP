@@ -1,5 +1,4 @@
 #pragma once
-#include "TXLib.cpp"
 #include "AbstractApp.h"
 #include "M_HDC.cpp"
 #include "HGDIManager.h" 
@@ -178,7 +177,7 @@ struct Window
     virtual int mbUp(Vector mp, int button) { return 0; };
     virtual int onKeyboard(int key) { return 0; };
     virtual int onKeyboardChar(int key) { return 0; };
-    virtual int onSize(Vector managerSize) { return 0; };
+    virtual int onSize(Vector managerSize, Rect newRect = {}) { return 0; };
     virtual int onMouseMove(Vector mp, Vector delta) { return 0; };
     virtual int onTimer(UINT_PTR timerName) { return 0; };
     virtual int onClose() { return 0; };// if you want to cancel closing you need to return non 0 value
@@ -248,7 +247,7 @@ struct Manager : Window
     virtual void onClick(Vector mp) override;
     virtual int mbDown(Vector mp, int button) override;
     virtual int mbUp(Vector mp, int button) override;
-    virtual int onSize(Vector managerSize) override;
+    virtual int onSize(Vector managerSize, Rect newRect = {}) override;
     virtual int onKeyboard(int key) override;
     virtual int onKeyboardChar(int key) override;
     virtual int onMouseMove(Vector mp, Vector delta) override;

@@ -4,6 +4,18 @@
 #include "HGDIManager.h"
 #include "AbstractApp.h"
 #include "AppApi.h"
+#include "LoadManager.h"
+
+M_HDC::M_HDC(struct AbstractAppData* _app) : 
+    app(_app)
+{
+    obj = CreateCompatibleDC(NULL);
+    SetBkMode((HDC)obj, TRANSPARENT);
+    defObjs[0] = GetCurrentObject((HDC)obj, OBJ_BITMAP);
+    defObjs[1] = GetCurrentObject((HDC)obj, OBJ_PEN);
+    defObjs[2] = GetCurrentObject((HDC)obj, OBJ_BRUSH);
+    defObjs[3] = GetCurrentObject((HDC)obj, OBJ_FONT);
+}
 
 M_HDC::M_HDC() :
     app(NULL)
@@ -180,6 +192,13 @@ Vector M_HDC::getSize()
     answer.y = bm.bmHeight;
 
     return answer;
+}
+
+
+int M_HDC::setApp(struct AbstractAppData* _app)
+{
+    app = _app;
+    return (int)(long)app;
 }
 
 

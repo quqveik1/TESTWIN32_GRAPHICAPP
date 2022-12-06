@@ -1,5 +1,4 @@
 #pragma once
-#include "DrawBibliothek.h"
 #include "Slider2.cpp"
 #include "InputButton.cpp"
 

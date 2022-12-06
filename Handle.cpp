@@ -344,7 +344,7 @@ int Handle::optionOnClick(Vector mp)
     return activeOptionNum;
 }
 
-int Handle::onSize(Vector managerSize)
+int Handle::onSize(Vector managerSize, Rect _newRect/* = {}*/)
 {
     Rect newRect = { .pos = rect.pos, .finishPos = {managerSize.x, rect.pos.y + getSize().y} };
     resize(newRect);

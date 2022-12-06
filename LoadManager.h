@@ -26,6 +26,6 @@ struct CLoadManager
 
 
 
-    virtual HDC loadImage(const char* path, Vector size = {});
+    virtual HDC loadImage(const char* path, Vector size = {}); //needToremember = 0 if it used once and you will delete it after call.
     int deleteAllImages();
 };

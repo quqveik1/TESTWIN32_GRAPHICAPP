@@ -12,4 +12,6 @@ struct Slider3Horizontal : Slider2
     //Rect getPointSliderRect();
 
     virtual void draw() override;
+    virtual int onSize(Vector managerSize, Rect newRect = {}) override;
+    virtual void onClick(Vector mp) override;
 };

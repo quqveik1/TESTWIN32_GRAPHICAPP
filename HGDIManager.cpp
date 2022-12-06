@@ -28,16 +28,19 @@ HGDIManager::~HGDIManager()
 
 M_HDC* HGDIManager::getHDC()
 {
-    if (currlen + 1 < maxLen)
+    if (app)
     {
-        M_HDC* newDC = new M_HDC();
-        objs[currlen] = newDC;
-        currlen++;
-        return newDC;
-    }
-    else
-    {
-        massert(!"Переполнение M_HGDIOBJ", app);
+        if (currlen + 1 < maxLen)
+        {
+            M_HDC* newDC = new M_HDC(app);
+            objs[currlen] = newDC;
+            currlen++;
+            return newDC;
+        }
+        else
+        {
+            massert(!"Переполнение M_HGDIOBJ", app);
+        }
     }
 
     return NULL;

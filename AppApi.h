@@ -77,9 +77,6 @@ struct PowerPoint : AbstractAppData
 
     virtual HDC createDIBSection(Vector size, RGBQUAD** pixels = NULL) override;
     virtual HDC createDIBSection(double sizex, double sizey, RGBQUAD** pixels = NULL) override;
-    virtual HDC _loadImage(const char* path);
-
-
 
     virtual void drawText(double x0, double y0, double x1, double y1, const char text[], HDC dc,
         unsigned format = DT_CENTER | DT_VCENTER | DT_SINGLELINE)  override;
@@ -93,7 +90,10 @@ struct PowerPoint : AbstractAppData
     virtual void deleteDC(HDC dc) override;
     virtual int smartDeleteDC(HDC dc) override;
     int (*dllsaveImage) (HDC dc, const char* path) = NULL;
-    virtual int saveImage(HDC dc, const char* path) override;
+    virtual int saveImage(HDC dc, const char* path) override; 
+    HDC (*dllloadImage) (const char* path, Vector& _size, AbstractAppData* _app) = NULL;
+    virtual HDC loadImage(const char* path, Vector _size = {}) override;
+    virtual HDC _loadImage(const char* path);//only bmp
     virtual int DEBUGsaveImage(HDC dc) override;
 
     virtual int messageBox(const char  text[] = "", const char  header[] = "", unsigned  flags = MB_ICONINFORMATION | MB_OKCANCEL);
@@ -102,7 +102,7 @@ struct PowerPoint : AbstractAppData
     virtual void drawCadre(Vector pos1, Vector pos2, M_HDC dc, COLORREF color, int thickness) override;
     virtual void drawCadre(int x1, int y1, int x2, int y2, M_HDC dc, COLORREF color, int thickness) override;
 
-    
+    virtual int isHDCValid(HDC _dc) override;
 
     virtual void changeWindow(Vector size = {}, Vector pos = {})  override;
     virtual void setCursor(HCURSOR cursor = NULL) override;

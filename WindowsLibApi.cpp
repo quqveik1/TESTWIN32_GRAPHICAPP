@@ -1,5 +1,11 @@
 #include "WindowsLibApi.h"
-#include "DrawBibliothek.cpp"
+
+
+
+void clickButton(Window* window, Manager* manager, Vector mp)
+{
+    window->onClick(mp - window->rect.pos);
+}
 
 void CWindowsLibApi::resize(Window* window, Rect newRect)
 {
@@ -183,13 +189,57 @@ int CWindowsLibApi::standartManagerHide(struct Manager* manager)
 
 int CWindowsLibApi::standartWindowDraw(struct Window* window)
 {
-    standartDraw$(window);
+    gassert(window);
+    $s;
+
+    AbstractAppData* app = window->app;
+    assert(app);
+
+    if (window->needToShow)
+    {
+
+        if (window->finalDC) app->setColor(window->color, window->finalDC);
+        if (window->finalDC) app->rectangle(0, 0, window->rect.getSize().x, window->rect.getSize().y, window->finalDC);
+
+        if (window->text)
+        {
+            app->setColor(window->systemSettings->TextColor, window->finalDC);
+            app->selectFont(window->fontName, window->font, window->finalDC);
+            app->drawText(0, 0, window->rect.getSize().x, window->rect.getSize().y, window->text, window->finalDC, window->format);
+        }
+
+        if (window->dc)
+        {
+            app->bitBlt(window->finalDC, 0, 0, window->rect.getSize().x, window->rect.getSize().y, window->dc);
+        }
+    }
     return 0;
 }
 
 int CWindowsLibApi::standartManagerDraw(Manager* manager)
 {
-    standartManagerDraw$(manager);
+    gassert(manager);
+
+    manager->controlHandle();
+
+    AbstractAppData* app = manager->app;
+    assert(app);
+
+    if (manager->dc) app->bitBlt(manager->finalDC, 0, 0, 0, 0, manager->dc);
+
+    int test1 = 0;
+    if (manager->needToShow)
+    {
+        for (int i = 0; i < manager->getCurLen(); i++)
+        {
+            if (manager->pointers[i]->reDraw) manager->pointers[i]->draw();
+            if (manager->pointers[i]->needToShow)
+            {
+                if (manager->pointers[i]->needTransparencyOutput) app->transparentBlt(manager->finalDC, manager->pointers[i]->rect.pos.x, manager->pointers[i]->rect.pos.y, manager->pointers[i]->rect.getSize().x, manager->pointers[i]->rect.getSize().y, manager->pointers[i]->finalDC);
+                else                                              app->bitBlt(manager->finalDC, manager->pointers[i]->rect.pos.x, manager->pointers[i]->rect.pos.y, manager->pointers[i]->rect.getSize().x, manager->pointers[i]->rect.getSize().y, manager->pointers[i]->finalDC);
+            }
+        }
+    }
     return 0;
 }
 
@@ -303,13 +353,13 @@ int CWindowsLibApi::standartManagerOnTimer(struct Manager* manager, UINT_PTR tim
     return 0;
 }
 
-int CWindowsLibApi::standartManagerOnSize(struct Manager* manager, Vector managerSize)
+int CWindowsLibApi::standartManagerOnSize(struct Manager* manager, Vector managerSize, Rect newRect/* = {}*/)
 {
     if (manager)
     {
         for (int i = 0; i < manager->getCurLen(); i++)
         {
-            manager->pointers[i]->onSize(managerSize);
+            manager->pointers[i]->onSize(managerSize, {});
         }
         return manager->getCurLen();
     }

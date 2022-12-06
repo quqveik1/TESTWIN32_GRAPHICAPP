@@ -1,7 +1,7 @@
 #pragma once
 #include "Q_Vector.h"
 #include <stdio.h>
-#include "TXLib.cpp"
+#include "ColorsName.h"
 
 
 

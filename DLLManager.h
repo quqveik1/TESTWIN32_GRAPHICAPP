@@ -1,6 +1,6 @@
 #pragma once
 #include "wtypes.h"
-#include "DrawBibliothek.h"
+#include "AbstractApp.h"
 int findSymbol(const char* text, int size, char symbol);
 
 struct DLLManager

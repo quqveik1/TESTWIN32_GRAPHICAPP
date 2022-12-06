@@ -21,26 +21,39 @@ HDC CLoadManager::loadImage(const char* path, Vector size /* = {} */)
         }
     }
 
+    int _imagepos = currentImagesAmount;
     if (!newImage)
     {
+        HDC suitableDC = images[suitableDCNum].dc;
         if (app->systemSettings->debugMode >= 4) (void)printf("Fullpath: %s; Result: %d\n", fullPath, (int)images[suitableDCNum].dc);
-        if (app->systemSettings->debugMode >= 4) app->drawOnScreen (images[suitableDCNum].dc);
-        return images[suitableDCNum].dc;
-    }
+        if (app->systemSettings->debugMode >= 4) app->drawOnScreen(images[suitableDCNum].dc);
+        COLORREF _color = app->getPixel({ 1, 1 }, suitableDC);
+        if (_color != CLR_INVALID)
+        {
+            return images[suitableDCNum].dc;
+        }
+        _imagepos = suitableDCNum;
+    }   
 
-    PowerPoint* extApp = (PowerPoint*)app;
-    images[currentImagesAmount].dc = extApp->_loadImage(fullPath);
-    if (app->systemSettings->debugMode == 4) (void)printf("Fullpath: %s; Result: %d\n", fullPath, (int)images[currentImagesAmount].dc);
-    if (app->systemSettings->debugMode == 4) app->drawOnScreen (images[currentImagesAmount].dc);
-    if (images[currentImagesAmount].dc == NULL)
+    //PowerPoint* extApp = (PowerPoint*)app;
+    images[_imagepos].dc = app->loadImage(fullPath);
+    strcpy (images[_imagepos].path, fullPath);
+    images[_imagepos].size = size;
+    if (images[_imagepos].dc == NULL)
     {
-        _getch();
+        (void)printf("Картинка из [%s] не загрузилась\n", fullPath);
+        images[_imagepos].dc = app->createDIBSection({ 100, 100 });
+        M_HDC* _m_hdc = app->getHDC();
+        _m_hdc->setObj(images[_imagepos].dc);
+        app->setColor(C_RED, *_m_hdc);
+        app->rectangle({}, {100, 100}, *_m_hdc);
     }
-    strcpy (images[currentImagesAmount].path, fullPath);
-    images[currentImagesAmount].size = size;
-    currentImagesAmount++;
+    if (newImage)
+    {
+        currentImagesAmount++;
+    }
 
-    return images[currentImagesAmount - 1].dc;
+    return images[_imagepos].dc;
 
 
 }

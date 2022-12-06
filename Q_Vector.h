@@ -2,7 +2,7 @@
 
 
 #include "Double comparision.h"
-#include "TXLib.cpp"
+#include <Windows.h>
 
 struct Vector 
 {

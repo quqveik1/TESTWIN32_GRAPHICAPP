@@ -410,7 +410,7 @@ void CanvasManager::screenChanged()
     setTabsRect();
 }
 
-int CanvasManager::onSize(Vector managerSize)
+int CanvasManager::onSize(Vector managerSize, Rect _newRect/*={}*/)
 {
     rect.finishPos = managerSize;
     Vector centrizedPos = {};

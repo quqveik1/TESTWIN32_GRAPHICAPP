@@ -29,7 +29,7 @@ struct CWindowsLibApi
     virtual int standartManagerMbUp(struct Manager* manager, Vector mp, int button);
     virtual int standartManagerOnMouseMove(struct Manager* manager, Vector mp, Vector delta);
     virtual int standartManagerOnTimer(struct Manager* manager, UINT_PTR timerName);
-    virtual int standartManagerOnSize(struct Manager* manager, Vector managerSize);
+    virtual int standartManagerOnSize(struct Manager* manager, Vector managerSize, Rect newRect = {});
     virtual int standartManagerOnKeyboard(struct Manager* manager, int key);
     virtual int standartManagerOnKeyboardChar(struct Manager* manager, int key);
     virtual int standartManagerOnClose(struct Manager* manager);

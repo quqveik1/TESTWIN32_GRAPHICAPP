@@ -1,5 +1,5 @@
 #pragma once
-#include "TXLib.cpp"
+#include <Windows.h>
 
 struct CLoadLib
 {

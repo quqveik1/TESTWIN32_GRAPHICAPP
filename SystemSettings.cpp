@@ -1,7 +1,6 @@
 #pragma once
 #include "SystemSettings.h"
 #include "AbstractApp.h"
-#include "TXLib.cpp"
 
 
 CSystemSettings::CSystemSettings(struct AbstractAppData* _app) :
