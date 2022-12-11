@@ -1,17 +1,15 @@
 #pragma once
-#include "Slider3.h"
+#include "Slider3Horizontal.h"
 #include "Slider2.cpp"
 
 
-Slider3Horizontal::Slider3Horizontal(AbstractAppData* _app, Rect _rect, int* _parametr, int* _minParameter, int* _maxParameter, bool* _confirmed/* = NULL*/) :
-    Slider2 (_app, _rect, _parametr, _minParameter, _maxParameter, _confirmed)
+Slider3Horizontal::Slider3Horizontal(AbstractAppData* _app, Rect _rect, int* _parameter, int* _minParameter, int* _maxParameter, bool* _confirmed/* = NULL*/) :
+    Slider2 (_app, _rect, _parameter, _minParameter, _maxParameter, _confirmed),
+    sliderDefColor(RGB(104, 104, 104))
 {
     leftArrow.loadImage(app, "arrow3HorizontalLeft.bmp");
     rightArrow.loadImage(app, "arrow3HorizontalRight.bmp");
-    
-    //scrollRect.loadImage(app, "SliderRect.bmp");
-    
-    app->DEBUGsaveImage(rightArrow);
+    color = RGB(62, 62, 62);
 }
 
 
@@ -20,11 +18,7 @@ void Slider3Horizontal::draw()
 {
     if (needToShow)
     {
-        if (!isSliderClicked)
-        {
-            doubleVersionOfParameter = *parametr;
-        }
-        pointSliderPos.x = doubleVersionOfParameter / kOfParametr;
+        
         app->setColor(app->systemSettings->TRANSPARENTCOLOR, finalDC);
         app->rectangle(0, 0, getSize().x, getSize().y, finalDC);
 
@@ -34,10 +28,10 @@ void Slider3Horizontal::draw()
         double _rightPosX = getSize().x - rightArrow.getSize().x;
         app->bitBlt(finalDC, { _rightPosX, 0}, {}, rightArrow);
 
-        app->setColor(TX_WHITE, finalDC);
-        app->rectangle(pointSliderPos, pointSliderPos + pointSliderSize, finalDC);
 
-        //app->transparentBlt(finalDC, pointSliderPos.x, 0, 0, 0, scrollRect);
+        setParameter(*parameter);
+        app->setColor(sliderDefColor, finalDC);
+        app->rectangle(sliderPos, sliderPos + sliderSize, finalDC);
     }
     setMbLastTime();
 }
@@ -50,15 +44,15 @@ int Slider3Horizontal::onSize(Vector managerSize, Rect newRect/* = {}*/)
     {
         resize(newRect);
     }
-    pointSliderSize = { 20, rect.getSize().y };
+    sliderSize = { 20, rect.getSize().y };
 
 
     Vector leftArrowSize = leftArrow.getSize();
     Vector rightArrowSize = rightArrow.getSize();
  
-    possibleSliderPos = { .pos = {leftArrowSize.x, 0}, .finishPos = {getSize().x - rightArrowSize.x - pointSliderSize.x, 0} };
-    kOfParametr = (*maxParameter - *minParameter) / (possibleSliderPos.getSize().x);
-    setParameter(*parametr);
+    possibleSliderPos = { .pos = {leftArrowSize.x, 0}, .finishPos = {getSize().x - rightArrowSize.x - sliderSize.x, 0} };
+    kOfparameter = (*maxParameter - *minParameter) / (possibleSliderPos.getSize().x);
+    setParameter(*parameter);
     
     return 0;
 }
@@ -73,9 +67,13 @@ void Slider3Horizontal::onClick(Vector mp)
     Rect _rightArrow = { .pos = {getSize().x - rightArrowSize.x, 0}, .finishPos = {getSize().x, rightArrowSize.y} };
     if (_leftArrow.inRect(mp))
     {
+        setParameter((double)((int)(*parameter) - 1));
+        app->updateScreen(this);
     }
     if (_rightArrow.inRect(mp))
     {
+        setParameter((double)((int)(*parameter) + 1));
+        app->updateScreen(this);
     }
 }
 

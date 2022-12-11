@@ -7,9 +7,9 @@ void Slider2::confirm()
     if (confirmed)*confirmed = true;
 }
 
-Rect Slider2::getPointSliderRect()
+Rect Slider2::getsliderRect()
 {
-    Rect tempRect = { .pos = pointSliderPos, .finishPos = pointSliderPos + pointSliderSize };
+    Rect tempRect = { .pos = sliderPos, .finishPos = sliderPos + sliderSize };
     return tempRect;
 }
 
@@ -17,18 +17,15 @@ void Slider2::draw()
 {
     if (needToShow)
     {
-        if (!isSliderClicked)
-        {
-            doubleVersionOfParameter = *parametr;
-        }
-        pointSliderPos.x = doubleVersionOfParameter / kOfParametr;
+        //sliderPos.x = doubleVersionOfParameter / kOfparameter;
+        setParameter(doubleVersionOfParameter);
         app->setColor(app->systemSettings->TRANSPARENTCOLOR, finalDC);
         app->rectangle(0, 0, getSize().x, getSize().y, finalDC);
 
         app->setColor(color, finalDC);
-        app->rectangle(pointSliderSize.x / 2, pointSliderSize.y, getSize().x - pointSliderSize.x / 2, getSize().y, finalDC);
+        app->rectangle(sliderSize.x / 2, sliderSize.y, getSize().x - sliderSize.x / 2, getSize().y, finalDC);
 
-        app->transparentBlt(finalDC, pointSliderPos.x, 0, 0, 0, pointSlider);
+        app->transparentBlt(finalDC, sliderPos.x, 0, 0, 0, slider);
     }
     setMbLastTime();
 
@@ -39,7 +36,7 @@ void Slider2::onClick(Vector mp)
 { 
     /*
     setActiveWindow(this);
-    Rect sliderRect = getPointSliderRect();
+    Rect sliderRect = getsliderRect();
     bool lastTimeCLicked = isClickedLastTime();
     if (sliderRect.inRect(mp) && !lastTimeCLicked)
     {
@@ -49,11 +46,27 @@ void Slider2::onClick(Vector mp)
     */
 }
 
+int Slider2::isParameterValid(int parameter)
+{
+    if (*minParameter <= parameter && parameter < *maxParameter)
+    {
+        return 1;
+    }
+    return 0;
+}
+
 int Slider2::setParameter(double _data)
 {
     doubleVersionOfParameter = _data;
-    *parametr = lround(doubleVersionOfParameter);
-    pointSliderPos.x = (doubleVersionOfParameter / kOfParametr) + possibleSliderPos.pos.x;
+    if (isParameterValid(lround(doubleVersionOfParameter)))
+    {
+        if (isBigger(doubleVersionOfParameter, (double)*maxParameter)) doubleVersionOfParameter = *maxParameter;
+        if (isSmaller(doubleVersionOfParameter, (double)*minParameter)) doubleVersionOfParameter = *minParameter;
+    }
+    
+    
+    *parameter = lround(doubleVersionOfParameter);
+    sliderPos.x = (doubleVersionOfParameter / kOfparameter) + possibleSliderPos.pos.x;
     return 0;
 }
 
@@ -63,14 +76,14 @@ int Slider2::onMouseMove(Vector mp, Vector delta)
     {
         if (isSliderClicked)
         {
-            pointSliderPos.x += delta.x;
-            if (isSmaller(pointSliderPos.x, possibleSliderPos.pos.x)) pointSliderPos.x = possibleSliderPos.pos.x;
-            if (isBigger(pointSliderPos.x, possibleSliderPos.finishPos.x)) pointSliderPos.x = possibleSliderPos.finishPos.x;
-            setParameter((pointSliderPos.x - possibleSliderPos.pos.x) * kOfParametr);
+            sliderPos.x += delta.x;
+            if (isSmaller(sliderPos.x, possibleSliderPos.pos.x)) sliderPos.x = possibleSliderPos.pos.x;
+            if (isBigger(sliderPos.x, possibleSliderPos.finishPos.x)) sliderPos.x = possibleSliderPos.finishPos.x;
+            setParameter((sliderPos.x - possibleSliderPos.pos.x) * kOfparameter);
             /*
-            doubleVersionOfParameter = (pointSliderPos.x - possibleSliderPos.pos.x) * kOfParametr;
-            *parametr = lround(doubleVersionOfParameter);
-            pointSliderPos.x = doubleVersionOfParameter / kOfParametr;
+            doubleVersionOfParameter = (sliderPos.x - possibleSliderPos.pos.x) * kOfparameter;
+            *parameter = lround(doubleVersionOfParameter);
+            sliderPos.x = doubleVersionOfParameter / kOfparameter;
             */
 
             app->updateScreen(this);
@@ -83,9 +96,10 @@ int Slider2::onMouseMove(Vector mp, Vector delta)
 int Slider2::mbDown(Vector mp, int button)
 {
     //printf("MbDown\n");
-    if ((rect - rect.pos).inRect(mp))
+    Rect _validrect = possibleSliderPos;
+    _validrect.finishPos += sliderSize;
+    if (_validrect.inRect(mp))
     {
-        
         isSliderClicked = true;
     }
     return 0;
@@ -111,9 +125,9 @@ int Slider2::onSize(Vector newManagerSize, Rect newRect/* = {}*/)
     {
         resize(newRect);
     }
-    kOfParametr = (*maxParameter - *minParameter) / (getSize().x - pointSliderSize.x);
-    pointSliderPos.x = *parametr / kOfParametr;
-    possibleSliderPos = { .pos = {0, 0}, .finishPos = {getSize().x - pointSliderSize.x, 0} };
+    kOfparameter = (*maxParameter - *minParameter) / (getSize().x - sliderSize.x);
+    sliderPos.x = *parameter / kOfparameter;
+    possibleSliderPos = { .pos = {0, 0}, .finishPos = {getSize().x - sliderSize.x, 0} };
     return 0;
 }
 

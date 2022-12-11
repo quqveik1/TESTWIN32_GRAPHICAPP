@@ -2,7 +2,7 @@
 #include "Slider2.cpp"
 #include "InputButton.cpp"
 #include "InputButton2.cpp"
-#include "Slider3.cpp"
+#include "Slider3Horizontal.cpp"
 
 
 struct ColorComponentChanger : Manager

@@ -4,35 +4,36 @@
 struct Slider2 : Manager
 {
     double doubleVersionOfParameter = NULL;
-    int* parametr = NULL;
+    int* parameter = NULL;
     int* minParameter = NULL;
     int* maxParameter = NULL;
-    HDC    pointSlider = NULL; 
-    Vector pointSliderPos = {};
-    Vector pointSliderSize = {10, 9};
+    HDC    slider = NULL; 
+    Vector sliderPos = {};
+    Vector sliderSize = {10, 9};
     Rect possibleSliderPos = {};
     bool isSliderClicked = false;
-    double kOfParametr = 0;
+    double kOfparameter = 0;
 
     bool* confirmed = NULL;
 
-    Slider2(AbstractAppData* _app, Rect _rect, int* _parametr, int* _minParameter, int* _maxParameter, bool* _confirmed = NULL) :
+    Slider2(AbstractAppData* _app, Rect _rect, int* _parameter, int* _minParameter, int* _maxParameter, bool* _confirmed = NULL) :
         Manager(_app, _rect, 1, true, NULL, {}, RGB (144, 144, 144)),
-        parametr (_parametr),
-        pointSlider (app->loadManager->loadImage("SliderPointer.bmp")),
+        parameter (_parameter),
+        slider (app->loadManager->loadImage("SliderPointer.bmp")),
         confirmed (_confirmed),
         minParameter (_minParameter),
         maxParameter (_maxParameter)
     {
         needTransparencyOutput = true;
 
-        doubleVersionOfParameter = *parametr;
+        doubleVersionOfParameter = *parameter;
         
     };
 
-    Rect getPointSliderRect();
+    Rect getsliderRect();
     void confirm();
     virtual int setParameter(double _data);
+    virtual int isParameterValid(int parameter);
 
     virtual void draw() override;
     virtual void onClick(Vector mp) override;
