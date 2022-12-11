@@ -2,6 +2,8 @@
 #include "AbstractApp.h"
 #include "M_HDC.cpp"
 #include "HGDIManager.h" 
+//#include "WindowHandle.h"
+//struct handle
 
 
 

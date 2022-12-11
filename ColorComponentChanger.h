@@ -2,7 +2,7 @@
 #include "Slider2.cpp"
 #include "InputButton.cpp"
 #include "InputButton2.cpp"
-#include "Slider3Horizontal.cpp"
+//#include "Slider3Horizontal.cpp"
 
 
 struct ColorComponentChanger : Manager
@@ -10,7 +10,7 @@ struct ColorComponentChanger : Manager
     int* component = NULL;
     int componentLastTime = NULL;
     int copyVersionOfCompoment = 0;
-    Slider3Horizontal* slider = NULL;
+    Slider2* slider = NULL;
     InputButton2* inputButton = NULL;
     Rect sliderRect = {};
     Vector sliderSize = { 0, 15 };
@@ -31,7 +31,7 @@ struct ColorComponentChanger : Manager
         sliderRect = { .pos = {0, sliderPos.y}, .finishPos = {getSize().x - numSize.x, sliderPos.y + sliderSize.y} };
 
         //slider = new Slider3Horizontal(app, sliderRect, component, &minLimit, &maxLimit, _confirmColor);
-        slider = new Slider3Horizontal(app, sliderRect, component, &minLimit, &maxLimit);
+        slider = new Slider2(app, sliderRect, component, &minLimit, &maxLimit);
         addWindow(slider);
 
         Rect inputButtonRect = { .pos = {sliderRect.finishPos.x + 5, 0}, .finishPos = getSize() };

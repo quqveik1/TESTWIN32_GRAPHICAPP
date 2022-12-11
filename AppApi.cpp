@@ -618,6 +618,11 @@ void PowerPoint::bitBlt(HDC dc1, Vector pos, Vector size, HDC dc2, Vector posSou
     bitBlt(dc1, pos.x, pos.y, size.x, size.y, dc2, posSource.x, posSource.y);
 }
 
+void PowerPoint::bitBlt(HDC dc1, Rect destRect, HDC dc2, Vector posSource/* = {}*/)
+{
+    bitBlt(dc1, destRect.pos, destRect.getSize(), dc2, posSource);
+}
+
 void PowerPoint::transparentBlt(HDC dc1, double x0, double y0, double sizex, double sizey, HDC dc2, double xSource/* = 0*/, double ySource/* = 0*/)
 {
     assert(dc2);
@@ -634,6 +639,11 @@ void PowerPoint::transparentBlt(HDC dc1, Vector pos, Vector size, HDC dc2, Vecto
     transparentBlt(dc1, pos.x, pos.y, size.x, size.y, dc2, posSource.x, posSource.y);
 }
 
+void PowerPoint::transparentBlt(HDC dc1, Rect destRect, HDC dc2, Vector posSource/* = {}*/)
+{
+    transparentBlt(dc1, destRect.pos, destRect.getSize(), dc2, posSource);
+}
+
 int PowerPoint::stretchBlt(HDC dest, double destPosx, double destPosy, double destSizex, double destSizey, HDC source, double sourcePosx, double sourcePosy, double sourceSizex, double sourceSizey)
 {
     return StretchBlt(dest, std::lround(destPosx), std::lround(destPosy), std::lround(destSizex), std::lround(destSizey), source, std::lround(sourcePosx), std::lround(sourcePosy), std::lround(sourceSizex), std::lround(sourceSizey), SRCCOPY);
@@ -642,6 +652,12 @@ int PowerPoint::stretchBlt(HDC dest, double destPosx, double destPosy, double de
 int PowerPoint::stretchBlt(HDC dest, Vector destPos, Vector destSize, HDC source, Vector sourcePos, Vector sourceSize)
 {
     return stretchBlt(dest, destPos.x, destPos.y, destSize.x, destSize.y, source, sourcePos.x, sourcePos.y, sourceSize.x, sourceSize.y);
+}
+
+
+int PowerPoint::stretchBlt(HDC dest, Rect destRect, HDC source, Rect sourceRect)
+{
+    return stretchBlt(dest, destRect.pos, destRect.getSize(), source, sourceRect.pos, sourceRect.getSize());
 }
 
 

@@ -12,9 +12,9 @@
 #include "CanvasManager.cpp"
 #include "SetCanvasButton.cpp"
 #include "ColorMenu.cpp"
-#include "ToolsMenu.cpp"
+//#include "ToolsMenu.cpp"
 #include "Thickness.cpp"
-#include "LaysMenu.cpp"
+//#include "LaysMenu.cpp"
 
 int initProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam);
 int shutDownProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam);
@@ -227,11 +227,11 @@ int initProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
     ThicknessMenu* thickness = new ThicknessMenu(appData, { 100, 100 }, false);
     manager->addWindow(thickness);
     
-    ToolsPalette* toolsPallette = new ToolsPalette(appData, { 5, 100 }, appData->toolManager->currentLength);
-    manager->addWindow(toolsPallette);
+    //ToolsPalette* toolsPallette = new ToolsPalette(appData, { 5, 100 }, appData->toolManager->currentLength);
+    //manager->addWindow(toolsPallette);
 
-    LaysMenu* laysMenu = new LaysMenu(appData, { 5, 300 }, appData->canvasManager);
-    manager->addWindow(laysMenu);
+    //LaysMenu* laysMenu = new LaysMenu(appData, { 5, 300 }, appData->canvasManager);
+    //manager->addWindow(laysMenu);
 
     //ToolMenu* toolsMenu = new ToolMenu(appData, appData->canvasManager);
     //manager->addWindow(toolsMenu);
@@ -240,8 +240,8 @@ int initProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
     List* openWindows = mainHandle->createMenuOption("Окна", NULL);
     openWindows->addNewItem(colorMenu, NULL, "Цвет", NULL, 'I');
     openWindows->addNewItem(thickness, NULL, "Толщина", NULL, 'W');
-    openWindows->addNewItem(toolsPallette, NULL, "Инструменты", NULL, 'T');
-    openWindows->addNewItem(laysMenu, NULL, "Слои", NULL, 'L');
+    //openWindows->addNewItem(toolsPallette, NULL, "Инструменты", NULL, 'T');
+    //openWindows->addNewItem(laysMenu, NULL, "Слои", NULL, 'L');
     //openWindows->addNewItem(toolsMenu, NULL, "История/Порядок инструменто", NULL, 'T');
     
     //List* importList = mainHandle->createMenuOption("Импорт/Экспорт", NULL, true);

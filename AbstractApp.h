@@ -76,10 +76,13 @@ struct AbstractAppData
 
     virtual int stretchBlt(HDC dest, double destPosx, double destPosy, double destSizex, double destSizey, HDC source, double sourcePosx, double sourcePosy, double sourceSizex, double sourceSizey) = 0;
     virtual int stretchBlt(HDC dest, Vector destPos, Vector destSize, HDC source, Vector sourcePos, Vector sourceSize) = 0;
+    virtual int stretchBlt(HDC dest, Rect destRect, HDC source, Rect sourceRecct) = 0;
     virtual void transparentBlt(HDC dc1, double x0, double y0, double sizex, double sizey, HDC dc2, double xSource = 0, double ySource = 0) = 0;
     virtual void transparentBlt(HDC dc1, Vector pos, Vector size, HDC dc2, Vector posSource = {}) = 0;
+    virtual void transparentBlt(HDC dc1, Rect destRect, HDC dc2, Vector posSource = {}) = 0;
     virtual void bitBlt(HDC dc1, double x0, double y0, double sizex, double sizey, HDC dc2, double xSource = 0, double ySource = 0) = 0;
     virtual void bitBlt(HDC dc1, Vector pos, Vector size, HDC dc2, Vector posSource = {}) = 0;
+    virtual void bitBlt(HDC dc1, Rect destRect, HDC dc2, Vector posSource = {}) = 0;
     virtual HDC getBufferDC(RGBQUAD** buf) = 0;
 
     virtual void compressImage(HDC& newDC, Vector newSize, HDC oldDC, Vector oldSize) = 0;

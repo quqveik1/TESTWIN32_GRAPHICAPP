@@ -7,8 +7,8 @@ Slider3Horizontal::Slider3Horizontal(AbstractAppData* _app, Rect _rect, int* _pa
     Slider2 (_app, _rect, _parameter, _minParameter, _maxParameter, _confirmed),
     sliderDefColor(RGB(104, 104, 104))
 {
-    leftArrow.loadImage(app, "arrow3HorizontalLeft.bmp");
-    rightArrow.loadImage(app, "arrow3HorizontalRight.bmp");
+    arrow1.loadImage(app, "arrow3HorizontalLeft.bmp");
+    arrow2.loadImage(app, "arrow3HorizontalRight.bmp");
     color = RGB(62, 62, 62);
 }
 
@@ -24,9 +24,9 @@ void Slider3Horizontal::draw()
 
         app->setColor(color, finalDC);
         app->rectangle(rect-rect.pos, finalDC);
-        app->bitBlt(finalDC, {}, {}, leftArrow);
-        double _rightPosX = getSize().x - rightArrow.getSize().x;
-        app->bitBlt(finalDC, { _rightPosX, 0}, {}, rightArrow);
+        app->bitBlt(finalDC, arrow1Rect, arrow1);
+        //double _rightPosX = getSize().x - rightArrow.getSize().x;
+        app->bitBlt(finalDC, arrow2Rect, arrow2);
 
 
         setParameter(*parameter);
@@ -46,11 +46,10 @@ int Slider3Horizontal::onSize(Vector managerSize, Rect newRect/* = {}*/)
     }
     sliderSize = { 20, rect.getSize().y };
 
-
-    Vector leftArrowSize = leftArrow.getSize();
-    Vector rightArrowSize = rightArrow.getSize();
+    arrow1Rect = { .pos = {}, .finishPos = arrow1.getSize() };
+    arrow2Rect = { .pos = {getSize().x - arrow1.getSize().x, 0}, .finishPos = {getSize().x, arrow1.getSize().y} };
  
-    possibleSliderPos = { .pos = {leftArrowSize.x, 0}, .finishPos = {getSize().x - rightArrowSize.x - sliderSize.x, 0} };
+    possibleSliderPos = { .pos = {arrow1Rect.getSize().x, 0}, .finishPos = {getSize().x - arrow2Rect.getSize().x - sliderSize.x, 0} };
     kOfparameter = (*maxParameter - *minParameter) / (possibleSliderPos.getSize().x);
     setParameter(*parameter);
     
@@ -61,18 +60,14 @@ int Slider3Horizontal::onSize(Vector managerSize, Rect newRect/* = {}*/)
 
 void Slider3Horizontal::onClick(Vector mp)
 {
-    Vector leftArrowSize = leftArrow.getSize();
-    Vector rightArrowSize = rightArrow.getSize();
-    Rect _leftArrow = { .pos = {}, .finishPos = leftArrowSize };
-    Rect _rightArrow = { .pos = {getSize().x - rightArrowSize.x, 0}, .finishPos = {getSize().x, rightArrowSize.y} };
-    if (_leftArrow.inRect(mp))
+    if (arrow1Rect.inRect(mp))
     {
-        setParameter((double)((int)(*parameter) - 1));
+        setParameter((double)((int)(*parameter) - oneArrowClickDelta));
         app->updateScreen(this);
     }
-    if (_rightArrow.inRect(mp))
+    if (arrow2Rect.inRect(mp))
     {
-        setParameter((double)((int)(*parameter) + 1));
+        setParameter((double)((int)(*parameter) + oneArrowClickDelta));
         app->updateScreen(this);
     }
 }

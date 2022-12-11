@@ -1,8 +1,9 @@
 #pragma once
-#include "CanvasManager.h"
+#include "CanvasManager.h"  
+#include "Menu.cpp"
 
 
-struct LaysMenu : Manager
+struct LaysMenu : Menu
 {
     CanvasManager* canvasManager;
     int sectionHeight;
@@ -12,7 +13,7 @@ struct LaysMenu : Manager
     int needToCreateLay = false;
 
     LaysMenu(AbstractAppData* _app, Vector _pos, CanvasManager* _canvasManager) :
-        Manager(_app, { .pos = _pos, .finishPos = {_pos.x + appData->systemSettings->BUTTONWIDTH * 2, _pos.y + 800} }, 0, true, NULL),
+        Menu(_app, { .pos = _pos, .finishPos = {_pos.x + appData->systemSettings->BUTTONWIDTH * 2, _pos.y} }, {}, _app->systemSettings->ONELAYTOOLSLIMIT, true),
         canvasManager(_canvasManager),
         sectionHeight(systemSettings->HANDLEHEIGHT),
         sectionFont(sectionHeight - 4),
@@ -27,6 +28,6 @@ struct LaysMenu : Manager
         rect.finishPos.y = rect.pos.y + handle.rect.getSize().y;
     }
 
-    virtual void draw() override;
-    virtual void onClick(Vector mp) override;
+    //virtual void draw() override;
+    //virtual void onClick(Vector mp) override;
 };

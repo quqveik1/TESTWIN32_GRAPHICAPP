@@ -2,6 +2,7 @@
 #include "LaysMenu.h"
 
 
+/*
 void LaysMenu::onClick(Vector mp)
 {
     if (needToShow)
@@ -80,3 +81,4 @@ void LaysMenu::draw()
     }
     setMbLastTime();
 }
+*/

@@ -63,10 +63,13 @@ struct PowerPoint : AbstractAppData
 
     virtual int stretchBlt(HDC dest, double destPosx, double destPosy, double destSizex, double destSizey, HDC source, double sourcePosx, double sourcePosy, double sourceSizex, double sourceSizey) override;
     virtual int stretchBlt(HDC dest, Vector destPos, Vector destSize, HDC source, Vector sourcePos, Vector sourceSize)  override;
+    virtual int stretchBlt(HDC dest, Rect destRect, HDC source, Rect sourceRecct) override;
     virtual void transparentBlt(HDC dc1, double x0, double y0, double sizex, double sizey, HDC dc2, double xSource = 0, double ySource = 0) override;
     virtual void transparentBlt(HDC dc1, Vector pos, Vector size, HDC dc2, Vector posSource = {}) override;
+    virtual void transparentBlt(HDC dc1, Rect destRect, HDC dc2, Vector posSource = {}) override;
     virtual void bitBlt(HDC dc1, double x0, double y0, double sizex, double sizey, HDC dc2, double xSource = 0, double ySource = 0) override;
-    virtual void bitBlt(HDC dc1, Vector pos, Vector size, HDC dc2, Vector posSource = {}) override;     
+    virtual void bitBlt(HDC dc1, Vector pos, Vector size, HDC dc2, Vector posSource = {}) override;    
+    virtual void bitBlt(HDC dc1, Rect destRect, HDC dc2, Vector posSource = {}) override;
 
     virtual void compressImage(HDC& newDC, Vector newSize, HDC oldDC, Vector oldSize) override;
 
