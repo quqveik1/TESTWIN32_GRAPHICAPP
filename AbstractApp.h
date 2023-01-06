@@ -5,6 +5,8 @@
 #include "Asserts.h"
 #include "M_HDC.h"
 #include <time.h>
+#include <vector>
+using namespace std;
 
 
 struct AbstractAppData
@@ -120,6 +122,9 @@ struct AbstractAppData
     virtual void drawCadre(int x1, int y1, int x2, int y2, M_HDC dc, COLORREF color, int thickness) = 0;
 
     virtual int isHDCValid(HDC _dc) = 0;
+
+    virtual int setViewPort(HDC _dc, Vector newPos) = 0;
+    virtual int getViewPort(HDC _dc, Vector* pos) = 0;
 
     
 

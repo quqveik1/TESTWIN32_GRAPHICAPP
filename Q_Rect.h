@@ -18,6 +18,8 @@ struct Rect
     void   countFinishPos() { this->finishPos = this->pos + this->size; }
     bool isValid ();  
     Rect sort();
+    void setHeight(double height);
+    void setWidth(double height);
 
     Rect& operator = (const Rect& a1);
     Rect& operator = (const RECT& a1);
@@ -112,6 +114,19 @@ Rect Rect::sort()
     }
 
     return *this;
+}
+
+
+
+void Rect::setHeight(double height)
+{
+    finishPos.y = pos.y + height;
+} 
+
+void Rect::setWidth(double width)
+{
+
+    finishPos.x = pos.x + width;
 }
 
 

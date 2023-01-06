@@ -20,11 +20,15 @@ struct Vector
 
     explicit operator SIZE() const;
 
+    static Vector toVector(POINT point);
+
 
 
     static Vector getNullVector() { return Vector { 0,0 }; };
     void print (const char *str = NULL);
     const char* getStr (const char *str = NULL);
+    int getIntX();
+    int getIntY();
 };
 
 
@@ -59,7 +63,6 @@ inline Vector operator / (const double a, const Vector &b);
        bool operator == (const Vector &a, const double &b);
        bool operator != (const Vector &a, const double &b);
 
-
 void Vector::print (const char *str /* = NULL*/)
 {
     printf ("%s: {%lf, %lf}\n", str, x, y);
@@ -70,6 +73,26 @@ const char* Vector::getStr(const char* str /*= NULL*/)
     static char answer[MAX_PATH] = {};
     sprintf(answer, "%s: {%lf, %lf}", str, x, y);
     return answer;
+}
+
+
+int Vector::getIntX()
+{
+    return lround(x);
+}
+
+
+int Vector::getIntY()
+{
+    return lround(y);
+}
+
+Vector Vector::toVector(POINT point)
+{
+    Vector res = {};
+    res.x = point.x;
+    res.y = point.y;
+    return res;
 }
 
 bool operator == (const Vector &a, const Vector &b)

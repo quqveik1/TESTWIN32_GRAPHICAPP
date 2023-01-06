@@ -8,7 +8,7 @@
 struct Manager : Window
 {
     int length;
-    Window** pointers = NULL;
+    vector <Window*> pointers;
     int currLen;
     Window handle;
     int needToControlHandleInDefaultFuncs = 0;
@@ -21,7 +21,6 @@ struct Manager : Window
         Window(_app, _rect, _color, _dc, NULL, NULL, _needToShow),
         handle(_app, _handle),
         length(_length),
-        pointers(new Window* [_length] {}),
         currLen(0),
         startCursorPos({}),
         coordinatSysFromHandle(_coordinatSysFromHandle),

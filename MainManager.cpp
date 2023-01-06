@@ -45,7 +45,7 @@ void MainManager::draw()
 
     //zoneSizeControl.drawFrame();
 
-    //app->bitBlt(finalDC, handle->rect.pos, handle->getSize(), handle->finalDC);
+   app->bitBlt(finalDC, handle->rect.pos, handle->getSize(), handle->finalDC);
 
     
 

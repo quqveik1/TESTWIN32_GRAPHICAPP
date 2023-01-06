@@ -289,6 +289,23 @@ int PowerPoint::isHDCValid(HDC _dc)
     return 1;
 }
 
+
+int PowerPoint::setViewPort(HDC _dc, Vector newPos)
+{
+    return SetViewportOrgEx(_dc, newPos.getIntX(), newPos.getIntY(), NULL);
+}
+
+int PowerPoint::getViewPort(HDC _dc, Vector* pos)
+{
+    POINT point = {};
+    int operationRes = GetViewportOrgEx(_dc, &point);
+
+    Vector answer = {};
+    answer = Vector::toVector(point);
+    *pos = answer;
+    return operationRes;
+}
+
 Vector PowerPoint::getCentrizedPos(Vector localSize, Vector globalSize)
 {
     return (globalSize - localSize) * 0.5;

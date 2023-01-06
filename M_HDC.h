@@ -33,6 +33,10 @@ struct M_HDC : M_HGDIOBJ
     virtual int copyFrom(struct AbstractAppData* _app, HDC _dc);
     virtual Vector getSize();
 
+    virtual int getViewPort(Vector* pos, struct AbstractAppData* _app = NULL);
+    virtual int setViewPort(Vector pos, struct AbstractAppData* _app = NULL);
+    virtual int moveViewPort(Vector delta, struct AbstractAppData* _app = NULL);
+
     virtual int deleteObj() override;
 };
 

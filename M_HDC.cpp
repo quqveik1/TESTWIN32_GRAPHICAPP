@@ -202,6 +202,46 @@ int M_HDC::selectObj(HFONT font)
     return -1;
 }  
 
+int M_HDC::getViewPort(Vector* pos, struct AbstractAppData* _app/* = NULL*/)
+{
+    setApp(_app);
+    if (!_app)
+    {
+        assert(!"Операия не может быть выполнена без доступа к классу приложения");
+        return 0;
+    }
+    return app->getViewPort((HDC)obj, pos);
+} 
+
+int M_HDC::setViewPort(Vector pos, struct AbstractAppData* _app/* = NULL*/)
+{
+    setApp(_app);
+    if (!_app)
+    {
+        assert(!"Операия не может быть выполнена без доступа к классу приложения");
+        return 0;
+    }
+    return app->setViewPort((HDC)obj, pos);
+}          
+
+int M_HDC::moveViewPort(Vector delta, struct AbstractAppData* _app/* = NULL*/)
+{
+    setApp(_app);
+    if (!_app)
+    {
+        assert(!"Операия не может быть выполнена без доступа к классу приложения");
+        return 0;
+    }
+    Vector oldPos = {};
+    app->getViewPort((HDC)obj, &oldPos);
+
+    oldPos += delta;
+
+    return app->setViewPort((HDC)obj, oldPos);
+
+
+}
+
 
 Vector M_HDC::getSize()
 {
@@ -218,7 +258,10 @@ Vector M_HDC::getSize()
 
 int M_HDC::setApp(struct AbstractAppData* _app)
 {
-    app = _app;
+    if (_app != NULL)
+    {
+        app = _app;
+    }
     return (int)(long)app;
 }
 
@@ -283,6 +326,7 @@ int M_HDC::deleteObj()
             int wasnotDeleted = selectedObj[i]->deleteObj();
             if (!wasnotDeleted) numOfDeletedObjs++;
         }
+        if(app) app->deleteDC((HDC)obj);
     }
     return numOfDeletedObjs;
 }

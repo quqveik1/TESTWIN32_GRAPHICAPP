@@ -109,6 +109,10 @@ struct PowerPoint : AbstractAppData
 
     virtual int isHDCValid(HDC _dc) override;
 
+
+    virtual int setViewPort(HDC _dc, Vector newPos) override;
+    virtual int getViewPort(HDC _dc, Vector* pos) override;
+
     virtual void changeWindow(Vector size = {}, Vector pos = {})  override;
     virtual int moveWindowTo(Vector _pos, HWND _wnd = 0) override;
     virtual int moveWindow(Vector _delta, HWND _wnd = 0) override;

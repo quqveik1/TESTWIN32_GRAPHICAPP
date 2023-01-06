@@ -162,6 +162,7 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
                 appData->mainManager->print(paintDC);
             }
             EndPaint(appData->MAINWINDOW, &ps);
+            paintDC.deleteObj();
         }
 
         if (message == WM_SIZE)
@@ -181,7 +182,7 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
                 */
 
                 //MoveWindow(appData->MAINWINDOW, cxScreen, cyScreen, appData->systemSettings->SizeOfScreen.x, appData->systemSettings->SizeOfScreen.y, FALSE);
-                //appData->mainManager->onSize(appData->systemSettings->SizeOfScreen);
+                appData->mainManager->onSize(appData->systemSettings->SizeOfScreen);
                 
             }
             return 0;
@@ -217,6 +218,7 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
     }
 
     int resDefWindowProc = DefWindowProc(window, message, wParam, lParam);
+    /*
     if (message == WM_NCPAINT)
     {
 
@@ -268,6 +270,7 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
         }
         //return 0;
     }    
+    */
     return resDefWindowProc;
 }
 
@@ -275,13 +278,13 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
 int initProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
 {
 
-    Handle* mainHandle = new Handle(appData, { .pos = {0, 0}, .finishPos = {appData->systemSettings->FullSizeOfScreen.x, 35/*appData->systemSettings->HANDLEHEIGHT*/} });
+    Handle* mainHandle = new Handle(appData, { .pos = {0, 0}, .finishPos = {appData->systemSettings->FullSizeOfScreen.x, appData->systemSettings->HANDLEHEIGHT} });
     appData->handle = mainHandle;
     
 
     MainManager* manager = new MainManager(appData, { .pos = {0, 0}, .finishPos = appData->systemSettings->FullSizeOfScreen }, 21, mainHandle);
     appData->mainManager = manager;
-    //manager->addWindow(mainHandle);
+    manager->addWindow(mainHandle);
 
 
     CanvasManager* canvasManager = new CanvasManager(appData, { 0, 0 });
@@ -289,7 +292,7 @@ int initProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
     manager->addWindow(canvasManager);
 
     
-    /*
+    
     List* createList = mainHandle->createMenuOption("Создать", NULL, true);
     createList->addNewItem(canvasManager->getSetCanvasButton(), NULL, "Создать холст", NULL, 'N');
 
@@ -319,7 +322,7 @@ int initProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
     
     //List* importList = mainHandle->createMenuOption("Импорт/Экспорт", NULL, true);
     //manager->addWindow(importList);
-    */
+    
 
 
     

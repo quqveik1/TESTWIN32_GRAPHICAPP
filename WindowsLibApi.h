@@ -23,7 +23,7 @@ struct CWindowsLibApi
     virtual int standartManagerHide(struct Manager* manager);
 
     virtual int standartWindowDraw(struct Window* window);
-    virtual int standartManagerDraw(struct Manager* manager);
+    virtual int standartManagerDraw(struct Manager* manager, Vector deltaFromStart = {});
     virtual int standartManagerOnClick(struct Manager* manager, Vector mp);
     virtual int standartManagerMbDown(struct Manager* manager, Vector mp, int button);
     virtual int standartManagerMbUp(struct Manager* manager, Vector mp, int button);

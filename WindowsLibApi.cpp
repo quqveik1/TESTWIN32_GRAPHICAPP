@@ -45,11 +45,11 @@ bool CWindowsLibApi::addWindow(Manager* manager, Window* window)
     }
     if (manager->currLen >= manager->length)
     {
-        printf("!!!Unable to add new Window!!!\n");
-        return 0;
+        printf("!!!Unable to add new Window!!!(no problems after vector addition)\n");
+        //return 0;
     }
 
-    manager->pointers[manager->currLen] = window;
+    manager->pointers.push_back(window);
     manager->currLen++;
 
     window->manager = manager;
@@ -216,7 +216,7 @@ int CWindowsLibApi::standartWindowDraw(struct Window* window)
     return 0;
 }
 
-int CWindowsLibApi::standartManagerDraw(Manager* manager)
+int CWindowsLibApi::standartManagerDraw(Manager* manager, Vector deltaFromStart/* = {}*/)
 {
     gassert(manager);
 
@@ -232,11 +232,25 @@ int CWindowsLibApi::standartManagerDraw(Manager* manager)
     {
         for (int i = 0; i < manager->getCurLen(); i++)
         {
+            /*
             if (manager->pointers[i]->reDraw) manager->pointers[i]->draw();
             if (manager->pointers[i]->needToShow)
             {
+                /*
                 if (manager->pointers[i]->needTransparencyOutput) app->transparentBlt(manager->finalDC, manager->pointers[i]->rect.pos.x, manager->pointers[i]->rect.pos.y, manager->pointers[i]->rect.getSize().x, manager->pointers[i]->rect.getSize().y, manager->pointers[i]->finalDC);
-                else                                              app->bitBlt(manager->finalDC, manager->pointers[i]->rect.pos.x, manager->pointers[i]->rect.pos.y, manager->pointers[i]->rect.getSize().x, manager->pointers[i]->rect.getSize().y, manager->pointers[i]->finalDC);
+                else                                              app->bitBlt(manager->finalDC, manager->pointers[i]->rect.pos.x + deltaFromStart.x, manager->pointers[i]->rect.pos.y + deltaFromStart.y, manager->pointers[i]->rect.getSize().x, manager->pointers[i]->rect.getSize().y, manager->pointers[i]->finalDC);
+                *
+
+                if (manager->pointers[i]->needTransparencyOutput) app->transparentBlt(manager->finalDC, manager->pointers[i]->rect.pos + deltaFromStart, manager->pointers[i]->rect.finishPos + deltaFromStart, manager->pointers[i]->finalDC);
+                else                                              app->bitBlt(manager->finalDC, manager->pointers[i]->rect.pos.x + deltaFromStart.x, manager->pointers[i]->rect.pos.y + deltaFromStart.y, manager->pointers[i]->rect.getSize().x, manager->pointers[i]->rect.getSize().y, manager->pointers[i]->finalDC);
+
+
+            }
+            */
+            
+            if (manager->pointers[i]->reDraw)
+            {
+                manager->pointers[i]->print(manager->finalDC);
             }
         }
     }
