@@ -19,7 +19,14 @@ List* Handle::createMenuOption(const char* optionText, int* status, bool needToH
         options[currentOptionsLength].list = newList;
 
         currentOptionsLength++;
-        manager->addWindow(newList, 1);
+        if (manager)
+        {
+            manager->addWindow(newList, 1);
+        }
+        else
+        {
+            massert(manager, app);
+        }
 
         return newList;
     }
@@ -192,7 +199,6 @@ void Handle::screenChanged()
 
 void Handle::draw()
 {
-
     app->setColor(color, finalDC);
     app->rectangle(rect - rect.pos, finalDC);
 
@@ -232,6 +238,20 @@ int Handle::onMouseMove(Vector mp, Vector delta)
 {
     
     int answer = getOptionNum(mp);
+
+    if (isDragging)
+    {
+        Vector _absmp = app->getCursorPos();
+
+        Vector _absdelta = _absmp - lastTimeAbsMousePos;
+        if (lastTimeAbsMousePos == NULL_VECTOR)
+        {
+            _absdelta = NULL_VECTOR;
+        }
+        
+        app->moveWindow(_absdelta);
+    }
+    lastTimeAbsMousePos = app->getCursorPos();
     if (activeOptionNum >= 0 && answer >= 0 && activeOptionNum != answer)
     {
         options[activeOptionNum].list->hide();
@@ -245,6 +265,8 @@ int Handle::onMouseMove(Vector mp, Vector delta)
         coloredOptionNum = answer;
         app->updateScreen(this);
     }
+
+    
     
 
     app->windowsLibApi->standartManagerOnMouseMove(this, mp, delta);
@@ -280,7 +302,23 @@ int Handle::mbDown(Vector mp, int button)
         coloredOptionNum = -1;
         app->updateScreen(this);
     }
+
+    if ((rect - rect.pos).inRect(mp) && getOptionNum(mp) == -1)
+    {
+        isDragging = true;
+    }
     return 0;
+}
+
+int Handle::mbUp(Vector mp, int button)
+{
+
+    if (isDragging)
+    {
+        isDragging = false;
+    }
+    return 0;
+
 }
 
 void Handle::onClick(Vector mp)

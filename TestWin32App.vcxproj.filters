@@ -30,13 +30,10 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Imred.ico">
+    <Image Include="Files\Icon.ico">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="TX_Application.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="BIGICON (1).ico">
+    <Image Include="Files\Imred.ico">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

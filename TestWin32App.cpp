@@ -15,9 +15,11 @@
 //#include "ToolsMenu.cpp"
 #include "Thickness.cpp"
 //#include "LaysMenu.cpp"
+#include <windowsx.h>
 
 int initProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam);
 int shutDownProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam);
+
 
 int main()
 {
@@ -54,6 +56,7 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
     if (message == WM_CREATE)
     {
         initProg(window, message, wParam, lParam);
+        
     }
 
     if (appData)
@@ -86,7 +89,8 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
                 if (message == WM_LBUTTONDOWN) button = 1;
                 if (message == WM_RBUTTONDOWN) button = 2;
                 printf("WM_MBDOWN_START\n");
-                appData->mainManager->mbDown({ (double)LOWORD(lParam), (double)HIWORD(lParam) }, button);
+                Vector mp = { (double)LOWORD(lParam), (double)HIWORD(lParam) };
+                appData->mainManager->mbDown(mp, button);
                 appData->captureMouse();
                 printf("WM_MBDOWN_END\n");
             }
@@ -106,6 +110,8 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
                 printf("WM_MBUP_END\n");
             }
         }
+        
+        
 
         if (message == WM_KEYDOWN)
         {
@@ -132,14 +138,28 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
             }
         }
 
+        if (message == WM_SETFOCUS)
+        {
+            if (appData)
+            {
+                appData->updateNonClientAreaScreen(NULL);
+            }
+        }
+
+        
+
         if (message == WM_PAINT)
         {
-            HDC finalDC = BeginPaint(appData->MAINWINDOW, &ps);
+            HDC finalDC = BeginPaint(appData->MAINWINDOW, &ps); 
+            M_HDC paintDC(appData);
+            paintDC = finalDC;
+            
+
             
             if (appData->mainManager)
             {
                 appData->bitBlt(finalDC, {}, {}, appData->mainManager->finalDC);
-                appData->mainManager->print(finalDC);
+                appData->mainManager->print(paintDC);
             }
             EndPaint(appData->MAINWINDOW, &ps);
         }
@@ -159,13 +179,12 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
                     return 0;
                 } 
                 */
-                //int cxScreen = GetSystemMetrics(SM_CXSCREEN);
-                //int cyScreen = GetSystemMetrics(SM_CYSCREEN);
 
                 //MoveWindow(appData->MAINWINDOW, cxScreen, cyScreen, appData->systemSettings->SizeOfScreen.x, appData->systemSettings->SizeOfScreen.y, FALSE);
-                appData->mainManager->onSize(appData->systemSettings->SizeOfScreen);
+                //appData->mainManager->onSize(appData->systemSettings->SizeOfScreen);
                 
             }
+            return 0;
         }
 
         if (message == WM_CLOSE)
@@ -197,26 +216,80 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
         }
     }
 
-    return DefWindowProc(window, message, wParam, lParam);
+    int resDefWindowProc = DefWindowProc(window, message, wParam, lParam);
+    if (message == WM_NCPAINT)
+    {
+
+        if (appData)
+        {
+
+            HDC finalDC = GetWindowDC(window);
+            M_HDC outDC(appData, finalDC);
+
+            if (appData->handle)
+            {
+                appData->handle->print(outDC);
+            }
+
+            outDC.deleteObj();
+        }
+    }
+    if (message == WM_NCLBUTTONDOWN || message == WM_NCRBUTTONDOWN)
+    {
+        if (appData->handle)
+        {
+            int button = 0;
+            if (message == WM_LBUTTONDOWN) button = 1;
+            if (message == WM_RBUTTONDOWN) button = 2;
+            printf("WM_MBDOWN_START\n");
+            Vector mp = { GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam) };
+            mp -= appData->getWindowRect().pos;
+            appData->handle->mbDown(mp, button);
+            //appData->captureMouse();
+            printf("WM_MBDOWN_END\n");
+        }
+        //return 0;
+    }
+
+    if (message == WM_NCLBUTTONUP || message == WM_NCRBUTTONUP)
+    {
+        if (appData->handle)
+        {
+            int button = 0;
+            if (message == WM_LBUTTONUP) button = 1;
+            if (message == WM_RBUTTONUP) button = 2;
+            printf("WM_MBUP_START\n");
+            Vector mp = { GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam) };
+            mp -= appData->getWindowRect().pos;
+            appData->handle->mbUp(mp, button);
+            appData->handle->onClick(mp);
+            //appData->releaseMouse();
+            printf("WM_MBUP_END\n");
+        }
+        //return 0;
+    }    
+    return resDefWindowProc;
 }
 
 
 int initProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
 {
 
-    Handle* mainHandle = new Handle(appData, { .pos = {0, 0}, .finishPos = {appData->systemSettings->FullSizeOfScreen.x, appData->systemSettings->HANDLEHEIGHT} });
+    Handle* mainHandle = new Handle(appData, { .pos = {0, 0}, .finishPos = {appData->systemSettings->FullSizeOfScreen.x, 35/*appData->systemSettings->HANDLEHEIGHT*/} });
+    appData->handle = mainHandle;
     
 
     MainManager* manager = new MainManager(appData, { .pos = {0, 0}, .finishPos = appData->systemSettings->FullSizeOfScreen }, 21, mainHandle);
     appData->mainManager = manager;
-    manager->addWindow(mainHandle);
+    //manager->addWindow(mainHandle);
 
 
-    CanvasManager* canvasManager = new CanvasManager(appData, { 0, mainHandle->rect.finishPos.y });
+    CanvasManager* canvasManager = new CanvasManager(appData, { 0, 0 });
     appData->canvasManager = canvasManager;
     manager->addWindow(canvasManager);
 
     
+    /*
     List* createList = mainHandle->createMenuOption("Создать", NULL, true);
     createList->addNewItem(canvasManager->getSetCanvasButton(), NULL, "Создать холст", NULL, 'N');
 
@@ -246,6 +319,7 @@ int initProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
     
     //List* importList = mainHandle->createMenuOption("Импорт/Экспорт", NULL, true);
     //manager->addWindow(importList);
+    */
 
 
     

@@ -45,6 +45,7 @@ struct AbstractAppData
     virtual COLORREF RGB2HSL(COLORREF rgbColor) = 0;
 
     virtual int updateScreen(struct Window* window) = 0;
+    virtual int updateNonClientAreaScreen(struct Window* window) = 0;
     virtual int invalidateRect(struct Window* window, Rect _rect, bool _erase = false) = 0;
     virtual int captureMouse(HWND wnd = NULL) = 0;
     virtual int releaseMouse(HWND wnd = NULL) = 0;
@@ -123,6 +124,9 @@ struct AbstractAppData
     
 
     virtual void changeWindow(Vector size = {}, Vector pos = {}) = 0;
+    virtual int moveWindowTo(Vector _pos, HWND _wnd = 0) = 0;
+    virtual int moveWindow(Vector _delta, HWND _wnd = 0) = 0;
+    virtual Rect getWindowRect(HWND _wnd = 0) = 0;
     virtual void setCursor(HCURSOR cursor = NULL) = 0;
     virtual Vector getCursorPos() = 0;
 

@@ -38,6 +38,9 @@ struct Handle : Manager
     int activeOptionNum = -1;
     int coloredOptionNum = -1;
     COLORREF onMouseColor = NULL;
+    
+    int isDragging = 0;
+    Vector lastTimeAbsMousePos = {};
 
     int lastKeyMessage = 0;
 
@@ -80,6 +83,7 @@ struct Handle : Manager
     virtual void draw() override;
     virtual void onClick(Vector mp) override;
     virtual int mbDown(Vector mp, int button) override;
+    virtual int mbUp(Vector mp, int button) override;
     virtual int onSize(Vector managerSize, Rect newRect) override;
     virtual int onKeyboard(int key) override;
     virtual int onMouseMove(Vector mp, Vector delta) override;

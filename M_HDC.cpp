@@ -11,27 +11,48 @@ M_HDC::M_HDC(struct AbstractAppData* _app) :
 {
     obj = CreateCompatibleDC(NULL);
     SetBkMode((HDC)obj, TRANSPARENT);
-    defObjs[0] = GetCurrentObject((HDC)obj, OBJ_BITMAP);
-    defObjs[1] = GetCurrentObject((HDC)obj, OBJ_PEN);
-    defObjs[2] = GetCurrentObject((HDC)obj, OBJ_BRUSH);
-    defObjs[3] = GetCurrentObject((HDC)obj, OBJ_FONT);
+    saveDefObjs();
 }
+
+M_HDC::M_HDC(struct AbstractAppData* _app, HDC _dc) : 
+    app(_app)
+{
+    *this = _dc;
+}
+
+
 
 M_HDC::M_HDC() :
     app(NULL)
 {
     obj = CreateCompatibleDC(NULL);
     SetBkMode((HDC)obj, TRANSPARENT);
-    defObjs[0] = GetCurrentObject((HDC)obj, OBJ_BITMAP);
-    defObjs[1] = GetCurrentObject((HDC)obj, OBJ_PEN);
-    defObjs[2] = GetCurrentObject((HDC)obj, OBJ_BRUSH);
-    defObjs[3] = GetCurrentObject((HDC)obj, OBJ_FONT);
+    saveDefObjs();
 }
 
 M_HDC::operator HDC() const
 {
     return (HDC)obj;
 }
+
+M_HDC& M_HDC::operator = (HDC _dc)
+{
+    deleteObj();
+    setObj(_dc);
+    saveDefObjs();
+    return *this;
+}
+
+
+int M_HDC::saveDefObjs()
+{
+    defObjs[0] = GetCurrentObject((HDC)obj, OBJ_BITMAP);
+    defObjs[1] = GetCurrentObject((HDC)obj, OBJ_PEN);
+    defObjs[2] = GetCurrentObject((HDC)obj, OBJ_BRUSH);
+    defObjs[3] = GetCurrentObject((HDC)obj, OBJ_FONT);
+    return 1;
+}
+
 
 int M_HDC::selectObj(M_HGDIOBJ* _obj, HBITMAP map)
 {
@@ -213,7 +234,7 @@ int M_HDC::setSize(Vector size, struct AbstractAppData* _app, RGBQUAD** pixels/*
             printf("bitmap с размером %s не создалась(\n", size.getStr());
             return 0;
         }
-        app = _app;
+        setApp(_app);
         assert(app);
         selectObj(bmap);
         return (int)bmap;

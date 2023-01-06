@@ -162,6 +162,8 @@ void CSystemSettings::setDynamicSettings(struct AbstractAppData* _app)
 {
     FullSizeOfScreen = { .x = (double)GetSystemMetrics(SM_CXSCREEN), .y = (double)GetSystemMetrics(SM_CYSCREEN) };
     app = _app;
+    int res = GetSystemMetrics(SM_CYCAPTION);
+    HANDLEHEIGHT = GetSystemMetrics(SM_CYCAPTION);
 }
 
 

@@ -362,7 +362,7 @@ void Canvas::copyFinalLayOnFinalDC()
 }
 
 
-void Canvas::print(HDC _dc)
+void Canvas::print(M_HDC& _dc)
 {
     draw();
     Vector outputPos = rect.pos;
@@ -642,7 +642,7 @@ void Canvas::drawLays()
         if (true/*lay[lays]->redrawStatus()*/)
         {
             //app->DEBUGsaveImage(finalLay);
-            lay[lays]->print(&finalLay);
+            lay[lays]->print(finalLay);
             //app->DEBUGsaveImage(finalLay);
             //lay[lays]->redraw();
             //lay[lays]->noMoreRedraw();

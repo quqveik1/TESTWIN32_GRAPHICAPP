@@ -11,8 +11,12 @@ struct M_HDC : M_HGDIOBJ
     struct AbstractAppData* app = NULL;
 
     M_HDC(struct AbstractAppData* _app);
+    M_HDC(struct AbstractAppData* _app, HDC _dc);
     M_HDC();
     operator HDC() const;
+
+    M_HDC& operator = (HDC _dc);
+    int saveDefObjs();
 
     virtual int selectObj(M_HGDIOBJ* _obj, HBITMAP map);
     virtual int selectObj(HBITMAP map);

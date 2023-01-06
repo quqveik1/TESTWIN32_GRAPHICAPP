@@ -10,6 +10,7 @@ struct PowerPoint : AbstractAppData
 {
     struct Manager* mainManager = NULL;
     struct DCManager* dcManager = NULL;
+    struct Manager* handle = NULL;
 
 
     HCURSOR activeCursor = NULL;
@@ -34,6 +35,7 @@ struct PowerPoint : AbstractAppData
     virtual COLORREF RGB2HSL(COLORREF rgbColor) override;
 
     virtual int updateScreen(struct Window* window) override;
+    virtual int updateNonClientAreaScreen(struct Window* window) override;
     virtual int invalidateRect(struct Window* window, Rect _rect, bool _erase = false) override;
     virtual int captureMouse(HWND wnd = NULL) override;
     virtual int releaseMouse(HWND wnd = NULL) override;
@@ -108,6 +110,9 @@ struct PowerPoint : AbstractAppData
     virtual int isHDCValid(HDC _dc) override;
 
     virtual void changeWindow(Vector size = {}, Vector pos = {})  override;
+    virtual int moveWindowTo(Vector _pos, HWND _wnd = 0) override;
+    virtual int moveWindow(Vector _delta, HWND _wnd = 0) override;
+    virtual Rect getWindowRect(HWND _wnd = 0) override;
     virtual void setCursor(HCURSOR cursor = NULL) override;
     virtual Vector getCursorPos() override;
 

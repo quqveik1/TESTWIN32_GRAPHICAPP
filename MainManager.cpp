@@ -45,7 +45,7 @@ void MainManager::draw()
 
     //zoneSizeControl.drawFrame();
 
-    app->bitBlt(finalDC, handle->rect.pos, handle->getSize(), handle->finalDC);
+    //app->bitBlt(finalDC, handle->rect.pos, handle->getSize(), handle->finalDC);
 
     
 
@@ -56,6 +56,7 @@ void MainManager::onClick(Vector mp)
 {
     mousePos = mp;
 
+    //if (handle.rect)
     app->windowsLibApi->standartManagerOnClick(this, mp);
 }
 
@@ -76,5 +77,6 @@ int MainManager::onSize(Vector managerSize, Rect newRect)
 {
     rect = { .pos = {}, .finishPos = managerSize };
     //zoneSizeControl.setFrameZones();
+    handle->onSize(managerSize, {});
     return app->windowsLibApi->standartManagerOnSize(this, managerSize);
 }

@@ -51,7 +51,7 @@ struct CLay : Manager
     virtual void editTool(ProgrammeDate* data);
     virtual void controlTool(ProgrammeDate* data);
     virtual void draw() override;
-    virtual void print(M_HDC* _dc);
+    virtual void print(M_HDC& _dc) override;
     virtual int mbDown(Vector pos, int button) override;
     virtual int mbUp(Vector pos, int button) override;
     virtual int onMouseMove(Vector pos, Vector delta) override;

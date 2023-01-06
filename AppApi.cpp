@@ -18,6 +18,7 @@
 #include "TimerManager.cpp"
 #include "DLLToolsManager.cpp"
 #include "MSGReaction.cpp"
+#include "resource.h"
 
 
 void setWindowParameters(PowerPoint* app, HINSTANCE hInstance);
@@ -155,30 +156,36 @@ void setWindowParameters(PowerPoint* app, HINSTANCE hInstance)
     char handleName[MAX_PATH] = {};
     (void)sprintf(handleName, "IMRED - %s[AbstractApp/WindowsLibApi]", app->appVersion);
 
+    app->appIcon = LoadIcon((HINSTANCE)GetModuleHandle(NULL) , MAKEINTRESOURCE(IDI_ICON2));
+
     wndClass.cbSize = sizeof(wndClass);
     wndClass.style = (CS_VREDRAW | CS_HREDRAW);// &~WS_CAPTION;
     wndClass.lpfnWndProc = WinProc;
     wndClass.cbClsExtra = 0;
     wndClass.cbWndExtra = 0;
     wndClass.hInstance = hInstance;
-    wndClass.hIcon = LoadIcon(NULL, IDI_APPLICATION);
+    wndClass.hIconSm = app->appIcon;
+    wndClass.hIcon = app->appIcon;
     app->defaultCursor = LoadCursor(NULL, IDC_ARROW);
     wndClass.hCursor = LoadCursor(NULL, IDC_ARROW);
     wndClass.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
     wndClass.lpszMenuName = NULL;
     wndClass.lpszClassName = handleName;
-    wndClass.hIconSm = LoadIcon(NULL, IDI_APPLICATION);
+
+   
 
     int registerResult = RegisterClassEx(&wndClass);
 
     if (!registerResult) massert(!"√лавный оконный класс не зарегистрировалс€:(", app);
+
 
     appData = app;
 
     hwnd = CreateWindow(
         handleName,
         handleName,
-        (WS_POPUP | WS_BORDER | WS_CAPTION| WS_OVERLAPPEDWINDOW),
+        //(WS_VISIBLE | WS_POPUP | WS_CLIPSIBLINGS | WS_CLIPCHILDREN),
+        WS_THICKFRAME | WS_SYSMENU | WS_MAXIMIZEBOX | WS_MINIMIZEBOX,
         CW_USEDEFAULT,
         CW_USEDEFAULT,
         lround(app->systemSettings->SizeOfScreen.x),
@@ -493,6 +500,18 @@ int PowerPoint::updateScreen(Window* window)
             //printf("[%p] InvalidetedRect\n", window);
         }
     }
+    return 0;
+}
+
+int PowerPoint::updateNonClientAreaScreen(struct Window* window)
+{
+    HWND _wnd = MAINWINDOW;  
+    if (window)
+    {
+        //_wnd = window->hwnd;
+    }
+    int res = SendMessage(_wnd, WM_NCPAINT, 0, 0);
+    int lasterr = GetLastError();
     return 0;
 }
 
@@ -862,8 +881,55 @@ void PowerPoint::changeWindow(Vector size/* = {}*/, Vector pos/* = {}*/)
     systemSettings->SizeOfScreen = size;
     if (wasSizeChanged) isResized = true;
     */
+}    
+
+int PowerPoint::moveWindow(Vector _delta, HWND _wnd/* = 0*/)
+{
+    if (_wnd == 0)
+    {
+        _wnd = MAINWINDOW;
+    }
+
+    Rect _windowRect = getWindowRect(_wnd);
+    Vector _pos = _windowRect.pos;
+    _pos += _delta;
+    return moveWindowTo(_pos, _wnd);
+
+
 }
 
+
+int PowerPoint::moveWindowTo(Vector _pos, HWND _wnd/*=0*/)
+{
+    if (_wnd == 0)
+    {
+        _wnd = MAINWINDOW;
+    }
+    Rect _windowRect = getWindowRect(_wnd);
+    Vector _size = _windowRect.getSize();
+    //return MoveWindow(MAINWINDOW, std::lround(_pos.x), std::lround(_pos.y), std::lround(_size.x), std::lround(_size.y), TRUE);        r
+    return 0;
+}
+
+
+Rect PowerPoint::getWindowRect(HWND _wnd/* = 0*/)
+{
+    if (_wnd == 0)
+    {
+        _wnd = MAINWINDOW;
+    }
+    RECT _winAnswer = {};
+    BOOL _winAnswerRes = GetWindowRect(_wnd, &_winAnswer);
+
+    if (_winAnswerRes)
+    {
+        Rect _answer = {};
+        _answer = _winAnswer;
+        return _answer;
+    }
+
+    return {};
+}
 
 void PowerPoint::setCursor(HCURSOR cursor/*= NULL*/)
 {

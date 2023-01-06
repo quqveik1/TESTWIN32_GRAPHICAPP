@@ -20,6 +20,7 @@ struct Rect
     Rect sort();
 
     Rect& operator = (const Rect& a1);
+    Rect& operator = (const RECT& a1);
     explicit operator RECT() const;
 };
 
@@ -32,6 +33,15 @@ Rect& Rect::operator = (const Rect &a1)
     finishPos = a1.finishPos;
     size = a1.size;
 
+    return *this;
+}
+
+Rect& Rect::operator = (const RECT& a1)
+{
+    pos.x = a1.left;
+    pos.y = a1.top;
+    finishPos.x = a1.right;
+    finishPos.y = a1.bottom;
     return *this;
 }
 

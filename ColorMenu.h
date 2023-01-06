@@ -15,8 +15,8 @@ struct ColorHistory
 
 struct ColorSection
 {
-    Rect section;
-    COLORREF color;
+    Rect section = {};
+    COLORREF color = NULL;
 };
 
 struct ColorMenu : Manager

@@ -156,9 +156,8 @@
     <ResourceCompile Include="TestWin32App.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="BIGICON (1).ico" />
-    <Image Include="Imred.ico" />
-    <Image Include="TX_Application.ico" />
+    <Image Include="Files\Icon.ico" />
+    <Image Include="Files\Imred.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

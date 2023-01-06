@@ -108,7 +108,7 @@ void SetCanvasButton::draw()
 
 }
 
-void SetCanvasButton::print(HDC dc)
+void SetCanvasButton::print(M_HDC& dc)
 {
     if (needToShow)
     {

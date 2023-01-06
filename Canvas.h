@@ -100,7 +100,7 @@ struct Canvas : Manager
     virtual void MoveWindow(Vector delta) override;
     virtual void MoveWindowTo(Vector pos) override;
 
-    virtual void print(HDC _dc) override;
+    virtual void print(M_HDC& _dc) override;
     virtual void resize(Vector newSize) override;
 
 	virtual void draw () override;

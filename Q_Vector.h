@@ -4,6 +4,8 @@
 #include "Double comparision.h"
 #include <Windows.h>
 
+
+
 struct Vector 
 {
     double x = 0;
@@ -24,6 +26,15 @@ struct Vector
     void print (const char *str = NULL);
     const char* getStr (const char *str = NULL);
 };
+
+
+Vector getNullVector()
+{
+    Vector _v = {};
+    return _v;
+}
+
+#define NULL_VECTOR getNullVector() 
 
 void equal (Vector &a, const Vector &b);
 inline Vector operator +  (const Vector &a, const Vector &b);

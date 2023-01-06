@@ -9,6 +9,7 @@ void CloseButton::draw()
     app->setColor(color, finalDC);
     app->rectangle(rect - rect.pos, finalDC);
     app->transparentBlt(finalDC, 0, 0, 0, 0, dc);
+    
 }
 
 void CloseButton::onClick(Vector mp)

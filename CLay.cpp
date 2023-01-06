@@ -224,11 +224,11 @@ void CLay::draw()
     }
 }
 
-void CLay::print(M_HDC* _dc)
+void CLay::print(M_HDC& _dc)
 {
     app->setColor(app->systemSettings->BackgroundColor, lay);
     app->rectangle({}, {1000, 1000}, lay);
-    outputDC = _dc;
+    outputDC = &_dc;
     draw();
 }
 
