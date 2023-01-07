@@ -57,6 +57,8 @@ struct Handle : HandleOptions
 
         MinimizeWindow* minimizeButton = new MinimizeWindow(appData);
         addWindowToBack(minimizeButton);
+
+        optionsLayout.MoveWindowTo({ (double)startOfOptions, 0 });
     }
 
     void setOptionsRect();

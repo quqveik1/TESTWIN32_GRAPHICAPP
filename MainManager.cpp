@@ -83,6 +83,5 @@ int MainManager::onSize(Vector managerSize, Rect newRect)
 {
     rect = { .pos = {}, .finishPos = managerSize };
     //zoneSizeControl.setFrameZones();
-    handle->onSize(managerSize, {});
-    return app->windowsLibApi->standartManagerOnSize(this, managerSize);
+    return ManagerHandle::onSize(managerSize, newRect);
 }

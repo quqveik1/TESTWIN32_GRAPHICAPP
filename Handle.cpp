@@ -7,7 +7,7 @@ List* Handle::createMenuOption(const char* optionText, int* status, bool needToH
     if (currentOptionsLength + 1 < maxOptionsLength)
     {      
         options[currentOptionsLength].optionStatus = status;
-        char* relustOfCopy = strcpy(options[currentOptionsLength].name, optionText);
+        //char* relustOfCopy = strcpy(options[currentOptionsLength].name, optionText);
 
         app->selectFont(fontName, font, *getOutputDC());
         Vector sizeOfLabel = app->getTextExtent(options[currentOptionsLength].name, *getOutputDC());
@@ -387,6 +387,7 @@ int Handle::optionOnClick(Vector mp)
 int Handle::onSize(Vector managerSize, Rect _newRect/* = {}*/)
 {
     WindowHandle::onSize(managerSize, _newRect);
+    app->windowsLibApi->standartManagerOnSize(this, getSize(), {});
 
     Rect newRect = { .pos = rect.pos, .finishPos = {managerSize.x, rect.pos.y + getSize().y} };
     resize(newRect);
@@ -401,7 +402,7 @@ int Handle::onSize(Vector managerSize, Rect _newRect/* = {}*/)
 
         windowRect.finishPos.x = rect.finishPos.x - app->systemSettings->BUTTONWIDTH * i;
         windowRect.finishPos.y = rect.finishPos.y;
-        pointers[i]->resize(windowRect);
+        //pointers[i]->resize(windowRect);
     }
     return 0;
 }

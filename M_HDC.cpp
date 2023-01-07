@@ -202,23 +202,25 @@ int M_HDC::selectObj(HFONT font)
     return -1;
 }  
 
-int M_HDC::getViewPort(Vector* pos, struct AbstractAppData* _app/* = NULL*/)
+Vector M_HDC::getViewPort(struct AbstractAppData* _app/* = NULL*/)
 {
     setApp(_app);
-    if (!_app)
+    if (!app)
     {
-        assert(!"Операия не может быть выполнена без доступа к классу приложения");
-        return 0;
+        assert(!"Операция не может быть выполнена без доступа к классу приложения");
+        return {};
     }
-    return app->getViewPort((HDC)obj, pos);
+    Vector answer = {};
+    app->getViewPort((HDC)obj, &answer);
+    return answer;
 } 
 
 int M_HDC::setViewPort(Vector pos, struct AbstractAppData* _app/* = NULL*/)
 {
     setApp(_app);
-    if (!_app)
+    if (!app)
     {
-        assert(!"Операия не может быть выполнена без доступа к классу приложения");
+        assert(!"Операция не может быть выполнена без доступа к классу приложения");
         return 0;
     }
     return app->setViewPort((HDC)obj, pos);
@@ -227,9 +229,9 @@ int M_HDC::setViewPort(Vector pos, struct AbstractAppData* _app/* = NULL*/)
 int M_HDC::moveViewPort(Vector delta, struct AbstractAppData* _app/* = NULL*/)
 {
     setApp(_app);
-    if (!_app)
+    if (!app)
     {
-        assert(!"Операия не может быть выполнена без доступа к классу приложения");
+        assert(!"Операция не может быть выполнена без доступа к классу приложения");
         return 0;
     }
     Vector oldPos = {};
@@ -315,6 +317,22 @@ int M_HDC::copyFrom(struct AbstractAppData* _app, HDC _dc)
     return 0;
 }
 
+
+int M_HDC::clear()
+{
+    int numOfDeletedObjs = 0;
+    for (int i = 1; i < 4; i++)
+    {
+        SelectObject((HDC)obj, defObjs[i]);
+        if (selectedObj[i])
+        {
+            int wasnotDeleted = selectedObj[i]->deleteObj();
+            if (!wasnotDeleted) numOfDeletedObjs++;
+        }
+    }
+    return numOfDeletedObjs;
+}
+
 int M_HDC::deleteObj()
 {
     int numOfDeletedObjs = 0;
@@ -326,7 +344,11 @@ int M_HDC::deleteObj()
             int wasnotDeleted = selectedObj[i]->deleteObj();
             if (!wasnotDeleted) numOfDeletedObjs++;
         }
-        if(app) app->deleteDC((HDC)obj);
+        
     }
+
+    if (app) app->deleteDC((HDC)obj);
     return numOfDeletedObjs;
+
+
 }

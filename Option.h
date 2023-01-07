@@ -5,7 +5,7 @@ struct Option
 {
     Vector size = {};
     Rect rect = {};
-    char name[MAX_PATH] = {};
+    const char* name = {};
     int* optionStatus = {};
     vector<struct Option*> subOptions;
     EventMessage* eventMessage;

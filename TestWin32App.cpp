@@ -284,7 +284,13 @@ int initProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
 
     MainManager* manager = new MainManager(appData, { .pos = {0, 0}, .finishPos = appData->systemSettings->FullSizeOfScreen }, 21, mainHandle);
     appData->mainManager = manager;
-    //manager->addWindow(mainHandle);
+
+    Option* optionCreate = new Option();;
+    optionCreate->name = "Создать";
+    struct CreateEventMessage : EventMessage
+    {
+    };
+    mainHandle->addOption(optionCreate);
 
     /*
 

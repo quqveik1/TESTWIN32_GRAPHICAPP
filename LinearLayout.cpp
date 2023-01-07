@@ -1,9 +1,11 @@
 #pragma once
 #include "LinearLayout.h"
 #include "Layout.cpp"
+#include "WindowsLibApi.h"
 
 int LinearLayout::onSize(Vector managerSize, Rect _newRect/* = {}*/)
 {
+    app->windowsLibApi->standartManagerOnSize(this, managerSize, _newRect);
     Vector nextStartPos = {};
     for (int i = 0; i < pointers.size(); i++)
     {
@@ -21,11 +23,14 @@ int LinearLayout::onSize(Vector managerSize, Rect _newRect/* = {}*/)
         }
     }
 
-    Rect newRect = calcRect();
-
-    if (newRect != rect)
+    if (pointers.size() > 0)
     {
-        resize(newRect);
+        Rect newRect = calcRect();
+
+        if (newRect != rect)
+        {
+            resize(newRect);
+        }
     }
 
     return 0;
@@ -35,11 +40,13 @@ int LinearLayout::onSize(Vector managerSize, Rect _newRect/* = {}*/)
 
 Rect LinearLayout::calcRect()
 {
-    Rect newRect = { .pos = {DBL_MAX, DBL_MAX}, .finishPos = {DBL_MIN, DBL_MIN} };
+    //Rect newRect = { .pos = {DBL_MAX, DBL_MAX}, .finishPos = {DBL_MIN, DBL_MIN} };
+    Rect newRect = { .pos = rect.pos, .finishPos = {DBL_MIN, DBL_MIN} };
     for (int i = 0; i < pointers.size(); i++)
     {
         if (pointers[i])
         {
+            /*
             if (pointers[i]->rect.pos.x < newRect.pos.x)
             {
                 newRect.pos.x = pointers[i]->rect.pos.x;
@@ -49,15 +56,16 @@ Rect LinearLayout::calcRect()
             {
                 newRect.pos.y = pointers[i]->rect.pos.y;
             }
+            */
 
             if (pointers[i]->rect.finishPos.x > newRect.finishPos.x)
             {
                 newRect.finishPos.x = pointers[i]->rect.finishPos.x;
             }
 
-            if (pointers[i]->rect.finishPos.x > newRect.finishPos.x)
+            if (pointers[i]->rect.finishPos.y > newRect.finishPos.y)
             {
-                newRect.finishPos.x = pointers[i]->rect.finishPos.x;
+                newRect.finishPos.y = pointers[i]->rect.finishPos.y;
             }
 
         }

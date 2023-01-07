@@ -71,6 +71,8 @@ PowerPoint::PowerPoint(HINSTANCE hInstance)
 
     msgReaction = new MSGReaction();
 
+
+    testDC.setSize(systemSettings->SizeOfScreen, this);
     setWindowParameters(this, hInstance);
 }
 
@@ -344,9 +346,7 @@ Vector PowerPoint::getTextExtent(const char* text, HDC finalDC)
     size_t len = strlen(text);
     GetTextExtentPoint32(finalDC, text, (int)len, &resultSize);
 
-    Vector result = {};
-    result.x = resultSize.cx;
-    result.y = resultSize.cy;
+    Vector result = Vector::toVector(resultSize);
 
     return result;
 }

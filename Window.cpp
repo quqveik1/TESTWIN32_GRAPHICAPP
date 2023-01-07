@@ -24,6 +24,7 @@ void Window::MoveWindowTo(Vector pos)
 
     rect.pos = pos;
     rect.finishPos = rect.pos + size;
+    if (getManager())onSize(getManager()->getSize(), {});
 }
 
 void Window::MoveWindow(Vector delta)

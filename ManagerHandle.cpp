@@ -47,6 +47,13 @@ int ManagerHandle::mbUp(Vector mp, int button)
 }
 
 
+int ManagerHandle::onSize(Vector managerSize, Rect newRect/* = {}*/)
+{
+    handle->onSize(managerSize, {});
+    return app->windowsLibApi->standartManagerMbUp(this, managerSize, {});
+}
+
+
 
 void ManagerHandle::draw()
 {

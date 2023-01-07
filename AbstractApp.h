@@ -36,6 +36,8 @@ struct AbstractAppData
     bool isShowing = true;;
     HCURSOR defaultCursor = NULL;
 
+    M_HDC testDC;
+
     virtual int makeDir(const char* path) = 0;
 
     virtual void setColor(COLORREF color, M_HDC& dc, int thickness = 1) = 0;

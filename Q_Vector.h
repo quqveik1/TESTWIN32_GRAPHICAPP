@@ -21,6 +21,7 @@ struct Vector
     explicit operator SIZE() const;
 
     static Vector toVector(POINT point);
+    static Vector toVector(SIZE point);
 
 
 
@@ -94,6 +95,14 @@ Vector Vector::toVector(POINT point)
     res.x = point.x;
     res.y = point.y;
     return res;
+} 
+
+Vector Vector::toVector(SIZE point)
+{
+    Vector res = {};
+    res.x = point.cx;
+    res.y = point.cy;
+    return res;   
 }
 
 bool operator == (const Vector &a, const Vector &b)
