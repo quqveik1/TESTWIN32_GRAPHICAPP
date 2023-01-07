@@ -10,21 +10,25 @@ void clickButton(Window* window, Manager* manager, Vector mp)
 
 void CWindowsLibApi::resize(Window* window, Rect newRect)
 {
+    gassert(window);
     if (window->systemSettings->debugMode >= 2) printf("newRect {%lf, %lf}; {%lf, %lf}\n", newRect.pos.x, newRect.pos.y, newRect.finishPos.x, newRect.finishPos.y);
     window->finalDCSize = { newRect.getSize().x, newRect.getSize().y };
-    if (isBigger (newRect.getSize().x, 0) && isBigger (newRect.getSize().y, 0))
+    if (window->hasItsFinalDC && window->getOutputDC())
     {
+        if (isBigger(newRect.getSize().x, 0) && isBigger(newRect.getSize().y, 0))
+        {
 
-        window->finalDC.setSize(window->finalDCSize, window->app, &window->finalDCArr);
+            window->getOutputDC()->setSize(window->finalDCSize, window->app, &window->finalDCArr);
 
-        //window->app->setColor(window->color, window->finalDC);
-        //window->app->rectangle(0, 0, newRect.getSize().x, newRect.getSize().y, window->finalDC);
+            //window->app->setColor(window->color, *window->getOutputDC());
+            //window->app->rectangle(0, 0, newRect.getSize().x, newRect.getSize().y, *window->getOutputDC());
 
-        if (window->systemSettings->debugMode == 5) window->app->drawOnScreen(window->finalDC);
-    }
-    else
-    {
-        window->finalDC.setSize(window->finalDCSize, window->app, &window->finalDCArr);
+            if (window->systemSettings->debugMode == 5) window->app->drawOnScreen(*window->getOutputDC());
+        }
+        else
+        {
+            window->getOutputDC()->setSize(window->finalDCSize, window->app, &window->finalDCArr);
+        }
     }
     window->rect = newRect;
 }
@@ -199,19 +203,19 @@ int CWindowsLibApi::standartWindowDraw(struct Window* window)
     if (window->needToShow)
     {
 
-        if (window->finalDC) app->setColor(window->color, window->finalDC);
-        if (window->finalDC) app->rectangle(0, 0, window->rect.getSize().x, window->rect.getSize().y, window->finalDC);
+        if (*window->getOutputDC()) app->setColor(window->color, *window->getOutputDC());
+        if (*window->getOutputDC()) app->rectangle(0, 0, window->rect.getSize().x, window->rect.getSize().y, *window->getOutputDC());
 
         if (window->text)
         {
-            app->setColor(window->systemSettings->TextColor, window->finalDC);
-            app->selectFont(window->fontName, window->font, window->finalDC);
-            app->drawText(0, 0, window->rect.getSize().x, window->rect.getSize().y, window->text, window->finalDC, window->format);
+            app->setColor(window->systemSettings->TextColor, *window->getOutputDC());
+            app->selectFont(window->fontName, window->font, *window->getOutputDC());
+            app->drawText(0, 0, window->rect.getSize().x, window->rect.getSize().y, window->text, *window->getOutputDC(), window->format);
         }
 
         if (window->dc)
         {
-            app->bitBlt(window->finalDC, 0, 0, window->rect.getSize().x, window->rect.getSize().y, window->dc);
+            app->bitBlt(*window->getOutputDC(), 0, 0, window->rect.getSize().x, window->rect.getSize().y, window->dc);
         }
     }
     return 0;
@@ -226,12 +230,12 @@ int CWindowsLibApi::standartManagerDraw(Manager* manager, Vector deltaFromStart/
     AbstractAppData* app = manager->app;
     assert(app);
 
-    if (manager->dc) app->bitBlt(manager->finalDC, 0, 0, 0, 0, manager->dc);
+    if (manager->dc) app->bitBlt(*manager->getOutputDC(), 0, 0, 0, 0, manager->dc);
 
     int test1 = 0;
     if (manager->needToShow)
     {
-        if(deltaFromStart != 0) manager->finalDC.moveViewPort(deltaFromStart, manager->app);
+        if(deltaFromStart != 0) manager->getOutputDC()->moveViewPort(deltaFromStart, manager->app);
         for (int i = 0; i < manager->getCurLen(); i++)
         {
             /*
@@ -252,7 +256,7 @@ int CWindowsLibApi::standartManagerDraw(Manager* manager, Vector deltaFromStart/
             
             if (manager->pointers[i]->reDraw)
             {
-                manager->pointers[i]->print(manager->finalDC);
+                manager->pointers[i]->print(*manager->getOutputDC());
             }
         }
         if (deltaFromStart != 0) manager->finalDC.moveViewPort(-deltaFromStart, manager->app);

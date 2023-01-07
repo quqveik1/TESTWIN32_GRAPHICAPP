@@ -6,7 +6,7 @@
 {                                                            \
     if (condition == NULL)                                   \
     {                                                        \
-        printf("[%s] == NULL", #condition);                   \
+        (void)printf("[%s] == NULL", #condition);                   \
         (void)_getch();                                      \
     }                                                        \
 }                                                            \

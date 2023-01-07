@@ -16,7 +16,6 @@
 #include "Thickness.cpp"
 //#include "LaysMenu.cpp"
 #include <windowsx.h>
-#include "ManagerHandle.cpp"
 
 int initProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam);
 int shutDownProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam);
@@ -279,11 +278,11 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
 int initProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
 {
 
-    //Handle* mainHandle = new Handle(appData, { .pos = {0, 0}, .finishPos = {appData->systemSettings->FullSizeOfScreen.x, appData->systemSettings->HANDLEHEIGHT} });
-   //appData->handle = mainHandle;
+    Handle* mainHandle = new Handle(appData);
+    //appData->handle = mainHandle;
     
 
-    MainManager* manager = new MainManager(appData, { .pos = {0, 0}, .finishPos = appData->systemSettings->FullSizeOfScreen }, 21, (WindowHandle*)NULL);
+    MainManager* manager = new MainManager(appData, { .pos = {0, 0}, .finishPos = appData->systemSettings->FullSizeOfScreen }, 21, mainHandle);
     appData->mainManager = manager;
     //manager->addWindow(mainHandle);
 

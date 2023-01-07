@@ -1,16 +1,16 @@
 #pragma once
-#pragma once
-#include "Window.h"
-#include "AbstractApp.h"
+#include "WindowsLib.h"
+#include "Layout.h"
 
-struct WindowHandle : Window
+struct WindowHandle : Layout
 {
     double height;
+
+
     WindowHandle(AbstractAppData* _app, double _height = 0) :
-        Window(_app), 
+        Layout(_app),
         height (_height)
     {
     };
     virtual int onSize(Vector managerSize, Rect mewRect = {}) override;
-    virtual void print(M_HDC& _dc) override;
 };

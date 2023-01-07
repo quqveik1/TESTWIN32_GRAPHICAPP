@@ -6,9 +6,9 @@ void CloseButton::draw()
 {
     $s;
 
-    app->setColor(color, finalDC);
-    app->rectangle(rect - rect.pos, finalDC);
-    app->transparentBlt(finalDC, 0, 0, 0, 0, dc);
+    app->setColor(color, *getOutputDC());
+    app->rectangle(rect - rect.pos, *getOutputDC());
+    app->transparentBlt(*getOutputDC(), 0, 0, 0, 0, dc);
     
 }
 
@@ -47,9 +47,9 @@ int CloseButton::onMouseMove(Vector mp, Vector delta)
 
 void MinimizeWindow::draw()
 {
-    app->setColor(color, finalDC);
-    app->rectangle(rect - rect.pos, finalDC);
-    app->transparentBlt(finalDC, 0, 0, 0, 0, dc);
+    app->setColor(color, *getOutputDC());
+    app->rectangle(rect - rect.pos, *getOutputDC());
+    app->transparentBlt(*getOutputDC(), 0, 0, 0, 0, dc);
 }
 
 int MinimizeWindow::onMouseMove(Vector mp, Vector delta)
@@ -156,9 +156,9 @@ void ResizeButton::draw()
 
 
 
-    app->setColor(color, finalDC);
-    app->rectangle(rect - rect.pos, finalDC);
-    app->transparentBlt(finalDC, 0, 0, 0, 0, dc);
+    app->setColor(color, *getOutputDC());
+    app->rectangle(rect - rect.pos, *getOutputDC());
+    app->transparentBlt(*getOutputDC(), 0, 0, 0, 0, dc);
 }
 
 int ResizeButton::onMouseMove(Vector mp, Vector delta)

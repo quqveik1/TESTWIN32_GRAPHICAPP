@@ -29,6 +29,7 @@ struct Window
     HDC dc;
 
     M_HDC finalDC;
+    M_HDC* pFinalDC = NULL;
     int hasItsFinalDC = 1;
     RGBQUAD* finalDCArr = NULL;
     Vector finalDCSize = {};
@@ -58,7 +59,8 @@ struct Window
         fontName(_app->systemSettings->FONTNAME),
         sideThickness(std::lround(_app->systemSettings->SIDETHICKNESS)),
         format(_app->systemSettings->TEXTFORMAT),
-        dc(_dc)
+        dc(_dc),
+        pFinalDC(&finalDC)
     {
         assert(_app);
         if (systemSettings->debugMode >= 0) printf("rect {%lf, %lf}; {%lf, %lf}\n", rect.pos.x, rect.pos.y, rect.finishPos.x, rect.finishPos.y);
@@ -103,8 +105,8 @@ struct Window
     virtual bool getRadrawStatus() { return redrawStatus; };
     virtual void noMoreRedraw() { redrawStatus = false; };
 
-    virtual void MoveWindow(Vector pos);
-    virtual void MoveWindowTo(Vector delta);
+    virtual void MoveWindow(Vector delta);
+    virtual void MoveWindowTo(Vector pos);
 
 
     virtual int isVisible()
@@ -170,6 +172,9 @@ struct Window
     virtual void setMPLastTime() { mousePosLastTime = getMousePos(); };
 
     virtual int mayBeDeletedInDestructor() { if (memType == 0) { return 1; } return 0; };
+
+    virtual M_HDC* getOutputDC() { return pFinalDC; };
+    virtual M_HDC* setOutputDC(M_HDC* _newDC) { return pFinalDC = _newDC; }
 
 
     virtual void draw();

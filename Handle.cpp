@@ -9,8 +9,8 @@ List* Handle::createMenuOption(const char* optionText, int* status, bool needToH
         options[currentOptionsLength].optionStatus = status;
         char* relustOfCopy = strcpy(options[currentOptionsLength].name, optionText);
 
-        app->selectFont(fontName, font, finalDC);
-        Vector sizeOfLabel = app->getTextExtent(options[currentOptionsLength].name, finalDC);
+        app->selectFont(fontName, font, *getOutputDC());
+        Vector sizeOfLabel = app->getTextExtent(options[currentOptionsLength].name, *getOutputDC());
 
         options[currentOptionsLength].size.x = sizeOfLabel.x + deltaBetweenFrameOfOption;
         options[currentOptionsLength].size.y = optionHeight;
@@ -61,8 +61,8 @@ void Handle::drawOptions()
 {
       
     int numOfOption = coloredOptionNum;
-    app->setColor(app->systemSettings->TextColor, finalDC);
-    app->selectFont(fontName, font, finalDC);
+    app->setColor(app->systemSettings->TextColor, *getOutputDC());
+    app->selectFont(fontName, font, *getOutputDC());
 
     
 
@@ -70,12 +70,12 @@ void Handle::drawOptions()
     {
         if (numOfOption == i)
         {
-            app->setColor(onMouseColor, finalDC);
-            app->rectangle(options[i].rect, finalDC);
-            app->setColor(app->systemSettings->TextColor, finalDC);
+            app->setColor(onMouseColor, *getOutputDC());
+            app->rectangle(options[i].rect, *getOutputDC());
+            app->setColor(app->systemSettings->TextColor, *getOutputDC());
         }
 
-        app->drawText(options[i].rect, options[i].name, finalDC);
+        app->drawText(options[i].rect, options[i].name, *getOutputDC());
 
         if (activeOptionNum < 0)
         {
@@ -199,10 +199,12 @@ void Handle::screenChanged()
 
 void Handle::draw()
 {
-    app->setColor(color, finalDC);
-    app->rectangle(rect - rect.pos, finalDC);
+    app->setColor(color, *getOutputDC());
+    app->rectangle(rect - rect.pos, *getOutputDC());
+    //app->setColor(C_RED, *getOutputDC());
+    //app->rectangle({}, { 100, 100 }, *getOutputDC());
 
-    app->transparentBlt(finalDC, logoStart, logoSize, logo);
+    app->transparentBlt(*getOutputDC(), logoStart, logoSize, logo);
 
     app->windowsLibApi->standartManagerDraw(this);
 
@@ -215,7 +217,7 @@ void Handle::draw()
         Vector superAbsMP = app->getCursorPos();
         Vector delta = superAbsMP - lastTimeMousePos;
         if (wasInFullScreenLastTime != app->isFullScreen()) delta = {};
-        
+
         if (app->systemSettings->debugMode >= 2) printf("delta: {%lf, %lf}\n", delta.x, delta.y);
         if (app->systemSettings->debugMode >= 2) printf("mp: {%lf, %lf}\n", superAbsMP.x, superAbsMP.y);
 
@@ -384,6 +386,8 @@ int Handle::optionOnClick(Vector mp)
 
 int Handle::onSize(Vector managerSize, Rect _newRect/* = {}*/)
 {
+    WindowHandle::onSize(managerSize, _newRect);
+
     Rect newRect = { .pos = rect.pos, .finishPos = {managerSize.x, rect.pos.y + getSize().y} };
     resize(newRect);
 

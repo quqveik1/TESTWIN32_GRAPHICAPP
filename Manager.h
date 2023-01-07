@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Window.h"
-#include "WindowHandle.h"
 
 
 
@@ -17,7 +16,7 @@ struct Manager : Window
     bool HideIfIsNotActive;
 
 
-    Manager(AbstractAppData* _app, Rect _rect, int _length, bool _needToShow = true, HDC _dc = NULL, Rect _handle = {}, COLORREF _color = NULL, bool _coordinatSysFromHandle = false, bool _HideIfIsNotActive = false) :
+    Manager(AbstractAppData* _app, Rect _rect = {}, int _length = 0, bool _needToShow = true, HDC _dc = NULL, Rect _handle = {}, COLORREF _color = NULL, bool _coordinatSysFromHandle = false, bool _HideIfIsNotActive = false) :
         Window(_app, _rect, _color, _dc, NULL, NULL, _needToShow),
         handle(_app, _handle),
         length(_length),
@@ -55,6 +54,8 @@ struct Manager : Window
     virtual void show() override;
     virtual int& getCurLen() { return currLen; };
 
+    
+
     virtual Window* isActiveWindowBelow() override;
     virtual void screenChanged() override;
 
@@ -72,5 +73,4 @@ struct Manager : Window
     virtual int onTimer(UINT_PTR timerName) override;
     virtual int onClose() override;
     virtual int onDestroy() override;
-
 };

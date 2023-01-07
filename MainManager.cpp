@@ -37,8 +37,11 @@ void MainManager::draw()
     //zoneSizeControl.controlFrame();
 
     //controlWorkSpace();
+   
 
     ManagerHandle::draw();
+
+    
     
 
 
@@ -60,7 +63,7 @@ void MainManager::onClick(Vector mp)
     mousePos = mp;
 
     //if (handle.rect)
-    app->windowsLibApi->standartManagerOnClick(this, mp);
+    ManagerHandle::onClick(mp);
 }
 
 int MainManager::mbDown(Vector mp, int button)

@@ -1,5 +1,5 @@
 #pragma once
-#include "Window.h"
+#include "Window.h" 
 
 void Window::defaultDestructor()
 {
@@ -85,7 +85,7 @@ Rect Window::getAbsRect(bool coordinatsWithHandle /*=false*/)
 {
     Rect coordinats = {};
 
-    Manager* copyOfManager = manager;
+    struct Manager* copyOfManager = manager;
 
     coordinats.pos += rect.pos;
 

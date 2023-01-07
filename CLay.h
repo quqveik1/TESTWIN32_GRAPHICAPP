@@ -29,7 +29,7 @@ struct CLay : Manager
     virtual void addToolLay (ToolLay* tool);
     virtual void setActiveLastToolLay();
 
-    virtual M_HDC* getOutputDC ();
+    virtual M_HDC* getOutputDC () override;
     virtual RGBQUAD* getOutputBuf();
     virtual M_HDC* getPermanentDC();
     virtual RGBQUAD* getPermanentBuf();

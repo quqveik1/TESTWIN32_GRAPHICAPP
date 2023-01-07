@@ -7,7 +7,7 @@
 
 
 
-struct Handle : Manager
+struct Handle : HandleOptions
 {
     int addToBackElemetsPos[10] = {};
     int numberOfAddToBackElements = 0;
@@ -38,8 +38,8 @@ struct Handle : Manager
 
     int lastKeyMessage = 0;
 
-    Handle(AbstractAppData* _app, Rect _rect) :
-        Manager(_app, _rect, 10, true, NULL, {}, _app->systemSettings->MenuColor),
+    Handle(AbstractAppData* _app) :
+        HandleOptions(_app, _app->systemSettings->HANDLEHEIGHT),
         onMouseColor(app->systemSettings->onMouseColor),
         logo(app->loadManager->loadImage("ImredLogo.bmp"))
     {
