@@ -29,6 +29,7 @@ struct Window
     HDC dc;
 
     M_HDC finalDC;
+    int hasItsFinalDC = 1;
     RGBQUAD* finalDCArr = NULL;
     Vector finalDCSize = {};
     struct Manager* manager = NULL;
@@ -68,6 +69,7 @@ struct Window
         if (!color) color = systemSettings->MenuColor;
 
         originalRect = rect;
+        finalDC.setApp(app);
     }
 
     virtual void defaultDestructor();

@@ -1,5 +1,6 @@
-#include "WindowsLibApi.h"
+#pragma once
 
+#include "WindowsLibApi.h"
 
 
 void clickButton(Window* window, Manager* manager, Vector mp)
@@ -230,6 +231,7 @@ int CWindowsLibApi::standartManagerDraw(Manager* manager, Vector deltaFromStart/
     int test1 = 0;
     if (manager->needToShow)
     {
+        if(deltaFromStart != 0) manager->finalDC.moveViewPort(deltaFromStart, manager->app);
         for (int i = 0; i < manager->getCurLen(); i++)
         {
             /*
@@ -253,6 +255,7 @@ int CWindowsLibApi::standartManagerDraw(Manager* manager, Vector deltaFromStart/
                 manager->pointers[i]->print(manager->finalDC);
             }
         }
+        if (deltaFromStart != 0) manager->finalDC.moveViewPort(-deltaFromStart, manager->app);
     }
     return 0;
 }

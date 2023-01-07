@@ -2,16 +2,10 @@
 
 #include "List.h"
 #include "ThreeUpWindows.cpp"
+#include "HandleOptions.cpp"
 
 
-struct Option
-{
-    Vector size = {};
-    Rect rect = {};
-    char name[MAX_PATH] = {};
-    int* optionStatus = {};
-    List* list = NULL;
-};
+
 
 struct Handle : Manager
 {

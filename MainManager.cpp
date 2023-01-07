@@ -1,6 +1,7 @@
 #pragma once
 #include "MainManager.h"
 #include "ZoneSizeControl.cpp"
+#include "ManagerHandle.cpp"
 
 void MainManager::controlWorkSpace()
 {
@@ -35,21 +36,23 @@ void MainManager::draw()
     needFrameToWork = !app->isFullScreen();
     //zoneSizeControl.controlFrame();
 
-    controlWorkSpace();
+    //controlWorkSpace();
+
+    ManagerHandle::draw();
     
 
 
-    app->windowsLibApi->standartManagerDraw(this);
+    //app->windowsLibApi->standartManagerDraw(this);
 
    // if (app->systemSettings->debugMode >= 1)printf("Active Window: %p\n", isActiveWindowBelow());
 
     //zoneSizeControl.drawFrame();
 
-   app->bitBlt(finalDC, handle->rect.pos, handle->getSize(), handle->finalDC);
+   //app->bitBlt(finalDC, handle->rect.pos, handle->getSize(), handle->finalDC);
 
     
 
-    setMbLastTime();
+   // setMbLastTime();
 }
 
 void MainManager::onClick(Vector mp)

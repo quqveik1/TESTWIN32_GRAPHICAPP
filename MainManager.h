@@ -2,8 +2,9 @@
 #include "AbstractApp.h"
 #include "SystemSettings.h"
 #include "ZoneSizeControl.h"
+#include "ManagerHandle.h"
 
-struct MainManager : Manager
+struct MainManager : ManagerHandle
 {
     Vector mousePos = {};
     int clicked = 0;
@@ -13,15 +14,14 @@ struct MainManager : Manager
     Vector minimumAppSize = {};
     Rect zone = {};
     bool needFrameToWork = false;
-    Manager* handle = NULL;
 
 
-    MainManager(AbstractAppData* _app, Rect _rect, int _length, Manager* _handle) :
-        Manager(_app, _rect, _length, true, NULL, {}, TX_WHITE),
+    MainManager(AbstractAppData* _app, Rect _rect, int _length, WindowHandle* _handle) :
+        ManagerHandle(_app, _handle),
         minimumAppSize({app->systemSettings->BUTTONWIDTH * 6, app->systemSettings->HANDLEHEIGHT * 3 }),
-        zoneSizeControl ((Manager*)this, &zone, &needFrameToWork, &minimumAppSize),
-        handle (_handle)
+        zoneSizeControl ((Manager*)this, &zone, &needFrameToWork, &minimumAppSize)
     {
+        resize(_rect);
     }
 
 

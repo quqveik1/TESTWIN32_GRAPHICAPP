@@ -46,6 +46,7 @@ inline Vector& operator += (Vector &a, const Vector &b);
 inline Vector& operator -= (Vector& a, const Vector& b);
 inline Vector operator -  (const Vector &a, const Vector &b);
 inline Vector operator -  (const Vector &a, const double &num);
+inline Vector operator - (const Vector& a);
 inline void lining ();
 inline Vector operator *  (const Vector &a, const double b);
 inline Vector operator *  (const Vector &a, const Vector &b);
@@ -187,6 +188,18 @@ inline Vector operator -  (const Vector& a, const double& num)
 
     return result;
 }
+
+
+inline Vector operator - (const Vector& a)
+{
+    Vector answer = {};
+    answer.x = -a.x;
+    answer.y = -a.y;
+    return answer;
+}
+
+
+
 
 inline Vector &operator += (Vector &a, const Vector &b)
 {

@@ -22,7 +22,9 @@ void ManagerHandle::createHandle()
 
 void ManagerHandle::draw()
 {
+    massert(handle, app);
     handle->print(finalDC);
 
-    app->windowsLibApi->standartManagerDraw(this);
+    Vector delta = { 0, handle->getSize().y };
+    app->windowsLibApi->standartManagerDraw(this, delta);
 }

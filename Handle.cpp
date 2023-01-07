@@ -16,7 +16,7 @@ List* Handle::createMenuOption(const char* optionText, int* status, bool needToH
         options[currentOptionsLength].size.y = optionHeight;
 
         List* newList = new List(app, {}, {app->systemSettings->BUTTONWIDTH * 5, getSize().y}, 10, true, needToHideAfterClick);
-        options[currentOptionsLength].list = newList;
+        //options[currentOptionsLength].list = newList;
 
         currentOptionsLength++;
         if (manager)
@@ -53,7 +53,7 @@ void Handle::setOptionsRect()
         options[i].rect.finishPos.x = options[i].rect.pos.x + options[i].size.x;
         options[i].rect.finishPos.y = options[i].rect.pos.y + options[i].size.y;
 
-        options[i].list->MoveWindowTo({ options[i].rect.pos.x, options[i].rect.finishPos.y });
+        //options[i].list->MoveWindowTo({ options[i].rect.pos.x, options[i].rect.finishPos.y });
     }
 }
 
@@ -79,13 +79,13 @@ void Handle::drawOptions()
 
         if (activeOptionNum < 0)
         {
-            options[i].list->needToShow = false;
+            //options[i].list->needToShow = false;
         }
     }
 
     if (activeOptionNum >= 0)
     {
-        options[activeOptionNum].list->show();
+        //options[activeOptionNum].list->show();
     }
 }
 
@@ -254,7 +254,7 @@ int Handle::onMouseMove(Vector mp, Vector delta)
     lastTimeAbsMousePos = app->getCursorPos();
     if (activeOptionNum >= 0 && answer >= 0 && activeOptionNum != answer)
     {
-        options[activeOptionNum].list->hide();
+        //options[activeOptionNum].list->hide();
         activeOptionNum = answer;
         coloredOptionNum = answer;
         app->updateScreen(this);
@@ -278,7 +278,7 @@ int Handle::isOnOptionsDown()
 {
     for (int i = 0; i < currentOptionsLength; i++)
     {
-        if (options[i].list->isOnMeMbDown)
+        //if (options[i].list->isOnMeMbDown)
         {
             return i + 1;
         }
