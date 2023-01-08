@@ -14,7 +14,8 @@ struct LinearLayout : Layout
     {
     }
 
-    virtual int onSize(Vector managerSize, Rect newRect = {}) override;
+    virtual int onSize(Vector managerSize, Rect newRect = {}) override; 
+    virtual void onClick(Vector mp) override;
     virtual Rect calcRect();
     void setDeltaBetweenButttons(int _deltaBetweenButtons) { deltaBetweenButtons = _deltaBetweenButtons; };
 };

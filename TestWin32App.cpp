@@ -285,20 +285,27 @@ int initProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
     MainManager* manager = new MainManager(appData, { .pos = {0, 0}, .finishPos = appData->systemSettings->FullSizeOfScreen }, 21, mainHandle);
     appData->mainManager = manager;
 
-    Option* optionCreate = new Option();;
-    optionCreate->name = "Создать";
-    struct CreateEventMessage : EventMessage
-    {
-    };
-    mainHandle->addOption(optionCreate);
+    
+    
 
-    /*
 
     CanvasManager* canvasManager = new CanvasManager(appData, { 0, 0 });
     appData->canvasManager = canvasManager;
-    manager->addWindow(canvasManager);
+    //manager->addWindow(canvasManager);
+
+    Option* optionCreate = new Option();
+    optionCreate->name = "Создать";
+    
+    
+    Option* optionSetCanvas = new Option();
+    optionSetCanvas->name = "Создать холст";
+    optionSetCanvas->reciever = canvasManager->getSetCanvasButton();
+    optionCreate->addSubOption(optionSetCanvas);
+    mainHandle->addOption(optionCreate);
+
 
     
+    /*
     
     List* createList = mainHandle->createMenuOption("Создать", NULL, true);
     createList->addNewItem(canvasManager->getSetCanvasButton(), NULL, "Создать холст", NULL, 'N');

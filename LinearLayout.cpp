@@ -37,6 +37,13 @@ int LinearLayout::onSize(Vector managerSize, Rect _newRect/* = {}*/)
 }
 
 
+void LinearLayout::onClick(Vector mp)
+{
+    app->windowsLibApi->standartManagerOnClick(this, mp);
+}
+
+
+
 
 Rect LinearLayout::calcRect()
 {
@@ -58,14 +65,14 @@ Rect LinearLayout::calcRect()
             }
             */
 
-            if (pointers[i]->rect.finishPos.x > newRect.finishPos.x)
+            if (pointers[i]->rect.getSize().x > newRect.getSize().x)
             {
-                newRect.finishPos.x = pointers[i]->rect.finishPos.x;
+                newRect.finishPos.x = pointers[i]->rect.finishPos.x + newRect.pos.x;
             }
 
-            if (pointers[i]->rect.finishPos.y > newRect.finishPos.y)
+            if (pointers[i]->rect.getSize().y > newRect.getSize().y)
             {
-                newRect.finishPos.y = pointers[i]->rect.finishPos.y;
+                newRect.finishPos.y = pointers[i]->rect.finishPos.y + newRect.pos.y;
             }
 
         }

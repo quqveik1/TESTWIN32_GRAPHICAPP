@@ -8,8 +8,11 @@ struct Option
     const char* name = {};
     int* optionStatus = {};
     vector<struct Option*> subOptions;
+    Window* reciever;
     EventMessage* eventMessage;
 
     virtual int addSubOption(Option* _option);
     virtual void addEventMessage(EventMessage* _eventMessage) { eventMessage = _eventMessage; };
+    virtual void addReciever(Window* _reciever) { reciever = _reciever; };
+    virtual void toLists(struct List*);
 };

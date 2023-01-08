@@ -20,6 +20,7 @@ struct Rect
     Rect sort();
     void setHeight(double height);
     void setWidth(double height);
+    void setSize(Vector _size);
 
     Rect& operator = (const Rect& a1);
     Rect& operator = (const RECT& a1);
@@ -130,6 +131,13 @@ void Rect::setWidth(double width)
 
     finishPos.x = pos.x + width;
 }
+
+void Rect::setSize(Vector _size)
+{
+    setWidth(_size.x);
+    setHeight(_size.y);
+}
+
 
 
 inline Rect operator + (const Rect& rect, const Vector& vector)

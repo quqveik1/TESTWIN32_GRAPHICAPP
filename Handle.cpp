@@ -386,7 +386,7 @@ int Handle::optionOnClick(Vector mp)
 
 int Handle::onSize(Vector managerSize, Rect _newRect/* = {}*/)
 {
-    WindowHandle::onSize(managerSize, _newRect);
+    HandleOptions::onSize(managerSize, _newRect);
     app->windowsLibApi->standartManagerOnSize(this, getSize(), {});
 
     Rect newRect = { .pos = rect.pos, .finishPos = {managerSize.x, rect.pos.y + getSize().y} };

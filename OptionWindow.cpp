@@ -11,19 +11,8 @@ int OptionWindow::onSize(Vector managerSize, Rect _newRect/* = {}*/)
     Vector newSize =
     {
         .x = sizeOfLabel.x + (double)(deltaBetweemFrameAndOption * 2),
-        .y = size.y
+        .y = getSize().y
     };
     resize(newSize);
     return 0;
-}
-
-
-void OptionWindow::onClick(Vector mp)
-{
-    assert(option);
-
-    if (option->eventMessage)
-    {
-        option->eventMessage->startEvent();
-    }
 }

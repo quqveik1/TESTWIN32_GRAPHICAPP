@@ -7,6 +7,8 @@ void List::addNewItem(Window* openButton, HDC dc/* = NULL*/, const char* text/* 
     Rect newRect = { .pos = {0, (double)(currLen)*itemHeight}, .finishPos = {rect.getSize().x, (double)(currLen + 1) * itemHeight} };
 
     app->selectFont(fontName, font, finalDC);
+    items.push_back(new OpenManager(app, oneItemSize));
+    isThisItemList.push_back(false);
     items[currLen]->rect = newRect;
     items[currLen]->font = font;
     items[currLen]->color = color;
@@ -26,6 +28,12 @@ void List::addNewItem(Window* openButton, HDC dc/* = NULL*/, const char* text/* 
 }
 
 
+void List::addNewItem(Option* _option)
+{
+    addNewItem(_option->reciever, NULL, _option->name);
+}
+
+
 void List::controlRect()
 {
     rect.finishPos = { rect.pos.x + oneItemSize.x, rect.pos.y + oneItemSize.y * currLen };
@@ -37,7 +45,8 @@ List* List::addSubList(const char* ListText, int newListLength/* = NULL*/)
     if (!newListLength) return NULL;
     List* subList = new List(app, getNewSubItemCoordinats(), oneItemSize, newListLength);
 
-    isThisItemList[currLen] = true;
+    isThisItemList.push_back(true);
+    items.push_back(new OpenManager(app, oneItemSize));
     addNewItem(subList, NULL, ListText);
 
     return subList;
@@ -98,6 +107,7 @@ void List::draw()
 
     if (!getMBCondition()) lastClickedItemNum = -1;
     setMbLastTime();
+
 }
 
 void List::onClick(Vector mp)
@@ -113,5 +123,16 @@ void List::onClick(Vector mp)
         }
         lastClickedItemNum = clikedButtonNum;
     }
+}
+
+
+int List::onSize(Vector managerSize, Rect _newRect/* = {}*/)
+{
+    app->windowsLibApi->standartManagerOnSize(this, managerSize, _newRect);
+
+    Rect newRect = rect;
+    newRect.setSize({ oneItemSize.x, oneItemSize.y * getCurLen() });
+    resize(newRect);
+    return 0;
 }
 
