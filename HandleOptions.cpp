@@ -25,7 +25,7 @@ int HandleOptions::addOption(Option* _option)
 
     addWindow(newList);
     optionsList.push_back(newList);
-    _option->addReciever(newList);
+    
 
     _option->toLists(newList);
 
@@ -43,10 +43,18 @@ int HandleOptions::onSize(Vector managerSize, Rect newRect/* = {}*/)
 
     for (int i = 0; i < optionsWindow.size(); i++)
     {
-        optionsList[i]->MoveWindowTo({ optionsWindow[i]->rect.pos.x, optionsWindow[i]->rect.finishPos.y });
+        optionsList[i]->MoveWindowTo({ optionsWindow[i]->rect.pos.x + optionsLayout.rect.pos.x, optionsWindow[i]->rect.finishPos.y + optionsLayout.rect.pos.y });
     }
 
 
 
     return 0;
+}
+
+
+
+void HandleOptions::draw()
+{
+    app->windowsLibApi->standartManagerDraw(this, {});
+
 }

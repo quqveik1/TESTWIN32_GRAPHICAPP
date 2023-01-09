@@ -59,7 +59,9 @@ int OpenManager::onKeyboard(int key)
 
 void OpenManager::draw()
 {
+    Vector dcREct = getOutputDC()->getSize();
     app->windowsLibApi->standartWindowDraw(this);
+    
 
     
 

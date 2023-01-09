@@ -7,7 +7,7 @@
 #include "LoadManager.h"
 
 M_HDC::M_HDC(struct AbstractAppData* _app) : 
-    app(_app)
+    M_HGDIOBJ(_app)
 {
     obj = CreateCompatibleDC(NULL);
     SetBkMode((HDC)obj, TRANSPARENT);
@@ -15,7 +15,7 @@ M_HDC::M_HDC(struct AbstractAppData* _app) :
 }
 
 M_HDC::M_HDC(struct AbstractAppData* _app, HDC _dc) : 
-    app(_app)
+    M_HGDIOBJ(_app)
 {
     *this = _dc;
 }
@@ -23,7 +23,7 @@ M_HDC::M_HDC(struct AbstractAppData* _app, HDC _dc) :
 
 
 M_HDC::M_HDC() :
-    app(NULL)
+    M_HGDIOBJ(NULL)
 {
     obj = CreateCompatibleDC(NULL);
     SetBkMode((HDC)obj, TRANSPARENT);
@@ -258,14 +258,7 @@ Vector M_HDC::getSize()
 }
 
 
-int M_HDC::setApp(struct AbstractAppData* _app)
-{
-    if (_app != NULL)
-    {
-        app = _app;
-    }
-    return (int)(long)app;
-}
+
 
 
 int M_HDC::setSize(Vector size, struct AbstractAppData* _app, RGBQUAD** pixels/* = NULL*/)
@@ -348,6 +341,12 @@ int M_HDC::deleteObj()
     }
 
     if (app) app->deleteDC((HDC)obj);
+
+    if (gdiManager && bindStatus == BS_UNBINDED)
+    {
+        gdiManager->unBind(this);
+        bindStatus = BS_UNBINDED;
+    }
     return numOfDeletedObjs;
 
 

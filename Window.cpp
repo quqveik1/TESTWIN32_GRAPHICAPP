@@ -10,7 +10,7 @@ void Window::print(M_HDC& DC)
 {
     assert(DC);
     draw();
-    app->bitBlt(DC, rect.pos.x, rect.pos.y, rect.getSize().x, rect.getSize().y, finalDC);
+    if(getShowStatus() == DS_VISIBLE) app->bitBlt(DC, rect.pos.x, rect.pos.y, rect.getSize().x, rect.getSize().y, finalDC);
 }
 
 Vector Window::getSize()

@@ -199,6 +199,7 @@ void Handle::screenChanged()
 
 void Handle::draw()
 {
+    HandleOptions::draw();
     app->setColor(color, *getOutputDC());
     app->rectangle(rect - rect.pos, *getOutputDC());
     //app->setColor(C_RED, *getOutputDC());

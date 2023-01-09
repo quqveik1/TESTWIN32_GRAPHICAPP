@@ -37,6 +37,8 @@ void MainManager::draw()
     //zoneSizeControl.controlFrame();
 
     //controlWorkSpace();
+    app->setColor(C_RED, *getOutputDC());
+    app->rectangle({}, { 1000, 1000 }, *getOutputDC());
    
 
     ManagerHandle::draw();

@@ -26,6 +26,7 @@ struct HandleOptions : WindowHandle
     virtual void setManagerHandle(struct ManagerHandle* _managerhandle);
     virtual int addOption(Option* _option);
 
-    
+
+    virtual void draw() override;
     virtual int onSize(Vector managerSize, Rect newRect = {}) override;
 };

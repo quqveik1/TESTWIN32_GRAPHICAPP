@@ -20,6 +20,14 @@ int M_HGDIOBJ::deleteObj()
                 printf("Попытка удалить активный и выбранный где-то объект\n");
                 return (int)1;
             }
+            if (app)
+            {
+                if (app->hgdiManager && bindStatus == BS_BINDED)
+                {
+                    app->hgdiManager->unBind(this);
+                    bindStatus = BS_UNBINDED;
+                }
+            }
             status--;
             DeleteObject(obj);
             status = 0;
@@ -40,4 +48,20 @@ HGDIOBJ M_HGDIOBJ::setObj(HGDIOBJ  _obj)
     printf("Попытка задать в оберточный класс, в котором уже выбран объект еще один объект\n");
     return obj;
     
+}
+
+
+int M_HGDIOBJ::setApp(struct AbstractAppData* _app)
+{
+    if (_app != NULL)
+    {
+        app = _app;
+
+        if (bindStatus == BS_UNBINDED)
+        {
+            app->hgdiManager->bind(this);
+            bindStatus = BS_BINDED;
+        }
+    }
+    return (int)(long)app;
 }

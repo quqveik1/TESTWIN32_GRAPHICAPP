@@ -16,3 +16,10 @@ int OptionWindow::onSize(Vector managerSize, Rect _newRect/* = {}*/)
     resize(newSize);
     return 0;
 }
+
+
+
+void OptionWindow::draw()
+{
+    OpenManager::draw();
+}

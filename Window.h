@@ -4,6 +4,7 @@
 #include "M_HDC.cpp"
 #include "HGDIManager.h" 
 
+
 struct Window
 {
     const char* devName = NULL;
@@ -34,6 +35,11 @@ struct Window
     RGBQUAD* finalDCArr = NULL;
     Vector finalDCSize = {};
     struct Manager* manager = NULL;
+    enum DrawStatus
+    {
+        DS_VISIBLE = 1,
+        DS_INVISIBLE = 0
+    };
     bool needToShow = true;
     bool reDraw = true;
     bool needTransparencyOutput = false;
@@ -96,7 +102,7 @@ struct Window
     //void resize (Vector newSize, Vector oldSize);
     virtual void reInit();
     virtual void setStartRect(Vector pos, Vector finishPos);
-    virtual void print(M_HDC& finalDC);
+    
 
 
     virtual Vector getSize();
@@ -166,6 +172,7 @@ struct Window
 
     virtual void hide() { needToShow = false; };
     virtual void show() { needToShow = true; };
+    virtual int getShowStatus() { return needToShow; }
 
     virtual Vector getAbsMousePos() { return getMousePos() + rect.pos; };
 
@@ -178,6 +185,7 @@ struct Window
 
 
     virtual void draw();
+    virtual void print(M_HDC& finalDC);
     virtual void onClick(Vector mp) {};
     virtual int mbDown(Vector mp, int button) { if (rect.inRect(mp)) { app->declareReactionOnMSG(1); }; return 0; };
     virtual int mbUp(Vector mp, int button) { return 0; };

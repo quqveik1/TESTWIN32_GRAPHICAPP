@@ -16,4 +16,5 @@ struct OptionWindow : OpenManager
     }
 
     virtual int onSize(Vector managerSize, Rect _newRect = {}) override;
+    virtual void draw() override;
 };

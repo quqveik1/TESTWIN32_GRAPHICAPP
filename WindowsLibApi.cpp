@@ -199,23 +199,30 @@ int CWindowsLibApi::standartWindowDraw(struct Window* window)
 
     AbstractAppData* app = window->app;
     assert(app);
-
-    if (window->needToShow)
+    M_HDC* outDC = window->getOutputDC();
+    if (outDC)
     {
 
-        if (*window->getOutputDC()) app->setColor(window->color, *window->getOutputDC());
-        if (*window->getOutputDC()) app->rectangle(0, 0, window->rect.getSize().x, window->rect.getSize().y, *window->getOutputDC());
-
-        if (window->text)
+        if (window->needToShow)
         {
-            app->setColor(window->systemSettings->TextColor, *window->getOutputDC());
-            app->selectFont(window->fontName, window->font, *window->getOutputDC());
-            app->drawText(0, 0, window->rect.getSize().x, window->rect.getSize().y, window->text, *window->getOutputDC(), window->format);
-        }
 
-        if (window->dc)
-        {
-            app->bitBlt(*window->getOutputDC(), 0, 0, window->rect.getSize().x, window->rect.getSize().y, window->dc);
+            if (*outDC) app->setColor(window->color, *outDC);
+            if (*outDC) app->rectangle(0, 0, window->rect.getSize().x, window->rect.getSize().y, *outDC);
+
+            if (window->text)
+            {
+                app->setColor(window->systemSettings->TextColor, *outDC);
+                app->selectFont(window->fontName, window->font, *outDC);
+                app->drawText(0, 0, window->rect.getSize().x, window->rect.getSize().y, window->text, *outDC, window->format);
+            }
+
+            if (window->dc)
+            {
+                app->bitBlt(*outDC, 0, 0, window->rect.getSize().x, window->rect.getSize().y, window->dc);
+            }
+            app->DEBUGsaveImage(*outDC);
+            Vector dcRect = outDC->getSize();
+            printf("");
         }
     }
     return 0;
@@ -230,36 +237,41 @@ int CWindowsLibApi::standartManagerDraw(Manager* manager, Vector deltaFromStart/
     AbstractAppData* app = manager->app;
     assert(app);
 
-    if (manager->dc) app->bitBlt(*manager->getOutputDC(), 0, 0, 0, 0, manager->dc);
+    M_HDC* outDC = manager->getOutputDC();
 
-    int test1 = 0;
-    if (manager->needToShow)
+    if (outDC)
     {
-        if(deltaFromStart != 0) manager->getOutputDC()->moveViewPort(deltaFromStart, manager->app);
-        for (int i = 0; i < manager->getCurLen(); i++)
+
+        if (manager->dc) app->bitBlt(*outDC, 0, 0, 0, 0, manager->dc);
+
+        if (manager->needToShow)
         {
-            /*
-            if (manager->pointers[i]->reDraw) manager->pointers[i]->draw();
-            if (manager->pointers[i]->needToShow)
+            if (deltaFromStart != 0) outDC->moveViewPort(deltaFromStart, manager->app);
+            for (int i = 0; i < manager->getCurLen(); i++)
             {
                 /*
-                if (manager->pointers[i]->needTransparencyOutput) app->transparentBlt(manager->finalDC, manager->pointers[i]->rect.pos.x, manager->pointers[i]->rect.pos.y, manager->pointers[i]->rect.getSize().x, manager->pointers[i]->rect.getSize().y, manager->pointers[i]->finalDC);
-                else                                              app->bitBlt(manager->finalDC, manager->pointers[i]->rect.pos.x + deltaFromStart.x, manager->pointers[i]->rect.pos.y + deltaFromStart.y, manager->pointers[i]->rect.getSize().x, manager->pointers[i]->rect.getSize().y, manager->pointers[i]->finalDC);
-                *
+                if (manager->pointers[i]->reDraw) manager->pointers[i]->draw();
+                if (manager->pointers[i]->needToShow)
+                {
+                    /*
+                    if (manager->pointers[i]->needTransparencyOutput) app->transparentBlt(manager->finalDC, manager->pointers[i]->rect.pos.x, manager->pointers[i]->rect.pos.y, manager->pointers[i]->rect.getSize().x, manager->pointers[i]->rect.getSize().y, manager->pointers[i]->finalDC);
+                    else                                              app->bitBlt(manager->finalDC, manager->pointers[i]->rect.pos.x + deltaFromStart.x, manager->pointers[i]->rect.pos.y + deltaFromStart.y, manager->pointers[i]->rect.getSize().x, manager->pointers[i]->rect.getSize().y, manager->pointers[i]->finalDC);
+                    *
 
-                if (manager->pointers[i]->needTransparencyOutput) app->transparentBlt(manager->finalDC, manager->pointers[i]->rect.pos + deltaFromStart, manager->pointers[i]->rect.finishPos + deltaFromStart, manager->pointers[i]->finalDC);
-                else                                              app->bitBlt(manager->finalDC, manager->pointers[i]->rect.pos.x + deltaFromStart.x, manager->pointers[i]->rect.pos.y + deltaFromStart.y, manager->pointers[i]->rect.getSize().x, manager->pointers[i]->rect.getSize().y, manager->pointers[i]->finalDC);
+                    if (manager->pointers[i]->needTransparencyOutput) app->transparentBlt(manager->finalDC, manager->pointers[i]->rect.pos + deltaFromStart, manager->pointers[i]->rect.finishPos + deltaFromStart, manager->pointers[i]->finalDC);
+                    else                                              app->bitBlt(manager->finalDC, manager->pointers[i]->rect.pos.x + deltaFromStart.x, manager->pointers[i]->rect.pos.y + deltaFromStart.y, manager->pointers[i]->rect.getSize().x, manager->pointers[i]->rect.getSize().y, manager->pointers[i]->finalDC);
 
 
+                }
+                */
+
+                if (manager->pointers[i]->reDraw)
+                {
+                    manager->pointers[i]->print(*outDC);
+                }
             }
-            */
-            
-            if (manager->pointers[i]->reDraw)
-            {
-                manager->pointers[i]->print(*manager->getOutputDC());
-            }
+            if (deltaFromStart != 0) manager->finalDC.moveViewPort(-deltaFromStart, manager->app);
         }
-        if (deltaFromStart != 0) manager->finalDC.moveViewPort(-deltaFromStart, manager->app);
     }
     return 0;
 }

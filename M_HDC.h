@@ -8,7 +8,6 @@ struct M_HDC : M_HGDIOBJ
     M_HGDIOBJ* selectedObj[10] = {};
     HGDIOBJ defObjs[10] = {};
     int currLen = 0;
-    struct AbstractAppData* app = NULL;
 
     M_HDC(struct AbstractAppData* _app);
     M_HDC(struct AbstractAppData* _app, HDC _dc);
@@ -28,7 +27,6 @@ struct M_HDC : M_HGDIOBJ
     virtual int selectObj(HFONT font);
     
     virtual int setSize(Vector size, struct AbstractAppData* _app, RGBQUAD** pixels = NULL);
-    virtual int setApp(struct AbstractAppData* _app);
     virtual int loadImage(struct AbstractAppData* _app, const char* _path, Vector _size = {});
     virtual int copyFrom(struct AbstractAppData* _app, HDC _dc);
     virtual Vector getSize();

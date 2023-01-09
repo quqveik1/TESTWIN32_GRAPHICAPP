@@ -30,17 +30,8 @@ M_HDC* HGDIManager::getHDC()
 {
     if (app)
     {
-        if (currlen + 1 < maxLen)
-        {
-            M_HDC* newDC = new M_HDC(app);
-            objs[currlen] = newDC;
-            currlen++;
-            return newDC;
-        }
-        else
-        {
-            massert(!"Переполнение M_HGDIOBJ", app);
-        }
+        M_HDC* newDC = new M_HDC(app);
+        return newDC;
     }
 
     return NULL;
@@ -48,18 +39,34 @@ M_HDC* HGDIManager::getHDC()
 
 M_HGDIOBJ* HGDIManager::getHGDIOBJ()
 {
-    if (currlen + 1 < maxLen)
-    {
-        M_HGDIOBJ* newOBJ = new M_HGDIOBJ();
-        objs[currlen] = newOBJ;
-        currlen++;
-        printf("Выдана %d обертка\n", currlen);
-        return newOBJ;
-    }
-    else
-    {
-        massert(!"Переполнение M_HGDIOBJ", app);
-    }
+
+    M_HGDIOBJ* newOBJ = new M_HGDIOBJ(app);
+    bind(newOBJ);
+    return newOBJ;
 
     return NULL;
+}
+
+
+
+int HGDIManager::bind(M_HGDIOBJ* obj)
+{
+    objs.push_back(obj);
+    return 0;
+}
+
+
+int HGDIManager::unBind(M_HGDIOBJ* obj)
+{
+    vector<M_HGDIOBJ*>::iterator it;
+    it = find(objs.begin(), objs.end(), obj);  
+    if (it != objs.end())
+    {
+        int pos = it - objs.begin();
+        objs.erase(objs.begin() + pos - 1);
+        return 0;
+    }
+    printf("Попытка отвязать незарегестрированный в мэнеджере объект");
+    return -1;
+    
 }
