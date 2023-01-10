@@ -13,6 +13,15 @@ void Window::print(M_HDC& DC)
     if(getShowStatus() == DS_VISIBLE) app->bitBlt(DC, rect.pos.x, rect.pos.y, rect.getSize().x, rect.getSize().y, finalDC);
 }
 
+int Window::hitTest(Vector mp)
+{
+    if ((rect - rect.pos).inRect(mp))
+    {
+        return 1;
+    }
+    return 0;
+}
+
 Vector Window::getSize()
 {
     return this->rect.finishPos - this->rect.pos;

@@ -5,6 +5,7 @@
 #include "HGDIManager.h" 
 
 
+
 struct Window
 {
     const char* devName = NULL;
@@ -186,6 +187,7 @@ struct Window
 
     virtual void draw();
     virtual void print(M_HDC& finalDC);
+    virtual int hitTest(Vector mp);//1 - hit; 0 - miss
     virtual void onClick(Vector mp) {};
     virtual int mbDown(Vector mp, int button) { if (rect.inRect(mp)) { app->declareReactionOnMSG(1); }; return 0; };
     virtual int mbUp(Vector mp, int button) { return 0; };
@@ -196,6 +198,7 @@ struct Window
     virtual int onTimer(UINT_PTR timerName) { return 0; };
     virtual int onClose() { return 0; };// if you want to cancel closing you need to return non 0 value
     virtual int onDestroy() { return 0; };
+    
 
     virtual void deleteButton() {};
 };

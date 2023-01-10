@@ -220,9 +220,6 @@ int CWindowsLibApi::standartWindowDraw(struct Window* window)
             {
                 app->bitBlt(*outDC, 0, 0, window->rect.getSize().x, window->rect.getSize().y, window->dc);
             }
-            app->DEBUGsaveImage(*outDC);
-            Vector dcRect = outDC->getSize();
-            printf("");
         }
     }
     return 0;
@@ -277,9 +274,41 @@ int CWindowsLibApi::standartManagerDraw(Manager* manager, Vector deltaFromStart/
 }
 
 
+int CWindowsLibApi::standartManagerHitTest(struct Manager* manager, Vector mp)
+{
+    gassert(manager);
+    if (!manager) return 0;
+
+    if (manager->getShowStatus() == S_ACTIVE)
+    {
+        if ((manager->rect - manager->rect.pos).inRect(mp))
+        {
+            return 1;
+        }
+        for (int i = manager->getCurLen() - 1; i >= 0; i--)
+        {
+            if (manager->pointers[i])
+            {
+                int res = manager->pointers[i]->hitTest(mp - manager->pointers[i]->rect.pos);
+                if (res)
+                {
+                    return 1;
+                }
+
+            }
+        }
+
+    }
+
+    return 0;
+
+}
+
+
 int CWindowsLibApi::standartManagerOnClick(Manager* manager, Vector mp)
 {
     gassert(manager);
+    if (!manager) return -1;
 
     bool missClicked = true;
 
@@ -287,23 +316,25 @@ int CWindowsLibApi::standartManagerOnClick(Manager* manager, Vector mp)
 
     //if (HideIfIsNotActive) unHide ();
 
-    if (manager->needToShow)
+    if (manager->getShowStatus() == S_ACTIVE)
     {
         manager->setActiveWindow(manager);
-        //manager->clickHandle();
-        for (int i = manager->currLen - 1; i >= 0; i--)
+        for (int i = manager->getCurLen() - 1; i >= 0; i--)
         {
-            if (manager->pointers[i]->rect.inRect(mp))
+            if (manager->pointers[i])
             {
-                clickButton(manager->pointers[i], manager, mp);
+                if (manager->pointers[i]->hitTest(mp - manager->pointers[i]->rect.pos))
+                {
+                    clickButton(manager->pointers[i], manager, mp);
 
-                missClicked = false;
-                returnableVal = i;
-                if (manager->pointers[i]->needToShow) break;
-            }
-            else
-            {
-                missClicked = true;
+                    missClicked = false;
+                    returnableVal = i;
+                    if (manager->pointers[i]->needToShow) break;
+                }
+                else
+                {
+                    missClicked = true;
+                }
             }
         }
     }

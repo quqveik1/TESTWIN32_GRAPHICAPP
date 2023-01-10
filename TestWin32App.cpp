@@ -104,8 +104,12 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
                 if (message == WM_LBUTTONUP) button = 1;
                 if (message == WM_RBUTTONUP) button = 2;
                 printf("WM_MBUP_START\n");
-                appData->mainManager->mbUp({ (double)LOWORD(lParam), (double)HIWORD(lParam) }, button); 
-                appData->mainManager->onClick({ (double)LOWORD(lParam), (double)HIWORD(lParam) });
+                Vector mp = { (double)LOWORD(lParam), (double)HIWORD(lParam) };
+                appData->mainManager->mbUp(mp, button);
+                if (appData->mainManager->hitTest(mp))
+                {
+                    appData->mainManager->onClick(mp);
+                }
                 appData->releaseMouse();
                 printf("WM_MBUP_END\n");
             }
@@ -291,7 +295,7 @@ int initProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
 
     CanvasManager* canvasManager = new CanvasManager(appData, { 0, 0 });
     appData->canvasManager = canvasManager;
-    //manager->addWindow(canvasManager);
+    manager->addWindow(canvasManager);
 
     Option* optionCreate = new Option();
     optionCreate->name = "Создать";

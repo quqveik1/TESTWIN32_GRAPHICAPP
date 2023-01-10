@@ -399,7 +399,6 @@ void PowerPoint::setColor(COLORREF color, M_HDC& dc, int thickness)
     {
         HBRUSH newSolidBrush = CreateSolidBrush(color);
         dc.selectObj(newSolidBrush);
-        
     }
 
     HPEN newPen = CreatePen(PS_SOLID, thickness, color); 

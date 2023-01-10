@@ -63,6 +63,7 @@ struct Manager : Window
     virtual void redraw() { redrawStatus = true; };
 
     virtual void draw()             override;
+    virtual int hitTest(Vector mp) override;
     virtual void onClick(Vector mp) override;
     virtual int mbDown(Vector mp, int button) override;
     virtual int mbUp(Vector mp, int button) override;

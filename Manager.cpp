@@ -92,6 +92,12 @@ void Manager::onClick(Vector mp)
     app->windowsLibApi->standartManagerOnClick(this, mp);
 }
 
+
+int Manager::hitTest(Vector mp)
+{
+    return app->windowsLibApi->standartManagerHitTest(this, mp);
+}
+
 int Manager::mbDown(Vector mp, int button)
 {
     return app->windowsLibApi->standartManagerMbDown(this, mp, button);

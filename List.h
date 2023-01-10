@@ -1,5 +1,6 @@
 #pragma once
 #include "OpenManager.h"
+#include "LinearLayout.h"
 
 struct List : Manager
 {
@@ -7,6 +8,7 @@ struct List : Manager
     vector <OpenManager*> items{};
     vector <bool> isThisItemList{};
     Vector oneItemSize;
+    LinearLayout itemsLayout;
     
     int lastClickedItemNum = -1;
     bool mayFewWindowsBeOpenedAtTheSameTime;
@@ -23,10 +25,12 @@ struct List : Manager
         mayFewWindowsBeOpenedAtTheSameTime(_mayFewWindowsBeOpenedAtTheSameTime),
         oneItemSize(_oneItemSize),
         itemHeight(lround(systemSettings->HANDLEHEIGHT)),
-        needToHideAfterClick (_needToHideAfterClick)
+        needToHideAfterClick (_needToHideAfterClick),
+        itemsLayout(app, {})
     {
+        addWindow(itemsLayout);
         //items = new OpenManager * [length];
-        for (int i = 0; i < length; i++)  items[i] = new OpenManager(app, oneItemSize);
+        //for (int i = 0; i < length; i++)  items[i] = new OpenManager(app, oneItemSize);
 
         //isThisItemList = new bool[length] {};
 
@@ -40,8 +44,10 @@ struct List : Manager
         mayFewWindowsBeOpenedAtTheSameTime(_mayFewWindowsBeOpenedAtTheSameTime),
         oneItemSize(_oneItemSize),
         itemHeight(lround(systemSettings->HANDLEHEIGHT)),
-        needToHideAfterClick (_needToHideAfterClick)
+        needToHideAfterClick (_needToHideAfterClick),
+        itemsLayout(app, {})
     {
+        addWindow(itemsLayout);
         //items = new OpenManager * [length];
         //for (int i = 0; i < length; i++)  items[i] = new OpenManager(app, oneItemSize);
 
@@ -67,4 +73,5 @@ struct List : Manager
     virtual int mbUp(Vector mp, int button) override;
     virtual void onClick(Vector mp) override;
     virtual int onSize(Vector managerSize, Rect newRect = {}) override;
+    virtual int hitTest(Vector mp) override;
 };

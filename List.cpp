@@ -4,27 +4,27 @@
 
 void List::addNewItem(Window* openButton, HDC dc/* = NULL*/, const char* text/* = NULL*/, int* option/*=NULL*/, int keybind/* = NULL*/)
 {
-    Rect newRect = { .pos = {0, (double)(currLen)*itemHeight}, .finishPos = {rect.getSize().x, (double)(currLen + 1) * itemHeight} };
+    //Rect newRect = { .pos = {0, (double)(currLen)*itemHeight}, .finishPos = {rect.getSize().x, (double)(currLen + 1) * itemHeight} };
 
     app->selectFont(fontName, font, finalDC);
     items.push_back(new OpenManager(app, oneItemSize));
     isThisItemList.push_back(false);
-    items[currLen]->rect = newRect;
-    items[currLen]->font = font;
-    items[currLen]->color = color;
-    items[currLen]->keyBind = keybind;
+    int newPos = items.size() - 1;
+    items[newPos]->font = font;
+    items[newPos]->color = color;
+    items[newPos]->keyBind = keybind;
     if (option)
     {
-        items[currLen]->opening = option;
-        items[currLen]->mode = 1;
+        items[newPos]->opening = option;
+        items[newPos]->mode = 1;
     }
-    items[currLen]->getOpeningManager() = (Manager*)openButton;
-    items[currLen]->dc = dc;
-    items[currLen]->text = text;
-    items[currLen]->reInit();
+    items[newPos]->getOpeningManager() = (Manager*)openButton;
+    items[newPos]->dc = dc;
+    items[newPos]->text = text;
+    items[newPos]->reInit();
 
 
-    addWindow(items[currLen], 1);
+    itemsLayout.addWindow(items[newPos], 1);
 }
 
 
@@ -36,7 +36,7 @@ void List::addNewItem(Option* _option)
 
 void List::controlRect()
 {
-    rect.finishPos = { rect.pos.x + oneItemSize.x, rect.pos.y + oneItemSize.y * currLen };
+    rect.finishPos = { rect.pos.x + oneItemSize.x, rect.pos.y + oneItemSize.y * (items.size() - 1) };
 }
 
 
@@ -54,7 +54,7 @@ List* List::addSubList(const char* ListText, int newListLength/* = NULL*/)
 
 Vector List::getNewSubItemCoordinats()
 {
-    return Vector{ rect.finishPos.x, rect.pos.y + (double)(currLen)*itemHeight };
+    return Vector{ rect.finishPos.x, rect.pos.y + (double)(items.size() - 1)*itemHeight };
 }
 
 
@@ -85,12 +85,12 @@ void List::draw()
     app->windowsLibApi->standartManagerDraw(this);
     Vector size = app->getHDCSize(finalDC);
 
-    for (int i = 0; i < currLen; i++)
+    for (int i = 0; i < items.size() - 1; i++)
     {
         if (needToShow)
         {
             app->setColor(app->systemSettings->SecondMenuColor, finalDC, lround(app->systemSettings->SIDETHICKNESS));
-            app->line(0, i * itemHeight, rect.getSize().x, i * itemHeight, finalDC);
+            app->line(0, items[i]->rect.finishPos.y + itemsLayout.rect.pos.y, rect.getSize().x, items[i]->rect.finishPos.y + itemsLayout.rect.pos.y, finalDC);
 
             if (items[i]->getOpeningManager())
             {
@@ -108,6 +108,12 @@ void List::draw()
     if (!getMBCondition()) lastClickedItemNum = -1;
     setMbLastTime();
 
+}
+
+int List::hitTest(Vector mp)
+{
+    int res = Manager::hitTest(mp);
+    return res;
 }
 
 void List::onClick(Vector mp)
