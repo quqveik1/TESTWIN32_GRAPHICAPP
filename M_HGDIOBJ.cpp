@@ -9,7 +9,7 @@ int M_HGDIOBJ::deleteObj()
     {
         if (status <= 0)
         {
-            //printf("Попытка удалить уже удаленный холст\n");
+            (void)printf("Попытка удалить уже удаленный холст\n");
             return (int)1;
         }
         else
@@ -20,14 +20,7 @@ int M_HGDIOBJ::deleteObj()
                 printf("Попытка удалить активный и выбранный где-то объект\n");
                 return (int)1;
             }
-            if (app)
-            {
-                if (app->hgdiManager && bindStatus == BS_BINDED)
-                {
-                    app->hgdiManager->unBind(this);
-                    bindStatus = BS_UNBINDED;
-                }
-            }
+            unBind();
             status--;
             DeleteObject(obj);
             status = 0;
@@ -35,6 +28,30 @@ int M_HGDIOBJ::deleteObj()
         }
     }
     return -1;
+}
+
+
+
+int M_HGDIOBJ::unBind()
+{
+    if (app)
+    {
+        if (app->hgdiManager && bindStatus == BS_BINDED)
+        {
+            app->hgdiManager->unBind(this);
+            bindStatus = BS_UNBINDED;
+            return 0;
+        }
+        else
+        {
+            printf("Попытка отвзять от мэнеджера, хотя к нему и не привязывались\n");
+        }
+    }
+    else
+    {
+        printf("НЕТ ДОСТУПА К ГЛАВНОМУ ПРИЛОЖЕНИЮ!");
+    }
+    return 1;
 }
 
 HGDIOBJ M_HGDIOBJ::setObj(HGDIOBJ  _obj)

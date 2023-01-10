@@ -62,6 +62,7 @@ int M_HDC::selectObj(M_HGDIOBJ* _obj, HBITMAP map)
         if (selectedObj[0]) wasntDelete = selectedObj[0]->deleteObj();
         selectedObj[0] = _obj;
         SelectObject((HDC)obj, map);
+        selectedObj[0]->setApp(app);
         return !wasntDelete;
     }
     return -1;
@@ -76,6 +77,7 @@ int M_HDC::selectObj(HBITMAP map)
         if (!wasntDelete && selectedObj[0])
         {
             selectedObj[0]->setObj(map);
+            selectedObj[0]->setApp(app);
         }
         else
         {
@@ -97,6 +99,7 @@ int M_HDC::selectObj(M_HGDIOBJ* _obj, HPEN pen)
         if (selectedObj[1]) wasntDelete = selectedObj[1]->deleteObj();
         selectedObj[1] = _obj;
         SelectObject((HDC)obj, pen);
+        selectedObj[1]->setApp(app);
         return !wasntDelete;
     }
     return -1;
@@ -111,6 +114,7 @@ int M_HDC::selectObj(HPEN pen)
         if (!wasntDelete && selectedObj[1])
         {
             selectedObj[1]->setObj(pen);
+            selectedObj[1]->setApp(app);
         }
         else
         {
@@ -132,6 +136,7 @@ int M_HDC::selectObj(M_HGDIOBJ* _obj, HBRUSH brush)
         if (selectedObj[2]) wasntDelete = selectedObj[2]->deleteObj();
         selectedObj[2] = _obj;
         SelectObject((HDC)obj, brush);
+        selectedObj[2]->setApp(app);
         return !wasntDelete;
     }
     return -1;
@@ -146,6 +151,7 @@ int M_HDC::selectObj(HBRUSH brush)
         if (!wasntDelete && selectedObj[2])
         {
             selectedObj[2]->setObj(brush);
+            selectedObj[2]->setApp(app);
         }
         else
         {
@@ -171,6 +177,7 @@ int M_HDC::selectObj(M_HGDIOBJ* _obj, HFONT font)
         if (selectedObj[3]) wasntDelete = selectedObj[3]->deleteObj();
         selectedObj[3] = _obj;
         SelectObject((HDC)obj, font);
+        selectedObj[3]->setApp(app);
         return !wasntDelete;
     }
     return -1;
@@ -185,6 +192,7 @@ int M_HDC::selectObj(HFONT font)
         if (!wasntDelete && selectedObj[3])
         {
             selectedObj[3]->setObj(font);
+            selectedObj[3]->setApp(app);
         }
         else
         {
@@ -342,11 +350,7 @@ int M_HDC::deleteObj()
 
     if (app) app->deleteDC((HDC)obj);
 
-    if (gdiManager && bindStatus == BS_UNBINDED)
-    {
-        gdiManager->unBind(this);
-        bindStatus = BS_UNBINDED;
-    }
+    unBind();
     return numOfDeletedObjs;
 
 

@@ -26,9 +26,11 @@ struct M_HGDIOBJ
 
     M_HGDIOBJ()
     {
+
     }
 
     virtual int deleteObj();
     virtual HGDIOBJ setObj(HGDIOBJ  _obj);
     virtual int setApp(struct AbstractAppData* _app);
+    virtual int unBind();
 };

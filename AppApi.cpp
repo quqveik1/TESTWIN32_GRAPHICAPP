@@ -394,11 +394,13 @@ void PowerPoint::setColor(COLORREF color, M_HDC& dc, int thickness)
     if (systemSettings->debugMode == 5) printf("SetColor: %d|", color);
     gassert(dc);
 
-    
-    HBRUSH newSolidBrush = CreateSolidBrush(color);
-    //M_HGDIOBJ* solidBrush = hgdiManager->getHGDIOBJ();
-    //solidBrush->setObj(newSolidBrush);
-    dc.selectObj(newSolidBrush);
+    COLORREF oldColor = GetDCBrushColor(dc);
+    if (oldColor != color)
+    {
+        HBRUSH newSolidBrush = CreateSolidBrush(color);
+        dc.selectObj(newSolidBrush);
+        
+    }
 
     HPEN newPen = CreatePen(PS_SOLID, thickness, color); 
     dc.selectObj(newPen);

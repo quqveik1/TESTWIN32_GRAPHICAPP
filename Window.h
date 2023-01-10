@@ -66,7 +66,8 @@ struct Window
         sideThickness(std::lround(_app->systemSettings->SIDETHICKNESS)),
         format(_app->systemSettings->TEXTFORMAT),
         dc(_dc),
-        pFinalDC(&finalDC)
+        pFinalDC(&finalDC),
+        finalDC(app)
     {
         assert(_app);
         if (systemSettings->debugMode >= 0) printf("rect {%lf, %lf}; {%lf, %lf}\n", rect.pos.x, rect.pos.y, rect.finishPos.x, rect.finishPos.y);
@@ -77,7 +78,6 @@ struct Window
         if (!color) color = systemSettings->MenuColor;
 
         originalRect = rect;
-        finalDC.setApp(app);
     }
 
     virtual void defaultDestructor();
