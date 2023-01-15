@@ -3,13 +3,12 @@
 
 struct CLoadLib
 {
-    HMODULE libs[10] = {};
-    int currLibsLenght = 0;
-    int maxLibsLenght = 10;
+    vector<HMODULE> libs;
+    size_t defaultSize;
 
     virtual HMODULE loadLib(const char* path);
 
-
+    CLoadLib(size_t _defaultSize = 10);
     ~CLoadLib();
 
 };
