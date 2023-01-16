@@ -24,6 +24,9 @@
 
 
 
+
+
+
 AbstractAppData::AbstractAppData(HINSTANCE _instance) :
     hInstance(_instance)
 {
@@ -355,7 +358,37 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
     return resDefWindowProc;
 }
 
+
+
+
+
 HGDIOBJ selectGDIObject(HDC dc, HGDIOBJ obj);
+
+
+int AbstractAppData::startApp()
+{
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
+    return WinMain(NULL, NULL, 0, 0);
+}
+
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR szCmdLine, int iCmdShow)
+{
+
+    MSG message = {};
+
+    for (;;)
+    {
+        if (!GetMessage(&message, NULL, 0, 0)) break;
+        else
+        {
+            TranslateMessage(&message);
+            DispatchMessage(&message);
+        }
+    }
+
+    return message.wParam;
+}
 
 
 
@@ -978,7 +1011,10 @@ void AbstractAppData::deleteTransparency(RGBQUAD* buf, unsigned int totalSize)
 }
 
 
-
+int AbstractAppData::needToLoadOldFiles()
+{
+    return filesCompability;
+}
 
 
 void AbstractAppData::deleteDC(HDC dc)

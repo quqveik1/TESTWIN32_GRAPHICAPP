@@ -18,12 +18,11 @@ struct PowerPoint : AbstractAppData
 
     int lastTimeLButtonClicked = 0;
     bool wasLastTimeLButtonClicked = 0;
-    bool filesCompability = true;
+    
 
     PowerPoint(HINSTANCE hInstance);
     ~PowerPoint();
 
-
-    int needToLoadOldFiles();
+    virtual void onCreate(HWND window, UINT message, WPARAM wParam, LPARAM lParam);
 
 };

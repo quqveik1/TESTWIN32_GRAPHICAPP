@@ -21,7 +21,7 @@ struct AbstractAppData
     struct Manager* mainManager = NULL;
 
     
-
+    bool filesCompability = true;
     struct CSystemSettings* systemSettings = NULL;
     struct CLoadManager* loadManager = NULL;
     struct CFileSavings* fileSavings = NULL;
@@ -47,8 +47,11 @@ struct AbstractAppData
     AbstractAppData(HINSTANCE _instance);
     ~AbstractAppData();
 
+    virtual int startApp();
+
     virtual void setWindowParameters(HINSTANCE hInstance);
     virtual void onCreate(HWND window, UINT message, WPARAM wParam, LPARAM lParam) {};
+    virtual int needToLoadOldFiles();
 
     virtual int makeDir(const char* path);
 

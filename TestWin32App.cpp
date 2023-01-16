@@ -23,61 +23,16 @@ int shutDownProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam);
 
 int main()
 {
-    SetConsoleCP(1251);
-    SetConsoleOutputCP(1251);
-
-    WinMain(NULL, NULL, 0, 0);
+    PowerPoint* myApp = new PowerPoint(NULL);
+    return myApp->startApp();
 }
 
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR szCmdLine, int iCmdShow)
-{
-    appData = new PowerPoint(hInstance);
 
-    MSG message = {};
-
-    for (;;)                                                         
-    {
-        if (!GetMessage(&message, NULL, 0, 0)) break;
-        else
-        {
-            TranslateMessage(&message);
-            DispatchMessage(&message);
-        }
-    }
-
-    return message.wParam;
-}
 
 
 
 int initProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
 {
-
-    /*
-    Handle* mainHandle = new Handle(appData);
-    //appData->handle = mainHandle;
-    
-
-    MainManager* manager = new MainManager(appData, { .pos = {0, 0}, .finishPos = appData->systemSettings->FullSizeOfScreen }, 21, mainHandle);
-    appData->mainManager = manager;
-
-    
-    
-
-
-    CanvasManager* canvasManager = new CanvasManager(appData, { 0, 0 });
-    appData->canvasManager = canvasManager;
-    manager->addWindow(canvasManager);
-
-    Option* optionCreate = new Option();
-    optionCreate->name = "Создать";
-    
-    
-    Option* optionSetCanvas = new Option();
-    optionSetCanvas->name = "Создать холст";
-    optionSetCanvas->reciever = canvasManager->getSetCanvasButton();
-    optionCreate->addSubOption(optionSetCanvas);
-    mainHandle->addOption(optionCreate);
 
 
     

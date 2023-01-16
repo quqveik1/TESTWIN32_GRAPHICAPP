@@ -1,6 +1,20 @@
 #pragma once
 
 #include "AbstractApp.cpp"
+#include <Windows.h>
+#include "resource.h"
+#include "MainManager.cpp"
+#include "Handle.cpp"
+#include "OpenManager.cpp"
+#include "List.cpp"
+#include "ConsoleOutput.cpp"
+#include "CanvasManager.cpp"
+#include "SetCanvasButton.cpp"
+#include "ColorMenu.cpp"
+//#include "ToolsMenu.cpp"
+#include "Thickness.cpp"
+//#include "LaysMenu.cpp"
+#include <windowsx.h>
 
 
 bool checkVersionCompability(PowerPoint* app);
@@ -75,6 +89,37 @@ PowerPoint::~PowerPoint()
 
 }
 
+
+void PowerPoint::onCreate(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
+{
+
+    Handle* mainHandle = new Handle(this);
+    //appData->handle = mainHandle;
+
+
+    MainManager* manager = new MainManager(this, { .pos = {0, 0}, .finishPos = systemSettings->FullSizeOfScreen }, 21, mainHandle);
+    mainManager = manager;
+
+
+
+
+
+    CanvasManager* canvasManager = new CanvasManager(this, { 0, 0 });
+    canvasManager = canvasManager;
+    manager->addWindow(canvasManager);
+
+    Option* optionCreate = new Option();
+    optionCreate->name = "Создать";
+
+
+    Option* optionSetCanvas = new Option();
+    optionSetCanvas->name = "Создать холст";
+    optionSetCanvas->reciever = canvasManager->getSetCanvasButton();
+    optionCreate->addSubOption(optionSetCanvas);
+    mainHandle->addOption(optionCreate);
+
+}
+
 void writeVersion(PowerPoint* app)
 {
     assert(app);
@@ -121,11 +166,5 @@ bool checkVersionCompability(PowerPoint* app)
     if (versionFile) fclose(versionFile);
     return needLoadSaves;
 }
-
-int PowerPoint::needToLoadOldFiles()
-{
-    return filesCompability;
-}
-
 
 

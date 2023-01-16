@@ -24,10 +24,12 @@ void Cursor::draw(M_HDC finalDC)
         shouldShowCursor = true;
     }
 
+    /*
     if (app->isDoubleClick())
     {
         lastTimeDClick = clockMS;
     }
+    */
 
     int cursorXPosition = getCertainCharPos(currPos);
     int startCursorXPosition = getCertainCharPos(startPos);
@@ -129,7 +131,7 @@ int Cursor::mbDownCursor(Vector mp)
 {
     int pos = cursorPosFromMouse(mp);
 
-    if (!app->isDoubleClick() && clock() - lastTimeDClick > 500 )
+    if (/*!app->isDoubleClick() &&*/ clock() - lastTimeDClick > 500 )
     {
         isSelecting = 1;
         app->updateScreen(stringButton);
