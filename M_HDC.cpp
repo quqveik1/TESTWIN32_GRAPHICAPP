@@ -2,11 +2,11 @@
 #include "M_HDC.h"
 #include "M_HGDIOBJ.h"
 #include "HGDIManager.h"
-#include "AbstractApp.h"
+#include "EngineAppApi.h"
 #include "AppApi.h"
 #include "LoadManager.h"
 
-M_HDC::M_HDC(struct AbstractAppData* _app) : 
+M_HDC::M_HDC(struct EngineAppApi* _app) : 
     M_HGDIOBJ(_app)
 {
     obj = CreateCompatibleDC(NULL);
@@ -14,7 +14,7 @@ M_HDC::M_HDC(struct AbstractAppData* _app) :
     saveDefObjs();
 }
 
-M_HDC::M_HDC(struct AbstractAppData* _app, HDC _dc) : 
+M_HDC::M_HDC(struct EngineAppApi* _app, HDC _dc) : 
     M_HGDIOBJ(_app)
 {
     *this = _dc;
@@ -210,7 +210,7 @@ int M_HDC::selectObj(HFONT font)
     return -1;
 }  
 
-Vector M_HDC::getViewPort(struct AbstractAppData* _app/* = NULL*/)
+Vector M_HDC::getViewPort(struct EngineAppApi* _app/* = NULL*/)
 {
     setApp(_app);
     if (!app)
@@ -223,7 +223,7 @@ Vector M_HDC::getViewPort(struct AbstractAppData* _app/* = NULL*/)
     return answer;
 } 
 
-int M_HDC::setViewPort(Vector pos, struct AbstractAppData* _app/* = NULL*/)
+int M_HDC::setViewPort(Vector pos, struct EngineAppApi* _app/* = NULL*/)
 {
     setApp(_app);
     if (!app)
@@ -234,7 +234,7 @@ int M_HDC::setViewPort(Vector pos, struct AbstractAppData* _app/* = NULL*/)
     return app->setViewPort((HDC)obj, pos);
 }          
 
-int M_HDC::moveViewPort(Vector delta, struct AbstractAppData* _app/* = NULL*/)
+int M_HDC::moveViewPort(Vector delta, struct EngineAppApi* _app/* = NULL*/)
 {
     setApp(_app);
     if (!app)
@@ -269,7 +269,7 @@ Vector M_HDC::getSize()
 
 
 
-int M_HDC::setSize(Vector size, struct AbstractAppData* _app, RGBQUAD** pixels/* = NULL*/)
+int M_HDC::setSize(Vector size, struct EngineAppApi* _app, RGBQUAD** pixels/* = NULL*/)
 {
     if (size != getSize())
     {
@@ -291,7 +291,7 @@ int M_HDC::setSize(Vector size, struct AbstractAppData* _app, RGBQUAD** pixels/*
 }
 
 
-int M_HDC::loadImage(struct AbstractAppData* _app, const char* _path, Vector _size /*={}*/)
+int M_HDC::loadImage(struct EngineAppApi* _app, const char* _path, Vector _size /*={}*/)
 {
     app = _app;
     if (app)
@@ -305,7 +305,7 @@ int M_HDC::loadImage(struct AbstractAppData* _app, const char* _path, Vector _si
 
 }
 
-int M_HDC::copyFrom(struct AbstractAppData* _app, HDC _dc)
+int M_HDC::copyFrom(struct EngineAppApi* _app, HDC _dc)
 {
     app = _app;
     if (app)

@@ -1,5 +1,5 @@
 #pragma once
-#include "AbstractApp.h"
+#include "EngineAppApi.h"
 #include "WindowsLib.h"
 
 
@@ -9,7 +9,7 @@ struct Tool2 : Window
     int ToolSaveLen = 0;
     struct ToolLay* activeToolLay = NULL;
 
-    Tool2(AbstractAppData* _app, const char* _name) :
+    Tool2(EngineAppApi* _app, const char* _name) :
         Window(_app),
         name(_name)
     {

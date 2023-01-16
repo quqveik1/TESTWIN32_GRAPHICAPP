@@ -16,7 +16,7 @@ struct HandleOptions : WindowHandle
     vector<List*> optionsList;
     vector<OptionWindow*> optionsWindow;
 
-    HandleOptions(AbstractAppData* _app, double _height) :
+    HandleOptions(EngineAppApi* _app, double _height) :
         WindowHandle(_app, _height),
         optionsLayout(_app, {}, LinearLayout::FLAG_HORIZONTAL)
     {

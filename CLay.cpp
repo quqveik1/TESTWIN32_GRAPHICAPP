@@ -6,7 +6,7 @@
 #include "ToolManager.h"
 
 
-CLay::CLay(AbstractAppData* _app, Canvas* _canvas, Vector _size /* = {}*/) : 
+CLay::CLay(EngineAppApi* _app, Canvas* _canvas, Vector _size /* = {}*/) : 
     Manager(_app, { .pos = {}, .finishPos = _size }, _app->systemSettings->ONELAYTOOLSLIMIT),
     canvas(_canvas)
 
@@ -20,7 +20,7 @@ CLay::CLay(AbstractAppData* _app, Canvas* _canvas, Vector _size /* = {}*/) :
     createToolLay();
 }
 
-void CLay::createLay(AbstractAppData* _app, Canvas* _canvas, Vector _size /* = {}*/)
+void CLay::createLay(EngineAppApi* _app, Canvas* _canvas, Vector _size /* = {}*/)
 {
     assert(_app);  
     //oneLayToolLimit = app->systemSettings->ONELAYTOOLSLIMIT;

@@ -13,7 +13,7 @@ struct ThicknessMenu : Manager
     Vector sliderSize = {};
 
 
-    ThicknessMenu(AbstractAppData* _app, Vector _pos, bool _advancedMode) :
+    ThicknessMenu(EngineAppApi* _app, Vector _pos, bool _advancedMode) :
         Manager(_app, {}, 2, _advancedMode, NULL, {}),
         inputButtonSize({50, getSize().y})
     {

@@ -1,9 +1,9 @@
 #pragma once
 #include "SystemSettings.h"
-#include "AbstractApp.h"
+#include "EngineAppApi.h"
 
 
-CSystemSettings::CSystemSettings(struct AbstractAppData* _app) :
+CSystemSettings::CSystemSettings(struct EngineAppApi* _app) :
     app(_app)
     //MINSCREENSIZE({300, 100})
 {
@@ -158,7 +158,7 @@ void CSystemSettings::setDefaultSettings()
     DCVECTORSIZE.y = 1000.000000;
 }
 
-void CSystemSettings::setDynamicSettings(struct AbstractAppData* _app)
+void CSystemSettings::setDynamicSettings(struct EngineAppApi* _app)
 {
     FullSizeOfScreen = { .x = (double)GetSystemMetrics(SM_CXSCREEN), .y = (double)GetSystemMetrics(SM_CYSCREEN) };
     app = _app;

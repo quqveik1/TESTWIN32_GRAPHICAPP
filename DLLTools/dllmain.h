@@ -2,7 +2,7 @@
 //#define _CRT_SECURE_NO_WARNINGS
 #define _CRT_SECURE_NO_WARNINGS
 #include "DLLSettings.h"
-//#include "..\AbstractApp.h"
+//#include "..\EngineAppApi.h"
 //#include "ToolExportData.cpp"
 #include "..\DLLToolExportData.cpp"
 #include "..\M_HGDIOBJ.cpp"
@@ -11,9 +11,9 @@
 #include "..\Tool2.cpp"
 //struct DLLToolExportData;
 
-extern "C" __declspec (dllexport) DLLToolExportData* initDLL(struct AbstractAppData* data);
+extern "C" __declspec (dllexport) DLLToolExportData* initDLL(struct EngineAppApi* data);
 
-//struct AbstractAppData* appData = NULL;
+//struct EngineAppApi* appData = NULL;
 ÑDllSettings DllSettings;
 
 struct LineData
@@ -26,7 +26,7 @@ struct LineData
 
 struct Line : Tool2
 {
-    Line(AbstractAppData* _data, ÑDllSettings* _dllSettings, const char* _name) :
+    Line(EngineAppApi* _data, ÑDllSettings* _dllSettings, const char* _name) :
         Tool2 (_data, _name)
     {
         assert(_data);
@@ -55,7 +55,7 @@ struct Tool4Squares : CadreResizingTool
 
 
 
-    Tool4Squares(ÑDllSettings* _dllSettings, const char* _name, const int _ToolSaveLen, HDC _dc, AbstractAppData* _data) :
+    Tool4Squares(ÑDllSettings* _dllSettings, const char* _name, const int _ToolSaveLen, HDC _dc, EngineAppApi* _data) :
         CadreResizingTool(_dllSettings, _name, _ToolSaveLen, _dc, _data)
     {
     }
@@ -81,7 +81,7 @@ struct Line : Tool4Squares
     bool draggedLastTime = false;
     Vector lastTimeMP = {};
 
-    Line(ÑDllSettings* _dllSettings, const char* _name, const int _ToolSaveLen, HDC _dc, AbstractAppData* _data) :
+    Line(ÑDllSettings* _dllSettings, const char* _name, const int _ToolSaveLen, HDC _dc, EngineAppApi* _data) :
         Tool4Squares(_dllSettings, _name, _ToolSaveLen, _dc, _data)
     {
     }

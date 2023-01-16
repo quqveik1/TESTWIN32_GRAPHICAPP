@@ -11,7 +11,7 @@ int ColorHistory::getByteSize()
 }
 
 
-ColorMenu::ColorMenu(AbstractAppData* _app, Vector _pos, bool _needToShow /*= false*/) :
+ColorMenu::ColorMenu(EngineAppApi* _app, Vector _pos, bool _needToShow /*= false*/) :
     sizeOfColorMenu({ 512, 410 }),
     Manager(_app, {}, 4, _needToShow, NULL, { .pos = {0, 0}, .finishPos = { 512, 25 } }),
     hslPalette(app, palettePos, &confirmedColor)

@@ -38,7 +38,7 @@ struct Handle : HandleOptions
 
     int lastKeyMessage = 0;
 
-    Handle(AbstractAppData* _app) :
+    Handle(EngineAppApi* _app) :
         HandleOptions(_app, _app->systemSettings->HANDLEHEIGHT),
         onMouseColor(app->systemSettings->onMouseColor),
         logo(app->loadManager->loadImage("ImredLogo.bmp"))

@@ -40,7 +40,7 @@ struct Canvas : Manager
     HDC currentlyImportingImage = NULL;
     bool wasLastTimeImporting = false;
 
-    Canvas(AbstractAppData* _app, Rect _rect, const char* _name);
+    Canvas(EngineAppApi* _app, Rect _rect, const char* _name);
     virtual ~Canvas();
 
     virtual int separateWindow(int pos) override;

@@ -1,6 +1,6 @@
 #pragma once
 #include "M_HGDIOBJ.h"
-#include "AbstractApp.h"
+#include "EngineAppApi.h"
 #include "HGDIManager.h"
 
 int M_HGDIOBJ::deleteObj()
@@ -68,7 +68,7 @@ HGDIOBJ M_HGDIOBJ::setObj(HGDIOBJ  _obj)
 }
 
 
-int M_HGDIOBJ::setApp(struct AbstractAppData* _app)
+int M_HGDIOBJ::setApp(struct EngineAppApi* _app)
 {
     if (_app != NULL)
     {

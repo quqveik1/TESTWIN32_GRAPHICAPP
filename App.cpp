@@ -59,11 +59,11 @@ App::App(HINSTANCE hInstance)
 
     HMODULE _saveImagesLib = loadLibManager->loadLib("SaveImage.dll");
     dllsaveImage = (int (*) (HDC dc, const char* path))GetProcAddress(_saveImagesLib, "saveImage");
-    dllloadImage = (HDC(*) (const char* path, Vector & _size, AbstractAppData * _app))GetProcAddress(_saveImagesLib, "loadImage");
+    dllloadImage = (HDC(*) (const char* path, Vector & _size, EngineAppApi * _app))GetProcAddress(_saveImagesLib, "loadImage");
 
     //toolManager = new CToolManager(this);
-    DLLToolsManager dlltoolsmanager(this, "Settings\\DLLToolsPathList.txt");
-    dlltoolsmanager.loadLibs();
+    //DLLToolsManager dlltoolsmanager(this, "Settings\\DLLToolsPathList.txt");
+    //dlltoolsmanager.loadLibs();
     //dlltoolsmanager.addToManager(toolManager);
 
 
@@ -156,7 +156,7 @@ void setWindowParameters(App* app, HINSTANCE hInstance)
     WNDCLASSEX wndClass = {};
 
     char handleName[MAX_PATH] = {};
-    (void)sprintf(handleName, "IMRED - %s[AbstractApp/WindowsLibApi]", app->appVersion);
+    (void)sprintf(handleName, "IMRED - %s[EngineAppApi/WindowsLibApi]", app->appVersion);
 
     app->appIcon = LoadIcon((HINSTANCE)GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_ICON2));
 

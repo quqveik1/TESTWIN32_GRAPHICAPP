@@ -1,6 +1,6 @@
 #pragma once
 
-#include "AbstractApp.h"
+#include "EngineAppApi.h"
 #include "M_HDC.cpp"
 #include "HGDIManager.h" 
 
@@ -11,7 +11,7 @@ struct Window
     const char* devName = NULL;
 
     CSystemSettings* systemSettings = NULL;
-    struct AbstractAppData* app = NULL;
+    struct EngineAppApi* app = NULL;
 
     HWND hwnd = NULL;
 
@@ -52,7 +52,7 @@ struct Window
 
     int memType = 0;// 0 - dynamic; 1 - static
 
-    Window(AbstractAppData* _app, Rect _rect = {}, COLORREF _color = NULL, HDC _dc = NULL, Manager* _manager = NULL, const char* _text = NULL, bool _needToShow = true) :
+    Window(EngineAppApi* _app, Rect _rect = {}, COLORREF _color = NULL, HDC _dc = NULL, Manager* _manager = NULL, const char* _text = NULL, bool _needToShow = true) :
         app(_app),
         systemSettings(_app->systemSettings),
         rect(_rect),

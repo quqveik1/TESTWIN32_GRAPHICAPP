@@ -6,7 +6,7 @@
 #include "Lay.cpp"
 #include "CLay.cpp"
 
-Canvas::Canvas(AbstractAppData* _app, Rect _rect, const char* _name) :
+Canvas::Canvas(EngineAppApi* _app, Rect _rect, const char* _name) :
     Manager(_app, _rect, 5, true, NULL, { .pos = {0, 0}, .finishPos = {_rect.getSize().x, _app->systemSettings->HANDLEHEIGHT} }),
     canvasCoordinats({}),
     laysSize(_rect.getSize()),

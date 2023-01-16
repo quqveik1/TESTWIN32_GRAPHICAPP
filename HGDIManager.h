@@ -1,8 +1,8 @@
 #pragma once
-#include "AbstractApp.h"
+#include "EngineAppApi.h"
 #include "M_HGDIOBJ.h"
 #include "M_HDC.h"
-#include "AbstractApp.h"
+#include "EngineAppApi.h"
 
 enum Status_M_HGDI
 {
@@ -14,14 +14,14 @@ enum Status_M_HGDI
 
 struct HGDIManager
 {
-    AbstractAppData* app = NULL;
+    EngineAppApi* app = NULL;
 
     int currlen = 0;
     static const int maxLen = 100000;
     //M_HGDIOBJ* objs[maxLen] = {};
     vector <M_HGDIOBJ*> objs{};
 
-    HGDIManager(AbstractAppData* _app) :
+    HGDIManager(EngineAppApi* _app) :
         app (_app)
     {
     }

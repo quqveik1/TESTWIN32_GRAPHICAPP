@@ -197,7 +197,7 @@ int CWindowsLibApi::standartWindowDraw(struct Window* window)
     gassert(window);
     $s;
 
-    AbstractAppData* app = window->app;
+    EngineAppApi* app = window->app;
     assert(app);
     M_HDC* outDC = window->getOutputDC();
     if (outDC)
@@ -231,7 +231,7 @@ int CWindowsLibApi::standartManagerDraw(Manager* manager, Vector deltaFromStart/
 
     manager->controlHandle();
 
-    AbstractAppData* app = manager->app;
+    EngineAppApi* app = manager->app;
     assert(app);
 
     M_HDC* outDC = manager->getOutputDC();

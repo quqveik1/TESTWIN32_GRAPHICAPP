@@ -16,7 +16,7 @@ struct Manager : Window
     bool HideIfIsNotActive;
 
 
-    Manager(AbstractAppData* _app, Rect _rect = {}, int _length = 0, bool _needToShow = true, HDC _dc = NULL, Rect _handle = {}, COLORREF _color = NULL, bool _coordinatSysFromHandle = false, bool _HideIfIsNotActive = false) :
+    Manager(EngineAppApi* _app, Rect _rect = {}, int _length = 0, bool _needToShow = true, HDC _dc = NULL, Rect _handle = {}, COLORREF _color = NULL, bool _coordinatSysFromHandle = false, bool _HideIfIsNotActive = false) :
         Window(_app, _rect, _color, _dc, NULL, NULL, _needToShow),
         handle(_app, _handle),
         length(_length),

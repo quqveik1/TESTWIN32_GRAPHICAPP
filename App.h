@@ -98,7 +98,7 @@ struct App : EngineAppApi
     virtual int smartDeleteDC(HDC dc) override;
     int (*dllsaveImage) (HDC dc, const char* path) = NULL;
     virtual int saveImage(HDC dc, const char* path) override;
-    HDC(*dllloadImage) (const char* path, Vector& _size, AbstractAppData* _app) = NULL;
+    HDC(*dllloadImage) (const char* path, Vector& _size, EngineAppApi* _app) = NULL;
     virtual HDC loadImage(const char* path, Vector _size = {}) override;
     virtual HDC _loadImage(const char* path);//only bmp
     virtual int DEBUGsaveImage(HDC dc) override;

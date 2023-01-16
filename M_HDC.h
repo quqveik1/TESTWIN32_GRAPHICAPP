@@ -9,8 +9,8 @@ struct M_HDC : M_HGDIOBJ
     HGDIOBJ defObjs[10] = {};
     int currLen = 0;
 
-    M_HDC(struct AbstractAppData* _app);
-    M_HDC(struct AbstractAppData* _app, HDC _dc);
+    M_HDC(struct EngineAppApi* _app);
+    M_HDC(struct EngineAppApi* _app, HDC _dc);
     M_HDC();
     operator HDC() const;
 
@@ -26,14 +26,14 @@ struct M_HDC : M_HGDIOBJ
     virtual int selectObj(M_HGDIOBJ* _obj, HFONT font);
     virtual int selectObj(HFONT font);
     
-    virtual int setSize(Vector size, struct AbstractAppData* _app, RGBQUAD** pixels = NULL);
-    virtual int loadImage(struct AbstractAppData* _app, const char* _path, Vector _size = {});
-    virtual int copyFrom(struct AbstractAppData* _app, HDC _dc);
+    virtual int setSize(Vector size, struct EngineAppApi* _app, RGBQUAD** pixels = NULL);
+    virtual int loadImage(struct EngineAppApi* _app, const char* _path, Vector _size = {});
+    virtual int copyFrom(struct EngineAppApi* _app, HDC _dc);
     virtual Vector getSize();
 
-    virtual Vector getViewPort(struct AbstractAppData* _app = NULL);
-    virtual int setViewPort(Vector pos, struct AbstractAppData* _app = NULL);
-    virtual int moveViewPort(Vector delta, struct AbstractAppData* _app = NULL);
+    virtual Vector getViewPort(struct EngineAppApi* _app = NULL);
+    virtual int setViewPort(Vector pos, struct EngineAppApi* _app = NULL);
+    virtual int moveViewPort(Vector delta, struct EngineAppApi* _app = NULL);
 
     virtual int deleteObj() override;
     int clear();

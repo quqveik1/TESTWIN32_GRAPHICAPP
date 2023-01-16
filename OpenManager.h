@@ -11,14 +11,14 @@ struct OpenManager : Window
     int keyBind = NULL; //ctrl + keybind
     bool wasListTimeKeyBoardClicked = 0;
 
-    OpenManager(AbstractAppData* _app, Rect _rect, COLORREF _color, Manager* _manager, HDC _dc = NULL, const char* _text = "") :
+    OpenManager(EngineAppApi* _app, Rect _rect, COLORREF _color, Manager* _manager, HDC _dc = NULL, const char* _text = "") :
         Window(_app, _rect, _color, _dc, NULL, _text, DS_INVISIBLE),
         openingManager(_manager)
     {
         format = DT_LEFT | DT_VCENTER | DT_SINGLELINE;
     }
 
-    OpenManager(AbstractAppData* _app, Vector _size) :
+    OpenManager(EngineAppApi* _app, Vector _size) :
         Window(_app, { .pos = {}, .finishPos = _size }),
         openingManager(NULL)
     {

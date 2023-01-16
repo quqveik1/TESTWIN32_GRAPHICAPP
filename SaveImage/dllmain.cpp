@@ -35,7 +35,7 @@ int saveImage(HDC dc, const char* path)
     return 0;
 }
 
-HDC loadImage(const char* path, Vector& size, AbstractAppData* _app)
+HDC loadImage(const char* path, Vector& size, EngineAppApi* _app)
 {
     CImage image;
     LPCTSTR widePath = path;

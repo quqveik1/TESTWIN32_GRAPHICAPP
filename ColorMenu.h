@@ -64,7 +64,7 @@ struct ColorMenu : Manager
     void loadHistory();
 
 
-    ColorMenu(AbstractAppData* _app, Vector _pos, bool _needToShow = false);
+    ColorMenu(EngineAppApi* _app, Vector _pos, bool _needToShow = false);
 
 
     virtual void saveMenu();

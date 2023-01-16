@@ -9,7 +9,7 @@ struct LinearLayout : Layout
     int flags = 0;
     int deltaBetweenButtons = 0;
 
-    LinearLayout(AbstractAppData* _app, Vector _startPos, int flag = 0) :
+    LinearLayout(EngineAppApi* _app, Vector _startPos, int flag = 0) :
         Layout(_app, { .pos = _startPos, .finishPos = {}})
     {
     }
