@@ -52,7 +52,7 @@ M_HGDIOBJ* HGDIManager::getHGDIOBJ()
 int HGDIManager::bind(M_HGDIOBJ* obj)
 {
     objs.push_back(obj);
-    (void)printf("Теперь присоединено объектов: %d\n", (int)objs.size());
+    (void)printf("Теперь присоединено объектов: %ld\n", objs.size());
     return 0;
 }
 
