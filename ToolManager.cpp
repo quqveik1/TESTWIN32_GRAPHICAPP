@@ -2,8 +2,9 @@
 #include "ToolManager.h"
 #include "AbstractApp.h"
 #include "CanvasManager.h"
+#include "AppApi.h"
 
-CToolManager::CToolManager(AbstractAppData* _app) :
+CToolManager::CToolManager(PowerPoint* _app) :
     app(_app)
 {
 }

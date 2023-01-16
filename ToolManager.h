@@ -4,7 +4,7 @@
 struct CToolManager
 {
 
-    struct AbstractAppData* app = NULL;
+    struct PowerPoint* app = NULL;
     const int ToolsLength = 10;
     struct Tool2** tools = new Tool2* [ToolsLength] {};
     int currentLength = 0;
@@ -20,6 +20,6 @@ struct CToolManager
     virtual int setActiveTool(struct Tool2* tool);
     virtual int addTool(struct Tool2* tool, bool needToHide = false);
 
-    CToolManager(AbstractAppData* _app);
+    CToolManager(PowerPoint* _app);
     ~CToolManager();
 };

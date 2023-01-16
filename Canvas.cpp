@@ -10,7 +10,7 @@ Canvas::Canvas(AbstractAppData* _app, Rect _rect, const char* _name) :
     Manager(_app, _rect, 5, true, NULL, { .pos = {0, 0}, .finishPos = {_rect.getSize().x, _app->systemSettings->HANDLEHEIGHT} }),
     canvasCoordinats({}),
     laysSize(_rect.getSize()),
-    DrawingModeLastTime(app->toolManager->getActiveToolNum()),
+    DrawingModeLastTime(((PowerPoint*)app)->toolManager->getActiveToolNum()),
     zoneSizeControl(this, &rect, &needFrameToWork),
     finalLay()
 {
@@ -72,12 +72,12 @@ void Canvas::controlImportingImages()
         app->deleteDC(getCurrentlyImportingImage());
         getCurrentlyImportingImage() = NULL;
         wasLastTimeImporting = false;
-        app->toolManager->setActiveToolNum(lastTimetoolNum);
+        ((PowerPoint*)app)->toolManager->setActiveToolNum(lastTimetoolNum);
     }
 
     if (getCurrentlyImportingImage())
     {
-        lastTimetoolNum = app->toolManager->getActiveToolNum();
+        lastTimetoolNum = ((PowerPoint*)app)->toolManager->getActiveToolNum();
         /*
         int settedToolNum = app->toolManager->setActiveTool(app->canvasManager->importTool);
         if (settedToolNum >= 0)
@@ -271,7 +271,7 @@ void Canvas::draw()
     copyFinalLayOnFinalDC();
 
 
-    DrawingModeLastTime = app->toolManager->getActiveToolNum();
+    DrawingModeLastTime = ((PowerPoint*)app)->toolManager->getActiveToolNum();
 
     setMbLastTime();
 

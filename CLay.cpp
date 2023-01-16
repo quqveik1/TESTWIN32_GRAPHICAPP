@@ -62,7 +62,7 @@ void CLay::addToolLay(ToolLay* tool)
         int _cl = getCurLen();
         activeToolNum = getCurLen() - 1;
         tool->lay = this;
-        tool->addTool(app->toolManager->getActiveTool());
+        tool->addTool(((PowerPoint*)app)->toolManager->getActiveTool());
     }
     else
     {

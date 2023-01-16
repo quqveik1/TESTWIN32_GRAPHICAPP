@@ -1,9 +1,8 @@
 ﻿  dllmain.cpp
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\M_HDC.cpp(265,26): warning C4311: 'type cast': pointer truncation from 'AbstractAppData *' to 'long'
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\M_HDC.cpp(265,26): warning C4302: 'type cast': truncation from 'AbstractAppData *' to 'long'
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\M_HDC.cpp(283,25): warning C4311: 'type cast': pointer truncation from 'HBITMAP' to 'int'
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\M_HDC.cpp(283,25): warning C4302: 'type cast': truncation from 'HBITMAP' to 'int'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\M_HDC.cpp(286,25): warning C4311: 'type cast': pointer truncation from 'HBITMAP' to 'int'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\M_HDC.cpp(286,25): warning C4302: 'type cast': truncation from 'HBITMAP' to 'int'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\M_HGDIOBJ.cpp(83,26): warning C4311: 'type cast': pointer truncation from 'AbstractAppData *' to 'long'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\M_HGDIOBJ.cpp(83,26): warning C4302: 'type cast': truncation from 'AbstractAppData *' to 'long'
 C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\DLLTools\dllmain.h(34,16): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'HDC'
 C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\DLLTools\dllmain.h(34,16): warning C4313: 'printf': '%d' in format string conflicts with argument 1 of type 'HDC'
-     Creating library C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\x64\Debug\DLLTools.lib and object C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\x64\Debug\DLLTools.exp
   DLLTools.vcxproj -> C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\x64\Debug\DLLTools.tool
