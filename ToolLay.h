@@ -1,5 +1,5 @@
 #pragma once
-#include "EngineAppApi.h"
+#include "AbstractApp.h"
 #include "ProgrammeDate.h"
 #include "WindowsLib.h"
 
@@ -24,7 +24,7 @@ struct ToolLay : Manager
     bool isEditing = false;
 
 
-    ToolLay(EngineAppApi* _app);
+    ToolLay(AbstractAppData* _app);
     ~ToolLay();
 
 

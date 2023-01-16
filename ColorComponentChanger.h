@@ -19,7 +19,7 @@ struct ColorComponentChanger : Manager
     int maxLimit = 255;
     int componentType = 0;
 
-    ColorComponentChanger(EngineAppApi* _app, Rect _rect, int* _component, bool* _confirmColor, int _componentType) :
+    ColorComponentChanger(AbstractAppData* _app, Rect _rect, int* _component, bool* _confirmColor, int _componentType) :
         Manager(_app, _rect, 2, true, NULL, {}, _app->systemSettings->TRANSPARENTCOLOR),
         component(_component),
         numSize({ 50, getSize().y }),

@@ -5,7 +5,7 @@
 #include "ImportTool.cpp"
 #include "SetCanvasButton.h"
 
-CanvasManager::CanvasManager(EngineAppApi* _app, Vector _pos) :
+CanvasManager::CanvasManager(AbstractAppData* _app, Vector _pos) :
     Manager(_app, { .pos = _pos, .finishPos = _app->systemSettings->FullSizeOfScreen }, 10, true, NULL, {}, TX_BLACK),
     oneTabSize({ app->systemSettings->BUTTONWIDTH * 5, app->systemSettings->HANDLEHEIGHT }),
     scaleButtonSize({75, 25}),

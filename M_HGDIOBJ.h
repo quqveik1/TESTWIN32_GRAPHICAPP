@@ -11,14 +11,14 @@ struct M_HGDIOBJ
 {
     HGDIOBJ obj = NULL;
     struct HGDIManager* gdiManager = NULL;
-    struct EngineAppApi* app = NULL;
+    struct AbstractAppData* app = NULL;
     int pNumber = -1;
     struct M_HDC* motherHDC = NULL;
     int status = 0; //1 - active  // 2+ selected
     const char* name = NULL;
     short bindStatus = BS_UNBINDED;
 
-    M_HGDIOBJ(struct EngineAppApi* _app) :
+    M_HGDIOBJ(struct AbstractAppData* _app) :
         app(_app)
     {
         setApp(app);
@@ -31,6 +31,6 @@ struct M_HGDIOBJ
 
     virtual int deleteObj();
     virtual HGDIOBJ setObj(HGDIOBJ  _obj);
-    virtual int setApp(struct EngineAppApi* _app);
+    virtual int setApp(struct AbstractAppData* _app);
     virtual int unBind();
 };

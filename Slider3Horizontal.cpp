@@ -3,7 +3,7 @@
 #include "Slider2.cpp"
 
 
-Slider3Horizontal::Slider3Horizontal(EngineAppApi* _app, Rect _rect, int* _parameter, int* _minParameter, int* _maxParameter, bool* _confirmed/* = NULL*/) :
+Slider3Horizontal::Slider3Horizontal(AbstractAppData* _app, Rect _rect, int* _parameter, int* _minParameter, int* _maxParameter, bool* _confirmed/* = NULL*/) :
     Slider2 (_app, _rect, _parameter, _minParameter, _maxParameter, _confirmed),
     sliderDefColor(RGB(104, 104, 104))
 {

@@ -39,7 +39,7 @@ struct SetCanvasButton : Manager
     StringButton2 inputName;
     int enterStatus = false;
 
-    SetCanvasButton(EngineAppApi* _app, CanvasManager* _canvasManager) :
+    SetCanvasButton(AbstractAppData* _app, CanvasManager* _canvasManager) :
         size ({ 300, 200 }),
         Manager(_app, { .pos = {}, .finishPos = {300, 200} }, 3, false, NULL, {}, _app->systemSettings->MenuColor),
         canvasManager (_canvasManager),

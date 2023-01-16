@@ -32,7 +32,7 @@ struct CanvasManager : Manager
     struct SetCanvasButton* setCanvasButton = NULL;
 
 
-    CanvasManager(EngineAppApi* _app, Vector _pos);
+    CanvasManager(AbstractAppData* _app, Vector _pos);
     virtual ~CanvasManager();
 
     virtual Canvas* getActiveCanvas();

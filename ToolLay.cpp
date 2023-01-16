@@ -9,7 +9,7 @@ ToolLay::~ToolLay()
 }
 
 
-ToolLay::ToolLay(EngineAppApi* _app) :
+ToolLay::ToolLay(AbstractAppData* _app) :
     Manager(_app, {}, 1)
 {
 

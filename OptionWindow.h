@@ -7,7 +7,7 @@ struct OptionWindow : OpenManager
     Option* option;
     int deltaBetweemFrameAndOption = 5;
 
-    OptionWindow(EngineAppApi* _app, Option* _option, Vector _size) :
+    OptionWindow(AbstractAppData* _app, Option* _option, Vector _size) :
         OpenManager(_app, _size),
         option(_option)
     {

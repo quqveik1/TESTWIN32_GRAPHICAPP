@@ -20,7 +20,7 @@ struct List : Manager
 
     
     
-    List(EngineAppApi* _app, Vector _pos, Vector _oneItemSize, int _maxLength, bool _mayFewWindowsBeOpenedAtTheSameTime = true, bool _needToHideAfterClick = false) :
+    List(AbstractAppData* _app, Vector _pos, Vector _oneItemSize, int _maxLength, bool _mayFewWindowsBeOpenedAtTheSameTime = true, bool _needToHideAfterClick = false) :
         Manager(_app, { .pos = _pos, .finishPos = {_pos.x + _oneItemSize.x, _pos.y + _maxLength * _oneItemSize.y } }, _maxLength, false, NULL, {}, (RGB(60, 60, 60))),
         mayFewWindowsBeOpenedAtTheSameTime(_mayFewWindowsBeOpenedAtTheSameTime),
         oneItemSize(_oneItemSize),
@@ -39,7 +39,7 @@ struct List : Manager
     } 
     
     
-    List(EngineAppApi* _app, Vector _oneItemSize, bool _mayFewWindowsBeOpenedAtTheSameTime = true, bool _needToHideAfterClick = false) :
+    List(AbstractAppData* _app, Vector _oneItemSize, bool _mayFewWindowsBeOpenedAtTheSameTime = true, bool _needToHideAfterClick = false) :
         Manager(_app, {}, 0, false, NULL, {}, (RGB(60, 60, 60))),
         mayFewWindowsBeOpenedAtTheSameTime(_mayFewWindowsBeOpenedAtTheSameTime),
         oneItemSize(_oneItemSize),

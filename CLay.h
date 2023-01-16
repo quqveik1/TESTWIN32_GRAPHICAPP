@@ -1,5 +1,5 @@
 #pragma once
-#include "EngineAppApi.h"
+#include "AbstractApp.h"
 #include "ToolLay.h"
 
 struct CLay : Manager
@@ -20,11 +20,11 @@ struct CLay : Manager
     struct PragrammeDate* data = NULL;
     //struct ToolLay** toolLays = NULL;
 
-    CLay(EngineAppApi* _app, Canvas* _canvas, Vector _size = {});
+    CLay(AbstractAppData* _app, Canvas* _canvas, Vector _size = {});
     //~CLay();
 
 
-    virtual void createLay(EngineAppApi* _app, struct Canvas* _canvas, Vector _size = {});
+    virtual void createLay(AbstractAppData* _app, struct Canvas* _canvas, Vector _size = {});
     virtual ToolLay* createToolLay();
     virtual void addToolLay (ToolLay* tool);
     virtual void setActiveLastToolLay();

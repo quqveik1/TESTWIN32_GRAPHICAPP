@@ -7,7 +7,7 @@ struct ManagerHandle : Manager
 {
     struct WindowHandle* handle;
 
-    ManagerHandle(EngineAppApi* _app, WindowHandle* _handle = NULL) :
+    ManagerHandle(AbstractAppData* _app, WindowHandle* _handle = NULL) :
         Manager(_app, {}, 0),
         handle(_handle)
     {

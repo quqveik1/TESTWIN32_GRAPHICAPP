@@ -8,7 +8,7 @@
 
 struct CSystemSettings
 {
-    struct EngineAppApi* app = NULL;
+    struct AbstractAppData* app = NULL;
     int WindowStyle = NULL;
 
     COLORREF MenuColor = NULL;
@@ -49,7 +49,7 @@ struct CSystemSettings
 
     int read(const char* path);
     int readUserSettings(const char* path);
-    void setDynamicSettings(struct EngineAppApi* _app);
+    void setDynamicSettings(struct AbstractAppData* _app);
     void setDefaultSettings();
 
 
@@ -60,7 +60,7 @@ struct CSystemSettings
 
     int byteSize = sizeof(*this);
 
-    CSystemSettings(struct EngineAppApi* _app);
+    CSystemSettings(struct AbstractAppData* _app);
     ~CSystemSettings();
 };
 

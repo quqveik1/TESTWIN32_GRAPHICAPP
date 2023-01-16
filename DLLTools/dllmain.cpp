@@ -23,7 +23,7 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 
 
 
-DLLToolExportData* initDLL(EngineAppApi* data)
+DLLToolExportData* initDLL(AbstractAppData* data)
 {
     DLLToolExportData* dllTools = new DLLToolExportData(1);
     Line* line = new Line(data, NULL, "Линия");

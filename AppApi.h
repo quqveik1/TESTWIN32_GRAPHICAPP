@@ -1,12 +1,12 @@
 #pragma once
-#include "EngineAppApi.h"
+#include "AbstractApp.h"
 #include "FileSavings.h"
 #include "LoadLib.h"
 #include "HGDIManager.h"
 
 struct PowerPoint* appData = NULL;
 
-struct PowerPoint : EngineAppApi
+struct PowerPoint : AbstractAppData
 {
     struct Manager* mainManager = NULL;
     struct DCManager* dcManager = NULL;

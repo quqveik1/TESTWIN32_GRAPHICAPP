@@ -1,5 +1,5 @@
 #pragma once
-#include "EngineAppApi.h"
+#include "AbstractApp.h"
 #include "SystemSettings.h"
 #include "ZoneSizeControl.h"
 #include "ManagerHandle.h"
@@ -16,7 +16,7 @@ struct MainManager : ManagerHandle
     bool needFrameToWork = false;
 
 
-    MainManager(EngineAppApi* _app, Rect _rect, int _length, WindowHandle* _handle) :
+    MainManager(AbstractAppData* _app, Rect _rect, int _length, WindowHandle* _handle) :
         ManagerHandle(_app, _handle),
         minimumAppSize({app->systemSettings->BUTTONWIDTH * 6, app->systemSettings->HANDLEHEIGHT * 3 }),
         zoneSizeControl ((Manager*)this, &zone, &needFrameToWork, &minimumAppSize)
