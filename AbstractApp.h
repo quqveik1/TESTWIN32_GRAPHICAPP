@@ -1,5 +1,6 @@
 #pragma once
 #include <Windows.h>
+#include <wingdi.h>
 #include "Q_Rect.h"
 #include "ColorsName.h"
 #include "Asserts.h"
@@ -37,8 +38,8 @@ struct AbstractAppData
 
     COLORREF* currColor = NULL;
     bool isResized = false;
-    bool IsRunning = false;
-    bool isShowing = true;;
+    int IsRunning = false;
+    bool isShowing = true;
     HCURSOR defaultCursor = NULL;
     HINSTANCE hInstance;
 
@@ -52,6 +53,11 @@ struct AbstractAppData
     virtual void setWindowParameters(HINSTANCE hInstance);
     virtual void onCreate(HWND window, UINT message, WPARAM wParam, LPARAM lParam) {};
     virtual int needToLoadOldFiles();
+
+    virtual struct Manager* setMainManager(struct Manager* newManager);
+
+    virtual int getAppCondition();
+    virtual void setAppCondition(int newCondition);
 
     virtual int makeDir(const char* path);
 

@@ -30,6 +30,9 @@
 AbstractAppData::AbstractAppData(HINSTANCE _instance) :
     hInstance(_instance)
 {
+    setlocale(LC_ALL, "Russian");
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
     appData = this;
     appVersion = "v0.2.3.0";
     massert(!makeDir("Settings"), this);
@@ -63,7 +66,7 @@ AbstractAppData::AbstractAppData(HINSTANCE _instance) :
 
 
     testDC.setSize(systemSettings->SizeOfScreen, this);
-    setWindowParameters(hInstance);
+    //setWindowParameters(hInstance);
 }
 
 
@@ -139,7 +142,11 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
     {
         if (message == WM_CREATE)
         {
-            appData->onCreate(window, message, wParam, lParam);
+            if (!appData->getAppCondition())
+            {
+                appData->onCreate(window, message, wParam, lParam);
+                appData->setAppCondition(true);
+            }
 
         }
         appData->beforeMessage();
@@ -367,8 +374,6 @@ HGDIOBJ selectGDIObject(HDC dc, HGDIOBJ obj);
 
 int AbstractAppData::startApp()
 {
-    SetConsoleCP(1251);
-    SetConsoleOutputCP(1251);
     return WinMain(NULL, NULL, 0, 0);
 }
 
@@ -388,6 +393,27 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR szCmdLine,
     }
 
     return message.wParam;
+}
+
+
+
+struct Manager* AbstractAppData::setMainManager(struct Manager* newManager)
+{
+    Manager* oldManager = mainManager;
+    mainManager = newManager;
+    return oldManager;
+}
+
+
+int AbstractAppData::getAppCondition()
+{
+    return IsRunning;
+}
+
+
+void AbstractAppData::setAppCondition(int newCondition)
+{
+    IsRunning = newCondition;
 }
 
 

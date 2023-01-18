@@ -32,26 +32,6 @@ PowerPoint::PowerPoint(HINSTANCE hInstance):
 {
     appVersion = "v0.2.3.0";
     massert (!makeDir("Settings"), this);
-    
-
-    filesCompability = checkVersionCompability(this);
-
-    systemSettings = new CSystemSettings(this);
-
-    loadLibManager = new CLoadLib();
-
-    loadManager = new CLoadManager(this);
-
-    windowsLibApi = new CWindowsLibApi();
-
-    fileSavings = new CFileSavings();
-
-    currColor = &systemSettings->DrawColor;
-
-    dcManager = new DCManager(this);
-
-    hgdiManager = new HGDIManager(this);
-    timerManager = new TimerManager();
 
     HMODULE _saveImagesLib = loadLibManager->loadLib("SaveImage.dll");
     dllsaveImage = (int (*) (HDC dc, const char* path))GetProcAddress(_saveImagesLib, "saveImage");
@@ -62,13 +42,7 @@ PowerPoint::PowerPoint(HINSTANCE hInstance):
     dlltoolsmanager.loadLibs();
     dlltoolsmanager.addToManager(toolManager);
 
-    
-
-
-    msgReaction = new MSGReaction();
-
-
-    testDC.setSize(systemSettings->SizeOfScreen, this);
+    setWindowParameters(hInstance);
 }
 
 PowerPoint::~PowerPoint()
@@ -98,7 +72,7 @@ void PowerPoint::onCreate(HWND window, UINT message, WPARAM wParam, LPARAM lPara
 
 
     MainManager* manager = new MainManager(this, { .pos = {0, 0}, .finishPos = systemSettings->FullSizeOfScreen }, 21, mainHandle);
-    mainManager = manager;
+    setMainManager(manager);
 
 
 
