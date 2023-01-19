@@ -131,6 +131,7 @@ int Manager::onDestroy()
 
 int Manager::onSize(Vector managerSize, Rect newRect)
 {
+    Window::onSize(managerSize, newRect);
     return app->windowsLibApi->standartManagerOnSize(this, managerSize, newRect);
 }
 

@@ -52,7 +52,7 @@ M_HGDIOBJ* HGDIManager::getHGDIOBJ()
 int HGDIManager::bind(M_HGDIOBJ* obj)
 {
     objs.push_back(obj);
-    (void)printf("Теперь присоединено объектов: %ld\n", objs.size());
+    //(void)printf("Теперь присоединено объектов: %ld\n", objs.size());
     return 0;
 }
 
@@ -65,7 +65,7 @@ int HGDIManager::unBind(M_HGDIOBJ* obj)
     {
         int pos = it - objs.begin();
         objs.erase(objs.begin() + pos);
-        (void)printf("Отвязан объект\n");
+        //(void)printf("Отвязан объект\n");
         return 0;
     }
     

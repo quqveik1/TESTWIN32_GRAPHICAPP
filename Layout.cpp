@@ -10,6 +10,6 @@ void Layout::print(M_HDC& _finalDC)
     getOutputDC()->moveViewPort(rect.pos, app);
     Vector viewAfter = getOutputDC()->getViewPort(app);
     draw();
-    getOutputDC()->moveViewPort(-rect.pos, app);
+    getOutputDC()->setViewPort(startViewPort, app);
     //setOutputDC(NULL);
 }

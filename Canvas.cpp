@@ -671,7 +671,7 @@ void Canvas::MoveWindow(Vector delta)
     rect.finishPos.y += delta.y;
 }
 
-void Canvas::MoveWindowTo(Vector pos)
+void Canvas::MoveWindowTo(Vector pos, bool needToCallOnSize/* = true*/)
 {
     Vector size = getSize();
     rect.pos.x = pos.x;

@@ -21,7 +21,7 @@ struct PowerPoint : AbstractAppData
     
 
     PowerPoint(HINSTANCE hInstance);
-    ~PowerPoint();
+    virtual ~PowerPoint();
 
     virtual void onCreate(HWND window, UINT message, WPARAM wParam, LPARAM lParam) override;
 

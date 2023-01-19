@@ -46,7 +46,7 @@ struct AbstractAppData
     M_HDC testDC;
 
     AbstractAppData(HINSTANCE _instance);
-    ~AbstractAppData();
+    virtual ~AbstractAppData();
 
     virtual int startApp();
 
@@ -129,6 +129,7 @@ struct AbstractAppData
     virtual void drawText(Rect rect, const char text[], HDC dc,
         unsigned format = DT_CENTER | DT_VCENTER | DT_SINGLELINE);
     virtual Vector getTextExtent(const char* text, HDC finalDC);
+    virtual Vector getTextExtent(const char* text, int _font, const char* _fontName);
 
     virtual void setAlign(unsigned align, HDC dc);
     virtual void selectFont(const char* text, int sizey, M_HDC& dc, int sizex = -1);

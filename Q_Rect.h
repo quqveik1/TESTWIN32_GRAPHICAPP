@@ -30,6 +30,8 @@ struct Rect
 inline Rect operator + (const Rect &rect, const Vector &vector);
 inline Rect operator - (const Rect &rect, const Vector &vector);
 inline bool operator != (const Rect &rect1, const Rect &rect2);
+inline bool operator != (const Rect &rect1, const double num);
+inline bool operator == (const Rect &rect1, const double num);
 inline bool operator == (const Rect &rect1, const Rect &rect2);
 
 Rect& Rect::operator = (const Rect &a1)
@@ -162,6 +164,26 @@ inline Rect operator - (const Rect& rect, const Vector& vector)
 inline bool operator != (const Rect& rect1, const Rect& rect2)
 {
     return !(rect1 == rect2);
+}     
+
+inline bool operator != (const Rect& rect1, const double num)
+{
+    return !(rect1 == num);
+}
+
+
+inline bool operator == (const Rect& rect1, const double num)
+{
+    Vector _pos = { num, num };
+    Vector _finishPos = { num, num };
+    if (rect1.pos == _pos)
+    {
+        if (rect1.finishPos == _finishPos)
+        {
+            return true;
+        }
+    }
+    return false;
 }
 
 

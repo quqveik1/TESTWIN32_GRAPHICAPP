@@ -41,8 +41,6 @@ PowerPoint::PowerPoint(HINSTANCE hInstance):
     DLLToolsManager dlltoolsmanager(this, "Settings\\DLLToolsPathList.txt");
     dlltoolsmanager.loadLibs();
     dlltoolsmanager.addToManager(toolManager);
-
-    setWindowParameters(hInstance);
 }
 
 PowerPoint::~PowerPoint()

@@ -22,7 +22,6 @@ int InputButton2::getIntFromText(char* _text, int textSize/* = 0 */)
 
 bool InputButton2::isSymbolAllowed(char symbol)
 {
-    int currentInt = getIntFromText (text, currentTextSize);
 
     /*
     char* newText = new char[currentTextSize + 2]{};

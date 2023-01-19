@@ -5,7 +5,7 @@
 
 int LinearLayout::onSize(Vector managerSize, Rect _newRect/* = {}*/)
 {
-    app->windowsLibApi->standartManagerOnSize(this, managerSize, _newRect);
+    Manager::onSize(managerSize, _newRect);
     Vector nextStartPos = {};
     for (int i = 0; i < pointers.size(); i++)
     {

@@ -10,7 +10,8 @@ struct LinearLayout : Layout
     int deltaBetweenButtons = 0;
 
     LinearLayout(AbstractAppData* _app, Vector _startPos, int flag = 0) :
-        Layout(_app, { .pos = _startPos, .finishPos = {}})
+        Layout(_app, { .pos = _startPos, .finishPos = {}}),
+        flags(flag)
     {
     }
 

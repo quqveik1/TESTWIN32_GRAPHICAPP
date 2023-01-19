@@ -30,7 +30,7 @@
 AbstractAppData::AbstractAppData(HINSTANCE _instance) :
     hInstance(_instance)
 {
-    setlocale(LC_ALL, "Russian");
+    //setlocale(LC_ALL, "Russian");
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
     appData = this;
@@ -374,6 +374,7 @@ HGDIOBJ selectGDIObject(HDC dc, HGDIOBJ obj);
 
 int AbstractAppData::startApp()
 {
+    setWindowParameters(hInstance);
     return WinMain(NULL, NULL, 0, 0);
 }
 
@@ -588,13 +589,25 @@ void AbstractAppData::drawText(Rect rect, const char text[], HDC dc,
 
 Vector AbstractAppData::getTextExtent(const char* text, HDC finalDC)
 {
-    SIZE resultSize = {};
-    size_t len = strlen(text);
-    GetTextExtentPoint32(finalDC, text, (int)len, &resultSize);
+    if (text)
+    {
+        SIZE resultSize = {};
+        size_t len = strlen(text);
+        GetTextExtentPoint32(finalDC, text, (int)len, &resultSize);
 
-    Vector result = Vector::toVector(resultSize);
+        Vector result = Vector::toVector(resultSize);
 
-    return result;
+        return result;
+    }
+    return {};
+}
+
+
+Vector AbstractAppData::getTextExtent(const char* text, int _font, const char* _fontName)
+{
+    testDC.clear();
+    selectFont(_fontName, _font, testDC);
+    return getTextExtent(text, testDC);
 }
 
 void AbstractAppData::setAlign(unsigned align, HDC dc)

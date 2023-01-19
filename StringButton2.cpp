@@ -423,7 +423,7 @@ void StringButton2::draw()
 {
     doBeforeMainBlock();
 
-    if (needToShow)
+    if (isVisible())
     {
         app->setColor(color, finalDC);
         app->rectangle({ 0, 0 }, getSize(), finalDC);
@@ -544,6 +544,13 @@ int StringButton2::mbUp(Vector mp, int button)
 }
 
 
+
+int StringButton2::onSize(Vector managerSize, Rect _newRect/* = {}*/)
+{
+    Manager::onSize(managerSize, _newRect);
+    font = rect.getSize().y * 0.9;
+    return 0;
+}
 
 
 

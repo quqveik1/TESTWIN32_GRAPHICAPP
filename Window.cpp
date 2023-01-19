@@ -22,24 +22,67 @@ int Window::hitTest(Vector mp)
     return 0;
 }
 
+
+int Window::onSize(Vector managerSize, Rect newRect/* = {}*/)
+{
+    if (newRect != 0)
+    {
+        resize(newRect);
+        return 1;
+    }
+    return 0;
+}
+
 Vector Window::getSize()
 {
     return this->rect.finishPos - this->rect.pos;
 }
 
-void Window::MoveWindowTo(Vector pos)
+void Window::MoveWindowTo(Vector pos, bool needToCallOnSize/* = true*/)
 {
     Vector size = getSize();
 
     rect.pos = pos;
     rect.finishPos = rect.pos + size;
-    if (getManager())onSize(getManager()->getSize(), {});
+    if (getManager() && needToCallOnSize)onSize(getManager()->getSize(), {});
 }
 
 void Window::MoveWindow(Vector delta)
 {
     rect = rect + delta;
 }
+
+int Window::setFont(int newFont)
+{
+    int oldFont = font;
+    font = newFont;
+    if (oldFont != newFont)
+    {
+        app->updateScreen(this);
+    }
+    return oldFont;
+}
+
+
+const char* Window::setText(const char* newText)
+{
+    const char* oldText = text;
+    text = newText;
+    if (!oldText)
+    {
+        app->updateScreen(this);
+    }
+    if (oldText && newText)
+    {
+        if (strcmp(oldText, newText) != 0)
+        {
+            app->updateScreen(this);
+        }
+    }
+    return oldText;
+}
+
+
 
 void Window::draw()
 {

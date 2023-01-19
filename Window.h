@@ -74,7 +74,8 @@ struct Window
         if (systemSettings->debugMode >= 0) printf("rect {%lf, %lf}; {%lf, %lf}\n", rect.pos.x, rect.pos.y, rect.finishPos.x, rect.finishPos.y);
 
         if (!color) color = systemSettings->MenuColor;
-        resize(rect);
+        onSize({}, rect);
+        //resize(rect);
 
         if (!color) color = systemSettings->MenuColor;
 
@@ -107,13 +108,14 @@ struct Window
 
 
     virtual Vector getSize();
+    virtual Rect getRect() { return rect; };
     virtual Manager* getManager() { return manager; };
     virtual void needRedraw() {};
     virtual bool getRadrawStatus() { return redrawStatus; };
     virtual void noMoreRedraw() { redrawStatus = false; };
 
     virtual void MoveWindow(Vector delta);
-    virtual void MoveWindowTo(Vector pos);
+    virtual void MoveWindowTo(Vector pos, bool needToCallOnSize = true);
 
 
     virtual int isVisible()
@@ -181,8 +183,14 @@ struct Window
 
     virtual int mayBeDeletedInDestructor() { if (memType == 0) { return 1; } return 0; };
 
+    virtual void sendMessage(const char* name, void* data) { onMessageRecieve(name, data); };
+    virtual void onMessageRecieve(const char* name, void* data) {};
+
     virtual M_HDC* getOutputDC() { return pFinalDC; };
     virtual M_HDC* setOutputDC(M_HDC* _newDC) { return pFinalDC = _newDC; }
+
+    virtual int setFont(int newFont);
+    virtual const char* setText(const char* newText);
 
 
     virtual void draw();
@@ -193,7 +201,7 @@ struct Window
     virtual int mbUp(Vector mp, int button) { return 0; };
     virtual int onKeyboard(int key) { return 0; };
     virtual int onKeyboardChar(int key) { return 0; };
-    virtual int onSize(Vector managerSize, Rect newRect = {}) { return 0; };
+    virtual int onSize(Vector managerSize, Rect newRect = {});
     virtual int onMouseMove(Vector mp, Vector delta) { return 0; };
     virtual int onTimer(UINT_PTR timerName) { return 0; };
     virtual int onClose() { return 0; };// if you want to cancel closing you need to return non 0 value
