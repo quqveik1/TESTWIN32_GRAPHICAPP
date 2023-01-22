@@ -14,7 +14,8 @@ void InputButton2::parameterToString(char* text, void* _num)
 
 void* InputButton2::getParameterFromText(char* text, int textSize/* = 0*/)
 {
-    static int answer = getIntFromText(text, textSize);
+    static int answer = 0;
+    answer = getIntFromText(text, textSize);
     return &answer;
 }
 
@@ -62,34 +63,6 @@ void InputButton2::copyParameter(const void* source)
 
 int InputButton2::getIntFromText(char* _text, int textSize/* = 0 */)
 {
-    /*
-    int resultNum = 0;
-    if (!textSize) textSize = strlen(_text);
-
-    bool isNegative = 0;
-
-    if (_text)
-    {
-        if (_text[0] == '-')
-        {
-            textSize--;
-            _text += 1; 
-            isNegative = 1;
-        }
-    }
-
-    for (int i = 0; i < textSize; i++)
-    {
-        if (!_text[i]) break;
-
-        resultNum += std::lround( (_text[i] - '0') * pow(10, textSize - i - 1) );
-    }
-
-    if (isNegative)
-    {
-        resultNum *= -1;
-    }
-    */
     int resultNum = 0;
     if (_text)
     {
@@ -125,7 +98,7 @@ bool InputButton2::isSymbolAllowed(char symbol)
     {
         return true;
     }
-    if (mode == NEGATIVE_MODE)
+    if (mode != POSITIVE_MODE)
     {
         if (symbol == '-')
         {      

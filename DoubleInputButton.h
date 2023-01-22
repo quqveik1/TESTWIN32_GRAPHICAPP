@@ -21,8 +21,4 @@ struct DoubleInputButton : InputButton2
     virtual void copyParameter(const void* source);
 
     virtual bool isSymbolAllowed(char symbol) override;
-    virtual void modifyOutput(char* outputStr, char* originalStr) override;
-    virtual void confirmEnter() override;
-    virtual void doBeforeMainBlock() override;
-    virtual void doAfterMainBlock() override;
 };

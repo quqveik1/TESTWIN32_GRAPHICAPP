@@ -12,7 +12,7 @@ struct InputButton2 : StringButton2
     bool* confirmInput = NULL;  
     static const int STANDART_MODE = 0;
     static const int PERCANTAGE_MODE = 1;
-    static const int NEGATIVE_MODE = 2;
+    static const int POSITIVE_MODE = 2;
     int mode = STANDART_MODE;
     char numText[MAX_PATH] = {};
 
