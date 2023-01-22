@@ -1,30 +1,24 @@
 #pragma once
-#include "StringButton2.cpp"
+#include "InputButton2.cpp"
 
-struct DoubleInputButton : StringButton2
+struct DoubleInputButton : InputButton2
 {
-    double* parameter = NULL;
-    double* minParametr = NULL;
-    double* maxParametr = NULL;
 
     bool* confirmInput = NULL;
     int mode = 0;
-    char numText[MAX_PATH] = {};
-    DoubleInputButton(AbstractAppData* _app, Rect _rect, double* _parameter, double* _minParametr, double* _maxParametr, int _mode/* = 0*/, COLORREF _mainColor, COLORREF _cadreColor = RGB(144, 144, 144), COLORREF _cursorColor = RGB(200, 200, 200), bool* _confirmInput = NULL) :
-        StringButton2(_app, _rect, NULL, MAX_PATH, _mainColor, _cadreColor, _cursorColor),
-        parameter(_parameter),
-        confirmInput(_confirmInput),
-        minParametr(_minParametr),
-        maxParametr(_maxParametr),
-        mode(_mode)
+    DoubleInputButton(AbstractAppData* _app, Rect _rect, void* _parameter, void* _minParametr, void* _maxParametr, int _mode/* = 0*/, COLORREF _mainColor, COLORREF _cadreColor = RGB(144, 144, 144), COLORREF _cursorColor = RGB(200, 200, 200), bool* _confirmInput = NULL) :
+        InputButton2(_app, _rect, _parameter, _minParametr, _maxParametr, _mode, _mainColor, _cadreColor, _cursorColor, _confirmInput)
     {
-        text = numText;
-        //setText(numText);
     }
 
     double getDoubleFromText(const char* text, int textSize = 0);
 
-    void setParameter(double* newParameter);
+    virtual void* getParameterFromText(char* text, int textSize = 0);
+    virtual void parameterToString(char* text, void* _num);
+    virtual bool parameterIsBiggerMaximum(void* _num);
+    virtual bool parameterIsSmallerMinimum(void* _num);
+    virtual bool isParametersEqual(void* a, void* b);
+    virtual void copyParameter(const void* source);
 
     virtual bool isSymbolAllowed(char symbol) override;
     virtual void modifyOutput(char* outputStr, char* originalStr) override;

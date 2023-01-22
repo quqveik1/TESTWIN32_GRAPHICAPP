@@ -56,13 +56,10 @@ struct Window
         app(_app),
         systemSettings(_app->systemSettings),
         rect(_rect),
-        color(_color),
         manager(_manager),
-        text(_text),
         needToShow(_needToShow),
         reDraw(true),
         loadManager(_app->loadManager),
-        font(_app->systemSettings->MainFont),
         fontName(_app->systemSettings->FONTNAME),
         sideThickness(std::lround(_app->systemSettings->SIDETHICKNESS)),
         format(_app->systemSettings->TEXTFORMAT),
@@ -76,6 +73,10 @@ struct Window
         if (!color) color = systemSettings->MenuColor;
         onSize({}, rect);
         //resize(rect);
+
+        setText(_text);
+        setFont(_app->systemSettings->MainFont);
+        setColor(_color);
 
         if (!color) color = systemSettings->MenuColor;
 
@@ -189,6 +190,8 @@ struct Window
     virtual M_HDC* getOutputDC() { return pFinalDC; };
     virtual M_HDC* setOutputDC(M_HDC* _newDC) { return pFinalDC = _newDC; }
 
+    virtual int setTrancparencyOutput(int need);
+    virtual COLORREF setColor(COLORREF newColor);
     virtual int setFont(int newFont);
     virtual const char* setText(const char* newText);
 

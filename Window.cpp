@@ -52,6 +52,30 @@ void Window::MoveWindow(Vector delta)
     rect = rect + delta;
 }
 
+int Window::setTrancparencyOutput(int need)
+{
+    int old = need;
+    need = need;
+    if (old != need)
+    {
+        app->updateScreen(this);
+    }
+    return old;
+}
+
+COLORREF Window::setColor(COLORREF newColor)
+{
+
+    COLORREF oldcolor = color;
+    color = newColor;
+    if (oldcolor != newColor)
+    {
+        app->updateScreen(this);
+    }
+    return oldcolor;
+
+}
+
 int Window::setFont(int newFont)
 {
     int oldFont = font;
@@ -67,16 +91,29 @@ int Window::setFont(int newFont)
 const char* Window::setText(const char* newText)
 {
     const char* oldText = text;
-    text = newText;
-    if (!oldText)
+    
+    if (newText)
     {
-        app->updateScreen(this);
-    }
-    if (oldText && newText)
-    {
-        if (strcmp(oldText, newText) != 0)
+        text = newText;
+        if (!oldText)
         {
+            //int newLength = strlen(newText);
+            //char* _text = new char[newLength] {};
+            //strcpy(_text, newText);
+            //text = _text;
             app->updateScreen(this);
+        }
+        if (oldText && newText)
+        {
+            if (strcmp(oldText, newText) != 0)
+            {
+                //int newLength = strlen(newText);
+                //char* _text = new char[newLength] {};
+                //strcpy(_text, newText);
+                //delete text;
+                //text = _text;
+                app->updateScreen(this);
+            }
         }
     }
     return oldText;

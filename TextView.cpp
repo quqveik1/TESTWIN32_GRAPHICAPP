@@ -2,24 +2,6 @@
 #include "TextView.h"
 
 
-void TextView::wrapControl()
-{
-    Vector textSize = app->getTextExtent(text, font, fontName);
-    Vector currSize = getSize();
-    Vector newSize = currSize;
-
-    if (wrapContentY)
-    {
-        newSize.y = (textSize.y / relativeFontSize);
-    }
-    if (wrapContentX)
-    {
-        newSize.x = (textSize.x / relativeFontSize);
-    }
-
-    resize(newSize);
-
-}
 
 
 int TextView::setFont(int newFont)
@@ -73,4 +55,23 @@ int TextView::onSize(Vector managerSize, Rect _newRect/* = {}*/)
     Window::onSize(managerSize, _newRect);
     wrapControl();
     return 0;
+}
+
+void TextView::wrapControl()
+{
+    Vector textSize = app->getTextExtent(text, font, fontName);
+    Vector currSize = getSize();
+    Vector newSize = currSize;
+
+    if (wrapContentY)
+    {
+        newSize.y = (textSize.y / relativeFontSize);
+    }
+    if (wrapContentX)
+    {
+        newSize.x = (textSize.x / relativeFontSize);
+    }
+
+    resize(newSize);
+
 }

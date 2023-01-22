@@ -1,7 +1,7 @@
 #pragma once
-#include "WindowsLib.cpp"
+#include "WindowsLib.h"
 #include "TimerManager.h"
-
+#include "TextView.h"
 
 struct StringButton2;
 
@@ -35,7 +35,10 @@ struct Cursor
     {
         assert(app);
         assert(stringButton);
-        timerName = app->timerManager->getNewTimerNum();
+        if (app->timerManager)
+        {
+            timerName = app->timerManager->getNewTimerNum();
+        }
     }
 
 
@@ -56,7 +59,7 @@ struct Cursor
 
 };
 
-struct StringButton2 : Manager
+struct StringButton2 : TextView
 {
     char* text = NULL;
     int currentTextSize = 0;
@@ -77,14 +80,15 @@ struct StringButton2 : Manager
     
 
     StringButton2(AbstractAppData* _app, Rect _rect, char* _text, int _maxTextSize, COLORREF _mainColor, COLORREF _cadreColor = RGB(144, 144, 144), COLORREF _cursorColor = RGB(200, 200, 200)) :
-        Manager(_app, _rect, 1, true, NULL, {}, _mainColor),
+        //TextView(_app, _rect, 1, true, NULL, {}, _mainColor),
+        TextView(_app),
         text(_text),
         maxTextSize(_maxTextSize),
         cadreColor (_cadreColor),
         cursor(_app, this, {deltaAfterCadre, 0}, _cursorColor)
     {
-        
-        needTransparencyOutput = true;
+        setColor(_mainColor);
+        setTrancparencyOutput(true);
         cursorImage = LoadCursor(NULL, IDC_IBEAM);
     }
 

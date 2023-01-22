@@ -22,6 +22,59 @@ double DoubleInputButton::getDoubleFromText(const char* _text, int textSize/* = 
 
 
 
+void* DoubleInputButton::getParameterFromText(char* text, int textSize/* = 0*/)
+{
+    static double answer = getDoubleFromText(text, textSize);
+    return &answer;
+}
+
+void DoubleInputButton::parameterToString(char* text, void* _num)
+{
+    double* intNum = (double*)_num;
+    if (text && intNum)
+    {
+        (void)sprintf(text, "%d", *intNum);
+    }
+}
+
+bool DoubleInputButton::parameterIsBiggerMaximum(void* _num)
+{
+    if (*((double*)_num) > *((double*)maxParameter))
+    {
+        return true;
+    }
+    return false;
+}
+
+
+bool DoubleInputButton::parameterIsSmallerMinimum(void* _num)
+{
+    if (*((double*)_num) < *((double*)minParameter))
+    {
+        return true;
+    }
+    return false;
+}
+
+
+bool DoubleInputButton::isParametersEqual(void* a, void* b)
+{
+    if (*((double*)a) == *((double*)a))
+    {
+        return true;
+    }
+    return false;
+}
+
+
+void DoubleInputButton::copyParameter(const void* source)
+{
+    double* _dest = (double*)parameter;
+    double* _source = (double*)source;
+    *_dest = *_source;
+}
+
+
 bool DoubleInputButton::isSymbolAllowed(char symbol)
 {
 
@@ -56,13 +109,6 @@ bool DoubleInputButton::isSymbolAllowed(char symbol)
     }
     return false;
 }
-
-void DoubleInputButton::setParameter(double* newParameter)
-{
-    parameter = newParameter;
-
-}
-
 
 void DoubleInputButton::modifyOutput(char* outputStr, char* originalStr)
 {

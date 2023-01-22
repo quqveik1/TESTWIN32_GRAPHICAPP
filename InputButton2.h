@@ -5,29 +5,38 @@
 
 struct InputButton2 : StringButton2
 {
-    int* parameter = NULL;
-    int* minParametr = NULL;
-    int* maxParametr = NULL;
+    void* parameter = NULL;
+    void* minParameter = NULL;
+    void* maxParameter = NULL;
 
-    bool* confirmInput = NULL;
-    int mode = 0;
+    bool* confirmInput = NULL;  
+    static const int STANDART_MODE = 0;
+    static const int PERCANTAGE_MODE = 1;
+    static const int NEGATIVE_MODE = 2;
+    int mode = STANDART_MODE;
     char numText[MAX_PATH] = {};
 
 
-    InputButton2(AbstractAppData* _app, Rect _rect, int* _parameter, int* _minParametr, int* _maxParametr, int _mode/* = 0*/, COLORREF _mainColor, COLORREF _cadreColor = RGB(144, 144, 144), COLORREF _cursorColor = RGB(200, 200, 200), bool* _confirmInput = NULL) :
+    InputButton2(AbstractAppData* _app, Rect _rect, void* _parameter, void* _minParametr, void* _maxParametr, int _mode/* = 0*/, COLORREF _mainColor, COLORREF _cadreColor = RGB(144, 144, 144), COLORREF _cursorColor = RGB(200, 200, 200), bool* _confirmInput = NULL) :
         StringButton2(_app, _rect, NULL, MAX_PATH, _mainColor, _cadreColor, _cursorColor),
         parameter(_parameter),
         confirmInput (_confirmInput), 
-        minParametr (_minParametr),
-        maxParametr (_maxParametr),
+        minParameter (_minParametr),
+        maxParameter (_maxParametr),
         mode (_mode)
     {
         text = numText;
     }
 
     int getIntFromText(char* text, int textSize = 0);
-
-    void setParameter(int* newParameter);
+    void setParameter(void* source);
+    
+    virtual void* getParameterFromText(char* text, int textSize = 0);//returns STATIC object
+    virtual void parameterToString(char* text, void* _num);
+    virtual bool parameterIsBiggerMaximum(void* _num);
+    virtual bool parameterIsSmallerMinimum(void* _num);
+    virtual bool isParametersEqual(void* a, void* b);
+    virtual void copyParameter(const void* source);
 
     virtual bool isSymbolAllowed(char symbol) override;
     virtual void modifyOutput(char* outputStr, char* originalStr) override;
