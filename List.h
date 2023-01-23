@@ -24,7 +24,7 @@ struct List : Manager
         Manager(_app, { .pos = _pos, .finishPos = {_pos.x + _oneItemSize.x, _pos.y + _maxLength * _oneItemSize.y } }, _maxLength, false, NULL, {}, (RGB(60, 60, 60))),
         mayFewWindowsBeOpenedAtTheSameTime(_mayFewWindowsBeOpenedAtTheSameTime),
         oneItemSize(_oneItemSize),
-        itemHeight(lround(systemSettings->HANDLEHEIGHT)),
+        itemHeight(lround(app->systemSettings->HANDLEHEIGHT)),
         needToHideAfterClick (_needToHideAfterClick),
         itemsLayout(app, {})
     {
@@ -43,7 +43,7 @@ struct List : Manager
         Manager(_app, {}, 0, false, NULL, {}, (RGB(60, 60, 60))),
         mayFewWindowsBeOpenedAtTheSameTime(_mayFewWindowsBeOpenedAtTheSameTime),
         oneItemSize(_oneItemSize),
-        itemHeight(lround(systemSettings->HANDLEHEIGHT)),
+        itemHeight(lround(app->systemSettings->HANDLEHEIGHT)),
         needToHideAfterClick (_needToHideAfterClick),
         itemsLayout(app, {})
     {

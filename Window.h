@@ -10,7 +10,6 @@ struct Window
 {
     const char* devName = NULL;
 
-    CSystemSettings* systemSettings = NULL;
     struct AbstractAppData* app = NULL;
 
     HWND hwnd = NULL;
@@ -45,42 +44,49 @@ struct Window
     bool reDraw = true;
     bool needTransparencyOutput = false;
 
-    struct CLoadManager* loadManager = NULL;
 
     Vector mousePosLastTime = {};
     int mbLastTime = 0;
 
-    int memType = 0;// 0 - dynamic; 1 - static
+    enum MEM_TYPE
+    {
+        MT_DYNAMIC = 0,
+        MT_STATIC = 1
+    };
+    MEM_TYPE memType = MT_DYNAMIC;// 0 - dynamic; 1 - static
 
     Window(AbstractAppData* _app, Rect _rect = {}, COLORREF _color = NULL, HDC _dc = NULL, Manager* _manager = NULL, const char* _text = NULL, bool _needToShow = true) :
         app(_app),
-        systemSettings(_app->systemSettings),
         rect(_rect),
         manager(_manager),
         needToShow(_needToShow),
         reDraw(true),
-        loadManager(_app->loadManager),
-        fontName(_app->systemSettings->FONTNAME),
-        sideThickness(std::lround(_app->systemSettings->SIDETHICKNESS)),
-        format(_app->systemSettings->TEXTFORMAT),
+        
         dc(_dc),
         pFinalDC(&finalDC),
         finalDC(app)
     {
+        setApp(_app);
         assert(_app);
-        if (systemSettings->debugMode >= 0) printf("rect {%lf, %lf}; {%lf, %lf}\n", rect.pos.x, rect.pos.y, rect.finishPos.x, rect.finishPos.y);
+        
 
-        if (!color) color = systemSettings->MenuColor;
-        onSize({}, rect);
-        //resize(rect);
+        if (_app)
+        {
+            if (!color) color = _app->systemSettings->MenuColor;
+            onSize({}, rect);
+            //resize(rect);
 
-        setText(_text);
-        setFont(_app->systemSettings->MainFont);
-        setColor(_color);
+            setText(_text);
+            setFont(_app->systemSettings->MainFont);
+            setColor(_color);
 
-        if (!color) color = systemSettings->MenuColor;
+            if (!color) color = _app->systemSettings->MenuColor;
 
-        originalRect = rect;
+            originalRect = rect;
+            fontName = _app->systemSettings->FONTNAME;
+            sideThickness = std::lround(_app->systemSettings->SIDETHICKNESS);
+            format = _app->systemSettings->TEXTFORMAT;
+        }
     }
 
     virtual void defaultDestructor();
@@ -182,7 +188,7 @@ struct Window
 
     virtual void setMPLastTime() { mousePosLastTime = getMousePos(); };
 
-    virtual int mayBeDeletedInDestructor() { if (memType == 0) { return 1; } return 0; };
+    virtual int mayBeDeletedInDestructor() { if (memType == MT_DYNAMIC) { return 1; } return 0; };
 
     virtual void sendMessage(const char* name, void* data) { onMessageRecieve(name, data); };
     virtual void onMessageRecieve(const char* name, void* data) {};
@@ -191,6 +197,7 @@ struct Window
     virtual M_HDC* setOutputDC(M_HDC* _newDC) { return pFinalDC = _newDC; }
 
     virtual int setTrancparencyOutput(int need);
+    virtual void setApp(AbstractAppData* newApp) { app = newApp; };
     virtual COLORREF setColor(COLORREF newColor);
     virtual int setFont(int newFont);
     virtual const char* setText(const char* newText);

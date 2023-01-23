@@ -11,7 +11,7 @@ void clickButton(Window* window, Manager* manager, Vector mp)
 void CWindowsLibApi::resize(Window* window, Rect newRect)
 {
     gassert(window);
-    if (window->systemSettings->debugMode >= 2) printf("newRect {%lf, %lf}; {%lf, %lf}\n", newRect.pos.x, newRect.pos.y, newRect.finishPos.x, newRect.finishPos.y);
+    if (window->app->systemSettings->debugMode >= 2) printf("newRect {%lf, %lf}; {%lf, %lf}\n", newRect.pos.x, newRect.pos.y, newRect.finishPos.x, newRect.finishPos.y);
     window->finalDCSize = { newRect.getSize().x, newRect.getSize().y };
     if (window->hasItsFinalDC && window->getOutputDC())
     {
@@ -23,7 +23,7 @@ void CWindowsLibApi::resize(Window* window, Rect newRect)
             //window->app->setColor(window->color, *window->getOutputDC());
             //window->app->rectangle(0, 0, newRect.getSize().x, newRect.getSize().y, *window->getOutputDC());
 
-            if (window->systemSettings->debugMode == 5) window->app->drawOnScreen(*window->getOutputDC());
+            if (window->app->systemSettings->debugMode == 5) window->app->drawOnScreen(*window->getOutputDC());
         }
         else
         {
@@ -211,7 +211,7 @@ int CWindowsLibApi::standartWindowDraw(struct Window* window)
 
             if (window->text)
             {
-                app->setColor(window->systemSettings->TextColor, *outDC);
+                app->setColor(window->app->systemSettings->TextColor, *outDC);
                 app->selectFont(window->fontName, window->font, *outDC);
                 app->drawText(0, 0, window->rect.getSize().x, window->rect.getSize().y, window->text, *outDC, window->format);
             }

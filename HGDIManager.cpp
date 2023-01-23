@@ -60,16 +60,19 @@ int HGDIManager::bind(M_HGDIOBJ* obj)
 int HGDIManager::unBind(M_HGDIOBJ* obj)
 {
     vector<M_HGDIOBJ*>::iterator it;
+    //int timebefore = clock();
     it = find(objs.begin(), objs.end(), obj);
     if (it != objs.end())
     {
         int pos = it - objs.begin();
         objs.erase(objs.begin() + pos);
-        //(void)printf("Отвязан объект\n");
+        //int currTime = clock();
+        //(void)printf("Отвязан объект, потрачено [%d]\n", currTime - timebefore);
         return 0;
     }
     
     printf("Попытка отвязать незарегестрированный в мэнеджере объект\n");
+    //DebugBreak();
     return -1;
     
 }

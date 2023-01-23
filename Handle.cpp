@@ -21,7 +21,7 @@ List* Handle::createMenuOption(const char* optionText, int* status, bool needToH
         currentOptionsLength++;
         if (manager)
         {
-            manager->addWindow(newList, 1);
+            manager->addWindow(newList, MT_STATIC);
         }
         else
         {

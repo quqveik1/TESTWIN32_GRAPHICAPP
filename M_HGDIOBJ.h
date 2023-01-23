@@ -16,7 +16,7 @@ struct M_HGDIOBJ
     struct M_HDC* motherHDC = NULL;
     int status = 0; //1 - active  // 2+ selected
     const char* name = NULL;
-    short bindStatus = BS_UNBINDED;
+    HGDIMANAGERBINDSTATUS bindStatus = BS_UNBINDED;
 
     M_HGDIOBJ(struct AbstractAppData* _app) :
         app(_app)

@@ -28,7 +28,10 @@ struct Manager : Window
         assert(app->windowsLibApi);
         handle.manager = this;
         //handle.rect.finishPos.x = getSize().x;
-        handle.color = systemSettings->MenuColor;
+        if (app)
+        {
+            handle.color = app->systemSettings->MenuColor;
+        }
     }
 
 
@@ -40,8 +43,8 @@ struct Manager : Window
     }
 
 
-    virtual bool addWindow(Window* window, int _memtype = 0);
-    virtual bool addWindow(Window& window, int _memtype = 1);
+    virtual bool addWindow(Window* window, MEM_TYPE _memtype = MT_DYNAMIC);
+    virtual bool addWindow(Window& window, MEM_TYPE _memtype = MT_STATIC);
     virtual int separateWindow(int pos);
 
 

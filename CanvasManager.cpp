@@ -15,7 +15,7 @@ CanvasManager::CanvasManager(AbstractAppData* _app, Vector _pos) :
     scaleButton(new InputButton2 (_app, { .pos = {}, .finishPos = scaleButtonSize }, &intScale, &minScale, &maxScale, 1, color)),
     importTool(NULL)
 {
-    gassert(loadManager);
+    gassert(app->loadManager);
 
     
     color = TX_BLACK;

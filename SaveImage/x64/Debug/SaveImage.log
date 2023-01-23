@@ -1,2 +1,6 @@
-﻿  dllmain.cpp
-  SaveImage.vcxproj -> C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\x64\Debug\SaveImage.dll
+﻿  pch.cpp
+  dllmain.cpp
+  SaveImage.cpp
+  Создание кода...
+     Создается библиотека C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\x64\Debug\SaveImage.lib и объект C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\x64\Debug\SaveImage.exp
+  SaveImage.vcxproj -> C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\x64\Debug\SaveImage.dll

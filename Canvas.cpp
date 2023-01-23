@@ -127,7 +127,7 @@ void Canvas::setCurrentData()
 {
     currentDate.mousePos = getMousePos();
     currentDate.managerPos = getAbsCoordinats();
-    currentDate.color = systemSettings->DrawColor;
+    currentDate.color = app->systemSettings->DrawColor;
     currentDate.canvasCoordinats = canvasCoordinats;
     currentDate.backGroundColor = TX_BLACK;
     if (getMBCondition() == 0) currentDate.clickedMB = 0;
@@ -255,8 +255,8 @@ Vector Canvas::convertMousePosForLay(Vector mp)
 
 void Canvas::draw()
 {
-    if (systemSettings->debugMode >= 3) printf("Canvas clicked: %d\n", getMBCondition());
-    if (systemSettings->debugMode >= 3) printf(" Canvasrect.pos: {%lf, %lf}\n", rect.pos.x, rect.pos.y);
+    if (app->systemSettings->debugMode >= 3) printf("Canvas clicked: %d\n", getMBCondition());
+    if (app->systemSettings->debugMode >= 3) printf(" Canvasrect.pos: {%lf, %lf}\n", rect.pos.x, rect.pos.y);
 
     //controlStretching();
 

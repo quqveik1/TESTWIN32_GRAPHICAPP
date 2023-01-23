@@ -1,5 +1,6 @@
 #pragma once
 #include "StringButton2.h"
+#include "TextView.cpp"
 
 
 void Cursor::makeDefault()
@@ -416,7 +417,10 @@ void StringButton2::modifyOutput(char* outputStr, char* originalStr)
     assert(outputStr);
     assert(originalStr);
 
-    sprintf(outputStr, "%s", originalStr);
+    if (outputStr)
+    {
+        sprintf(outputStr, "%s", originalStr);
+    }
 }
 
 void StringButton2::draw()
@@ -449,8 +453,6 @@ void StringButton2::draw()
     }
 
     doAfterMainBlock();
-
-    setMbLastTime();
 }
 
 
@@ -518,7 +520,11 @@ int StringButton2::mbDown(Vector mp, int button)
             textBeforeRedacting = new char[maxTextSize];
             currentTextSize = strlen(text);
             assert(textBeforeRedacting);
-            strcpy(textBeforeRedacting, text);
+
+            if (textBeforeRedacting)
+            {
+                strcpy(textBeforeRedacting, text);
+            }
         }
         getInputMode() = 1;
         return 0;

@@ -17,7 +17,7 @@ M_HDC::M_HDC(struct AbstractAppData* _app) :
 M_HDC::M_HDC(struct AbstractAppData* _app, HDC _dc) : 
     M_HGDIOBJ(_app)
 {
-    *this = _dc;
+    obj = _dc;
 }
 
 
@@ -37,9 +37,13 @@ M_HDC::operator HDC() const
 
 M_HDC& M_HDC::operator = (HDC _dc)
 {
-    deleteObj();
-    setObj(_dc);
-    saveDefObjs();
+    if (_dc != obj)
+    {
+        deleteObj();
+        setApp(app);
+        setObj(_dc);
+        saveDefObjs();
+    }
     return *this;
 }
 

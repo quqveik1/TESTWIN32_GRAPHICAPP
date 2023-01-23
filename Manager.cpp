@@ -2,13 +2,13 @@
 
 #include "Manager.h"
 
-bool Manager::addWindow(Window* window, int _memtype/* = 0*/)
+bool Manager::addWindow(Window* window, MEM_TYPE _memtype/* = 0*/)
 {
     window->memType = _memtype;
     return app->windowsLibApi->addWindow(this, window);
 }
 
-bool Manager::addWindow(Window& window, int _memtype/* = 1*/)
+bool Manager::addWindow(Window& window, MEM_TYPE _memtype/* = 1*/)
 {
     window.memType = _memtype;
     return app->windowsLibApi->addWindow(this, &window);

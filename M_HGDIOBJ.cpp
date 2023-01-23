@@ -45,6 +45,7 @@ int M_HGDIOBJ::unBind()
         else
         {
             printf("Попытка отвзять от мэнеджера, хотя к нему и не привязывались\n");
+            DebugBreak();
         }
     }
     else

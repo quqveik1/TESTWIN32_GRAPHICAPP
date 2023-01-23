@@ -24,7 +24,7 @@ void List::addNewItem(Window* openButton, HDC dc/* = NULL*/, const char* text/* 
     items[newPos]->reInit();
 
 
-    itemsLayout.addWindow(items[newPos], 1);
+    itemsLayout.addWindow(items[newPos], MT_STATIC);
 }
 
 

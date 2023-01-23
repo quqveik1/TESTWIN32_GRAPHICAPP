@@ -72,6 +72,22 @@ AbstractAppData::AbstractAppData(HINSTANCE _instance) :
 
 AbstractAppData::~AbstractAppData()
 {
+    if (mainManager)
+    {
+        if (mainManager->mayBeDeletedInDestructor())
+        {
+            delete mainManager;
+        }
+    }
+
+    delete loadManager;
+    delete windowsLibApi;
+    delete systemSettings;
+    delete loadLibManager;
+    delete dcManager;
+    delete hgdiManager;
+    delete timerManager;
+    delete msgReaction;
 }
 
 
@@ -243,7 +259,7 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
         if (message == WM_PAINT)
         {
             HDC finalDC = BeginPaint(appData->MAINWINDOW, &ps);
-            M_HDC paintDC(appData);
+            M_HDC paintDC(appData, finalDC);
             paintDC = finalDC;
 
 

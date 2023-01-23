@@ -167,7 +167,7 @@ void CSystemSettings::setDynamicSettings(struct AbstractAppData* _app)
 }
 
 
-void setColorSettings(FILE* ssFile, COLORREF* color, const char* name)
+void CSystemSettings::setColorSettings(FILE* ssFile, COLORREF* color, const char* name)
 {
     char format[MAX_PATH] = {};
 
@@ -202,7 +202,7 @@ void setColorSettings(FILE* ssFile, COLORREF* color, const char* name)
     }
 }
 
-void setIntSettings(FILE* ssFile, int* integer, const char* name)
+void CSystemSettings::setIntSettings(FILE* ssFile, int* integer, const char* name)
 {
     char format[MAX_PATH] = {};
     sprintf(format, " %s = %%d; ", name);
@@ -211,7 +211,7 @@ void setIntSettings(FILE* ssFile, int* integer, const char* name)
 
 }
 
-void setDoubleSettings(FILE* ssFile, double* integer, const char* name)
+void CSystemSettings::setDoubleSettings(FILE* ssFile, double* integer, const char* name)
 {
     char format[MAX_PATH] = {};
     sprintf(format, " %s = %%lf; ", name);
@@ -220,7 +220,7 @@ void setDoubleSettings(FILE* ssFile, double* integer, const char* name)
 
 }
 
-void setStringSettings(FILE* ssFile, char* str, const char* name)
+void CSystemSettings::setStringSettings(FILE* ssFile, char* str, const char* name)
 {
     char format[MAX_PATH] = {};
     sprintf(format, " %s = %%s; ", name);
@@ -240,7 +240,7 @@ void setStringSettings(FILE* ssFile, char* str, const char* name)
 }
 
 
-void saveColorSettings(FILE* ssFile, COLORREF* color, const char* name)
+void CSystemSettings::saveColorSettings(FILE* ssFile, COLORREF* color, const char* name)
 {
     int red = GetRValue(*color);
     int green = GetGValue(*color);
@@ -248,17 +248,17 @@ void saveColorSettings(FILE* ssFile, COLORREF* color, const char* name)
     fprintf (ssFile, "%s = RGB (%d, %d, %d);\n", name, red, green, blue);
 }
 
-void saveIntSettings(FILE* ssFile, int* integer, const char* name)
+void CSystemSettings::saveIntSettings(FILE* ssFile, int* integer, const char* name)
 {
     fprintf(ssFile, "%s = %d;\n", name, *integer);
 }
 
-void saveDoubleSettings(FILE* ssFile, double* integer, const char* name)
+void CSystemSettings::saveDoubleSettings(FILE* ssFile, double* integer, const char* name)
 {
     fprintf(ssFile, "%s = %lf;\n", name, *integer);
 }
 
-void saveStringSettings(FILE* ssFile, char* str, const char* name)
+void CSystemSettings::saveStringSettings(FILE* ssFile, char* str, const char* name)
 {
     fprintf(ssFile, "%s = %s;\n", name, str);
 }

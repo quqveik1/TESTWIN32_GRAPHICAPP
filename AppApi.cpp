@@ -1,5 +1,6 @@
 #pragma once
 
+#include "AppApi.h"
 #include "AbstractApp.cpp"
 #include <Windows.h>
 #include "resource.h"
@@ -21,10 +22,6 @@ bool checkVersionCompability(PowerPoint* app);
 void writeVersion(PowerPoint* app);
 bool swapDC(HDC dest, int xDest, int yDest, int wDest, int hDest,
     HDC src, int xSrc, int ySrc, int wSrc, int hSrc, DWORD rOp);
-LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam);
-HGDIOBJ selectGDIObject(HDC dc, HGDIOBJ obj);
-
-const char* findExtensionStart(const char* text, int extensionPos);
 
 
 PowerPoint::PowerPoint(HINSTANCE hInstance):
@@ -46,18 +43,6 @@ PowerPoint::PowerPoint(HINSTANCE hInstance):
 PowerPoint::~PowerPoint()
 {
     writeVersion(this);
-
-    delete mainManager;
-
-    delete toolManager;
-    delete loadManager;
-    delete windowsLibApi;
-    delete systemSettings;
-    delete loadLibManager;
-    delete dcManager;
-    delete hgdiManager;
-    delete timerManager;
-    delete msgReaction;
 
 }
 
