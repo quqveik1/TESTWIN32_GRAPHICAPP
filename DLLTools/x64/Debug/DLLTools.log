@@ -1,10 +1,10 @@
 ﻿  pch.cpp
   dllmain.cpp
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\M_HDC.cpp(286,25): warning C4311: приведение типов: усечение указателя из "HBITMAP" в "int"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\M_HDC.cpp(286,25): warning C4302: приведение типов: усечение из "HBITMAP" к "int"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\M_HGDIOBJ.cpp(83,26): warning C4311: приведение типов: усечение указателя из "AbstractAppData *" в "long"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\M_HGDIOBJ.cpp(83,26): warning C4302: приведение типов: усечение из "AbstractAppData *" к "long"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\DLLTools\dllmain.h(34,16): warning C4477: "printf": в строке форматирования "%d" требуется аргумент типа "int", но вариативный аргумент "1" имеет тип "HDC"
-C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\DLLTools\dllmain.h(34,16): warning C4313: printf: конфликт "%d" в строке формата с аргументом 1 типа "HDC"
-     Создается библиотека C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\x64\Debug\DLLTools.lib и объект C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\x64\Debug\DLLTools.exp
-  DLLTools.vcxproj -> C:\Users\quqve\OneDrive\Рабочий стол\Progs\TESTWIN32_GRAPHICAPP\x64\Debug\DLLTools.tool
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\M_HDC.cpp(290,25): warning C4311: 'type cast': pointer truncation from 'HBITMAP' to 'int'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\M_HDC.cpp(290,25): warning C4302: 'type cast': truncation from 'HBITMAP' to 'int'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\M_HGDIOBJ.cpp(84,26): warning C4311: 'type cast': pointer truncation from 'AbstractAppData *' to 'long'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\M_HGDIOBJ.cpp(84,26): warning C4302: 'type cast': truncation from 'AbstractAppData *' to 'long'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\DLLTools\dllmain.h(34,16): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'HDC'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\DLLTools\dllmain.h(34,16): warning C4313: 'printf': '%d' in format string conflicts with argument 1 of type 'HDC'
+     Creating library C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\x64\Debug\DLLTools.lib and object C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\x64\Debug\DLLTools.exp
+  DLLTools.vcxproj -> C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\x64\Debug\DLLTools.tool

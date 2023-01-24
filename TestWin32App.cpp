@@ -24,7 +24,8 @@ int shutDownProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam);
 int main()
 {
     PowerPoint* myApp = new PowerPoint(NULL);
-    return myApp->startApp();
+    myApp->startApp();
+    delete myApp;
 }
 
 

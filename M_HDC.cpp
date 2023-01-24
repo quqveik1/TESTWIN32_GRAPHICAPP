@@ -333,6 +333,7 @@ int M_HDC::clear()
         {
             int wasnotDeleted = selectedObj[i]->deleteObj();
             if (!wasnotDeleted) numOfDeletedObjs++;
+            selectedObj[i] = NULL;
         }
     }
     return numOfDeletedObjs;

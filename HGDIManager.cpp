@@ -52,7 +52,7 @@ M_HGDIOBJ* HGDIManager::getHGDIOBJ()
 int HGDIManager::bind(M_HGDIOBJ* obj)
 {
     objs.push_back(obj);
-    //(void)printf("Теперь присоединено объектов: %ld\n", objs.size());
+    (void)printf("Теперь присоединено объектов: %ld\n", objs.size());
     return 0;
 }
 
@@ -60,14 +60,14 @@ int HGDIManager::bind(M_HGDIOBJ* obj)
 int HGDIManager::unBind(M_HGDIOBJ* obj)
 {
     vector<M_HGDIOBJ*>::iterator it;
-    //int timebefore = clock();
+    int timebefore = clock();
     it = find(objs.begin(), objs.end(), obj);
     if (it != objs.end())
     {
         int pos = it - objs.begin();
         objs.erase(objs.begin() + pos);
-        //int currTime = clock();
-        //(void)printf("Отвязан объект, потрачено [%d]\n", currTime - timebefore);
+        int currTime = clock();
+        (void)printf("Отвязан объект, потрачено [%d]\n", currTime - timebefore);
         return 0;
     }
     
