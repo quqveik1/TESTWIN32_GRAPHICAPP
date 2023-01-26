@@ -41,7 +41,6 @@ M_HGDIOBJ* HGDIManager::getHGDIOBJ()
 {
 
     M_HGDIOBJ* newOBJ = new M_HGDIOBJ(app);
-    bind(newOBJ);
     return newOBJ;
 
     return NULL;
@@ -52,27 +51,74 @@ M_HGDIOBJ* HGDIManager::getHGDIOBJ()
 int HGDIManager::bind(M_HGDIOBJ* obj)
 {
     objs.push_back(obj);
-    (void)printf("Теперь присоединено объектов: %ld\n", objs.size());
+    (void)printf("Теперь присоединено объектов: %ld\n", (int)objs.size());
     return 0;
 }
 
 
 int HGDIManager::unBind(M_HGDIOBJ* obj)
 {
-    vector<M_HGDIOBJ*>::iterator it;
-    int timebefore = clock();
-    it = find(objs.begin(), objs.end(), obj);
-    if (it != objs.end())
+    //int timebefore = clock();
+
+    short howManyDeleted = 0;
+    for (int i = (int)objs.size() - 1; i >= 0; i--)
     {
-        int pos = it - objs.begin();
-        objs.erase(objs.begin() + pos);
-        int currTime = clock();
-        (void)printf("Отвязан объект, потрачено [%d]\n", currTime - timebefore);
-        return 0;
+        if (objs[i] == obj)
+        {
+            objs.erase(objs.begin() + i);
+            howManyDeleted++;
+        }
+    }
+
+    if (howManyDeleted == 0)
+    {
+        printf("Попытка отвязать незарегестрированный в мэнеджере объект\n");
+        //DebugBreak();
+        return -1;
+    }
+    else
+    {
+        return howManyDeleted;
     }
     
-    printf("Попытка отвязать незарегестрированный в мэнеджере объект\n");
-    //DebugBreak();
-    return -1;
+    /*
+    
+    while (it < objs.end())
+    {
+        it = find(it, objs.end(), obj);
+        if (it < objs.end())
+        {
+            int pos = it - objs.begin();
+            objs.erase(objs.begin() + pos);
+            if (it < objs.end())
+            {
+                ++it;
+                howManyDeleted++;
+            }
+            
+            //int currTime = clock();
+            //(void)printf("Отвязан объект, потрачено [%d]\n", currTime - timebefore);
+        }
+    }
+    */
+    /*
+    short howManyDeleted = 0;;
+    vector<M_HGDIOBJ*>::iterator it = find(objs.begin(), objs.end(), obj);
+    while (it != objs.end())
+    {
+        if (*it == obj)
+        {
+            howManyDeleted++;
+            int pos = it - objs.begin();
+            objs.erase(objs.begin() + pos);
+        }
+
+        if(it < objs.end() - 1)it++;
+    }
+
+    
+    
+    */
+    
     
 }
