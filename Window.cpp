@@ -30,6 +30,22 @@ int Window::onSize(Vector managerSize, Rect newRect/* = {}*/)
         resize(newRect);
         return 1;
     }
+    if (managerSize != 0)
+    {
+        Vector newSize = {};
+        if (matchParentX)
+        {
+            newSize.x = managerSize.x;
+        }
+        if (matchParentY)
+        {
+            newSize.y = managerSize.y;
+        }
+        if (newSize != getNullVector())
+        {
+            resize(newSize);
+        }
+    }
     return 0;
 }
 
@@ -54,13 +70,42 @@ void Window::MoveWindow(Vector delta)
 
 int Window::setTrancparencyOutput(int need)
 {
-    int old = need;
-    need = need;
+    int old = needTransparencyOutput;
+    needTransparencyOutput = need;
     if (old != need)
     {
         app->updateScreen(this);
     }
     return old;
+}
+
+
+int Window::setMatchParentX(bool status)
+{
+    int old = matchParentX;
+    matchParentX = status;
+    if (old != matchParentX)
+    {
+        onSize({}, {});
+    }
+    return old;
+}
+
+int Window::setMatchParentY(bool status)
+{
+    int old = matchParentY;
+    matchParentY = status;
+    if (old != matchParentY)
+    {
+        onSize({}, {});
+    }
+    return old;
+}
+
+int Window::setMatchParent(bool status)
+{
+     setMatchParentX(status);
+     return setMatchParentY(status);
 }
 
 COLORREF Window::setColor(COLORREF newColor)

@@ -5,7 +5,7 @@
 HGDIManager::~HGDIManager()
 {
     int amountOfDeletedObjs = 0;
-    for (int i = 0; i < currlen; i++)
+    for (int i = 0; i < (int)objs.size(); i++)
     {
         if (objs[i])
         {
@@ -14,15 +14,15 @@ HGDIManager::~HGDIManager()
         }
     }
 
-    for (int i = 0; i < currlen; i++)
+    for (int i = 0; i < (int)objs.size(); i++)
     {
         if (objs[i])
         {
-            delete objs[i];
+            //delete objs[i];
         }
     }
 
-    printf("Было удалено %d объектов, причем общее количество классов-обёрток составляет %d штук\n", amountOfDeletedObjs, currlen);
+    printf("Было удалено %d объектов, причем общее количество классов-обёрток составляет %d штук\n", amountOfDeletedObjs, (int)objs.size());
 
 }
 
@@ -51,7 +51,7 @@ M_HGDIOBJ* HGDIManager::getHGDIOBJ()
 int HGDIManager::bind(M_HGDIOBJ* obj)
 {
     objs.push_back(obj);
-    (void)printf("Теперь присоединено объектов: %ld\n", (int)objs.size());
+    //(void)printf("Теперь присоединено объектов: %ld\n", (int)objs.size());
     return 0;
 }
 

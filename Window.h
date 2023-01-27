@@ -44,6 +44,9 @@ struct Window
     bool reDraw = true;
     bool needTransparencyOutput = false;
 
+    bool matchParentX = false;
+    bool matchParentY = false;
+
 
     Vector mousePosLastTime = {};
     int mbLastTime = 0;
@@ -197,6 +200,9 @@ struct Window
     virtual M_HDC* setOutputDC(M_HDC* _newDC) { return pFinalDC = _newDC; }
 
     virtual int setTrancparencyOutput(int need);
+    virtual int setMatchParentX(bool status);
+    virtual int setMatchParentY(bool status);
+    virtual int setMatchParent(bool status);
     virtual void setApp(AbstractAppData* newApp) { app = newApp; };
     virtual COLORREF setColor(COLORREF newColor);
     virtual int setFont(int newFont);

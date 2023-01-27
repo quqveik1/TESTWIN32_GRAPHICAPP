@@ -35,7 +35,7 @@ void TextView::setWrapStatusX(bool status)
 
 void TextView::setWrapStatusY(bool status)
 {
-    wrapContentX = status;
+    wrapContentY = status;
     onSize({}, {});
 }
 
@@ -73,5 +73,4 @@ void TextView::wrapControl()
     }
 
     resize(newSize);
-
 }
