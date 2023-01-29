@@ -70,6 +70,7 @@ struct Manager : Window
     virtual void onClick(Vector mp) override;
     virtual int mbDown(Vector mp, int button) override;
     virtual int mbUp(Vector mp, int button) override;
+    virtual int onDoubleClick(Vector mp, int button) override;
     virtual int onSize(Vector managerSize, Rect newRect = {}) override;
     virtual int onKeyboard(int key) override;
     virtual int onKeyboardChar(int key) override;

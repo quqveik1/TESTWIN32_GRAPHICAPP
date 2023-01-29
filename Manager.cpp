@@ -108,6 +108,11 @@ int Manager::mbUp(Vector mp, int button)
     return app->windowsLibApi->standartManagerMbUp(this, mp, button);
 }
 
+int Manager::onDoubleClick(Vector mp, int button)
+{
+    return app->windowsLibApi->standartManagerOnDoubleClick(this, mp, button);
+}
+
 int Manager::onMouseMove(Vector mp, Vector delta)
 {
     return app->windowsLibApi->standartManagerOnMouseMove(this, mp, delta);

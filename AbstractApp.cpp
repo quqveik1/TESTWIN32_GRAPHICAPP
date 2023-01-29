@@ -20,6 +20,7 @@
 #include "DLLToolsManager.cpp"
 #include "MSGReaction.cpp"
 #include "resource.h"
+#include <windowsx.h>
 
 
 
@@ -104,7 +105,7 @@ void AbstractAppData::setWindowParameters(HINSTANCE hInstance)
     appIcon = LoadIcon((HINSTANCE)GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_ICON2));
 
     wndClass.cbSize = sizeof(wndClass);
-    wndClass.style = (CS_VREDRAW | CS_HREDRAW);// &~WS_CAPTION;
+    wndClass.style = (CS_VREDRAW | CS_HREDRAW | CS_DBLCLKS);// &~WS_CAPTION;
     wndClass.lpfnWndProc = WinProc;
     wndClass.cbClsExtra = 0;
     wndClass.cbWndExtra = 0;
@@ -166,6 +167,14 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
 
         }
         appData->beforeMessage();
+
+        if (message == WM_GETMINMAXINFO)
+        {
+            LPMINMAXINFO lpMMI = (LPMINMAXINFO)lParam;
+            lpMMI->ptMinTrackSize = (POINT)appData->getMinSize();
+            printf("");
+        }
+
         if (message == WM_SETCURSOR)
         {
             if (appData->activeCursor)
@@ -217,6 +226,19 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
                 appData->releaseMouse();
                 printf("WM_MBUP_END\n");
             }
+        }
+
+        if (message == WM_LBUTTONDBLCLK || message == WM_RBUTTONDBLCLK)
+        {
+            if (appData->mainManager)
+            {
+                int button = 0;
+                if (message == WM_LBUTTONDBLCLK) button = 1;
+                if (message == WM_RBUTTONDBLCLK) button = 2;
+                Vector mp = { (double)GET_X_LPARAM(lParam), (double)GET_Y_LPARAM(lParam) };
+                appData->mainManager->onDoubleClick(mp, button);
+            }
+
         }
 
 
@@ -419,6 +441,25 @@ struct Manager* AbstractAppData::setMainManager(struct Manager* newManager)
     Manager* oldManager = mainManager;
     mainManager = newManager;
     return oldManager;
+}
+
+void AbstractAppData::setMinSize(const Vector& _size)
+{
+    if (_size != systemSettings->MINSCREENSIZE)
+    {
+        systemSettings->MINSCREENSIZE = _size;
+        //SendMessage(getActiveHWND(),);
+    }
+}
+
+Vector AbstractAppData::getMinSize()
+{
+    return systemSettings->MINSCREENSIZE;
+}
+
+HWND AbstractAppData::getActiveHWND()
+{
+    return MAINWINDOW;
 }
 
 

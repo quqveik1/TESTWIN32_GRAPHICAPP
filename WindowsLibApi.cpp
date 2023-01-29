@@ -342,6 +342,31 @@ int CWindowsLibApi::standartManagerOnClick(Manager* manager, Vector mp)
     return returnableVal;
 }
 
+
+int CWindowsLibApi::standartManagerOnDoubleClick(struct Manager* manager, Vector mp, int button)
+{
+    if (manager)
+    {
+        if (manager->getShowStatus() == S_ACTIVE)
+        {
+            manager->setActiveWindow(manager);
+            for (int i = manager->getCurLen() - 1; i >= 0; i--)
+            {
+                if (manager->pointers[i])
+                {
+                    if (manager->pointers[i]->hitTest(mp - manager->pointers[i]->rect.pos))
+                    {
+                        manager->pointers[i]->onDoubleClick(mp - manager->pointers[i]->rect.pos, button);
+
+                        return i;
+                        if (manager->pointers[i]->needToShow) break;
+                    }
+                }
+            }
+        }
+    }
+}
+
 int CWindowsLibApi::standartManagerMbDown(struct Manager* manager, Vector mp, int button)
 {
     if (manager)
@@ -388,6 +413,8 @@ int CWindowsLibApi::standartManagerMbUp(struct Manager* manager, Vector mp, int 
     }
     return 0;
 }
+
+
 
 int CWindowsLibApi::standartManagerOnMouseMove(struct Manager* manager, Vector mp, Vector delta)
 {

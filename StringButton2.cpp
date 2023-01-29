@@ -549,6 +549,18 @@ int StringButton2::mbUp(Vector mp, int button)
     return 0;
 }
 
+int StringButton2::onDoubleClick(Vector mp, int button)
+{
+    TextView::onDoubleClick(mp, button);
+    int left = 0;
+    int right = 0;
+    startAndEndOfClickedWord(cursor.currPos, left, right);
+    cursor.moveCursorTo(left, true);
+    cursor.moveCursorTo(right, false);
+    app->updateScreen(this);
+    return 0;
+}
+
 
 
 int StringButton2::onSize(Vector managerSize, Rect _newRect/* = {}*/)

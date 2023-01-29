@@ -135,6 +135,7 @@ struct StringButton2 : TextView
     virtual void onClick(Vector mp) override;
     virtual int mbDown(Vector mp, int button) override;
     virtual int mbUp(Vector mp, int button) override;
+    virtual int onDoubleClick(Vector mp, int button) override;
     virtual int onSize(Vector managerSize, Rect _newRect = {}) override;
 
 

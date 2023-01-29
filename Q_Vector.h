@@ -43,6 +43,7 @@ Vector getNullVector()
 
 void equal (Vector &a, const Vector &b);
 inline Vector operator +  (const Vector &a, const Vector &b);
+inline Vector operator +  (const Vector &a, const double b);
 inline Vector& operator += (Vector &a, const Vector &b);
 inline Vector& operator -= (Vector& a, const Vector& b);
 inline Vector operator -  (const Vector &a, const Vector &b);
@@ -178,6 +179,15 @@ inline Vector operator + (const Vector &a, const Vector &b)
     result.y = a.y + b.y;
 
     return result;
+}
+
+inline Vector operator +  (const Vector& a, const double b)
+{
+    Vector answer = {};
+    answer.x = a.x + b;
+    answer.y = a.y + b;
+    
+    return answer;
 }
 
 inline Vector operator - (const Vector &a, const Vector &b)

@@ -40,7 +40,7 @@ struct CSystemSettings
     int TOOLSNUM = NULL;
 
     Vector SizeOfScreen = {};
-    //const Vector MINSCREENSIZE = {};
+    Vector MINSCREENSIZE = {};
     Vector FullSizeOfScreen = {};
     Vector lastTimeSizeOfScreen = {};
     Vector ScreenPos = {};

@@ -55,9 +55,13 @@ struct AbstractAppData
     virtual int needToLoadOldFiles();
 
     virtual struct Manager* setMainManager(struct Manager* newManager);
+    virtual void setMinSize(const Vector& _size);   
+    virtual Vector getMinSize();
+    virtual HWND getActiveHWND();
 
     virtual int getAppCondition();
     virtual void setAppCondition(int newCondition);
+    
 
     virtual int makeDir(const char* path);
 
