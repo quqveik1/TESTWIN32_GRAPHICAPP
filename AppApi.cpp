@@ -27,7 +27,7 @@ bool swapDC(HDC dest, int xDest, int yDest, int wDest, int hDest,
 PowerPoint::PowerPoint(HINSTANCE hInstance):
     AbstractAppData(hInstance)
 {
-    appVersion = "v0.2.3.0";
+    appVersion = "v0.2.4.0";
     massert (!makeDir("Settings"), this);
 
     HMODULE _saveImagesLib = loadLibManager->loadLib("SaveImage.dll");

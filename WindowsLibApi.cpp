@@ -25,10 +25,6 @@ void CWindowsLibApi::resize(Window* window, Rect newRect)
 
             if (window->app->systemSettings->debugMode == 5) window->app->drawOnScreen(*window->getOutputDC());
         }
-        else
-        {
-            window->getOutputDC()->setSize(window->finalDCSize, window->app, &window->finalDCArr);
-        }
     }
     window->rect = newRect;
 }

@@ -74,22 +74,24 @@ int M_HDC::selectObj(M_HGDIOBJ* _obj, HBITMAP map)
 
 int M_HDC::selectObj(HBITMAP map)
 {
+    const int itemNum = 0;
     if (map)
     {
+        HGDIOBJ res = SelectObject((HDC)obj, map);
         int wasntDelete = NULL;
-        if (selectedObj[0]) wasntDelete = selectedObj[0]->deleteObj();
-        if (!wasntDelete && selectedObj[0])
+        if (selectedObj[itemNum])
         {
-            selectedObj[0]->setObj(map);
-            selectedObj[0]->setApp(app);
+            selectedObj[itemNum]->deleteObj();
+            selectedObj[itemNum]->setObj(map);
+            selectedObj[itemNum]->setApp(app); 
         }
         else
         {
             M_HGDIOBJ* newObj = app->getHGDIOBJ();
             newObj->setObj(map);
-            selectedObj[0] = newObj;
+            selectedObj[itemNum] = newObj;
         }
-        HGDIOBJ res = SelectObject((HDC)obj, map);
+        
         return !wasntDelete;
     }
     return -1;
@@ -111,22 +113,24 @@ int M_HDC::selectObj(M_HGDIOBJ* _obj, HPEN pen)
 
 int M_HDC::selectObj(HPEN pen)
 {
+    const int itemNum = 1;
     if (pen)
     {
+        HGDIOBJ res = SelectObject((HDC)obj, pen);
         int wasntDelete = NULL;
-        if (selectedObj[1]) wasntDelete = selectedObj[1]->deleteObj();
-        if (!wasntDelete && selectedObj[1])
+        if (selectedObj[itemNum])
         {
-            selectedObj[1]->setObj(pen);
-            selectedObj[1]->setApp(app);
+            selectedObj[itemNum]->deleteObj();
+            selectedObj[itemNum]->setObj(pen);
+            selectedObj[itemNum]->setApp(app);
         }
         else
         {
             M_HGDIOBJ* newObj = app->getHGDIOBJ();
             newObj->setObj(pen);
-            selectedObj[1] = newObj;
+            selectedObj[itemNum] = newObj;
         }
-        SelectObject((HDC)obj, pen);
+
         return !wasntDelete;
     }
     return -1;
@@ -148,26 +152,24 @@ int M_HDC::selectObj(M_HGDIOBJ* _obj, HBRUSH brush)
 
 int M_HDC::selectObj(HBRUSH brush)
 {
+    const int itemNum = 2;
     if (brush)
     {
+        HGDIOBJ res = SelectObject((HDC)obj, brush);
         int wasntDelete = NULL;
-        if (selectedObj[2]) wasntDelete = selectedObj[2]->deleteObj();
-        if (!wasntDelete && selectedObj[2])
+        if (selectedObj[itemNum])
         {
-            selectedObj[2]->setObj(brush);
-            selectedObj[2]->setApp(app);
+            selectedObj[itemNum]->deleteObj();
+            selectedObj[itemNum]->setObj(brush);
+            selectedObj[itemNum]->setApp(app);
         }
         else
         {
-            gassert(app);
-            if (app)
-            {
-                M_HGDIOBJ* newObj = app->getHGDIOBJ();
-                newObj->setObj(brush);
-                selectedObj[2] = newObj;
-            }
+            M_HGDIOBJ* newObj = app->getHGDIOBJ();
+            newObj->setObj(brush);
+            selectedObj[itemNum] = newObj;
         }
-        SelectObject((HDC)obj, brush);
+
         return !wasntDelete;
     }
     return -1;
@@ -189,26 +191,24 @@ int M_HDC::selectObj(M_HGDIOBJ* _obj, HFONT font)
 
 int M_HDC::selectObj(HFONT font)
 {
+    const int itemNum = 3;
     if (font)
     {
+        HGDIOBJ res = SelectObject((HDC)obj, font);
         int wasntDelete = NULL;
-        if (selectedObj[3]) wasntDelete = selectedObj[3]->deleteObj();
-        if (!wasntDelete && selectedObj[3])
+        if (selectedObj[itemNum])
         {
-            selectedObj[3]->setObj(font);
-            selectedObj[3]->setApp(app);
+            selectedObj[itemNum]->deleteObj();
+            selectedObj[itemNum]->setObj(font);
+            selectedObj[itemNum]->setApp(app);
         }
         else
         {
-            gassert(app);
-            if (app)
-            {
-                M_HGDIOBJ* newObj = app->getHGDIOBJ();
-                newObj->setObj(font);
-                selectedObj[3] = newObj;
-            }
+            M_HGDIOBJ* newObj = app->getHGDIOBJ();
+            newObj->setObj(font);
+            selectedObj[itemNum] = newObj;
         }
-        SelectObject((HDC)obj, font);
+
         return !wasntDelete;
     }
     return -1;
@@ -275,7 +275,9 @@ Vector M_HDC::getSize()
 
 int M_HDC::setSize(Vector size, struct AbstractAppData* _app, RGBQUAD** pixels/* = NULL*/)
 {
-    if (size != getSize())
+    Vector currSize = getSize();
+    size.round();
+    if (size != currSize)
     {
         BITMAPINFO info = { { sizeof(info), std::lround (size.x), std::lround (size.y), 1, WORD(sizeof(RGBQUAD) * 8), BI_RGB } };
         HBITMAP bmap = CreateDIBSection(NULL, &info, DIB_RGB_COLORS, (void**)pixels, NULL, 0);

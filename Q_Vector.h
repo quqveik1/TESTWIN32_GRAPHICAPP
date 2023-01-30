@@ -28,8 +28,9 @@ struct Vector
     static Vector getNullVector() { return Vector { 0,0 }; };
     void print (const char *str = NULL);
     const char* getStr (const char *str = NULL);
-    int getIntX();
+    int getIntX();    
     int getIntY();
+    Vector& round();
 };
 
 
@@ -88,6 +89,13 @@ int Vector::getIntX()
 int Vector::getIntY()
 {
     return lround(y);
+}
+
+Vector& Vector::round()
+{
+    x = getIntX();
+    y = getIntY();
+    return *this;
 }
 
 Vector Vector::toVector(POINT point)

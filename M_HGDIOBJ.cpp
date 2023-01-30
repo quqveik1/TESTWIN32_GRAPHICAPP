@@ -22,8 +22,12 @@ int M_HGDIOBJ::deleteObj()
             }
             unBind();
             status--;
-            DeleteObject(obj);
+            int res = DeleteObject(obj);
             status = 0;
+            if (res == 0)
+            {
+                printf("Ошибка удаления M_HGDIOBJ\n");
+            }
             return 0;
         }
     }

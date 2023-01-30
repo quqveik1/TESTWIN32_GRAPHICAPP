@@ -300,18 +300,6 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
             if (appData->mainManager)
             {
                 appData->systemSettings->SizeOfScreen = { (double)LOWORD(lParam), (double)HIWORD(lParam) };
-                /*
-                if (appData->systemSettings->SizeOfScreen.x < appData->systemSettings->MINSCREENSIZE.x)
-                {
-                    return 0;
-                }
-                if (appData->systemSettings->SizeOfScreen.y < appData->systemSettings->MINSCREENSIZE.y)
-                {
-                    return 0;
-                }
-                */
-
-                //MoveWindow(appData->MAINWINDOW, cxScreen, cyScreen, appData->systemSettings->SizeOfScreen.x, appData->systemSettings->SizeOfScreen.y, FALSE);
                 appData->mainManager->onSize(appData->systemSettings->SizeOfScreen);
 
             }

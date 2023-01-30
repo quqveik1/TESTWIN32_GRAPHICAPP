@@ -7,6 +7,8 @@ enum HGDIMANAGERBINDSTATUS
     BS_UNBINDED = 0
 };
 
+
+
 struct M_HGDIOBJ
 {
     HGDIOBJ obj = NULL;
