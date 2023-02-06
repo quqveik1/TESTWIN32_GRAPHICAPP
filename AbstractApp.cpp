@@ -450,6 +450,16 @@ HWND AbstractAppData::getActiveHWND()
     return MAINWINDOW;
 }
 
+int AbstractAppData::setIcon(HICON icon/* = NULL*/)
+{
+    if (!icon)
+    {
+        icon = appIcon;
+    }
+    return SetClassLongPtr(getActiveHWND(), GCLP_HICON, (LONG_PTR)icon);
+}
+
+
 
 int AbstractAppData::getAppCondition()
 {

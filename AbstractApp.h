@@ -58,6 +58,7 @@ struct AbstractAppData
     virtual void setMinSize(const Vector& _size);   
     virtual Vector getMinSize();
     virtual HWND getActiveHWND();
+    virtual int setIcon(HICON icon = NULL);
 
     virtual int getAppCondition();
     virtual void setAppCondition(int newCondition);
