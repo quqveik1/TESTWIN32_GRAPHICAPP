@@ -2,7 +2,6 @@
 
 
 #include "Double comparision.h"
-#include <Windows.h>
 
 
 
@@ -23,14 +22,13 @@ struct Vector
     static Vector toVector(POINT point);
     static Vector toVector(SIZE point);
 
-
-
     static Vector getNullVector() { return Vector { 0,0 }; };
     void print (const char *str = NULL);
     const char* getStr (const char *str = NULL);
     int getIntX();    
     int getIntY();
     Vector& round();
+    double delta();
 };
 
 
@@ -97,6 +95,12 @@ Vector& Vector::round()
     y = getIntY();
     return *this;
 }
+
+double Vector::delta()
+{
+    return y - x;
+}
+
 
 Vector Vector::toVector(POINT point)
 {
@@ -259,16 +263,31 @@ inline Vector &operator *= (Vector &a, const Vector &b)
 
 inline Vector operator / (const Vector &a, double m)
 {
-    return {.x = a.x / m,
-            .y = a.y / m
-    };
+    Vector answer = {};
+    if (isEqual(m, 0))
+    {
+        printf("Zero dividing!\n");
+        (void)_getch();
+    }
+    else
+    {
+        answer.x = a.x / m;
+        answer.y = a.y / m;
+    }
+    return answer;
 } 
 
 inline Vector operator / (const Vector &a, const Vector &b)
 {
-    return {.x = a.x / b.x,
-            .y = a.y / b.y
-    };
+    Vector answer = {};
+    if (isEqual(b.x, 0) || isEqual(b.y, 0))
+    {
+        printf("Zero dividing!\n");
+        (void)_getch();
+    }
+    answer.x = a.x / b.x;
+    answer.y = a.y / b.y;
+    return answer;
 }
 
 Vector operator ^ (const Vector &vector, int degree)    
