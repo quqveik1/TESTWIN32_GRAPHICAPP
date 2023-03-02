@@ -2,6 +2,7 @@
 
 
 #include "Double comparision.h"
+#include <windef.h>
 
 
 
@@ -23,12 +24,12 @@ struct Vector
     static Vector toVector(SIZE point);
 
     static Vector getNullVector() { return Vector { 0,0 }; };
-    void print (const char *str = NULL);
-    const char* getStr (const char *str = NULL);
-    int getIntX();    
-    int getIntY();
+    void print (const char *str = NULL) const;
+    const char* getStr(const char* str = NULL) const;
+    int getIntX() const;    
+    int getIntY() const;
     Vector& round();
-    double delta();
+    double delta() const;
 };
 
 
@@ -65,12 +66,12 @@ inline Vector operator / (const double a, const Vector &b);
        bool operator == (const Vector &a, const double &b);
        bool operator != (const Vector &a, const double &b);
 
-void Vector::print (const char *str /* = NULL*/)
+void Vector::print (const char *str /* = NULL*/) const
 {
     printf ("%s: {%lf, %lf}\n", str, x, y);
 }
 
-const char* Vector::getStr(const char* str /*= NULL*/)
+const char* Vector::getStr(const char* str /*= NULL*/) const
 {
     static char answer[MAX_PATH] = {};
     sprintf(answer, "%s: {%lf, %lf}", str, x, y);
@@ -78,13 +79,13 @@ const char* Vector::getStr(const char* str /*= NULL*/)
 }
 
 
-int Vector::getIntX()
+int Vector::getIntX() const
 {
     return lround(x);
 }
 
 
-int Vector::getIntY()
+int Vector::getIntY() const
 {
     return lround(y);
 }
@@ -96,16 +97,16 @@ Vector& Vector::round()
     return *this;
 }
 
-double Vector::delta()
+double Vector::delta() const
 {
     return y - x;
 }
 
 
-Vector Vector::toVector(POINT point)
+Vector Vector::toVector(POINT point)  
 {
     Vector res = {};
-    res.x = point.x;
+    res.x = point.x;                         
     res.y = point.y;
     return res;
 } 
@@ -361,7 +362,7 @@ Vector& Vector::operator = (const Vector& a1)
     this->y = a1.y;
 
     return *this;
-};
+};       
 
 Vector::operator POINT() const
 {

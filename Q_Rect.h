@@ -7,8 +7,8 @@ struct Rect
     Vector finishPos;
     Vector size;
 
-    bool inRect (double x, double y);
-    bool inRect (Vector vector);
+    bool inRect (double x, double y) const;
+    bool inRect (Vector vector) const;
 
     double left  () const { return this->pos.x; }
     double top   () const { return this->pos.y; }
@@ -16,7 +16,7 @@ struct Rect
     double bottom() const { return this->finishPos.y; }
     Vector getSize () const {return this->finishPos - this->pos; }
     void   countFinishPos() { this->finishPos = this->pos + this->size; }
-    bool isValid ();  
+    bool isValid () const;  
     Rect sort();
     void setHeight(double height);
     void setWidth(double height);
@@ -63,11 +63,11 @@ Rect::operator RECT() const
     return result;
 }
 
-bool Rect::inRect (double x, double y)
+bool Rect::inRect (double x, double y)  const
 {
-    if (x > this->pos.x && y > this->pos.y)
+    if (isBigger(x, this->pos.x) && isBigger(y, this->pos.y))
     {
-        if (x < this->finishPos.x && y < this->finishPos.y)
+        if (isSmaller(x, this->finishPos.x) && isSmaller(y, this->finishPos.y))
         {
             return true;
         }
@@ -75,7 +75,7 @@ bool Rect::inRect (double x, double y)
     return false;
 }
 
-bool Rect::inRect (Vector vector)
+bool Rect::inRect (Vector vector) const
 {
     if (isBigger (vector.x, pos.x) ^ isBigger(vector.x, finishPos.x))
     {
@@ -96,7 +96,7 @@ bool Rect::inRect (Vector vector)
     return false;
 }
 
-bool Rect::isValid()
+bool Rect::isValid() const
 {
     if (getSize().x > 0 && getSize().y > 0) return true;
     return false;
@@ -130,7 +130,6 @@ void Rect::setHeight(double height)
 
 void Rect::setWidth(double width)
 {
-
     finishPos.x = pos.x + width;
 }
 
