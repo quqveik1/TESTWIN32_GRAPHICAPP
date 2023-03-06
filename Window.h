@@ -218,7 +218,7 @@ struct Window
     virtual int onDoubleClick(Vector mp, int button) { return 0; };
     virtual int onKeyboard(int key) { return 0; };
     virtual int onKeyboardChar(int key) { return 0; };
-    virtual int onSize(Vector managerSize, Rect newRect = {});
+    virtual int onSize(Vector managerSize, Rect newRect = {}); // return 0 if size didn't changed
     virtual int onMouseMove(Vector mp, Vector delta) { return 0; };
     virtual int onTimer(UINT_PTR timerName) { return 0; };
     virtual int onClose() { return 0; };// if you want to cancel closing you need to return non 0 value
