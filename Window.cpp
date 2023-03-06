@@ -30,9 +30,14 @@ int Window::onSize(Vector managerSize, Rect newRect/* = {}*/)
         resize(newRect);
         return 1;
     }
+    Manager* _manager = getManager();
+    if (_manager)
+    {
+        if (managerSize == 0) managerSize = _manager->getSize();
+    } 
     if (managerSize != 0)
     {
-        Vector newSize = {};
+        Vector newSize = getSize();
         if (matchParentX)
         {
             newSize.x = managerSize.x;

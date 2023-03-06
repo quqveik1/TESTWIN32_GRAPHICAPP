@@ -48,7 +48,5 @@ enum COLORS
     TX_YELLOW = RGB(255, 255, 128),   //!< Желтый цвет.
     TX_WHITE = RGB(255, 255, 255),   //!< Белый цвет.
     TX_TRANSPARENT = 0xFFFFFFFF,            //!< Прозрачный цвет. <i>Отключает рисование.</i>  //-V112
-    TX_NULL = TX_TRANSPARENT,        //!< Прозрачный цвет. <i>Отключает рисование.</i>
-    TX_BLM = TX_BLACK,              //!< Альтернативный политкорректный трендовый цвет!
-    TX_white = TX_WHITE              //!< BLM-compatible name for this color.
+    TX_NULL = TX_TRANSPARENT        //!< Прозрачный цвет. <i>Отключает рисование.</i>
 };

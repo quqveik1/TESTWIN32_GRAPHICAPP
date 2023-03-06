@@ -360,7 +360,8 @@ int CWindowsLibApi::standartManagerOnDoubleClick(struct Manager* manager, Vector
                 }
             }
         }
-    }
+    } 
+    return 0;
 }
 
 int CWindowsLibApi::standartManagerMbDown(struct Manager* manager, Vector mp, int button)
