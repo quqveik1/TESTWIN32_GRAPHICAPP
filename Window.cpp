@@ -84,6 +84,12 @@ int Window::setTrancparencyOutput(int need)
     return old;
 }
 
+void Window::invalidateButton()
+{
+    app->updateScreen(this);
+    needRedraw();
+}
+
 
 int Window::setMatchParentX(bool status)
 {

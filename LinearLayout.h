@@ -1,6 +1,7 @@
 #pragma once
 #include "WindowsLib.h" 
 #include "Layout.h"
+#include "LinearLayoutInfo.h"
 
 struct LinearLayout : Layout
 {

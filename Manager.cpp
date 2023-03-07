@@ -136,8 +136,8 @@ int Manager::onDestroy()
 
 int Manager::onSize(Vector managerSize, Rect newRect)
 {
-    Window::onSize(getSize(), newRect);
-    return app->windowsLibApi->standartManagerOnSize(this, getSize(), newRect);
+    Window::onSize(managerSize, newRect);
+    return app->windowsLibApi->standartManagerOnSize(this, managerSize, newRect);
 }
 
 int Manager::onKeyboard(int key)

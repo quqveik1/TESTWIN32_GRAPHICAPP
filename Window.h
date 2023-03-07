@@ -3,6 +3,7 @@
 #include "AbstractApp.h"
 #include "M_HDC.cpp"
 #include "HGDIManager.h" 
+#include "LayoutInfo.h"
 
 
 
@@ -25,8 +26,6 @@ struct Window
     const char* fontName = "";
     int sideThickness = 0;
 
-    bool redrawStatus = false;
-
     HDC dc;
 
     M_HDC finalDC;
@@ -35,14 +34,18 @@ struct Window
     RGBQUAD* finalDCArr = NULL;
     Vector finalDCSize = {};
     struct Manager* manager = NULL;
+    LayoutInfo* layoutInfo = NULL; //might be NULL if window is not in Layout, control it
+
     enum DrawStatus
     {
         DS_VISIBLE = 1,
         DS_INVISIBLE = 0
     };
     bool needToShow = true;
-    bool reDraw = true;
+    //DON't USE IT
+    bool reDraw = true; //????
     bool needTransparencyOutput = false;
+    bool redrawStatus = false;
 
     bool matchParentX = false;
     bool matchParentY = false;
@@ -107,8 +110,6 @@ struct Window
     Vector getRelativeMousePos(bool coordinatsWithHandle = false);
     Rect getAbsRect(bool coordinatsWithHandle = false);
 
-
-
     virtual void resize(Rect newSize);
     virtual void resize(Vector newSize);
     //void resize (Vector newSize, Vector oldSize);
@@ -120,8 +121,9 @@ struct Window
     virtual Vector getSize();
     virtual Rect getRect() { return rect; };
     virtual Manager* getManager() { return manager; };
-    virtual void needRedraw() {};
+    virtual void needRedraw() { redrawStatus = true; };
     virtual bool getRadrawStatus() { return redrawStatus; };
+    virtual void setRadrawStatus(bool status) { redrawStatus = status; };
     virtual void noMoreRedraw() { redrawStatus = false; };
 
     virtual void MoveWindow(Vector delta);
@@ -181,11 +183,13 @@ struct Window
         else return NULL;
     };
 
-    virtual void screenChanged() {};
+    virtual void screenChanged() {}; //???
+    virtual void invalidateButton();
 
     virtual void hide() { needToShow = false; };
     virtual void show() { needToShow = true; };
     virtual int getShowStatus() { return needToShow; }
+    
 
     virtual Vector getAbsMousePos() { return getMousePos() + rect.pos; };
 
@@ -207,6 +211,8 @@ struct Window
     virtual COLORREF setColor(COLORREF newColor);
     virtual int setFont(int newFont);
     virtual const char* setText(const char* newText);
+    virtual void setLayoutInfo(LayoutInfo* _layoutInfo) { layoutInfo = _layoutInfo; invalidateButton(); };
+    virtual LayoutInfo* getLayoutInfo() { return layoutInfo; };
 
 
     virtual void draw();

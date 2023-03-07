@@ -447,7 +447,8 @@ int CWindowsLibApi::standartManagerOnSize(struct Manager* manager, Vector manage
     {
         for (int i = 0; i < manager->getCurLen(); i++)
         {
-            manager->pointers[i]->onSize(managerSize, {});
+            Window* _wnd = manager->pointers[i];
+           if(_wnd) _wnd->onSize(manager->getSize(), {});
         }
         return manager->getCurLen();
     }
