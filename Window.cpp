@@ -88,6 +88,7 @@ void Window::invalidateButton()
 {
     app->updateScreen(this);
     needRedraw();
+    inValidateViewState();
 }
 
 

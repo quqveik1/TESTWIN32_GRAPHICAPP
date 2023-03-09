@@ -78,4 +78,6 @@ struct Manager : Window
     virtual int onTimer(UINT_PTR timerName) override;
     virtual int onClose() override;
     virtual int onDestroy() override;
+    virtual int onEnterWindowSizeMove() override;
+    virtual int onExitWindowSizeMove() override;
 };

@@ -21,6 +21,7 @@
 #include "MSGReaction.cpp"
 #include "resource.h"
 #include <windowsx.h>
+#include <iostream>
 
 
 
@@ -329,8 +330,26 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
                 appData->mainManager->onDestroy();
             }
             PostQuitMessage(0);
+        }
 
+        if (message == WM_ENTERSIZEMOVE)
+        {
+            if (appData->mainManager)
+            {
+                appData->windowMovingStatus = true;
+                appData->mainManager->onEnterWindowSizeMove();
+                cout << "WM_ENTERSIZEMOVE\n";
+            }
+        }
 
+        if (message == WM_EXITSIZEMOVE)
+        {
+            if (appData->mainManager)
+            {
+                appData->windowMovingStatus = false;
+                appData->mainManager->onExitWindowSizeMove();
+                cout << "WM_EXITSIZEMOVE\n";
+            }
         }
     }
 
@@ -1151,6 +1170,7 @@ int AbstractAppData::DEBUGsaveImage(HDC dc)
         int res = dllsaveImage(dc, ".debug_screenshots\\screenshot1.bmp");
         return res;
     }
+    //need to do EVRYTIMELOADING!!!
     printf("dllsaveImage не загрузилось\n");
     return NULL;
 };
@@ -1172,6 +1192,14 @@ int AbstractAppData::messageBox(const char  text[]/* = ""*/, const char  header[
 {
     return MessageBox(MAINWINDOW, text, header, flags);
 }
+
+
+bool AbstractAppData::isWindowMoving()
+{
+    return windowMovingStatus;
+}
+
+
 void AbstractAppData::changeWindow(Vector size/* = {}*/, Vector pos/* = {}*/)
 {
     /*

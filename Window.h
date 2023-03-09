@@ -46,6 +46,7 @@ struct Window
     bool reDraw = true; //????
     bool needTransparencyOutput = false;
     bool redrawStatus = false;
+    bool validViewState = false;
 
     bool matchParentX = false;
     bool matchParentY = false;
@@ -185,6 +186,9 @@ struct Window
 
     virtual void screenChanged() {}; //???
     virtual void invalidateButton();
+    virtual bool isValidViewState() { return validViewState; };
+    virtual void setValidViewState(bool newState) { validViewState = newState; };
+    virtual void inValidateViewState() { validViewState = false; };
 
     virtual void hide() { needToShow = false; };
     virtual void show() { needToShow = true; };
@@ -229,6 +233,8 @@ struct Window
     virtual int onTimer(UINT_PTR timerName) { return 0; };
     virtual int onClose() { return 0; };// if you want to cancel closing you need to return non 0 value
     virtual int onDestroy() { return 0; };
+    virtual int onEnterWindowSizeMove() { return 0; };
+    virtual int onExitWindowSizeMove() { return 0; };
     
 
     virtual void deleteButton() {};

@@ -43,6 +43,8 @@ struct AbstractAppData
     HCURSOR defaultCursor = NULL;
     HINSTANCE hInstance;
 
+    bool windowMovingStatus = false;
+
     M_HDC testDC;
 
     AbstractAppData(HINSTANCE _instance);
@@ -156,12 +158,14 @@ struct AbstractAppData
 
     
 
+    virtual bool isWindowMoving();
     virtual void changeWindow(Vector size = {}, Vector pos = {});
     virtual int moveWindowTo(Vector _pos, HWND _wnd);
     virtual int moveWindow(Vector _delta, HWND _wnd = 0);
     virtual Rect getWindowRect(HWND _wnd = 0);
     virtual void setCursor(HCURSOR cursor = NULL);
     virtual Vector getCursorPos();
+
 
     virtual void setResized(bool state = true);
     virtual bool isFullScreen();

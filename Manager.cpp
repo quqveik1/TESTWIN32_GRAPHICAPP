@@ -134,6 +134,41 @@ int Manager::onDestroy()
     return app->windowsLibApi->standartManagerOnDestroy(this);
 }
 
+int Manager::onEnterWindowSizeMove()
+{
+    int len = getCurLen();
+
+    int res = 0;
+
+    for (int i = 0; i < len; i++)
+    {
+        Window* _wnd = pointers[i];
+        if (_wnd)
+        {
+            res += _wnd->onEnterWindowSizeMove();
+        }
+    }
+    return res;
+}
+
+int Manager::onExitWindowSizeMove()
+{
+    int len = getCurLen();
+
+    int res = 0;
+
+    for (int i = 0; i < len; i++)
+    {
+        Window* _wnd = pointers[i];
+        if (_wnd)
+        {
+            res += _wnd->onExitWindowSizeMove();
+        }
+    }
+    return res;
+}
+
+
 int Manager::onSize(Vector managerSize, Rect newRect)
 {
     Window::onSize(managerSize, newRect);
