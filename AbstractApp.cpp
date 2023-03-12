@@ -29,8 +29,9 @@
 
 
 
-AbstractAppData::AbstractAppData(HINSTANCE _instance) :
-    hInstance(_instance)
+AbstractAppData::AbstractAppData(HINSTANCE _instance, string _pathToAbstractAppDataApi/* = ""*/) :
+    hInstance(_instance),
+    pathToAbstractAppDataApi(_pathToAbstractAppDataApi)
 {
     //setlocale(LC_ALL, "Russian");
     SetConsoleCP(1251);
@@ -154,13 +155,11 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
     static int timeWhenLastTimeRedrawed = 0;
     PAINTSTRUCT ps = {};
 
-    
-
     if (appData)
     {
         if (message == WM_CREATE)
         {
-            if (!appData->getAppCondition())
+            if (appData->getAppCondition())
             {
                 appData->onCreate(window, message, wParam, lParam);
                 appData->setAppCondition(true);
@@ -301,8 +300,15 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
             if (appData->mainManager)
             {
                 appData->systemSettings->SizeOfScreen = { (double)LOWORD(lParam), (double)HIWORD(lParam) };
-                appData->mainManager->onSize(appData->systemSettings->SizeOfScreen);
+                if (wParam == SIZE_MINIMIZED || wParam == SIZE_MAXIMIZED)
+                {
+                    appData->windowMovingStatus = true;
+                    appData->mainManager->onEnterWindowSizeMove();
+                    appData->windowMovingStatus = false;
+                    appData->mainManager->onExitWindowSizeMove();
 
+                }
+                appData->mainManager->onSize(appData->systemSettings->SizeOfScreen);
             }
             return 0;
         }
@@ -329,6 +335,7 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
             {
                 appData->mainManager->onDestroy();
             }
+            appData->setAppCondition(false);
             PostQuitMessage(0);
         }
 
@@ -419,6 +426,7 @@ HGDIOBJ selectGDIObject(HDC dc, HGDIOBJ obj);
 
 int AbstractAppData::startApp()
 {
+    setAppCondition(true);
     setWindowParameters(hInstance);
     return WinMain(NULL, NULL, 0, 0);
 }
@@ -1163,11 +1171,13 @@ int AbstractAppData::saveImage(HDC dc, const char* path)
 }
 
 
-int AbstractAppData::DEBUGsaveImage(HDC dc)
+int AbstractAppData::DEBUGsaveImage(HDC dc, string _name/* = "1"*/)
 {
     if (dllsaveImage)
     {
-        int res = dllsaveImage(dc, ".debug_screenshots\\screenshot1.bmp");
+        int folderRes = _mkdir(".debug_screenshots");
+        string finalName = ".debug_screenshots\\dbg_" + _name + ".bmp";
+        int res = dllsaveImage(dc, finalName.c_str());
         return res;
     }
     //need to do EVRYTIMELOADING!!!

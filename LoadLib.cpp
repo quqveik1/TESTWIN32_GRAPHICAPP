@@ -5,9 +5,22 @@
 HMODULE CLoadLib::loadLib(const char* path)
 {
     HMODULE result = NULL;
+    string fullPath = "";
+    if (appData)
+    {
+        if (!appData->pathToAbstractAppDataApi.empty())
+        {
+            fullPath += appData->pathToAbstractAppDataApi + "\\";
+        }
+    }
+    else
+    {
+        assert(!"Õ≈“ ” ¿«¿“≈Àﬂ Õ¿ √À¿¬Õ€…  À¿—— œ–»ÀŒ∆≈Õ»ﬂ");
+    }
+    fullPath += path;
     if (currLibsLenght + 1 < maxLibsLenght)
     {
-        libs[currLibsLenght] = LoadLibrary(path);
+        libs[currLibsLenght] = LoadLibrary(fullPath.c_str());
         result = libs[currLibsLenght];
         currLibsLenght++;
     }

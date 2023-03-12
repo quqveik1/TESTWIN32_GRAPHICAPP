@@ -1,6 +1,2 @@
-﻿  pch.cpp
-  dllmain.cpp
-  SaveImage.cpp
-  Generating Code...
-     Creating library C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\x64\Debug\SaveImage.lib and object C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\x64\Debug\SaveImage.exp
+﻿  dllmain.cpp
   SaveImage.vcxproj -> C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\x64\Debug\SaveImage.dll

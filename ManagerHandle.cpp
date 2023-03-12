@@ -86,4 +86,5 @@ void ManagerHandle::draw()
     Vector delta = { 0, handle->getSize().y };
     app->windowsLibApi->standartManagerDraw(this, delta);
     handle->print(*getOutputDC());
+
 }

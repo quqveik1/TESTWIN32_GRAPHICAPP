@@ -68,7 +68,7 @@ inline Vector operator / (const double a, const Vector &b);
 
 void Vector::print (const char *str /* = NULL*/) const
 {
-    printf ("%s: {%lf, %lf}\n", str, x, y);
+    printf (getStr(str));
 }
 
 const char* Vector::getStr(const char* str /*= NULL*/) const

@@ -7,6 +7,7 @@
 #include "M_HDC.h"
 #include <time.h>
 #include <vector>
+#include <string>
 using namespace std;
 
 
@@ -20,6 +21,7 @@ struct AbstractAppData
     HCURSOR activeCursor = NULL;
     int lastTimeCursorSetTime = NULL;
     struct Manager* mainManager = NULL;
+    string pathToAbstractAppDataApi;
 
     
     bool filesCompability = true;
@@ -47,7 +49,7 @@ struct AbstractAppData
 
     M_HDC testDC;
 
-    AbstractAppData(HINSTANCE _instance);
+    AbstractAppData(HINSTANCE _instance, string _pathToAbstractAppDataApi = "");
     virtual ~AbstractAppData();
 
     virtual int startApp();
@@ -144,7 +146,7 @@ struct AbstractAppData
     virtual int saveImage(HDC dc, const char* path);
     int (*dllsaveImage) (HDC dc, const char* path) = NULL;
     HDC(*dllloadImage) (const char* path, Vector& _size, AbstractAppData* _app) = NULL;
-    virtual int DEBUGsaveImage(HDC dc);
+    virtual int DEBUGsaveImage(HDC dc, string _name = "1");
     virtual HDC loadImage(const char* path, Vector _size = {});
 
     virtual void drawCadre(Rect rect, M_HDC dc, COLORREF color, int thickness);
