@@ -25,6 +25,8 @@ int Window::hitTest(Vector mp)
 
 int Window::onSize(Vector managerSize, Rect newRect/* = {}*/)
 {
+    inValidateViewState();
+    onSizeManagerNotify();
     if (newRect != 0)
     {
         resize(newRect);
@@ -174,6 +176,13 @@ const char* Window::setText(const char* newText)
         }
     }
     return oldText;
+}
+
+
+void Window::onSizeManagerNotify() 
+{ 
+    Manager* _man = getManager(); 
+    if (_man) _man->onSizeChildCall(this);
 }
 
 

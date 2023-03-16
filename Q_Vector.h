@@ -3,6 +3,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include "Double comparision.h"
 #include <windef.h>
+#include <string.h>
 
 
 
@@ -74,10 +75,16 @@ void Vector::print (const char *str /* = NULL*/) const
 const char* Vector::getStr(const char* str /*= NULL*/) const
 {
     static char answer[MAX_PATH] = {};
-    sprintf(answer, "%s: {%lf, %lf}", str, x, y);
+    if (!str)
+    {
+        sprintf(answer, "{%lf, %lf}", x, y);
+    }
+    else
+    {
+        sprintf(answer, "%s: {%lf, %lf}", str, x, y);
+    }
     return answer;
 }
-
 
 int Vector::getIntX() const
 {

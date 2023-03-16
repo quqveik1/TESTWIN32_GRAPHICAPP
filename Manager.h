@@ -56,6 +56,7 @@ struct Manager : Window
     virtual void hide() override;
     virtual void show() override;
     virtual int& getCurLen() { return currLen; };
+    virtual Window* getChildWindowPointer(int i);
 
     
 
@@ -80,4 +81,5 @@ struct Manager : Window
     virtual int onDestroy() override;
     virtual int onEnterWindowSizeMove() override;
     virtual int onExitWindowSizeMove() override;
+    virtual int onDrawEnd() override;
 };

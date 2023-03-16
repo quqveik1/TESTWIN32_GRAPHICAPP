@@ -1,2 +1,2 @@
 ﻿  dllmain.cpp
-  SaveImage.vcxproj -> C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\x64\Debug\SaveImage.dll
+LINK : fatal error LNK1168: cannot open C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\x64\Debug\SaveImage.dll for writing

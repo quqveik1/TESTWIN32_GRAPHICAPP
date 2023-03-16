@@ -187,8 +187,9 @@ struct Window
     virtual void screenChanged() {}; //???
     virtual void invalidateButton();
     virtual bool isValidViewState() { return validViewState; };
-    virtual void setValidViewState(bool newState) { validViewState = newState; };
     virtual void inValidateViewState() { validViewState = false; };
+    virtual void validateViewState() { validViewState = true; };
+    virtual void setValidViewState(bool newState) { if (newState == true) { validateViewState(); } else { inValidateViewState(); } };
 
     virtual void hide() { needToShow = false; };
     virtual void show() { needToShow = true; };
@@ -218,6 +219,9 @@ struct Window
     virtual void setLayoutInfo(LayoutInfo* _layoutInfo) { layoutInfo = _layoutInfo; invalidateButton(); };
     virtual LayoutInfo* getLayoutInfo() { return layoutInfo; };
 
+    virtual void onSizeChildCall(Window* _wnd) {};
+    virtual void onSizeManagerNotify();
+
 
     virtual void draw();
     virtual void print(M_HDC& finalDC);
@@ -235,6 +239,7 @@ struct Window
     virtual int onDestroy() { return 0; };
     virtual int onEnterWindowSizeMove() { return 0; };
     virtual int onExitWindowSizeMove() { return 0; };
+    virtual int onDrawEnd() { validateViewState(); return 1; };//0 if you ignore this message
     
 
     virtual void deleteButton() {};

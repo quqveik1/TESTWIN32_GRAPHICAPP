@@ -290,6 +290,7 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
             {
                 appData->bitBlt(finalDC, {}, {}, appData->mainManager->finalDC);
                 appData->mainManager->print(paintDC);
+                appData->mainManager->onDrawEnd();
             }
             EndPaint(appData->MAINWINDOW, &ps);
             paintDC.deleteObj();

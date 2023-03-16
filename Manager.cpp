@@ -20,7 +20,10 @@ int Manager::separateWindow(int pos)
     return app->windowsLibApi->separateWindow(this, pos);
 }
 
-
+Window* Manager::getChildWindowPointer(int i)
+{
+    return pointers[i];
+}
 
 
 Window* Manager::isActiveWindowBelow()
@@ -31,6 +34,7 @@ Window* Manager::isActiveWindowBelow()
 
 void Manager::draw()
 {
+    Window::draw();
     app->windowsLibApi->standartManagerDraw(this);
 }
 
@@ -163,6 +167,24 @@ int Manager::onExitWindowSizeMove()
         if (_wnd)
         {
             res += _wnd->onExitWindowSizeMove();
+        }
+    }
+    return res;
+}
+
+
+int Manager::onDrawEnd()
+{
+    int len = getCurLen();
+
+    int res = 1;
+
+    for (int i = 0; i < len; i++)
+    {
+        Window* _wnd = getChildWindowPointer(i);
+        if (_wnd)
+        {
+            _wnd->onDrawEnd();
         }
     }
     return res;

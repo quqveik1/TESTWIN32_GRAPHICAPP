@@ -5,7 +5,8 @@
 
 int LinearLayout::onSize(Vector managerSize, Rect _newRect/* = {}*/)
 {
-    Manager::onSize(managerSize, _newRect);
+    setOnSizeActive(true);
+    Layout::onSize(managerSize, _newRect);
     Vector nextStartPos = {};
     for (int i = 0; i < pointers.size(); i++)
     {
@@ -46,7 +47,33 @@ int LinearLayout::onSize(Vector managerSize, Rect _newRect/* = {}*/)
         }
     }
 
+    setOnSizeActive(false);
     return 0;
+}
+
+
+void LinearLayout::onSizeChildCall(Window* _chld)
+{
+    if (!getOnSizeActive())
+    {
+        //onSize({}, {});
+    }
+}
+
+bool LinearLayout::getOnSizeActive() 
+{ 
+    isOnSizeActiveMutex.lock(); 
+    bool ans = isOnSizeActive; 
+    isOnSizeActiveMutex.unlock();
+    return ans; 
+}
+
+
+void LinearLayout::setOnSizeActive(bool newState)
+{ 
+    isOnSizeActiveMutex.lock(); 
+    isOnSizeActive = newState;
+    isOnSizeActiveMutex.unlock(); 
 }
 
 
