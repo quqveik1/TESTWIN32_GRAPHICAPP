@@ -17,7 +17,7 @@ struct CSystemSettings
     COLORREF BackgroundColor = NULL;
     COLORREF onMouseColor = NULL;
     COLORREF DrawColor = NULL;
-    COLORREF TRANSPARENTCOLOR = NULL;
+    COLORREF TRANSPARENTCOLOR = C_TRANSPARENT;
     int Thickness = 3;
 
 
@@ -68,8 +68,6 @@ struct CSystemSettings
     int save(const char* path);
     int saveUserSettings(const char* path);
     
-    
-
     int byteSize = sizeof(*this);
 
     CSystemSettings(struct AbstractAppData* _app);

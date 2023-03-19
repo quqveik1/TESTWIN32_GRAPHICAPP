@@ -3,7 +3,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include "Double comparision.h"
 #include <windef.h>
-#include <string.h>
+#include <string>
 
 
 
@@ -27,10 +27,12 @@ struct Vector
     static Vector getNullVector() { return Vector { 0,0 }; };
     void print (const char *str = NULL) const;
     const char* getStr(const char* str = NULL) const;
+    std::string toString(std::string str = "") const;
     int getIntX() const;    
     int getIntY() const;
-    Vector& round();
     double delta() const;
+    Vector& round();
+    Vector& sort();
 };
 
 
@@ -86,6 +88,23 @@ const char* Vector::getStr(const char* str /*= NULL*/) const
     return answer;
 }
 
+std::string Vector::toString(std::string str/* = ""*/) const
+{
+    std::string answer;
+
+    if (!str.empty())
+    {
+        answer += str;
+    }
+
+    answer += '{';
+    answer += std::to_string(x);
+    answer += ", ";
+    answer += std::to_string(y);
+    answer += '}';
+    return answer;
+}
+
 int Vector::getIntX() const
 {
     return lround(x);
@@ -101,6 +120,17 @@ Vector& Vector::round()
 {
     x = getIntX();
     y = getIntY();
+    return *this;
+}
+
+Vector& Vector::sort()
+{
+    if (isBigger(x, y))
+    {
+        double copy = x;
+        x = y;
+        y = copy;
+    }
     return *this;
 }
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "WindowsLibApi.h"
+#include <algorithm>
 
 
 void clickButton(Window* window, Manager* manager, Vector mp)
@@ -19,6 +20,7 @@ void CWindowsLibApi::resize(Window* window, Rect newRect)
         {
 
             window->getOutputDC()->setSize(window->finalDCSize, window->app, &window->finalDCArr);
+            window->inValidateViewState();
 
             //window->app->setColor(window->color, *window->getOutputDC());
             //window->app->rectangle(0, 0, newRect.getSize().x, newRect.getSize().y, *window->getOutputDC());
@@ -35,19 +37,22 @@ void CWindowsLibApi::resize(Window* window, Vector newSize)
     resize(window, { .pos = window->rect.pos, .finishPos = window->rect.pos + newSize });
 }
 
-
+//#define NEEDTOCHECKPOINTERSDUBLICATE
 
 bool CWindowsLibApi::addWindow(Manager* manager, Window* window)
 {
     if (!window)
-    {
+    {                                                    
         printf("Попытка добавить несуществующее окно\n");
         return 0;
     }
-    if (manager->currLen >= manager->length)
+
+
+    int findedDublicatesElements = std::count(manager->pointers.begin(), manager->pointers.end(), window);
+
+    if (findedDublicatesElements < 0)
     {
-        printf("!!!Unable to add new Window!!!(no problems after vector addition)\n");
-        //return 0;
+        printf("Попытка добавить уже добавленное в менеджер окно\n");
     }
 
     manager->pointers.push_back(window);

@@ -69,6 +69,7 @@ struct AbstractAppData
     
 
     virtual int makeDir(const char* path);
+    virtual long getFileSize(FILE* _file);
 
     virtual void setColor(COLORREF color, M_HDC& dc, int thickness = 1);
     virtual int getColorComponent(COLORREF color, COLORREF component);

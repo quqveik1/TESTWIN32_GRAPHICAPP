@@ -25,6 +25,11 @@ Window* Manager::getChildWindowPointer(int i)
     return pointers[i];
 }
 
+vector<Window*>& Manager::getPointers()
+{
+    return pointers;
+}
+
 
 Window* Manager::isActiveWindowBelow()
 {
@@ -34,7 +39,6 @@ Window* Manager::isActiveWindowBelow()
 
 void Manager::draw()
 {
-    Window::draw();
     app->windowsLibApi->standartManagerDraw(this);
 }
 

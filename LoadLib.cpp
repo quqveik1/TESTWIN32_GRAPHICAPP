@@ -1,11 +1,12 @@
 #pragma once 
-#include "LoadLib.h"
+#include "LoadLib.h" 
+#include <string.h>
 
 
 HMODULE CLoadLib::loadLib(const char* path)
 {
     HMODULE result = NULL;
-    string fullPath = "";
+    std::string fullPath = "";
     if (appData)
     {
         if (!appData->pathToAbstractAppDataApi.empty())

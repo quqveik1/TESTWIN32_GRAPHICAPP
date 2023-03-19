@@ -57,6 +57,7 @@ struct Manager : Window
     virtual void show() override;
     virtual int& getCurLen() { return currLen; };
     virtual Window* getChildWindowPointer(int i);
+    virtual vector<Window*>& getPointers();
 
     
 

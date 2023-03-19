@@ -1,6 +1,7 @@
 #pragma once
 #include <Windows.h>
 
+
 struct CLoadLib
 {
     HMODULE libs[10] = {};

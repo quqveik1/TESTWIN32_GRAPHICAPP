@@ -22,6 +22,7 @@
 #include "resource.h"
 #include <windowsx.h>
 #include <iostream>
+#include <sys/stat.h>
 
 
 
@@ -40,6 +41,10 @@ AbstractAppData::AbstractAppData(HINSTANCE _instance, string _pathToAbstractAppD
     appVersion = "v0.2.3.0";
     massert(!makeDir("Settings"), this);
 
+    if (getAsyncKeyState(VK_CONTROL))
+    {
+        filesCompability = false;
+    }
 
     systemSettings = new CSystemSettings(this);
 
@@ -62,11 +67,7 @@ AbstractAppData::AbstractAppData(HINSTANCE _instance, string _pathToAbstractAppD
     dllsaveImage = (int (*) (HDC dc, const char* path))GetProcAddress(_saveImagesLib, "saveImage");
     dllloadImage = (HDC(*) (const char* path, Vector & _size, AbstractAppData * _app))GetProcAddress(_saveImagesLib, "loadImage");
 
-
-
-
     msgReaction = new MSGReaction();
-
 
     testDC.setSize(systemSettings->SizeOfScreen, this);
     //setWindowParameters(hInstance);
@@ -722,14 +723,29 @@ M_HGDIOBJ* AbstractAppData::getHGDIOBJ()
 
 int AbstractAppData::makeDir(const char* path)
 {
-    if (_mkdir("Settings") == -1)
+    if (_mkdir(path) == -1)
     {
-        if (errno == ENOENT) return ENOENT;
+        if (errno == ENOENT)
+        {
+            printf("[%s] не создалась и не существует", path);
+            return ENOENT;
+        }
     }
     return 0;
 }
 
+long AbstractAppData::getFileSize(FILE* _file)
+{
+    if (_file)
+    {
+        fseek(_file, 0, SEEK_END);
+        long answer = ftell(_file);
 
+        fseek(_file, 0, SEEK_SET);
+        return answer;
+    }
+    return -1;
+}
 
 void AbstractAppData::setColor(COLORREF color, M_HDC& dc, int thickness)
 {
@@ -1010,7 +1026,7 @@ void AbstractAppData::transparentBlt(HDC dc1, double x0, double y0, double sizex
     if (!sizex) sizex = size.x;
     if (!sizey) sizey = size.y;
 
-    TransparentBlt(dc1, std::lround(x0), std::lround(y0), std::lround(sizex), std::lround(sizey), dc2, std::lround(xSource), std::lround(ySource), std::lround(sizex), std::lround(sizey), systemSettings->TRANSPARENTCOLOR);
+    if(dc2)TransparentBlt(dc1, std::lround(x0), std::lround(y0), std::lround(sizex), std::lround(sizey), dc2, std::lround(xSource), std::lround(ySource), std::lround(sizex), std::lround(sizey), systemSettings->TRANSPARENTCOLOR);
 }
 
 void AbstractAppData::transparentBlt(HDC dc1, Vector pos, Vector size, HDC dc2, Vector posSource/* = {}*/)
@@ -1025,6 +1041,7 @@ void AbstractAppData::transparentBlt(HDC dc1, Rect destRect, HDC dc2, Vector pos
 
 int AbstractAppData::stretchBlt(HDC dest, double destPosx, double destPosy, double destSizex, double destSizey, HDC source, double sourcePosx, double sourcePosy, double sourceSizex, double sourceSizey)
 {
+    cout << destSizex << "|" << destSizey << "|||" << sourceSizex<<"|" << sourceSizey;
     return StretchBlt(dest, std::lround(destPosx), std::lround(destPosy), std::lround(destSizex), std::lround(destSizey), source, std::lround(sourcePosx), std::lround(sourcePosy), std::lround(sourceSizex), std::lround(sourceSizey), SRCCOPY);
 }
 
@@ -1177,7 +1194,7 @@ int AbstractAppData::DEBUGsaveImage(HDC dc, string _name/* = "1"*/)
     if (dllsaveImage)
     {
         int folderRes = _mkdir(".debug_screenshots");
-        string finalName = ".debug_screenshots\\dbg_" + _name + ".bmp";
+        std::string finalName = ".debug_screenshots\\dbg_" + _name + ".bmp";
         int res = dllsaveImage(dc, finalName.c_str());
         return res;
     }

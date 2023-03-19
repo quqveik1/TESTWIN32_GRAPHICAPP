@@ -11,7 +11,6 @@ CSystemSettings::CSystemSettings(struct AbstractAppData* _app) :
     read("Settings\\FullSettings.settings");
     setDynamicSettings(_app);
     readUserSettings("Settings\\Settings.txt");
-    
 }
 
 
@@ -69,6 +68,16 @@ int CSystemSettings::read(const char* path)
 {
     //if (access(path, 0) == -1) return 1;
     FILE* ssFile = fopen(path, "rb");
+
+    long fileSize = app->getFileSize(ssFile);
+
+    if (fileSize != byteSize)
+    {
+        printf("Размеры загружаемой структуры не совпал с нынешней\n");
+        return 1;
+    }
+
+    
     if (!ssFile || !app->needToLoadOldFiles())
     {
         printf("Файл не открылся\n");
@@ -79,8 +88,6 @@ int CSystemSettings::read(const char* path)
 
     fclose(ssFile);
 
-    
-
     return 0;
 }
 
@@ -90,7 +97,7 @@ int CSystemSettings::readUserSettings(const char* path)
     FILE* ssFile = fopen(path, "r");
     if (!ssFile || !app->needToLoadOldFiles())
     {
-        printf("Системные настройки не загрузили\n");
+        printf("Системные настройки не загрузились\n");
         return 1;
     }
     setIntSettings(ssFile, &MainFont, "MainFont");

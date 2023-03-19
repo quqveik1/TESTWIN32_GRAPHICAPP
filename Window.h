@@ -4,6 +4,9 @@
 #include "M_HDC.cpp"
 #include "HGDIManager.h" 
 #include "LayoutInfo.h"
+#include "MEM_TYPE.h"
+#include <memory>
+#include "remember_mem_type.cpp"
 
 
 
@@ -34,7 +37,7 @@ struct Window
     RGBQUAD* finalDCArr = NULL;
     Vector finalDCSize = {};
     struct Manager* manager = NULL;
-    LayoutInfo* layoutInfo = NULL; //might be NULL if window is not in Layout, control it
+    std::shared_ptr<LayoutInfo> layoutInfo; //might be NULL if window is not in Layout, control it
 
     enum DrawStatus
     {
@@ -55,11 +58,6 @@ struct Window
     Vector mousePosLastTime = {};
     int mbLastTime = 0;
 
-    enum MEM_TYPE
-    {
-        MT_DYNAMIC = 0,
-        MT_STATIC = 1
-    };
     MEM_TYPE memType = MT_DYNAMIC;// 0 - dynamic; 1 - static
 
     Window(AbstractAppData* _app, Rect _rect = {}, COLORREF _color = NULL, HDC _dc = NULL, Manager* _manager = NULL, const char* _text = NULL, bool _needToShow = true) :
@@ -68,10 +66,10 @@ struct Window
         manager(_manager),
         needToShow(_needToShow),
         reDraw(true),
-        
         dc(_dc),
         pFinalDC(&finalDC),
-        finalDC(app)
+        finalDC(app),
+        layoutInfo(0, Deleter_remember_mem_type<LayoutInfo>())
     {
         setApp(_app);
         assert(_app);
@@ -104,6 +102,14 @@ struct Window
         assert(app);
         if (dc) app->deleteDC(dc);
         if (finalDC) finalDC.deleteObj();
+        LayoutInfo* _layoutInfo = getLayoutInfo();
+        if (_layoutInfo)
+        {
+            if (_layoutInfo->memType == MT_STATIC)
+            {
+                setLayoutInfo(NULL);
+            }
+        }
     }
 
 
@@ -215,9 +221,11 @@ struct Window
     virtual void setApp(AbstractAppData* newApp) { app = newApp; };
     virtual COLORREF setColor(COLORREF newColor);
     virtual int setFont(int newFont);
+    virtual int setFormat(int newFormat);
     virtual const char* setText(const char* newText);
-    virtual void setLayoutInfo(LayoutInfo* _layoutInfo) { layoutInfo = _layoutInfo; invalidateButton(); };
-    virtual LayoutInfo* getLayoutInfo() { return layoutInfo; };
+    virtual void setLayoutInfo(LayoutInfo* _layoutInfo, MEM_TYPE mt = MT_DYNAMIC) { layoutInfo.reset(_layoutInfo); if (_layoutInfo) { _layoutInfo->memType = mt; }  invalidateButton(); };
+    virtual void setLayoutInfo(LayoutInfo& _layoutInfo, MEM_TYPE mt = MT_STATIC) { layoutInfo.reset(&_layoutInfo); _layoutInfo.memType = mt; invalidateButton(); };
+    virtual LayoutInfo* getLayoutInfo() { return layoutInfo.get(); };
 
     virtual void onSizeChildCall(Window* _wnd) {};
     virtual void onSizeManagerNotify();

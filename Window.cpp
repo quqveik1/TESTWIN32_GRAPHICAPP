@@ -10,7 +10,20 @@ void Window::print(M_HDC& DC)
 {
     assert(DC);
     draw();
-    if(getShowStatus() == DS_VISIBLE) app->bitBlt(DC, rect.pos.x, rect.pos.y, rect.getSize().x, rect.getSize().y, finalDC);
+    if (getShowStatus() == DS_VISIBLE)
+    {
+        if (needTransparencyOutput)
+        {
+            Vector finalDCSize = finalDC.getSize();
+            app->transparentBlt(DC, rect.pos.x, rect.pos.y, rect.getSize().x, rect.getSize().y, finalDC);
+            app->DEBUGsaveImage(finalDC, "needTransparencyOutputfinalDC");
+            app->DEBUGsaveImage(DC, "needTransparencyOutputDC");
+        }
+        else
+        {
+            app->bitBlt(DC, rect.pos.x, rect.pos.y, rect.getSize().x, rect.getSize().y, finalDC);
+        }
+    }
 }
 
 int Window::hitTest(Vector mp)
@@ -25,7 +38,6 @@ int Window::hitTest(Vector mp)
 
 int Window::onSize(Vector managerSize, Rect newRect/* = {}*/)
 {
-    inValidateViewState();
     onSizeManagerNotify();
     if (newRect != 0)
     {
@@ -81,7 +93,7 @@ int Window::setTrancparencyOutput(int need)
     needTransparencyOutput = need;
     if (old != need)
     {
-        app->updateScreen(this);
+        invalidateButton();
     }
     return old;
 }
@@ -129,7 +141,7 @@ COLORREF Window::setColor(COLORREF newColor)
     color = newColor;
     if (oldcolor != newColor)
     {
-        app->updateScreen(this);
+        invalidateButton();
     }
     return oldcolor;
 
@@ -141,9 +153,21 @@ int Window::setFont(int newFont)
     font = newFont;
     if (oldFont != newFont)
     {
-        app->updateScreen(this);
+        invalidateButton();
     }
     return oldFont;
+}
+
+
+int Window::setFormat(int newFormat)
+{
+    int oldFormat = format;
+    format = newFormat;
+    if (oldFormat != format)
+    {
+        invalidateButton();
+    }
+    return oldFormat;
 }
 
 
@@ -160,7 +184,7 @@ const char* Window::setText(const char* newText)
             //char* _text = new char[newLength] {};
             //strcpy(_text, newText);
             //text = _text;
-            app->updateScreen(this);
+            invalidateButton();
         }
         if (oldText && newText)
         {
@@ -171,7 +195,7 @@ const char* Window::setText(const char* newText)
                 //strcpy(_text, newText);
                 //delete text;
                 //text = _text;
-                app->updateScreen(this);
+                invalidateButton();
             }
         }
     }
