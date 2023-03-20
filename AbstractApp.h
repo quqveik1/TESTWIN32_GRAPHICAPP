@@ -8,6 +8,7 @@
 #include <time.h>
 #include <vector>
 #include <string>
+#include "remember_mem_type.h"
 using namespace std;
 
 
@@ -58,7 +59,8 @@ struct AbstractAppData
     virtual void onCreate(HWND window, UINT message, WPARAM wParam, LPARAM lParam) {};
     virtual int needToLoadOldFiles();
 
-    virtual struct Manager* setMainManager(struct Manager* newManager);
+    virtual struct Manager* setMainManager(struct Manager* newManager, MEM_TYPE mt = MT_DYNAMIC);
+    virtual struct Manager& setMainManager(struct Manager& newManager, MEM_TYPE mt = MT_STATIC);
     virtual void setMinSize(const Vector& _size);   
     virtual Vector getMinSize();
     virtual HWND getActiveHWND();

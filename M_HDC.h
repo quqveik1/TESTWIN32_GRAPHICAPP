@@ -14,6 +14,8 @@ struct M_HDC : M_HGDIOBJ
     M_HDC();
     operator HDC() const;
 
+    virtual ~M_HDC();
+
     M_HDC& operator = (HDC _dc);
     int saveDefObjs();
 

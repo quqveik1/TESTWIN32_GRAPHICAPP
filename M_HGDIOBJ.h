@@ -31,6 +31,11 @@ struct M_HGDIOBJ
 
     }
 
+    virtual ~M_HGDIOBJ()
+    {
+        deleteObj();
+    }
+
     virtual int deleteObj();
     virtual HGDIOBJ setObj(HGDIOBJ  _obj);
     virtual int setApp(struct AbstractAppData* _app);

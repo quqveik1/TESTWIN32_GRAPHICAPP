@@ -11,11 +11,16 @@ struct Deleter_remember_mem_type
 {
     void operator()(remember_mem_type* ptr) const
     {
-        if (ptr->memType == MT_DYNAMIC)
+        if (ptr)
         {
-            T* fullPointer = (T*)ptr;
+            if (ptr->memType == MT_DYNAMIC)
+            {
+                T* fullPointer = (T*)ptr;
 
-            delete fullPointer;
+                delete fullPointer;
+            }
         }
     }
 };
+
+

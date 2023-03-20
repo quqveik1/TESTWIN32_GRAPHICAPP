@@ -453,11 +453,20 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR szCmdLine,
 
 
 
-struct Manager* AbstractAppData::setMainManager(struct Manager* newManager)
+struct Manager* AbstractAppData::setMainManager(struct Manager* newManager, MEM_TYPE mt/* = MT_DYNAMIC*/)
 {
     Manager* oldManager = mainManager;
     mainManager = newManager;
+    if (mainManager) mainManager->memType = mt;
     return oldManager;
+}
+
+struct Manager& AbstractAppData::setMainManager(struct Manager& newManager, MEM_TYPE mt/* = MT_STATIC*/)
+{
+    Manager* oldManager = mainManager;
+    mainManager = &newManager;
+    mainManager->memType = mt;
+    return *oldManager;
 }
 
 void AbstractAppData::setMinSize(const Vector& _size)
@@ -1041,7 +1050,7 @@ void AbstractAppData::transparentBlt(HDC dc1, Rect destRect, HDC dc2, Vector pos
 
 int AbstractAppData::stretchBlt(HDC dest, double destPosx, double destPosy, double destSizex, double destSizey, HDC source, double sourcePosx, double sourcePosy, double sourceSizex, double sourceSizey)
 {
-    cout << destSizex << "|" << destSizey << "|||" << sourceSizex<<"|" << sourceSizey;
+    //cout << destSizex << "|" << destSizey << "|||" << sourceSizex<<"|" << sourceSizey;
     return StretchBlt(dest, std::lround(destPosx), std::lround(destPosy), std::lround(destSizex), std::lround(destSizey), source, std::lround(sourcePosx), std::lround(sourcePosy), std::lround(sourceSizex), std::lround(sourceSizey), SRCCOPY);
 }
 

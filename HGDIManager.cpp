@@ -70,6 +70,8 @@ int HGDIManager::unBind(M_HGDIOBJ* obj)
         }
     }
 
+    //int c = std::count(objs.begin(), objs.end(), obj);
+
     if (howManyDeleted == 0)
     {
         printf("Попытка отвязать незарегестрированный в мэнеджере объект\n");
@@ -80,45 +82,4 @@ int HGDIManager::unBind(M_HGDIOBJ* obj)
     {
         return howManyDeleted;
     }
-    
-    /*
-    
-    while (it < objs.end())
-    {
-        it = find(it, objs.end(), obj);
-        if (it < objs.end())
-        {
-            int pos = it - objs.begin();
-            objs.erase(objs.begin() + pos);
-            if (it < objs.end())
-            {
-                ++it;
-                howManyDeleted++;
-            }
-            
-            //int currTime = clock();
-            //(void)printf("Отвязан объект, потрачено [%d]\n", currTime - timebefore);
-        }
-    }
-    */
-    /*
-    short howManyDeleted = 0;;
-    vector<M_HGDIOBJ*>::iterator it = find(objs.begin(), objs.end(), obj);
-    while (it != objs.end())
-    {
-        if (*it == obj)
-        {
-            howManyDeleted++;
-            int pos = it - objs.begin();
-            objs.erase(objs.begin() + pos);
-        }
-
-        if(it < objs.end() - 1)it++;
-    }
-
-    
-    
-    */
-    
-    
 }

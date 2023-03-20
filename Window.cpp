@@ -87,6 +87,15 @@ void Window::MoveWindow(Vector delta)
     rect = rect + delta;
 }
 
+int Window::mayBeDeletedInDestructor()
+{
+    if (memType == MT_DYNAMIC)
+    {
+        return 1; 
+    } 
+    return 0;
+}
+
 int Window::setTrancparencyOutput(int need)
 {
     int old = needTransparencyOutput;

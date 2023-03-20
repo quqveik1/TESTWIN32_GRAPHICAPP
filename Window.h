@@ -10,7 +10,7 @@
 
 
 
-struct Window
+struct Window : remember_mem_type
 {
     const char* devName = NULL;
 
@@ -37,7 +37,8 @@ struct Window
     RGBQUAD* finalDCArr = NULL;
     Vector finalDCSize = {};
     struct Manager* manager = NULL;
-    std::shared_ptr<LayoutInfo> layoutInfo; //might be NULL if window is not in Layout, control it
+    //std::shared_ptr<LayoutInfo> layoutInfo; //might be NULL if window is not in Layout, control it
+    struct LayoutInfo* layoutInfo = NULL; //might be NULL if window is not in Layout, control it
 
     enum DrawStatus
     {
@@ -58,7 +59,6 @@ struct Window
     Vector mousePosLastTime = {};
     int mbLastTime = 0;
 
-    MEM_TYPE memType = MT_DYNAMIC;// 0 - dynamic; 1 - static
 
     Window(AbstractAppData* _app, Rect _rect = {}, COLORREF _color = NULL, HDC _dc = NULL, Manager* _manager = NULL, const char* _text = NULL, bool _needToShow = true) :
         app(_app),
@@ -68,8 +68,7 @@ struct Window
         reDraw(true),
         dc(_dc),
         pFinalDC(&finalDC),
-        finalDC(app),
-        layoutInfo(0, Deleter_remember_mem_type<LayoutInfo>())
+        finalDC(app)
     {
         setApp(_app);
         assert(_app);
@@ -98,16 +97,15 @@ struct Window
 
     virtual ~Window()
     {
-        //defaultDestructor();
         assert(app);
         if (dc) app->deleteDC(dc);
         if (finalDC) finalDC.deleteObj();
         LayoutInfo* _layoutInfo = getLayoutInfo();
         if (_layoutInfo)
         {
-            if (_layoutInfo->memType == MT_STATIC)
+            if (_layoutInfo->memType == MT_DYNAMIC)
             {
-                setLayoutInfo(NULL);
+                delete _layoutInfo;
             }
         }
     }
@@ -206,12 +204,13 @@ struct Window
 
     virtual void setMPLastTime() { mousePosLastTime = getMousePos(); };
 
-    virtual int mayBeDeletedInDestructor() { if (memType == MT_DYNAMIC) { return 1; } return 0; };
+    virtual int mayBeDeletedInDestructor();
 
     virtual void sendMessage(const char* name, void* data) { onMessageRecieve(name, data); };
     virtual void onMessageRecieve(const char* name, void* data) {};
 
     virtual M_HDC* getOutputDC() { return pFinalDC; };
+    virtual M_HDC& getFinalDC() { return finalDC; };
     virtual M_HDC* setOutputDC(M_HDC* _newDC) { return pFinalDC = _newDC; }
 
     virtual int setTrancparencyOutput(int need);
@@ -223,9 +222,9 @@ struct Window
     virtual int setFont(int newFont);
     virtual int setFormat(int newFormat);
     virtual const char* setText(const char* newText);
-    virtual void setLayoutInfo(LayoutInfo* _layoutInfo, MEM_TYPE mt = MT_DYNAMIC) { layoutInfo.reset(_layoutInfo); if (_layoutInfo) { _layoutInfo->memType = mt; }  invalidateButton(); };
-    virtual void setLayoutInfo(LayoutInfo& _layoutInfo, MEM_TYPE mt = MT_STATIC) { layoutInfo.reset(&_layoutInfo); _layoutInfo.memType = mt; invalidateButton(); };
-    virtual LayoutInfo* getLayoutInfo() { return layoutInfo.get(); };
+    virtual void setLayoutInfo(LayoutInfo* _layoutInfo, MEM_TYPE mt = MT_DYNAMIC) { layoutInfo = _layoutInfo; if (_layoutInfo) { _layoutInfo->memType = mt; }  invalidateButton(); };
+    virtual void setLayoutInfo(LayoutInfo& _layoutInfo, MEM_TYPE mt = MT_STATIC) { layoutInfo = &_layoutInfo;                    _layoutInfo.memType = mt;     invalidateButton(); };
+    virtual LayoutInfo* getLayoutInfo() { return layoutInfo; };
 
     virtual void onSizeChildCall(Window* _wnd) {};
     virtual void onSizeManagerNotify();

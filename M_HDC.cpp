@@ -47,6 +47,10 @@ M_HDC& M_HDC::operator = (HDC _dc)
     return *this;
 }
 
+M_HDC::~M_HDC()
+{
+    deleteObj();
+}
 
 int M_HDC::saveDefObjs()
 {
@@ -60,6 +64,12 @@ int M_HDC::saveDefObjs()
 
 int M_HDC::selectObj(M_HGDIOBJ* _obj, HBITMAP map)
 {
+    if (!app)
+    {
+        printf("Попытка графический действий на M_HDC без доступа к приложению[%p]", this);
+        return-1;
+    }
+
     if (_obj->status >= 1)
     {
         int wasntDelete = NULL;
@@ -74,6 +84,12 @@ int M_HDC::selectObj(M_HGDIOBJ* _obj, HBITMAP map)
 
 int M_HDC::selectObj(HBITMAP map)
 {
+    if (!app)
+    {
+        printf("Попытка графический действий на M_HDC без доступа к приложению[%p]", this);
+        return-1;
+    }
+
     const int itemNum = 0;
     if (map)
     {
@@ -113,6 +129,12 @@ int M_HDC::selectObj(M_HGDIOBJ* _obj, HPEN pen)
 
 int M_HDC::selectObj(HPEN pen)
 {
+    if (!app)
+    {
+        printf("Попытка графический действий на M_HDC без доступа к приложению[%p]", this);
+        return-1;
+    }
+
     const int itemNum = 1;
     if (pen)
     {
@@ -138,6 +160,12 @@ int M_HDC::selectObj(HPEN pen)
 
 int M_HDC::selectObj(M_HGDIOBJ* _obj, HBRUSH brush)
 {
+    if (!app)
+    {
+        printf("Попытка графический действий на M_HDC без доступа к приложению[%p]", this);
+        return-1;
+    }
+
     if (_obj->status >= 1)
     {
         int wasntDelete = NULL;
@@ -152,6 +180,12 @@ int M_HDC::selectObj(M_HGDIOBJ* _obj, HBRUSH brush)
 
 int M_HDC::selectObj(HBRUSH brush)
 {
+    if (!app)
+    {
+        printf("Попытка графический действий на M_HDC без доступа к приложению[%p]", this);
+        return-1;
+    }
+
     const int itemNum = 2;
     if (brush)
     {
@@ -177,6 +211,12 @@ int M_HDC::selectObj(HBRUSH brush)
 
 int M_HDC::selectObj(M_HGDIOBJ* _obj, HFONT font)
 {
+    if (!app)
+    {
+        printf("Попытка графический действий на M_HDC без доступа к приложению[%p]", this);
+        return-1;
+    }
+
     if (_obj->status >= 1)
     {
         int wasntDelete = NULL;
@@ -191,6 +231,12 @@ int M_HDC::selectObj(M_HGDIOBJ* _obj, HFONT font)
 
 int M_HDC::selectObj(HFONT font)
 {
+    if (!app)
+    {
+        printf("Попытка графический действий на M_HDC без доступа к приложению[%p]", this);
+        return-1;
+    }
+
     const int itemNum = 3;
     if (font)
     {
@@ -307,6 +353,12 @@ int M_HDC::loadImage(struct AbstractAppData* _app, const char* _path, Vector _si
         app->deleteDC(_loadIMG);
         return res;
     }
+    else
+    {
+        printf("Попытка графический действий на M_HDC без доступа к приложению[%p]", this);
+        return-1;
+    }
+
     return 0;
 
 }
@@ -343,6 +395,7 @@ int M_HDC::clear()
 
 int M_HDC::deleteObj()
 {
+
     int numOfDeletedObjs = 0;
     for (int i = 0; i < 4; i++)
     {
