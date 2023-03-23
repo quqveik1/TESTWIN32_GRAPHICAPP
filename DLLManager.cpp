@@ -14,9 +14,13 @@ int findSymbol(const char* text, int size, char symbol)
 
 bool DLLManager::loadLibs()
 {
-    int result = true;
+    bool result = true;
     FILE* libsList = fopen(pathToDLLList, "r");
-    if (!libsList) printf("%s Не найден\n", pathToDLLList);
+    if (!libsList)
+    {
+        printf("%s Не найден\n", pathToDLLList);
+        return false;
+    }
     assert(libsList);
 
     for (int i = 0; ; i++)
@@ -34,12 +38,12 @@ bool DLLManager::loadLibs()
             sprintf(pattern, "%s*.%s", path, fileExtension);
 
             _finddata_t fileinfo;
-            int placeData = 0;
+            long long placeData = 0;
 
 
             for (int j = 0; ; j++)
             {
-                int returnableValue = 0;
+                long long returnableValue = 0;
                 if (j == 0)
                 {
                     placeData = _findfirst(pattern, &fileinfo);
@@ -58,8 +62,8 @@ bool DLLManager::loadLibs()
                 sprintf(fullPath, "%s%s", path, fileinfo.name);
 
                 libs[currLen] = LoadLibrary(fullPath);
-                result *= (int)libs[currLen];
-                if (result) currLen++;
+                if (libs[currLen]) currLen++;
+                else result = false;
 
                 if (appData->systemSettings->debugMode >= 0) printf("Путь к библиотеке: %s\n", fullPath);
             }
@@ -72,8 +76,8 @@ bool DLLManager::loadLibs()
             {
 
                 libs[currLen] = LoadLibrary(path);
-                result *= (int)libs[currLen];
                 if (libs[currLen]) currLen++;
+                else result = false;
             }
 
             if (appData->systemSettings->debugMode >= 0) printf("Путь к библиотеке[%p]: %s\n", libs[currLen], path);

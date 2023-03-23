@@ -117,7 +117,7 @@ void Window::invalidateButton()
 
 int Window::setMatchParentX(bool status)
 {
-    int old = matchParentX;
+    bool old = matchParentX;
     matchParentX = status;
     if (old != matchParentX)
     {
@@ -128,7 +128,7 @@ int Window::setMatchParentX(bool status)
 
 int Window::setMatchParentY(bool status)
 {
-    int old = matchParentY;
+    bool old = matchParentY;
     matchParentY = status;
     if (old != matchParentY)
     {

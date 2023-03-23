@@ -25,7 +25,7 @@ HDC CLoadManager::loadImage(const char* path, Vector size /* = {} */)
     if (!newImage)
     {
         HDC suitableDC = images[suitableDCNum].dc;
-        if (app->systemSettings->debugMode >= 4) (void)printf("Fullpath: %s; Result: %d\n", fullPath, (int)images[suitableDCNum].dc);
+        if (app->systemSettings->debugMode >= 4) (void)printf("Fullpath: %s\n", fullPath);
         if (app->systemSettings->debugMode >= 4) app->drawOnScreen(images[suitableDCNum].dc);
         COLORREF _color = app->getPixel({ 1, 1 }, suitableDC);
         if (_color != CLR_INVALID)

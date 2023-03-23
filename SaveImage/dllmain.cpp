@@ -25,7 +25,7 @@ int saveImage(HDC dc, const char* path)
     if (bitmap == 0)
     {
         //сout << "bitmap == 0, dc: " << (int)dc << "| path " << path << endl;
-        printf("bitmap == 0, dc: %d, path = [%s]\n", (int)dc, path);
+        printf("bitmap == 0, path = [%s]\n", path);
         return -2;
     }
 

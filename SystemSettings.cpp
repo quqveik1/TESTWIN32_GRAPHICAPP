@@ -38,11 +38,12 @@ int CSystemSettings::save(const char* path)
 int CSystemSettings::saveUserSettings(const char* path)
 {
     assert(path);
+    if (!path) return 0;
     FILE* ssFile = fopen(path, "w");
     if (!ssFile)
     {
         printf("Сохранение всех данных не прошло||Errno: %d\n", errno);
-        return (int)ssFile;
+        return 0;
     }
 
     saveIntSettings(ssFile, &MainFont, "MainFont");
@@ -59,7 +60,7 @@ int CSystemSettings::saveUserSettings(const char* path)
 
     fclose(ssFile);
 
-    return (int)ssFile;
+    return 1;
 }
 
 

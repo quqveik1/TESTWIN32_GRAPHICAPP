@@ -69,9 +69,10 @@ struct AbstractAppData
     virtual int getAppCondition();
     virtual void setAppCondition(int newCondition);
     
-
     virtual int makeDir(const char* path);
     virtual long getFileSize(FILE* _file);
+    virtual char* readText(FILE* _file);  //don't remember to delete allocated text
+    virtual char* readText(const char* path); //don't remember to delete allocated text
 
     virtual void setColor(COLORREF color, M_HDC& dc, int thickness = 1);
     virtual int getColorComponent(COLORREF color, COLORREF component);

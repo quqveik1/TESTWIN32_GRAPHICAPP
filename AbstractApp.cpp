@@ -248,7 +248,8 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
         {
             if (appData->mainManager)
             {
-                appData->mainManager->onKeyboard(wParam);
+                int vk = static_cast<int>(wParam);
+                appData->mainManager->onKeyboard(vk);
                 //appData->captureMouse();
             }
         }
@@ -257,7 +258,8 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
         {
             if (appData->mainManager)
             {
-                appData->mainManager->onKeyboardChar(wParam);
+                int vk = static_cast<int>(wParam);
+                appData->mainManager->onKeyboardChar(vk);
             }
         }
 
@@ -362,7 +364,7 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
         }
     }
 
-    int resDefWindowProc = DefWindowProc(window, message, wParam, lParam);
+    LRESULT resDefWindowProc = DefWindowProc(window, message, wParam, lParam);
     /*
     if (message == WM_NCPAINT)
     {
@@ -435,7 +437,6 @@ int AbstractAppData::startApp()
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR szCmdLine, int iCmdShow)
 {
-
     MSG message = {};
 
     for (;;)
@@ -448,7 +449,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR szCmdLine,
         }
     }
 
-    return message.wParam;
+    return 0;
 }
 
 
@@ -494,7 +495,16 @@ int AbstractAppData::setIcon(HICON icon/* = NULL*/)
     {
         icon = appIcon;
     }
-    return SetClassLongPtr(getActiveHWND(), GCLP_HICON, (LONG_PTR)icon);
+    ULONG_PTR res = SetClassLongPtr(getActiveHWND(), GCLP_HICON, (LONG_PTR)icon);
+
+    if (res == 0)
+    {
+        return 0;
+    }
+    else
+    {
+        return 1;
+    }
 }
 
 
@@ -747,15 +757,69 @@ long AbstractAppData::getFileSize(FILE* _file)
 {
     if (_file)
     {               
-        long startPos = ftell(_file);
+        struct stat buff = {};
+        buff.st_size = -1;
 
-        fseek(_file, 0, SEEK_END);
-        long answer = ftell(_file);
+        fstat(_fileno(_file), &buff);
 
-        fseek(_file, startPos, SEEK_SET);
-        return answer;
+        return buff.st_size;
     }
     return -1;
+}
+
+char* AbstractAppData::readText(FILE* _file)
+{
+    if (_file)
+    {
+        int fileSize = getFileSize(_file);
+        char* fileBits = new char[fileSize];
+
+        size_t creadchar = fread(fileBits, sizeof(char), fileSize, _file);
+
+        if (creadchar < 0)
+        {
+            printf("Файл считался %s\n", __FUNCTION__);
+            return NULL;
+        }
+
+        fileBits[creadchar] = 0;
+
+        return fileBits;
+    }
+    else
+    {
+        printf("Передан пустой файл для %s\n", __FUNCTION__);
+        return NULL;
+    }
+}
+
+
+char* AbstractAppData::readText(const char* path)
+{
+    if (path)
+    {
+        FILE* pathFile = fopen(path, "r");
+        int fileSize = getFileSize(pathFile);
+        char* fileBits = new char[fileSize];
+
+        size_t creadchar = fread(fileBits, sizeof(char), fileSize, pathFile);
+        fclose(pathFile);
+
+        if (creadchar < 0)
+        {
+            printf("Файл считался %s\n", __FUNCTION__);
+            return NULL;
+        }
+
+        fileBits[creadchar] = 0;
+
+        return fileBits;
+    }
+    else
+    {
+        printf("Передан пустой путь для %s\n", __FUNCTION__);
+        return NULL;
+    }
 }
 
 void AbstractAppData::setColor(COLORREF color, M_HDC& dc, int thickness)
@@ -897,8 +961,8 @@ int AbstractAppData::updateNonClientAreaScreen(struct Window* window)
     {
         //_wnd = window->hwnd;
     }
-    int res = SendMessage(_wnd, WM_NCPAINT, 0, 0);
-    int lasterr = GetLastError();
+    SendMessage(_wnd, WM_NCPAINT, 0, 0);
+    //int lasterr = GetLastError();
     return 0;
 }
 
@@ -920,8 +984,16 @@ int AbstractAppData::captureMouse(HWND wnd/*= NULL*/)
 {
     if (wnd == NULL) wnd = MAINWINDOW;
     printf("Mouse was captured\n");
+    HWND captureWnd = SetCapture(wnd);
 
-    return (int)SetCapture(wnd);
+    if (captureWnd)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 int AbstractAppData::releaseMouse(HWND wnd/*= NULL*/)
@@ -940,8 +1012,8 @@ void AbstractAppData::line(Rect rect, HDC dc)
 
 void AbstractAppData::line(double x1, double y1, double x2, double y2, HDC dc)
 {
-    bool result = MoveToEx(dc, std::lround(x1), std::lround(y1), NULL);
-    result *= LineTo(dc, std::lround(x2), std::lround(y2));
+    int result = MoveToEx(dc, std::lround(x1), std::lround(y1), NULL);
+    result += LineTo(dc, std::lround(x2), std::lround(y2));
 }
 
 void AbstractAppData::line(Vector pos1, Vector pos2, HDC dc)
@@ -1180,7 +1252,7 @@ void AbstractAppData::deleteDC(HDC dc)
 
         DeleteDC(dc);
     }
-    else printf("DC[%d], которые вы хотите удалить не существует\n", (int)dc);
+    else printf("DC, которые вы хотите удалить не существует\n");
 }
 
 int AbstractAppData::smartDeleteDC(HDC dc)
@@ -1327,7 +1399,7 @@ void AbstractAppData::setCursor(HCURSOR cursor/*= NULL*/)
 {
     if (cursor == NULL) cursor = defaultCursor;
     activeCursor = cursor;
-    printf("Cursor[%d] was set\n", (int)cursor);
+    printf("Cursor was set\n");
     lastTimeCursorSetTime = clock();
 }
 
@@ -1440,8 +1512,7 @@ char* AbstractAppData::getOpenFileName(const char* question, const char* fileTyp
     //bool oldPSW = _//txProcessSystemWarnings;
     //_txProcessSystemWarnings = false;//отключает всякие системные проверки тхлибом иначе возникает ошибка 298
 
-    if ((GetOpenFileNameA))
-        (GetOpenFileNameA(&ofn));
+    GetOpenFileNameA(&ofn);
     //_//txProcessSystemWarnings = oldPSW;
 
     if (ofn.nFileOffset <= 0)
@@ -1473,8 +1544,7 @@ char* AbstractAppData::getSaveFileName(const char* question, const char* fileTyp
     //bool oldPSW = _//txProcessSystemWarnings;
     //_//txProcessSystemWarnings = false;//отключает всякие системные проверки тхлибом иначе возникает ошибка 298
 
-    if ((GetSaveFileNameA))
-        (GetSaveFileNameA(&ofn));
+    GetSaveFileNameA(&ofn);
     //_//txProcessSystemWarnings = oldPSW;
 
     if (ofn.nFileOffset <= 0)
@@ -1484,8 +1554,8 @@ char* AbstractAppData::getSaveFileName(const char* question, const char* fileTyp
 
     const char* extension = findExtensionStart(fileTypeDescribtion, ofn.nFilterIndex);
 
-    int extensionSize = strlen(extension);
-    int realFilenameSize = strlen(fileName);
+    size_t extensionSize = strlen(extension);
+    size_t realFilenameSize = strlen(fileName);
     if (strcmp(&fileName[realFilenameSize - extensionSize], extension))
     {
         sprintf(fileName, "%s.%s", fileName, extension);
@@ -1497,7 +1567,7 @@ char* AbstractAppData::getSaveFileName(const char* question, const char* fileTyp
 
 const char* findExtensionStart(const char* text, int extensionPos)
 {
-    int startPos = 0;
+    size_t startPos = 0;
     for (int i = 0; i < extensionPos; i++)
     {
         startPos += strlen(&text[startPos]) + 3;

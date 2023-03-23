@@ -47,8 +47,7 @@ bool CWindowsLibApi::addWindow(Manager* manager, Window* window)
         return 0;
     }
 
-
-    int findedDublicatesElements = std::count(manager->pointers.begin(), manager->pointers.end(), window);
+    long long findedDublicatesElements = std::count(manager->pointers.begin(), manager->pointers.end(), window);
 
     if (findedDublicatesElements < 0)
     {

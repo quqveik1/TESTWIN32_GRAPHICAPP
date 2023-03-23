@@ -13,8 +13,11 @@ struct Vector
     double y = 0;
 
     Vector& operator = (const Vector &a1);
-
     Vector& operator = (const double& num);
+
+    bool operator == (const Vector& comparable) const;
+    bool operator != (const Vector& comparable) const;
+
     explicit operator double ();
 
     explicit operator POINT() const;
@@ -64,8 +67,7 @@ inline Vector operator / (const double a, const Vector &b);
        bool   operator > (const Vector &a, const int &b);
        bool   operator < (const Vector &a, const int &b);
        bool   operator < (const Vector &a, const Vector &b);
-       bool operator == (const Vector &a, const Vector &b);
-       bool operator != (const Vector &a, const Vector &b); 
+       //bool operator == (const Vector &a, const Vector &b); 
        bool operator == (const Vector &a, const double &b);
        bool operator != (const Vector &a, const double &b);
 
@@ -153,18 +155,7 @@ Vector Vector::toVector(SIZE point)
     Vector res = {};
     res.x = point.cx;
     res.y = point.cy;
-    return res;   
-}
-
-bool operator == (const Vector &a, const Vector &b)
-{
-    if (isEqual (a.x, b.x) && isEqual(a.y, b.y)) return true;
-    return false;
-}  
-
-bool operator != (const Vector &a, const Vector &b)
-{
-    return !(a == b);
+    return res;
 }
 
 bool operator != (const Vector& a, const double& b)
@@ -399,7 +390,33 @@ Vector& Vector::operator = (const Vector& a1)
     this->y = a1.y;
 
     return *this;
-};       
+}; 
+
+
+bool Vector::operator == (const Vector& comparable) const
+{
+    if (isEqual(x, comparable.x) && isEqual(y, comparable.y))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool Vector::operator != (const Vector& comparable) const
+{
+    if (isEqual(x, comparable.x) && isEqual(y, comparable.y))
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
 
 Vector::operator POINT() const
 {

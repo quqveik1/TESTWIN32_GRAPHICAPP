@@ -335,10 +335,10 @@ int M_HDC::setSize(Vector size, struct AbstractAppData* _app, RGBQUAD** pixels/*
         setApp(_app);
         assert(app);
         selectObj(bmap);
-        return (int)bmap;
+        return 1;
     }
 
-    return NULL;
+    return 0;
     
 }
 

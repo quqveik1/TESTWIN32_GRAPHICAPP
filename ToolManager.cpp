@@ -3,6 +3,7 @@
 #include "AbstractApp.h"
 #include "CanvasManager.h"
 #include "AppApi.h"
+#include "Tool2.h"
 
 CToolManager::CToolManager(PowerPoint* _app) :
     app(_app)
@@ -71,9 +72,9 @@ int CToolManager::setActiveToolNum(int num)
     if (num < currentLength)
     {
         activeToolNum = num;
-        return NULL;
+        return 0;
     }
-    return (int)"ERROR";
+    return 0;
 }
 
 int CToolManager::setActiveTool(Tool2* tool)

@@ -83,7 +83,8 @@ int M_HGDIOBJ::setApp(struct AbstractAppData* _app)
         {
             app->hgdiManager->bind(this);
             bindStatus = BS_BINDED;
+            return 0;
         }
     }
-    return (int)(long)app;
+    return 1;
 }

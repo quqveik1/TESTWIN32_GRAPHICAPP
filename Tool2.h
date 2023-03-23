@@ -14,6 +14,11 @@ struct Tool2 : Window
         name(_name)
     {
     }
+    
+    virtual ~Tool2()
+    {
+        printf("%s", __FUNCTION__);
+    }
 
     virtual struct ToolLay* selectToolLay(struct ToolLay* toollay);
 
