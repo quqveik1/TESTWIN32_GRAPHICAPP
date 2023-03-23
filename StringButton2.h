@@ -115,7 +115,6 @@ struct StringButton2 : TextView
 
     void getTextAfterEnteringSymbol(char* finalText, char* originalText, int _currentTextSize, int _cursorPos, char symbol);
     
-    
 
     virtual bool isSymbolAllowed(char symbol);
     virtual bool isSepSymbol(char symbol);
@@ -124,8 +123,6 @@ struct StringButton2 : TextView
     virtual void doBeforeMainBlock() {};
     virtual void doAfterMainBlock() {};
     
-
-
 
     virtual void draw() override;
     virtual int onKeyboard(int key) override;

@@ -117,7 +117,7 @@ int M_HDC::selectObj(M_HGDIOBJ* _obj, HPEN pen)
 {
     if (_obj->status >= 1)
     {
-        int wasntDelete = NULL;
+        int wasntDelete = 0;
         if (selectedObj[1]) wasntDelete = selectedObj[1]->deleteObj();
         selectedObj[1] = _obj;
         SelectObject((HDC)obj, pen);

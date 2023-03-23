@@ -152,9 +152,9 @@ struct AbstractAppData
     virtual int DEBUGsaveImage(HDC dc, string _name = "1");
     virtual HDC loadImage(const char* path, Vector _size = {});
 
-    virtual void drawCadre(Rect rect, M_HDC dc, COLORREF color, int thickness);
-    virtual void drawCadre(Vector pos1, Vector pos2, M_HDC dc, COLORREF color, int thickness);
-    virtual void drawCadre(int x1, int y1, int x2, int y2, M_HDC dc, COLORREF color, int thickness);
+    virtual void drawCadre(Rect rect, M_HDC& dc, COLORREF color, int thickness);
+    virtual void drawCadre(Vector pos1, Vector pos2, M_HDC& dc, COLORREF color, int thickness);
+    virtual void drawCadre(int x1, int y1, int x2, int y2, M_HDC& dc, COLORREF color, int thickness);
 
     virtual int isHDCValid(HDC _dc);
 

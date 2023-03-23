@@ -1,5 +1,6 @@
 ﻿// dllmain.cpp : Defines the entry point for the DLL application.  
 #include "dllmain.h"
+using namespace std;
 
 BOOL APIENTRY DllMain( HMODULE hModule,
                        DWORD  ul_reason_for_call,
@@ -21,10 +22,28 @@ int saveImage(HDC dc, const char* path)
 {
     HBITMAP bitmap = (HBITMAP)GetCurrentObject(dc, OBJ_BITMAP);
 
+    if (bitmap == 0)
+    {
+        //сout << "bitmap == 0, dc: " << (int)dc << "| path " << path << endl;
+        printf("bitmap == 0, dc: %d, path = [%s]\n", (int)dc, path);
+        return -2;
+    }
+
     CImage image;
     image.Attach(bitmap);
 
     LPCTSTR widePath = path;
+    int w = image.GetWidth();
+    int h = image.GetHeight();
+
+
+    if (w <= 1 && h <= 1)
+    {
+        return -1;
+    }
+
+    printf("Saved by dll hdc w: %d, h: %d\n", w, h);
+
     HRESULT hresult = image.Save(widePath);
 
     if (FAILED(hresult))

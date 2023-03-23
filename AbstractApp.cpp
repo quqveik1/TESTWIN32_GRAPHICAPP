@@ -591,7 +591,7 @@ void AbstractAppData::rectangle(Rect rect, HDC dc)
     rectangle(rect.pos.x, rect.pos.y, rect.finishPos.x, rect.finishPos.y, dc);
 }
 
-void AbstractAppData::drawCadre(Rect rect, M_HDC dc, COLORREF color, int thickness)
+void AbstractAppData::drawCadre(Rect rect, M_HDC& dc, COLORREF color, int thickness)
 {
     $s;
     if (systemSettings->debugMode == 5) printf("Rect: {%lf, %lf}\n", rect.pos.x, rect.pos.y);
@@ -604,7 +604,7 @@ void AbstractAppData::drawCadre(Rect rect, M_HDC dc, COLORREF color, int thickne
     line(rect.pos.x + halfThickness, rect.pos.y + halfThickness, rect.finishPos.x - halfThickness, rect.pos.y + halfThickness, dc);
 }
 
-void AbstractAppData::drawCadre(Vector pos1, Vector pos2, M_HDC dc, COLORREF color, int thickness)
+void AbstractAppData::drawCadre(Vector pos1, Vector pos2, M_HDC& dc, COLORREF color, int thickness)
 {
     Rect rect = { .pos = pos1, .finishPos = pos2 };
 
@@ -612,7 +612,7 @@ void AbstractAppData::drawCadre(Vector pos1, Vector pos2, M_HDC dc, COLORREF col
 }
 
 
-void AbstractAppData::drawCadre(int x1, int y1, int x2, int y2, M_HDC dc, COLORREF color, int thickness)
+void AbstractAppData::drawCadre(int x1, int y1, int x2, int y2, M_HDC& dc, COLORREF color, int thickness)
 {
     Vector pos1 = { (double)x1, (double)y1 };
     Vector pos2 = { (double)x2, (double)y2 };
@@ -746,11 +746,13 @@ int AbstractAppData::makeDir(const char* path)
 long AbstractAppData::getFileSize(FILE* _file)
 {
     if (_file)
-    {
+    {               
+        long startPos = ftell(_file);
+
         fseek(_file, 0, SEEK_END);
         long answer = ftell(_file);
 
-        fseek(_file, 0, SEEK_SET);
+        fseek(_file, startPos, SEEK_SET);
         return answer;
     }
     return -1;
@@ -1207,11 +1209,9 @@ int AbstractAppData::DEBUGsaveImage(HDC dc, string _name/* = "1"*/)
         int res = dllsaveImage(dc, finalName.c_str());
         return res;
     }
-    //need to do EVRYTIMELOADING!!!
     printf("dllsaveImage не загрузилось\n");
     return NULL;
 };
-
 
 HDC AbstractAppData::loadImage(const char* path, Vector _size/* = {}*/)
 {

@@ -47,7 +47,6 @@ struct Manager : Window
     virtual bool addWindow(Window& window, MEM_TYPE _memtype = MT_STATIC);
     virtual int separateWindow(int pos);
 
-
     virtual void controlHandle();
     virtual int clickHandle();
     virtual int mbUpHandle();
@@ -59,11 +58,8 @@ struct Manager : Window
     virtual Window* getChildWindowPointer(int i);
     virtual vector<Window*>& getPointers();
 
-    
-
     virtual Window* isActiveWindowBelow() override;
     virtual void screenChanged() override;
-
 
     virtual void redraw() { redrawStatus = true; };
 

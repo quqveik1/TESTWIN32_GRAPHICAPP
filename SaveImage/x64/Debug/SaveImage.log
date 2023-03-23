@@ -1,2 +1,4 @@
 ﻿  dllmain.cpp
-LINK : fatal error LNK1168: cannot open C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\x64\Debug\SaveImage.dll for writing
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\SaveImage\dllmain.cpp(28,61): warning C4311: 'type cast': pointer truncation from 'HDC' to 'int'
+C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\SaveImage\dllmain.cpp(28,61): warning C4302: 'type cast': truncation from 'HDC' to 'int'
+  SaveImage.vcxproj -> C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\x64\Debug\SaveImage.dll

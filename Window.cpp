@@ -14,14 +14,14 @@ void Window::print(M_HDC& DC)
     {
         if (needTransparencyOutput)
         {
-            Vector finalDCSize = finalDC.getSize();
-            app->transparentBlt(DC, rect.pos.x, rect.pos.y, rect.getSize().x, rect.getSize().y, finalDC);
-            app->DEBUGsaveImage(finalDC, "needTransparencyOutputfinalDC");
-            app->DEBUGsaveImage(DC, "needTransparencyOutputDC");
+            //Vector finalDCSize = getFinalDC().getSize();
+            app->transparentBlt(DC, rect.pos.x, rect.pos.y, rect.getSize().x, rect.getSize().y, getFinalDC());
+            //app->DEBUGsaveImage(getFinalDC(), "needTransparencyOutputfinalDC");
+            //app->DEBUGsaveImage(DC, "needTransparencyOutputDC");
         }
         else
         {
-            app->bitBlt(DC, rect.pos.x, rect.pos.y, rect.getSize().x, rect.getSize().y, finalDC);
+            app->bitBlt(DC, rect.pos.x, rect.pos.y, rect.getSize().x, rect.getSize().y, getFinalDC());
         }
     }
 }

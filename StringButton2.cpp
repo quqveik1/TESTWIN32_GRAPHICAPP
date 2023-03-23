@@ -429,12 +429,14 @@ void StringButton2::draw()
 
     if (isVisible())
     {
-        app->setColor(color, finalDC);
-        app->rectangle({ 0, 0 }, getSize(), finalDC);
+        
+        app->setColor(color, getFinalDC());
+        app->rectangle({ 0, 0 }, getSize(), getFinalDC());
 
+        
         if (getInputMode())
         {
-            cursor.draw(finalDC);
+            cursor.draw(getFinalDC());
         }
 
         char parametrString[MAX_PATH] = {};
@@ -444,12 +446,17 @@ void StringButton2::draw()
 
         modifyOutput(output, parametrString);
 
-        app->selectFont(app->systemSettings->FONTNAME, font, finalDC);
-        app->setColor(app->systemSettings->TextColor, finalDC);
-        app->drawText(deltaAfterCadre, 0, getSize().x, getSize().y, output, finalDC, DT_VCENTER);
+        app->selectFont(app->systemSettings->FONTNAME, font, getFinalDC());
+        app->setColor(app->systemSettings->TextColor, getFinalDC());
+        app->drawText(deltaAfterCadre, 0, getSize().x, getSize().y, output, getFinalDC(), DT_VCENTER);
+        
 
         Rect cadreRect = { .pos = {0, 0}, .finishPos = {getSize().x, getSize().y} };
-        app->drawCadre(cadreRect, finalDC, cadreColor, 2);
+        Vector finalDCSize = getFinalDC().getSize();
+        app->drawCadre(cadreRect, getFinalDC(), cadreColor, 2);
+        //finalDC.setSize({ 100, 100 }, app);
+        //app->DEBUGsaveImage(getFinalDC());
+        
     }
 
     doAfterMainBlock();
