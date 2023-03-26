@@ -25,11 +25,6 @@
 #include <sys/stat.h>
 
 
-
-
-
-
-
 AbstractAppData::AbstractAppData(HINSTANCE _instance, string _pathToAbstractAppDataApi/* = ""*/) :
     hInstance(_instance),
     pathToAbstractAppDataApi(_pathToAbstractAppDataApi)
@@ -38,7 +33,7 @@ AbstractAppData::AbstractAppData(HINSTANCE _instance, string _pathToAbstractAppD
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
     appData = this;
-    appVersion = "v0.2.3.0";
+    appVersion = "v0.2.4.0";
     massert(!makeDir("Settings"), this);
 
     if (getAsyncKeyState(VK_CONTROL))
@@ -432,7 +427,8 @@ int AbstractAppData::startApp()
 {
     setAppCondition(true);
     setWindowParameters(hInstance);
-    return WinMain(NULL, NULL, 0, 0);
+    WinMain(NULL, NULL, 0, 0);
+    return 0;
 }
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR szCmdLine, int iCmdShow)
@@ -1032,6 +1028,16 @@ void AbstractAppData::ellipse(double x1, double y1, double x2, double y2, HDC dc
     Ellipse(dc, std::lround(x1), std::lround(y1), std::lround(x2), std::lround(y2));
 }
 
+void AbstractAppData::circle(double x1, double y1, double r, HDC dc)
+{
+    ellipse({ x1, y1 }, { r, r }, dc);
+}
+
+void AbstractAppData::circle(Vector pos, double r, HDC dc)
+{
+    circle(pos.x, pos.y, r, dc);
+}
+
 void AbstractAppData::horizontalReflect(HDC dc, RGBQUAD* buf, Vector size, Vector fullDCSize/* = {}*/)
 {
     if (fullDCSize == fullDCSize.getNullVector()) fullDCSize = size;
@@ -1419,6 +1425,28 @@ long AbstractAppData::lround(double num)
     return std::lround(num);
 }
 
+template <typename T>
+int AbstractAppData::findElement(const vector<T>& arr, const T& val, int startIndex/*=0*/, int finishIndex/*=0*/)
+{
+    if (finishIndex == 0)
+    {
+        size_t _size = arr.size();
+        if (_size <= 0)
+        {
+            return -1;
+        }
+        finishIndex = (int)_size;
+    }
+
+    for (int  i = startIndex; i <= finishIndex; i++)
+    {
+        if (arr[i] == val)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
 
 bool AbstractAppData::isFullScreen()
 {

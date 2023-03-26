@@ -196,6 +196,7 @@ int CWindowsLibApi::standartWindowDraw(struct Window* window)
 {
     gassert(window);
     $s;
+    if (!window) return -1;
 
     AbstractAppData* app = window->app;
     assert(app);
@@ -228,6 +229,7 @@ int CWindowsLibApi::standartWindowDraw(struct Window* window)
 int CWindowsLibApi::standartManagerDraw(Manager* manager, Vector deltaFromStart/* = {}*/)
 {
     gassert(manager);
+    if (!manager) return -1;
 
     manager->controlHandle();
 

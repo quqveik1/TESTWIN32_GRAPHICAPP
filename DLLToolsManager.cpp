@@ -13,6 +13,7 @@ void DLLToolsManager::addToManager(CToolManager* manager)
         if (!initDll) assert(!"функция не загрузилась");
         DLLToolExportData* exportData = initDll(appData);
         assert(exportData);
+        if (!exportData) return;
         for (int j = 0; j < exportData->currlen; j++)
         {
             assert(exportData->tools[j]);

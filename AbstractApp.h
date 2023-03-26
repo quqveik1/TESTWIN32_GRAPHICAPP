@@ -98,6 +98,8 @@ struct AbstractAppData
 
     virtual void ellipse(Vector centrPos, Vector halfSize, HDC dc);
     virtual void ellipse(double x1, double y1, double x2, double y2, HDC dc);
+    virtual void circle(double x1, double y1, double r, HDC dc);
+    virtual void circle(Vector pos, double r, HDC dc);
     //-Function to draw figures
 
     virtual void drawOnScreen(HDC dc, bool useAlpha = false);
@@ -134,9 +136,6 @@ struct AbstractAppData
 
     virtual int messageBox(const char  text[] = "", const char  header[] = "", unsigned  flags = MB_ICONINFORMATION | MB_OKCANCEL);
 
-
-
-
     virtual void drawText(double x0, double y0, double x1, double y1, const char text[], HDC dc,
         unsigned format = DT_CENTER | DT_VCENTER | DT_SINGLELINE);
     virtual void drawText(Rect rect, const char text[], HDC dc,
@@ -162,8 +161,6 @@ struct AbstractAppData
     virtual int setViewPort(HDC _dc, Vector newPos);
     virtual int getViewPort(HDC _dc, Vector* pos);
 
-    
-
     virtual bool isWindowMoving();
     virtual void changeWindow(Vector size = {}, Vector pos = {});
     virtual int moveWindowTo(Vector _pos, HWND _wnd);
@@ -176,8 +173,9 @@ struct AbstractAppData
     virtual void setResized(bool state = true);
     virtual bool isFullScreen();
 
-
     virtual long lround(double num);
+    template <typename T>
+    int findElement(const vector<T>& arr, const T& val, int startIndex = 0, int finishIndex = 0);
 
     virtual Vector getCentrizedPos(Vector localSize, Vector globalSize);
     virtual void shiftArrBack(char* arr, int oneItemSize, int firstPosOfShifting, int finishPosOfShifting);
