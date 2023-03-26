@@ -37,7 +37,7 @@ struct MainManager : ManagerHandle
 
     virtual int getMBCondition() override { return clicked; };
 
-    virtual Vector getMousePos() override { return mousePos; }
+    virtual Vector getMousePos() override { return mousePos; };
     
     virtual Window* getActiveWindow() override { return activeWindow; };
 

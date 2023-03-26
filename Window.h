@@ -7,6 +7,7 @@
 #include "MEM_TYPE.h"
 #include <memory>
 #include "remember_mem_type.cpp"
+#include "WindowMessage.h"
 
 
 
@@ -149,9 +150,9 @@ struct Window : remember_mem_type
     };
 
     virtual int getMBCondition() {
-        if (getManager()) return ((Window*)getManager())->getMBCondition();
-        else              return 0;
-    };
+        if (appData) return appData->getMouseButton();
+        else         return -1;
+        };
     virtual bool isClickedLastTime() {
         if (mbLastTime == 0) return false;
         else                 return mbLastTime == getMBCondition();
@@ -206,8 +207,11 @@ struct Window : remember_mem_type
 
     virtual int mayBeDeletedInDestructor();
 
-    virtual void sendMessage(const char* name, void* data) { onMessageRecieve(name, data); };
     virtual void onMessageRecieve(const char* name, void* data) {};
+    virtual void sendMessage(const char* name, void* data) { onMessageRecieve(name, data); };
+    virtual void onMessageRecieve(WindowMessage* msg) {};
+    virtual void sendMessage(WindowMessage* msg) { onMessageRecieve(msg); };
+    
 
     virtual M_HDC* getOutputDC() { return pFinalDC; };
     virtual M_HDC& getFinalDC() { return finalDC; };

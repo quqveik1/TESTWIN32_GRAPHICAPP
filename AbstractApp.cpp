@@ -24,6 +24,8 @@
 #include <iostream>
 #include <sys/stat.h>
 
+#pragma comment(lib, "Msimg32")   
+
 
 AbstractAppData::AbstractAppData(HINSTANCE _instance, string _pathToAbstractAppDataApi/* = ""*/) :
     hInstance(_instance),
@@ -194,14 +196,15 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
         {
             if (appData->mainManager)
             {
-                int button = 0;
-                if (message == WM_LBUTTONDOWN) button = 1;
-                if (message == WM_RBUTTONDOWN) button = 2;
+                appData->activeMouseButton = 0;
+                if (message == WM_LBUTTONDOWN) appData->activeMouseButton = 1;
+                if (message == WM_RBUTTONDOWN) appData->activeMouseButton = 2;
                 printf("WM_MBDOWN_START\n");
                 Vector mp = { (double)LOWORD(lParam), (double)HIWORD(lParam) };
-                appData->mainManager->mbDown(mp, button);
+                appData->mainManager->mbDown(mp, appData->activeMouseButton);
                 appData->captureMouse();
                 printf("WM_MBDOWN_END\n");
+                appData->activeMouseButton = 0;
             }
         }
 
@@ -209,18 +212,19 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
         {
             if (appData->mainManager)
             {
-                int button = 0;
-                if (message == WM_LBUTTONUP) button = 1;
-                if (message == WM_RBUTTONUP) button = 2;
+                appData->activeMouseButton = 0;
+                if (message == WM_LBUTTONUP) appData->activeMouseButton = 1;
+                if (message == WM_RBUTTONUP) appData->activeMouseButton = 2;
                 printf("WM_MBUP_START\n");
                 Vector mp = { (double)LOWORD(lParam), (double)HIWORD(lParam) };
-                appData->mainManager->mbUp(mp, button);
+                appData->mainManager->mbUp(mp, appData->activeMouseButton);
                 if (appData->mainManager->hitTest(mp))
                 {
                     appData->mainManager->onClick(mp);
                 }
                 appData->releaseMouse();
                 printf("WM_MBUP_END\n");
+                appData->activeMouseButton = 0;
             }
         }
 
@@ -1228,6 +1232,11 @@ bool AbstractAppData::getKeyState(int symbol)
     int hiword = HIBYTE(res);
     if (hiword == 255) return 1;
     return 0;
+}
+
+int AbstractAppData::getMouseButton()
+{
+    return activeMouseButton;
 }
 
 void AbstractAppData::deleteTransparency(RGBQUAD* buf, unsigned int totalSize)

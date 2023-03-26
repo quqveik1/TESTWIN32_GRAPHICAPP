@@ -48,6 +48,14 @@ struct AbstractAppData
 
     bool windowMovingStatus = false;
 
+    enum MouseButtons
+    {
+        MBNONE = 0,
+        MBLEFT = 1,
+        MBRIGHT = 2
+    };
+    int activeMouseButton = MBNONE;
+
     M_HDC testDC;
 
     AbstractAppData(HINSTANCE _instance, string _pathToAbstractAppDataApi = "");
@@ -106,6 +114,8 @@ struct AbstractAppData
     virtual void cleanTransparentDC();
     virtual bool getAsyncKeyState(int symbol);
     virtual bool getKeyState(int symbol);
+    virtual int  getMouseButton();
+
     virtual void deleteTransparency(RGBQUAD* buf, unsigned int totalSize);
 
     //+Functions with dc
