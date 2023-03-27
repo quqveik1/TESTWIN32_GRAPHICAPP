@@ -124,7 +124,7 @@ void AbstractAppData::setWindowParameters(HINSTANCE hInstance)
 
     if (!registerResult) massert(!"Главный оконный класс не зарегистрировался:(", this);
 
-    hwnd = CreateWindow(
+    MAINWINDOW = CreateWindow(
         handleName,
         handleName,
         //(WS_VISIBLE | WS_POPUP | WS_CLIPSIBLINGS | WS_CLIPCHILDREN),
@@ -136,8 +136,6 @@ void AbstractAppData::setWindowParameters(HINSTANCE hInstance)
         NULL, NULL,
         hInstance,
         NULL);
-
-    MAINWINDOW = hwnd;
 
     if (!MAINWINDOW) massert(!"Главное окно не создалось:(", this);
 
@@ -159,6 +157,7 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
         {
             if (appData->getAppCondition())
             {
+                appData->MAINWINDOW = window;
                 appData->onCreate(window, message, wParam, lParam);
                 appData->setAppCondition(true);
             }
@@ -1491,6 +1490,24 @@ void AbstractAppData::setResized(bool state/* = true*/)
     isResized = state;
 }
 
+
+UINT_PTR AbstractAppData::setTimer(int mslen)
+{
+    UINT_PTR idtimerNum = timerManager->getNewTimerNum();
+    UINT_PTR timerNum = SetTimer(MAINWINDOW, idtimerNum, mslen, NULL);
+    if (timerNum == 0)
+    {
+        printf("Таймер на %d мс с индифекатором %lld не поставился((", mslen, idtimerNum);
+        return 0;
+    }
+
+    return idtimerNum;
+}
+
+int AbstractAppData::deleteTimer(UINT_PTR timer)
+{
+    return KillTimer(MAINWINDOW, timer);
+}
 
 /*   txVer
 void AbstractAppData::controlApp()

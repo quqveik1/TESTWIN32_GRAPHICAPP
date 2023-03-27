@@ -17,14 +17,12 @@ int TimerManager::isEmpty(UINT_PTR number)
 
 int TimerManager::regNum(UINT_PTR number)
 {
+    scoped_lock lock1(timersMutex);
     if (isEmpty(number))
     {
-        if (currLen < TimersLength)
-        {
-            timers[currLen] = number;
-            currLen++;
-            return currLen;
-        }
+        timers.push_back(number);
+        currLen++;
+        return currLen;
     }
     return 0;
 }
@@ -40,3 +38,4 @@ UINT_PTR TimerManager::getNewTimerNum()
         }
     }
 }
+

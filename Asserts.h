@@ -22,5 +22,8 @@
     }                                                        \
 }                                                            \
 
+#define rmassert(condition, _app, whatreturn){massert(condition, _app); if(condition == NULL) return whatreturn;};
+
 #define assert(condition) {gassert(condition)};
+#define rassert(condition, whatreturn) {assert(condition); if(condition == NULL) return whatreturn;};
 #define $s ;

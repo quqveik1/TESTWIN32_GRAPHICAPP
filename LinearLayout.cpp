@@ -105,12 +105,12 @@ Rect LinearLayout::calcRect()
                 newRect.pos.y = pointers[i]->rect.pos.y;
             }
             */
-            if (_wnd->rect.getSize().x > newRect.getSize().x)
+            if (_wnd->rect.getSize().x > newRect.getSize().x && !matchParentX)
             {
                 newRect.finishPos.x = pointers[i]->rect.finishPos.x + newRect.pos.x;
             }
 
-            if (_wnd->rect.getSize().y > newRect.getSize().y)
+            if (_wnd->rect.getSize().y > newRect.getSize().y && !matchParentY)
             {
                 newRect.finishPos.y = pointers[i]->rect.finishPos.y + newRect.pos.y;
             }

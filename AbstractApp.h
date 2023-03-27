@@ -193,6 +193,10 @@ struct AbstractAppData
     virtual char* getSaveFileName(const char* question, const char* fileTypeDescribtion, const char* defaultFilename = "");
     virtual char* getOpenFileName(const char* question, const char* fileTypeDescribtion, const char* defaultFilename = "");
 
+    virtual UINT_PTR setTimer(int mslen);
+    virtual int deleteTimer(UINT_PTR timer);
+
+
     //logic part of engine
     virtual int declareReactionOnMSG(int reaction = 0);//reaction = 0 on default
     virtual int getReactionOnMSG();

@@ -11,7 +11,8 @@ void clickButton(Window* window, Manager* manager, Vector mp)
 
 void CWindowsLibApi::resize(Window* window, Rect newRect)
 {
-    gassert(window);
+    assert(window);
+    if (!window) return;
     if (window->app->systemSettings->debugMode >= 2) printf("newRect {%lf, %lf}; {%lf, %lf}\n", newRect.pos.x, newRect.pos.y, newRect.finishPos.x, newRect.finishPos.y);
     window->finalDCSize = { newRect.getSize().x, newRect.getSize().y };
     if (window->hasItsFinalDC && window->getOutputDC())
@@ -65,7 +66,7 @@ bool CWindowsLibApi::addWindow(Manager* manager, Window* window)
 
 int CWindowsLibApi::separateWindow(Manager* manager, int pos)
 {
-    massert(manager, manager->app)
+    rmassert(manager, manager->app, -1);
     if (pos < 0 || pos >= manager->getCurLen())
     {
         massert(!"Попытка отделить от менеджера окно с несущуствующим позицией", manager->app);

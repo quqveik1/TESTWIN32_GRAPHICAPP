@@ -295,7 +295,7 @@ inline Vector operator / (const Vector &a, double m)
     Vector answer = {};
     if (isEqual(m, 0))
     {
-        printf("Zero dividing!\n");
+        printf("Division by zero!\n");
         //(void)_getch();
     }
     else
@@ -311,7 +311,7 @@ inline Vector operator / (const Vector &a, const Vector &b)
     Vector answer = {};
     if (isEqual(b.x, 0) || isEqual(b.y, 0))
     {
-        printf("Zero dividing!\n");
+        printf("Division by zero!\n");
         //(void)_getch();
     }
     answer.x = a.x / b.x;
