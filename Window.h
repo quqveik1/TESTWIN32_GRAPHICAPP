@@ -232,6 +232,7 @@ struct Window : remember_mem_type
 
     virtual void onSizeChildCall(Window* _wnd) {};
     virtual void onSizeManagerNotify();
+    virtual int managerOnSize();
 
 
     virtual void draw();

@@ -189,21 +189,12 @@ const char* Window::setText(const char* newText)
         text = newText;
         if (!oldText)
         {
-            //int newLength = strlen(newText);
-            //char* _text = new char[newLength] {};
-            //strcpy(_text, newText);
-            //text = _text;
             invalidateButton();
         }
         if (oldText && newText)
         {
             if (strcmp(oldText, newText) != 0)
             {
-                //int newLength = strlen(newText);
-                //char* _text = new char[newLength] {};
-                //strcpy(_text, newText);
-                //delete text;
-                //text = _text;
                 invalidateButton();
             }
         }
@@ -216,6 +207,20 @@ void Window::onSizeManagerNotify()
 { 
     Manager* _man = getManager(); 
     if (_man) _man->onSizeChildCall(this);
+}
+
+int Window::managerOnSize() 
+{ 
+    Manager* _man = getManager();
+    if (_man)
+    {
+        return _man->onSize({});
+    }
+    else
+    {
+        printf("window %p doesn't have a manager\n", this);
+        return 0;
+    }
 }
 
 

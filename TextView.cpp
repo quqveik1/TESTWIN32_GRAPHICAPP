@@ -8,7 +8,7 @@ int TextView::setFont(int newFont)
 {
     int answer = Window::setFont(newFont);
     //Vector newSize = app->getTextExtent(text, font, fontName);
-    onSize({}, {});
+    managerOnSize();
     return answer;
 }
 
@@ -18,7 +18,7 @@ const char* TextView::setText(const char* newText)
 {
     const char* answer = Window::setText(newText);
     //Vector newSize = app->getTextExtent(text, font, fontName);
-    onSize({}, {});
+    managerOnSize();
     return answer;
 } 
 
@@ -30,13 +30,13 @@ void TextView::setWrapStatus(bool status)
 void TextView::setWrapStatusX(bool status)
 {
     wrapContentX = status;
-    onSize({}, {});
+    managerOnSize();
 } 
 
 void TextView::setWrapStatusY(bool status)
 {
     wrapContentY = status;
-    onSize({}, {});
+    managerOnSize();
 }
 
 
