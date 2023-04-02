@@ -66,7 +66,6 @@ size_t ColorfullCoordinatSystemWindow::clearSys()
 
 void ColorfullCoordinatSystemWindow::drawPoints()
 {
-    size_t vectorSize = points.size();
     M_HDC& _outDC = *getOutputDC();
     
     COLORREF currColor = NULL;
@@ -74,8 +73,9 @@ void ColorfullCoordinatSystemWindow::drawPoints()
 
     Vector halfSize = { (double)pointsR, (double)pointsR };
 
-    pointsMutex.lock();
-    pointsColorArrMutex.lock();
+    scoped_lock pointsLock(pointsMutex);
+    scoped_lock pointsColorArrLock(pointsColorArrMutex);
+    size_t vectorSize = points.size();
     for (int i = 0; i < vectorSize; i++)
     {
         COLORREF newColor = pointsColorArr[i];
@@ -87,6 +87,4 @@ void ColorfullCoordinatSystemWindow::drawPoints()
         Vector pixPos = fromCellToPix(points[i]);
         app->ellipse(pixPos, halfSize, _outDC);
     }
-    pointsMutex.unlock();
-    pointsColorArrMutex.unlock();
 }

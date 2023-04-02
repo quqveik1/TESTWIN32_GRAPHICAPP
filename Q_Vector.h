@@ -107,6 +107,11 @@ std::string Vector::toString(std::string str/* = ""*/) const
     return answer;
 }
 
+std::ostream& operator<<(std::ostream& os, const Vector& p) {
+    os << p.toString();
+    return os;
+}
+
 int Vector::getIntX() const
 {
     return lround(x);
