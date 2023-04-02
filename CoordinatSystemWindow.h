@@ -38,6 +38,7 @@ struct CoordinatSystemWindow : Window
     void drawOneYLine(int stepNum, const Vector& cellStep, char* textBuf, M_HDC& destDc);
     virtual void drawPoints();
     void drawAxisName(M_HDC& destDC);
+    void drawAxis(M_HDC& _dc);
 
     virtual void invalidateSysConfig();
 

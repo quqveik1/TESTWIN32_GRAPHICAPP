@@ -100,7 +100,7 @@ void AbstractAppData::setWindowParameters(HINSTANCE hInstance)
     WNDCLASSEX wndClass = {};
 
     char handleName[MAX_PATH] = {};
-    (void)sprintf(handleName, "IMRED - %s[AbstractApp/WindowsLibApi]", appVersion);
+    (void)sprintf(handleName, "%s - %s[AbstractApp/WindowsLibApi]", appName.c_str(), appVersion);
 
     appIcon = LoadIcon((HINSTANCE)GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_ICON2));
 

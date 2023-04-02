@@ -17,6 +17,7 @@ struct AbstractAppData* appData = NULL;
 struct AbstractAppData
 {
     const char* appVersion = NULL;
+    string appName = "Графическое приложение";
     HWND MAINWINDOW = NULL;
     HICON appIcon = NULL;
     HCURSOR activeCursor = NULL;

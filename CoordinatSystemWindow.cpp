@@ -109,11 +109,10 @@ size_t CoordinatSystemWindow::clearSys()
 {
     try
     {
-        pointsMutex.lock();
+        scoped_lock pointsLock(pointsMutex);
         size_t _size = points.size();
         if (points.size() > 0) points.clear();
         invalidateButton();
-        pointsMutex.unlock();
         return _size;
     }
     catch(...)
@@ -134,36 +133,37 @@ void CoordinatSystemWindow::invalidateSysConfig()
 int CoordinatSystemWindow::onSize(Vector managerSize, Rect _newRect/* = {}*/)
 {
     Window::onSize(managerSize, _newRect);
-    axisSystemDC.setSize(getOutputDC()->getSize(), app);
-    app->setColor(color, axisSystemDC);
-    app->rectangle({}, axisSystemDC.getSize(), axisSystemDC);
+    return 0;
+}
+
+void CoordinatSystemWindow::drawAxis(M_HDC& _dc)
+{
+    app->setColor(color, _dc);
+    app->rectangle({}, _dc.getSize(), _dc);
 
     Vector pixStep = getPixCellStep();
     Vector cellStep = getHumanCellStep();
 
-    app->setColor(axisColor, axisSystemDC);
+    app->setColor(axisColor, _dc);
     char textNum[MAX_PATH] = {};
     for (int x = 0; x <= lround(cCellsLines.x); x++)
     {
-        drawOneXLine(x, cellStep, textNum, axisSystemDC);
+        drawOneXLine(x, cellStep, textNum, _dc);
     }
     for (int x = -1; x >= -lround(cCellsLines.x); x--)
     {
-        drawOneXLine(x, cellStep, textNum, axisSystemDC);
+        drawOneXLine(x, cellStep, textNum, _dc);
     }
 
     for (int y = 0; y <= lround(cCellsLines.y); y++)
     {
-        drawOneYLine(y, cellStep, textNum, axisSystemDC);
+        drawOneYLine(y, cellStep, textNum, _dc);
     }
     for (int y = -1; y >= -lround(cCellsLines.y); y--)
     {
-        drawOneYLine(y, cellStep, textNum, axisSystemDC);
+        drawOneYLine(y, cellStep, textNum, _dc);
     }
 
-    drawAxisName(axisSystemDC);
-
-    return 0;
 }
 
 void CoordinatSystemWindow::draw()
@@ -200,8 +200,10 @@ void CoordinatSystemWindow::draw()
         drawAxisName(getFinalDC());
         */
         
-        app->bitBlt(*getOutputDC(), {}, axisSystemDC);
+        //app->bitBlt(*getOutputDC(), {}, axisSystemDC);
+        drawAxis(getFinalDC());
         drawPoints();
+        drawAxisName(getFinalDC());
 
         int timefinish = clock();
 
