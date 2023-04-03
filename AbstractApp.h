@@ -1,4 +1,5 @@
 #pragma once
+#define _CRT_SECURE_NO_WARNINGS
 #include <Windows.h>
 #include <wingdi.h>
 #include "Q_Rect.h"
