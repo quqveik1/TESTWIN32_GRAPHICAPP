@@ -239,6 +239,7 @@ struct Window : remember_mem_type
     virtual void print(M_HDC& finalDC);
     virtual int hitTest(Vector mp);//1 - hit; 0 - miss
     virtual void onClick(Vector mp) {};
+    virtual int onClick(Vector mp, int button) { return 1; };//1- reacted 0 - ignored
     virtual int mbDown(Vector mp, int button) { if (rect.inRect(mp)) { app->declareReactionOnMSG(1); }; return 0; };
     virtual int mbUp(Vector mp, int button) { return 0; };
     virtual int onDoubleClick(Vector mp, int button) { return 0; };

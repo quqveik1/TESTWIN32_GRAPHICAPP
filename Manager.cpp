@@ -100,6 +100,42 @@ void Manager::onClick(Vector mp)
     app->windowsLibApi->standartManagerOnClick(this, mp);
 }
 
+int Manager::onClick(Vector mp, int button)
+{
+    bool missClicked = true;
+
+    int returnableVal = -1;
+
+    //if (HideIfIsNotActive) unHide ();
+
+    if (getShowStatus() == S_ACTIVE)
+    {
+        setActiveWindow(this);
+        for (int i = getCurLen() - 1; i >= 0; i--)
+        {
+            if (pointers[i])
+            {
+                Vector relativeMP = mp - pointers[i]->rect.pos;
+                if (pointers[i]->hitTest(relativeMP))
+                {
+                    pointers[i]->onClick(relativeMP, button);
+
+                    missClicked = false;
+                    returnableVal = i;
+                    if (manager->pointers[i]->needToShow) break;
+                }
+                else
+                {
+                    missClicked = true;
+                }
+            }
+        }
+    }
+
+    return returnableVal;
+    
+}
+
 
 int Manager::hitTest(Vector mp)
 {

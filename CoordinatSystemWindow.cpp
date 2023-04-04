@@ -172,6 +172,7 @@ void CoordinatSystemWindow::draw()
     {
         int timestart = clock();
         Window::draw();
+        
         /*
         Vector pixStep = getPixCellStep();
         Vector cellStep = getHumanCellStep();
@@ -218,7 +219,7 @@ void CoordinatSystemWindow::onClick(Vector mp)
     Window::onClick(mp);
     Vector clickedCellPos = fromPixToCell(mp);
 
-    cout << clickedCellPos.getStr();
+    //cout << clickedCellPos.getStr() << endl;
 
     if (onClickListener)
     {                          

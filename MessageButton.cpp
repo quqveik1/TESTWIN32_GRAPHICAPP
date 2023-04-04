@@ -1,4 +1,5 @@
 #pragma once
+#include "TextView.cpp"
 #include "MessageButton.h"
 
 void MessageButton::onClick(Vector mp)
