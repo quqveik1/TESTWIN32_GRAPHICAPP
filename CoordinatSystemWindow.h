@@ -18,6 +18,8 @@ struct CoordinatSystemWindow : Window
     vector<Vector> points;
 
     M_HDC axisSystemDC;
+    M_HDC hdcCopyForStretching;
+    bool isStretching = false;
 
     Window* onClickListener = NULL;
 
@@ -65,7 +67,9 @@ struct CoordinatSystemWindow : Window
     virtual size_t getPointsSize();
     virtual size_t clearSys();
 
-    void draw() override;
+    virtual void draw() override;
     virtual void onClick(Vector mp) override;
-    int onSize(Vector managerSize, Rect _newRect = {}) override;
+    virtual int onSize(Vector managerSize, Rect _newRect = {}) override;
+    virtual int onEnterWindowSizeMove() override;
+    virtual int onExitWindowSizeMove() override;
 };

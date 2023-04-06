@@ -168,49 +168,44 @@ void CoordinatSystemWindow::drawAxis(M_HDC& _dc)
 
 void CoordinatSystemWindow::draw()
 {
-    if (true/*!isValidViewState()*/)
+    if (true/*isValidViewState()*/)
     {
         int timestart = clock();
-        Window::draw();
-        
-        /*
-        Vector pixStep = getPixCellStep();
-        Vector cellStep = getHumanCellStep();
+        if (isStretching)
+        {
+            M_HDC& destHdc = getFinalDC();
+            app->stretchBlt(destHdc, {}, destHdc.getSize(), hdcCopyForStretching, {}, hdcCopyForStretching.getSize());
+        }
+        else
+        {
+            Window::draw();
 
-        
-        char textNum[MAX_PATH] = {};
-        app->setColor(axisColor, *getOutputDC());
-        for (int x = 0; x <= lround(cCellsLines.x); x++)
-        {
-            drawOneXLine(x, cellStep, textNum, getFinalDC());
+            drawAxis(getFinalDC());
+            drawPoints();
+            drawAxisName(getFinalDC());
         }
-        for (int x = -1; x >= -lround(cCellsLines.x); x--)
-        {
-            drawOneXLine(x, cellStep, textNum, getFinalDC());
-        }
-
-        for (int y = 0; y <= lround(cCellsLines.y); y++)
-        {
-            drawOneYLine(y, cellStep, textNum, getFinalDC());
-        }
-        for (int y = -1; y >= -lround(cCellsLines.y); y--)
-        {
-            drawOneYLine(y, cellStep, textNum, getFinalDC());
-        }
-
-        drawAxisName(getFinalDC());
-        */
-        
-        //app->bitBlt(*getOutputDC(), {}, axisSystemDC);
-        drawAxis(getFinalDC());
-        drawPoints();
-        drawAxisName(getFinalDC());
 
         int timefinish = clock();
 
         cout << "CoordinatSystemWindow::draw():" << timefinish - timestart << endl;
     }
+}
 
+int CoordinatSystemWindow::onEnterWindowSizeMove()
+{
+    isStretching = true;
+    M_HDC& _finaldc = getFinalDC();
+    Vector destSize = _finaldc.getSize();
+    hdcCopyForStretching.setSize(destSize, app);
+    app->bitBlt(hdcCopyForStretching, {}, _finaldc);
+    return 1;
+}
+
+int CoordinatSystemWindow::onExitWindowSizeMove()
+{
+    isStretching = false;
+    invalidateButton();
+    return 1;
 }
 
 

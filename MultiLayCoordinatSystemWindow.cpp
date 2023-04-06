@@ -47,6 +47,78 @@ size_t MultiLayCoordinatSystemWindow::addPoint(Vector point, COLORREF _pointColo
     return 0;
 }
 
+Vector MultiLayCoordinatSystemWindow::getPoint(size_t index, size_t layIndex/* = 0*/)
+{
+    scoped_lock lock1(laysMutex);
+    size_t _size = lays.size();
+    if (layIndex < _size)
+    {
+        return lays[layIndex]->pointsLay[index];
+    }
+    else
+    {
+        throw out_of_range("layIndex < _size");
+    }
+}
+
+
+COLORREF MultiLayCoordinatSystemWindow::getPointColor(size_t index, size_t layIndex/* = 0*/)
+{
+    scoped_lock lock1(laysMutex);
+    size_t _size = lays.size();
+    if (layIndex < _size)
+    {
+        return lays[layIndex]->colorLay[index];
+    }
+    else
+    {
+        throw out_of_range("layIndex < _size");
+    }
+    return NULL;
+}
+
+int MultiLayCoordinatSystemWindow::getPointR(size_t index, size_t layIndex/* = 0*/)
+{
+    scoped_lock lock1(laysMutex);
+    size_t _size = lays.size();
+    if (layIndex < _size)
+    {
+        return lays[layIndex]->rLay[index];
+    }
+    else
+    {
+        throw out_of_range("layIndex < _size");
+    }
+    return -1;
+}
+
+void MultiLayCoordinatSystemWindow::setPointsR(int r, size_t layIndex/* = 0*/)
+{
+    scoped_lock lock1(laysMutex);
+    size_t _size = lays.size();
+    if (layIndex < _size)
+    {
+        lays[layIndex]->defaultR = r;
+    }
+    else
+    {
+        throw out_of_range("layIndex < _size");
+    }
+}
+void MultiLayCoordinatSystemWindow::setPointsColor(COLORREF color, size_t layIndex/* = 0*/)
+{
+    scoped_lock lock1(laysMutex);
+    size_t _size = lays.size();
+    if (layIndex < _size)
+    {
+        lays[layIndex]->defaultColor = color;
+    }
+    else
+    {
+        throw out_of_range("layIndex < _size");
+    }
+}
+
 size_t MultiLayCoordinatSystemWindow::CoordinatLay::addPoint(Vector pos, COLORREF color, int r)
 {
     pointsLay.push_back(pos);
