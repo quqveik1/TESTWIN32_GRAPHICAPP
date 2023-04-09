@@ -19,7 +19,7 @@
 #include "TimerManager.cpp"
 #include "DLLToolsManager.cpp"
 #include "MSGReaction.cpp"
-#include "resource.h"
+#include "IMREDresource.h"
 #include <windowsx.h>
 #include <iostream>
 #include <sys/stat.h>
@@ -102,7 +102,7 @@ void AbstractAppData::setWindowParameters(HINSTANCE hInstance)
     char handleName[MAX_PATH] = {};
     (void)sprintf(handleName, "%s - %s[AbstractApp/WindowsLibApi]", appName.c_str(), appVersion);
 
-    appIcon = LoadIcon((HINSTANCE)GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_ICON2));
+    appIcon = LoadIcon((HINSTANCE)GetModuleHandle(NULL), MAKEINTRESOURCE(IMREDICON2));
 
     wndClass.cbSize = sizeof(wndClass);
     wndClass.style = (CS_VREDRAW | CS_HREDRAW | CS_DBLCLKS);// &~WS_CAPTION;
@@ -519,6 +519,11 @@ void AbstractAppData::setAppCondition(int newCondition)
     IsRunning = newCondition;
 }
 
+void AbstractAppData::setAppName(const string& newName)
+{
+    appName = newName;
+    SetWindowText(getActiveHWND(), appName.c_str());
+}
 
 
 int AbstractAppData::declareReactionOnMSG(int reaction/* = 0*/)

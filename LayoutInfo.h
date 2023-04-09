@@ -17,5 +17,4 @@ void fncDeleter(struct LayoutInfo* ptr)
             delete ptr;
         }
     }
-
 }

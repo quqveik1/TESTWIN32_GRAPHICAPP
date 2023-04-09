@@ -9,7 +9,7 @@ void Cursor::makeDefault()
     startPos = -1;
 }
 
-void Cursor::draw(M_HDC finalDC)
+void Cursor::draw(M_HDC& finalDC)
 {
     int clockMS = clock();
 
@@ -90,7 +90,7 @@ int Cursor::getCertainCharPos(int num)
         stringButton->text[num] = saveSymbol;
     }
 
-    return startOfText.x + positionX;
+    return (int)round(startOfText.x + positionX);
 }
 
 int Cursor::cursorPosFromMouse(Vector mp)
@@ -135,9 +135,8 @@ int Cursor::mbDownCursor(Vector mp)
     if (/*!app->isDoubleClick() &&*/ clock() - lastTimeDClick > 500 )
     {
         isSelecting = 1;
-        app->updateScreen(stringButton);
+        stringButton->invalidateButton();
         moveCursorTo(pos);
-        
     }
 
     return pos;
@@ -186,16 +185,17 @@ bool Cursor::isActiveSelection()
 }
 
 int Cursor::onTimer(UINT_PTR tm)
-{
-    
+{ 
     if (tm == timerName)
     {
         
-        if (stringButton->getInputMode())
+        int mode = stringButton->getInputMode();
+        if (mode)
         {
             app->updateScreen(stringButton);
-            SetTimer(app->MAINWINDOW, timerName, delta, NULL);
-            shouldShowCursor != shouldShowCursor;
+            timerName = app->setTimer(delta);
+            //SetTimer(app->MAINWINDOW, timerName, delta, NULL);
+            //shouldShowCursor != shouldShowCursor;
         }
     }
     return shouldShowCursor;
@@ -404,7 +404,7 @@ int StringButton2::onKeyboard(int key)
         checkKeyboard(key);
 
         
-        if (currentTextSize > (int)strlen(text)) currentTextSize = strlen(text);
+        if (currentTextSize > (int)strlen(text)) currentTextSize = (int)strlen(text);
 
         text[currentTextSize] = 0;
         //if (getInputMode() && getMBCondition() == 1) cursor.clickCursor(getMousePos());
@@ -488,7 +488,6 @@ int StringButton2::onMouseMove(Vector mp, Vector delta)
 
 int StringButton2::onTimer(UINT_PTR timerName)
 {
-
     return cursor.onTimer(timerName);
 }
 
@@ -525,7 +524,7 @@ int StringButton2::mbDown(Vector mp, int button)
         {
             if (textBeforeRedacting) delete textBeforeRedacting;
             textBeforeRedacting = new char[maxTextSize];
-            currentTextSize = strlen(text);
+            currentTextSize = (int)strlen(text);
             assert(textBeforeRedacting);
 
             if (textBeforeRedacting)
@@ -550,7 +549,8 @@ int StringButton2::mbUp(Vector mp, int button)
     cursor.mbUpCursor(mp);
     if (getInputMode())
     {
-        SetTimer(app->MAINWINDOW, cursor.timerName, cursor.delta, NULL);
+        cursor.timerName = app->setTimer(cursor.delta);
+        //SetTimer(app->MAINWINDOW, cursor.timerName, cursor.delta, NULL);
     }
     //getInputMode() = 0;
     return 0;
@@ -573,7 +573,7 @@ int StringButton2::onDoubleClick(Vector mp, int button)
 int StringButton2::onSize(Vector managerSize, Rect _newRect/* = {}*/)
 {
     TextView::onSize(managerSize, _newRect);
-    font = rect.getSize().y * 0.9;
+    font = (int)round(rect.getSize().y * 0.9);
     return 0;
 }
 
@@ -602,7 +602,7 @@ void StringButton2::copyInBuf()
                 HGLOBAL buffer = NULL;
                 char cpySymbol = text[localCurrPos];
                 text[localCurrPos] = NULL;
-                int selectedZoneSize = strlen(&text[localStartPos]) + 1;
+                int selectedZoneSize = (int)strlen(&text[localStartPos]) + 1;
                 buffer = GlobalAlloc(GMEM_DDESHARE, selectedZoneSize);
                 if (buffer)
                 {
@@ -644,7 +644,7 @@ void StringButton2::pasteFromBuf()
                 char* pasteBuffer = (char*)GlobalLock(hData);
                 if (pasteBuffer)
                 {
-                    int pasteBufferLength = strlen(pasteBuffer);
+                    int pasteBufferLength = (int)strlen(pasteBuffer);
                     bool needToPaste = true;
                     for (int i = 0; i < pasteBufferLength; i++)
                     {
@@ -970,7 +970,7 @@ void StringButton2::checkKeyboardChar(int key)
         {
             shiftTextForward(text, cursor.currPos, currentTextSize);
             text[cursor.currPos] = symbol;
-            currentTextSize = strlen(text);
+            currentTextSize = (int)strlen(text);
             cursor.moveRight();
             
         }
@@ -978,7 +978,7 @@ void StringButton2::checkKeyboardChar(int key)
         {
             shiftTextBack(text, max(cursor.currPos, cursor.startPos), currentTextSize, abs(cursor.currPos - cursor.startPos) - 1);
             text[min(cursor.currPos, cursor.startPos)] = symbol;
-            currentTextSize = strlen(text);
+            currentTextSize = (int)strlen(text);
             if (cursor.currPos > cursor.startPos)
             {
                 cursor.moveCursorTo(cursor.startPos);

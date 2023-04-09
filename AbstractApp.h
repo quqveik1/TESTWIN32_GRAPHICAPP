@@ -78,6 +78,8 @@ struct AbstractAppData
 
     virtual int getAppCondition();
     virtual void setAppCondition(int newCondition);
+
+    virtual void setAppName(const string& newName);
     
     virtual int makeDir(const char* path);
     virtual long getFileSize(FILE* _file);
