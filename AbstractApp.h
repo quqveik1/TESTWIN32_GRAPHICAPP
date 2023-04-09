@@ -188,6 +188,8 @@ struct AbstractAppData
     virtual bool isFullScreen();
 
     virtual long lround(double num);
+    virtual double generateRandom(double min, double max, size_t precision = 0);
+    virtual double generateRandom(Vector range, size_t precision = 0);
     template <typename T>
     int findElement(const vector<T>& arr, const T& val, int startIndex = 0, int finishIndex = 0);
 

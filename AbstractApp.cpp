@@ -1438,6 +1438,35 @@ long AbstractAppData::lround(double num)
     return std::lround(num);
 }
 
+double AbstractAppData::generateRandom(double min, double max, size_t precision/* = 0*/)
+{
+    if (min > max)
+    {
+        double copy = max;
+        max = min;
+        min = copy;
+    }
+
+    double _10pow = pow(10, precision);
+    double _10min = min * _10pow;
+    double _10max = max * _10pow;
+
+    int range = (int)round(_10max - _10min);
+
+    double num = rand() % range;
+
+    num /= _10pow;
+
+    num += min;
+
+    return num;
+}
+
+double AbstractAppData::generateRandom(Vector range, size_t precision/* = 0*/)
+{
+    return generateRandom(range.x, range.y, precision);
+}
+
 template <typename T>
 int AbstractAppData::findElement(const vector<T>& arr, const T& val, int startIndex/*=0*/, int finishIndex/*=0*/)
 {

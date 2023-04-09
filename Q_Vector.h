@@ -12,7 +12,7 @@ struct Vector
     double x = 0;
     double y = 0;
 
-    Vector& operator = (const Vector &a1);
+    Vector& operator = (const Vector& a1);
     Vector& operator = (const double& num);
 
     bool operator == (const Vector& comparable) const;
