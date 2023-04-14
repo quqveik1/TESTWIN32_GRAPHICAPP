@@ -94,7 +94,7 @@ int CSystemSettings::read(const char* path)
 
 int CSystemSettings::readUserSettings(const char* path)
 {
-    rassert(path, 1);   
+    EC(path);
     if (!path) return 1;
     FILE* ssFile = fopen(path, "r");
     if (!ssFile || !app->needToLoadOldFiles())
@@ -117,7 +117,6 @@ int CSystemSettings::readUserSettings(const char* path)
     fclose(ssFile);
     
     return 0;
-
 }
 
 

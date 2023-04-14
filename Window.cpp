@@ -65,6 +65,7 @@ int Window::onSize(Vector managerSize, Rect newRect/* = {}*/)
             resize(newSize);
         }
     }
+    inValidateViewState();
     return 0;
 }
 

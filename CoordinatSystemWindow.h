@@ -23,6 +23,8 @@ struct CoordinatSystemWindow : Window
 
     Window* onClickListener = NULL;
 
+    Vector sizeBeforeMoving = {};
+
     CoordinatSystemWindow(AbstractAppData* _app) :
         Window(_app),
         axisSystemDC(_app)

@@ -168,7 +168,9 @@ void CoordinatSystemWindow::drawAxis(M_HDC& _dc)
 
 void CoordinatSystemWindow::draw()
 {
-    if (true/*isValidViewState()*/)
+    bool state = isValidViewState();
+    cout << "isValidViewState: " << state << endl;
+    if (!state)
     {
         int timestart = clock();
         if (isStretching)
@@ -198,13 +200,19 @@ int CoordinatSystemWindow::onEnterWindowSizeMove()
     Vector destSize = _finaldc.getSize();
     hdcCopyForStretching.setSize(destSize, app);
     app->bitBlt(hdcCopyForStretching, {}, _finaldc);
+    sizeBeforeMoving = getSize();
     return 1;
 }
 
 int CoordinatSystemWindow::onExitWindowSizeMove()
 {
     isStretching = false;
-    invalidateButton();
+    Vector sizeAfterMoving = getSize();
+
+    if (sizeAfterMoving != sizeBeforeMoving)
+    {
+        invalidateButton();
+    }
     return 1;
 }
 

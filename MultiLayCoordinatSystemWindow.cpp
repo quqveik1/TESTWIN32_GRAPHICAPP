@@ -42,6 +42,10 @@ size_t MultiLayCoordinatSystemWindow::addPoint(Vector point, COLORREF _pointColo
         if (_r == 0) _r = pointsR;
         _activeLay->addPoint(point, _pointColor, _r);
     }
+    else
+    {
+        throwLayOutOfRange();
+    }
 
     if (_needToUpdateWindow) invalidateButton();
     return 0;
@@ -57,8 +61,9 @@ Vector MultiLayCoordinatSystemWindow::getPoint(size_t index, size_t layIndex/* =
     }
     else
     {
-        throw out_of_range("layIndex < _size");
+        throwLayOutOfRange();
     }
+    return {};
 }
 
 
@@ -72,7 +77,7 @@ COLORREF MultiLayCoordinatSystemWindow::getPointColor(size_t index, size_t layIn
     }
     else
     {
-        throw out_of_range("layIndex < _size");
+        throwLayOutOfRange();
     }
     return NULL;
 }
@@ -87,7 +92,7 @@ int MultiLayCoordinatSystemWindow::getPointR(size_t index, size_t layIndex/* = 0
     }
     else
     {
-        throw out_of_range("layIndex < _size");
+        throwLayOutOfRange();
     }
     return -1;
 }
@@ -102,7 +107,7 @@ void MultiLayCoordinatSystemWindow::setPointsR(int r, size_t layIndex/* = 0*/)
     }
     else
     {
-        throw out_of_range("layIndex < _size");
+        throwLayOutOfRange();
     }
 }
 void MultiLayCoordinatSystemWindow::setPointsColor(COLORREF color, size_t layIndex/* = 0*/)
@@ -115,11 +120,25 @@ void MultiLayCoordinatSystemWindow::setPointsColor(COLORREF color, size_t layInd
     }
     else
     {
-        throw out_of_range("layIndex < _size");
+        throwLayOutOfRange();
     }
 }
 
-size_t MultiLayCoordinatSystemWindow::CoordinatLay::addPoint(Vector pos, COLORREF color, int r)
+CoordinatLay* MultiLayCoordinatSystemWindow::getCoordinatLay(size_t layIndex/* = 0*/)
+{
+    size_t _size = lays.size();
+    if (layIndex < _size)
+    {
+        return lays[layIndex];
+    }
+    else
+    {
+        throwLayOutOfRange();
+    }
+    return NULL;
+}
+
+size_t CoordinatLay::addPoint(Vector pos, COLORREF color, int r)
 {
     pointsLay.push_back(pos);
     colorLay.push_back(color);
@@ -127,7 +146,7 @@ size_t MultiLayCoordinatSystemWindow::CoordinatLay::addPoint(Vector pos, COLORRE
     return pointsLay.size();
 }
 
-size_t MultiLayCoordinatSystemWindow::CoordinatLay::clear() 
+size_t CoordinatLay::clear() 
 {
     pointsLay.clear();
     colorLay.clear(); 
@@ -189,7 +208,12 @@ size_t MultiLayCoordinatSystemWindow::clearLay(size_t layIndex)
     }
     else
     {
-        assert(layIndex < laysSize);
+        throwLayOutOfRange();
     }
     return 0;
+}
+
+void MultiLayCoordinatSystemWindow::throwLayOutOfRange()
+{
+    throw out_of_range("Выход за границы массива слоев");
 }
