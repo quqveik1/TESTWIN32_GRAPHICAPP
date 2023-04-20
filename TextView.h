@@ -6,6 +6,7 @@ struct TextView : Window
     bool wrapContentX = 0;
     bool wrapContentY = 0;
     double relativeFontSize = 0.9;
+
     TextView(AbstractAppData* _app, int _font = NULL, const char* _text = NULL) :
         Window(_app)
     {
@@ -14,6 +15,8 @@ struct TextView : Window
     }
 
     void wrapControl();
+
+    virtual int setTrancparencyOutput(int newStatus) override;
 
     virtual int setFont(int newFont) override;
     virtual const char* setText(const char* newText) override;

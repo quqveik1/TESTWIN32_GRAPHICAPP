@@ -49,7 +49,7 @@ struct Window : remember_mem_type
     bool needToShow = true;
     //DON't USE IT
     bool reDraw = true; //????
-    bool needTransparencyOutput = false;
+    int needTransparencyOutput = 0;
     bool redrawStatus = false;
     bool validViewState = false;
 

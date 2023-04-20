@@ -2,7 +2,18 @@
 #include "TextView.h"
 
 
-
+int TextView::setTrancparencyOutput(int newStatus)
+{
+    if (newStatus)
+    {
+        setColor(C_TRANSPARENT);
+    }
+    else
+    {
+        setColor(app->systemSettings->BackgroundColor);
+    }
+    return Window::setTrancparencyOutput(newStatus);
+}
 
 int TextView::setFont(int newFont)
 {
@@ -11,8 +22,6 @@ int TextView::setFont(int newFont)
     managerOnSize();
     return answer;
 }
-
-
 
 const char* TextView::setText(const char* newText)
 {

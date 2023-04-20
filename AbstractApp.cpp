@@ -31,7 +31,7 @@ AbstractAppData::AbstractAppData(HINSTANCE _instance, string _pathToAbstractAppD
     hInstance(_instance),
     pathToAbstractAppDataApi(_pathToAbstractAppDataApi)
 {
-    //setlocale(LC_ALL, "Russian");
+    setlocale(LC_ALL, "Russian");
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
     appData = this;
