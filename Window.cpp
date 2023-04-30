@@ -219,7 +219,7 @@ int Window::managerOnSize()
     }
     else
     {
-        printf("window %p doesn't have a manager\n", this);
+        dprintf("window %p doesn't have a manager\n", this);
         return 0;
     }
 }

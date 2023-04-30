@@ -27,7 +27,7 @@
 #pragma comment(lib, "Msimg32")   
 
 
-AbstractAppData::AbstractAppData(HINSTANCE _instance, string _pathToAbstractAppDataApi/* = ""*/) :
+AbstractAppData::AbstractAppData(HINSTANCE _instance, std::string _pathToAbstractAppDataApi/* = ""*/) :
     hInstance(_instance),
     pathToAbstractAppDataApi(_pathToAbstractAppDataApi)
 {
@@ -67,6 +67,8 @@ AbstractAppData::AbstractAppData(HINSTANCE _instance, string _pathToAbstractAppD
     msgReaction = new MSGReaction();
 
     testDC.setSize(systemSettings->SizeOfScreen, this);
+
+    dcout << "Конструтор закончил выполнение" << std::endl;
     //setWindowParameters(hInstance);
 }
 
@@ -118,8 +120,6 @@ void AbstractAppData::setWindowParameters(HINSTANCE hInstance)
     wndClass.lpszMenuName = NULL;
     wndClass.lpszClassName = handleName;
 
-
-
     int registerResult = RegisterClassEx(&wndClass);
 
     if (!registerResult) massert(!"Главный оконный класс не зарегистрировался:(", this);
@@ -141,10 +141,8 @@ void AbstractAppData::setWindowParameters(HINSTANCE hInstance)
 
     ShowWindow(MAINWINDOW, SW_SHOW);
     updateScreen(NULL);
+    hideConsoleWindow();
 }
-
-
-
 
 LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -169,7 +167,7 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
         {
             LPMINMAXINFO lpMMI = (LPMINMAXINFO)lParam;
             lpMMI->ptMinTrackSize = (POINT)appData->getMinSize();
-            printf("");
+            dprintf("");
         }
 
         if (message == WM_SETCURSOR)
@@ -198,11 +196,11 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
                 appData->activeMouseButton = 0;
                 if (message == WM_LBUTTONDOWN) appData->activeMouseButton = 1;
                 if (message == WM_RBUTTONDOWN) appData->activeMouseButton = 2;
-                printf("WM_MBDOWN_START\n");
+                dprintf("WM_MBDOWN_START\n");
                 Vector mp = { (double)LOWORD(lParam), (double)HIWORD(lParam) };
                 appData->mainManager->mbDown(mp, appData->activeMouseButton);
                 appData->captureMouse();
-                printf("WM_MBDOWN_END\n");
+                dprintf("WM_MBDOWN_END\n");
                 appData->activeMouseButton = 0;
             }
         }
@@ -214,7 +212,7 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
                 appData->activeMouseButton = 0;
                 if (message == WM_LBUTTONUP) appData->activeMouseButton = 1;
                 if (message == WM_RBUTTONUP) appData->activeMouseButton = 2;
-                printf("WM_MBUP_START\n");
+                dprintf("WM_MBUP_START\n");
                 Vector mp = { (double)LOWORD(lParam), (double)HIWORD(lParam) };
                 appData->mainManager->mbUp(mp, appData->activeMouseButton);
                 if (appData->mainManager->hitTest(mp))
@@ -222,7 +220,7 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
                     appData->mainManager->onClick(mp);
                 }
                 appData->releaseMouse();
-                printf("WM_MBUP_END\n");
+                dprintf("WM_MBUP_END\n");
                 appData->activeMouseButton = 0;
             }
         }
@@ -347,7 +345,7 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
             {
                 appData->windowMovingStatus = true;
                 appData->mainManager->onEnterWindowSizeMove();
-                cout << "WM_ENTERSIZEMOVE\n";
+                dcout << "WM_ENTERSIZEMOVE\n";
             }
         }
 
@@ -357,7 +355,7 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
             {
                 appData->windowMovingStatus = false;
                 appData->mainManager->onExitWindowSizeMove();
-                cout << "WM_EXITSIZEMOVE\n";
+                dcout << "WM_EXITSIZEMOVE\n";
             }
         }
     }
@@ -388,12 +386,12 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
             int button = 0;
             if (message == WM_LBUTTONDOWN) button = 1;
             if (message == WM_RBUTTONDOWN) button = 2;
-            printf("WM_MBDOWN_START\n");
+            dprintf("WM_MBDOWN_START\n");
             Vector mp = { GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam) };
             mp -= appData->getWindowRect().pos;
             appData->handle->mbDown(mp, button);
             //appData->captureMouse();
-            printf("WM_MBDOWN_END\n");
+            dprintf("WM_MBDOWN_END\n");
         }
         //return 0;
     }
@@ -405,13 +403,13 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
             int button = 0;
             if (message == WM_LBUTTONUP) button = 1;
             if (message == WM_RBUTTONUP) button = 2;
-            printf("WM_MBUP_START\n");
+            dprintf("WM_MBUP_START\n");
             Vector mp = { GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam) };
             mp -= appData->getWindowRect().pos;
             appData->handle->mbUp(mp, button);
             appData->handle->onClick(mp);
             //appData->releaseMouse();
-            printf("WM_MBUP_END\n");
+            dprintf("WM_MBUP_END\n");
         }
         //return 0;
     }
@@ -506,7 +504,31 @@ int AbstractAppData::setIcon(HICON icon/* = NULL*/)
     }
 }
 
+HICON AbstractAppData::loadIcon(int resourcename)
+{
+    HICON loadedIcon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(resourcename));
+    //int err = GetLastError();
+    return loadedIcon;
+}
 
+int AbstractAppData::loadAndSetIcon(int resource)
+{
+    appIcon = loadIcon(resource);
+    int res = setIcon(appIcon);
+    return res;
+}
+
+void AbstractAppData::hideConsoleWindow()
+{
+    HWND consoleWindow = GetConsoleWindow();
+    ShowWindow(consoleWindow, SW_HIDE);
+}
+
+void AbstractAppData::showConsoleWindow()
+{
+    HWND consoleWindow = GetConsoleWindow();
+    ShowWindow(consoleWindow, SW_SHOW);
+}
 
 int AbstractAppData::getAppCondition()
 {
@@ -519,7 +541,7 @@ void AbstractAppData::setAppCondition(int newCondition)
     IsRunning = newCondition;
 }
 
-void AbstractAppData::setAppName(const string& newName)
+void AbstractAppData::setAppName(const std::string& newName)
 {
     appName = newName;
     SetWindowText(getActiveHWND(), appName.c_str());
@@ -608,7 +630,7 @@ void AbstractAppData::rectangle(Rect rect, HDC dc)
 void AbstractAppData::drawCadre(Rect rect, M_HDC& dc, COLORREF color, int thickness)
 {
     $s;
-    if (systemSettings->debugMode == 5) printf("Rect: {%lf, %lf}\n", rect.pos.x, rect.pos.y);
+    if (systemSettings->debugMode == 5) dprintf("Rect: {%lf, %lf}\n", rect.pos.x, rect.pos.y);
     setColor(color, dc, thickness);
 
     int halfThickness = thickness / 2;
@@ -730,7 +752,7 @@ void AbstractAppData::selectFont(const char* text, int sizey, M_HDC& dc, int siz
         DEFAULT_QUALITY, DEFAULT_PITCH, text);
 
     if (font) dc.selectObj(font);
-    else printf("Шрифт[""%s""] не существует!", text);
+    else dprintf("Шрифт[""%s""] не существует!", text);
 
 }
 
@@ -750,7 +772,7 @@ int AbstractAppData::makeDir(const char* path)
     {
         if (errno == ENOENT)
         {
-            printf("[%s] не создалась и не существует", path);
+            dprintf("[%s] не создалась и не существует", path);
             return ENOENT;
         }
     }
@@ -782,7 +804,7 @@ char* AbstractAppData::readText(FILE* _file)
 
         if (creadchar < 0)
         {
-            printf("Файл считался %s\n", __FUNCTION__);
+            dprintf("Файл считался %s\n", __FUNCTION__);
             return NULL;
         }
 
@@ -792,7 +814,7 @@ char* AbstractAppData::readText(FILE* _file)
     }
     else
     {
-        printf("Передан пустой файл для %s\n", __FUNCTION__);
+        dprintf("Передан пустой файл для %s\n", __FUNCTION__);
         return NULL;
     }
 }
@@ -811,7 +833,7 @@ char* AbstractAppData::readText(const char* path)
 
         if (creadchar < 0)
         {
-            printf("Файл считался %s\n", __FUNCTION__);
+            dprintf("Файл считался %s\n", __FUNCTION__);
             return NULL;
         }
 
@@ -821,14 +843,14 @@ char* AbstractAppData::readText(const char* path)
     }
     else
     {
-        printf("Передан пустой путь для %s\n", __FUNCTION__);
+        dprintf("Передан пустой путь для %s\n", __FUNCTION__);
         return NULL;
     }
 }
 
 void AbstractAppData::setColor(COLORREF color, M_HDC& dc, int thickness)
 {
-    if (systemSettings->debugMode == 5) printf("SetColor: %d|", color);
+    if (systemSettings->debugMode == 5) dprintf("SetColor: %d|", color);
     gassert(dc);
 
     COLORREF oldColor = GetDCBrushColor(dc);
@@ -952,7 +974,7 @@ int AbstractAppData::updateScreen(Window* window)
         if (true)
         {
             InvalidateRect(MAINWINDOW, NULL, FALSE);
-            //printf("[%p] InvalidetedRect\n", window);
+            //dprintf("[%p] InvalidetedRect\n", window);
         }
     }
     return 0;
@@ -978,7 +1000,7 @@ int AbstractAppData::invalidateRect(struct Window* window, Rect _rect, bool _era
         if (isVisible)
         {
             InvalidateRect(MAINWINDOW, NULL, FALSE);
-            //printf("[%p] InvalidetedRect\n", window);
+            //dprintf("[%p] InvalidetedRect\n", window);
         }
     }
     return 0;
@@ -987,7 +1009,7 @@ int AbstractAppData::invalidateRect(struct Window* window, Rect _rect, bool _era
 int AbstractAppData::captureMouse(HWND wnd/*= NULL*/)
 {
     if (wnd == NULL) wnd = MAINWINDOW;
-    printf("Mouse was captured\n");
+    dprintf("Mouse was captured\n");
     HWND captureWnd = SetCapture(wnd);
 
     if (captureWnd)
@@ -1003,7 +1025,7 @@ int AbstractAppData::captureMouse(HWND wnd/*= NULL*/)
 int AbstractAppData::releaseMouse(HWND wnd/*= NULL*/)
 {
     if (wnd == NULL) wnd = MAINWINDOW;
-    printf("Mouse was released\n");
+    dprintf("Mouse was released\n");
 
     return (int)ReleaseCapture();
 }
@@ -1138,7 +1160,7 @@ void AbstractAppData::transparentBlt(HDC dc1, Rect destRect, HDC dc2, Vector pos
 
 int AbstractAppData::stretchBlt(HDC dest, double destPosx, double destPosy, double destSizex, double destSizey, HDC source, double sourcePosx, double sourcePosy, double sourceSizex, double sourceSizey)
 {
-    //cout << destSizex << "|" << destSizey << "|||" << sourceSizex<<"|" << sourceSizey;
+    //dcout << destSizex << "|" << destSizey << "|||" << sourceSizex<<"|" << sourceSizey;
     return StretchBlt(dest, std::lround(destPosx), std::lround(destPosy), std::lround(destSizex), std::lround(destSizey), source, std::lround(sourcePosx), std::lround(sourcePosy), std::lround(sourceSizex), std::lround(sourceSizey), SRCCOPY);
 }
 
@@ -1271,7 +1293,7 @@ void AbstractAppData::deleteDC(HDC dc)
 
         DeleteDC(dc);
     }
-    else printf("DC, которые вы хотите удалить не существует\n");
+    else dprintf("DC, которые вы хотите удалить не существует\n");
 }
 
 int AbstractAppData::smartDeleteDC(HDC dc)
@@ -1286,12 +1308,12 @@ int AbstractAppData::saveImage(HDC dc, const char* path)
         int res = dllsaveImage(dc, path);
         return res;
     }
-    printf("dllsaveImage не загрузилось\n");
+    dprintf("dllsaveImage не загрузилось\n");
     return NULL;
 }
 
 
-int AbstractAppData::DEBUGsaveImage(HDC dc, string _name/* = "1"*/)
+int AbstractAppData::DEBUGsaveImage(HDC dc, std::string _name/* = "1"*/)
 {
     if (dllsaveImage)
     {
@@ -1300,7 +1322,7 @@ int AbstractAppData::DEBUGsaveImage(HDC dc, string _name/* = "1"*/)
         int res = dllsaveImage(dc, finalName.c_str());
         return res;
     }
-    printf("dllsaveImage не загрузилось\n");
+    dprintf("dllsaveImage не загрузилось\n");
     return NULL;
 };
 
@@ -1311,7 +1333,7 @@ HDC AbstractAppData::loadImage(const char* path, Vector _size/* = {}*/)
         HDC _dc = dllloadImage(path, _size, this);
         return _dc;
     }
-    printf("dllloadImage не загрузилось\n");
+    dprintf("dllloadImage не загрузилось\n");
     return NULL;
 }
 
@@ -1418,18 +1440,18 @@ void AbstractAppData::setCursor(HCURSOR cursor/*= NULL*/)
 {
     if (cursor == NULL) cursor = defaultCursor;
     activeCursor = cursor;
-    printf("Cursor was set\n");
+    dprintf("Cursor was set\n");
     lastTimeCursorSetTime = clock();
 }
 
 Vector AbstractAppData::getCursorPos()
 {
-    Vector vector = {};
+    Vector _vector = {};
     POINT point = {};
     GetCursorPos(&point);
-    vector.x = point.x;
-    vector.y = point.y;
-    return vector;
+    _vector.x = point.x;
+    _vector.y = point.y;
+    return _vector;
 }
 
 
@@ -1468,7 +1490,7 @@ double AbstractAppData::generateRandom(Vector range, size_t precision/* = 0*/)
 }
 
 template <typename T>
-int AbstractAppData::findElement(const vector<T>& arr, const T& val, int startIndex/*=0*/, int finishIndex/*=0*/)
+int AbstractAppData::findElement(const std::vector<T>& arr, const T& val, int startIndex/*=0*/, int finishIndex/*=0*/)
 {
     if (finishIndex == 0)
     {
@@ -1531,7 +1553,7 @@ UINT_PTR AbstractAppData::setTimer(int mslen)
     UINT_PTR timerNum = SetTimer(MAINWINDOW, idtimerNum, mslen, NULL);
     if (timerNum == 0)
     {
-        printf("Таймер на %d мс с индифекатором %lld не поставился((", mslen, idtimerNum);
+        dprintf("Таймер на %d мс с индифекатором %lld не поставился((", mslen, idtimerNum);
         return 0;
     }
 

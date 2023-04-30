@@ -2,6 +2,7 @@
 
 #include "WindowsLibApi.h"
 #include <algorithm>
+#include "ConsoleOutput.cpp"
 
 
 void clickButton(Window* window, Manager* manager, Vector mp)
@@ -44,7 +45,7 @@ bool CWindowsLibApi::addWindow(Manager* manager, Window* window)
 {
     if (!window)
     {                                                    
-        printf("Попытка добавить несуществующее окно\n");
+        dprintf("Попытка добавить несуществующее окно\n");
         return 0;
     }
 
@@ -52,7 +53,7 @@ bool CWindowsLibApi::addWindow(Manager* manager, Window* window)
 
     if (findedDublicatesElements < 0)
     {
-        printf("Попытка добавить уже добавленное в менеджер окно\n");
+        dprintf("Попытка добавить уже добавленное в менеджер окно\n");
     }
 
     manager->pointers.push_back(window);

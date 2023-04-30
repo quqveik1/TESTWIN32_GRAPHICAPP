@@ -9,7 +9,7 @@ int M_HGDIOBJ::deleteObj()
     {
         if (status <= 0)
         {
-            (void)printf("Попытка удалить уже удаленный холст\n");
+            (void)dprintf("Попытка удалить уже удаленный холст\n");
             return (int)1;
         }
         else
@@ -17,7 +17,7 @@ int M_HGDIOBJ::deleteObj()
             
             if (status >= 2)
             {
-                printf("Попытка удалить активный и выбранный где-то объект\n");
+                dprintf("Попытка удалить активный и выбранный где-то объект\n");
                 return (int)1;
             }
             unBind();
@@ -26,7 +26,7 @@ int M_HGDIOBJ::deleteObj()
             status = 0;
             if (res == 0)
             {
-                printf("Ошибка удаления M_HGDIOBJ\n");
+                dprintf("Ошибка удаления M_HGDIOBJ\n");
             }
             return 0;
         }
@@ -48,13 +48,13 @@ int M_HGDIOBJ::unBind()
         }
         else
         {
-            printf("Попытка отвзять от мэнеджера, хотя к нему и не привязывались\n");
+            dprintf("Попытка отвзять от мэнеджера, хотя к нему и не привязывались\n");
             //DebugBreak();
         }
     }
     else
     {
-        printf("НЕТ ДОСТУПА К ГЛАВНОМУ ПРИЛОЖЕНИЮ!");
+        dprintf("НЕТ ДОСТУПА К ГЛАВНОМУ ПРИЛОЖЕНИЮ!");
     }
     return 1;
 }
@@ -67,7 +67,7 @@ HGDIOBJ M_HGDIOBJ::setObj(HGDIOBJ  _obj)
         status = 1;
         return NULL;
     }
-    printf("Попытка задать в оберточный класс, в котором уже выбран объект еще один объект\n");
+    dprintf("Попытка задать в оберточный класс, в котором уже выбран объект еще один объект\n");
     return obj;
     
 }

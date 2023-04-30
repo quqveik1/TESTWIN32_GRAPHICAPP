@@ -22,7 +22,7 @@ HGDIManager::~HGDIManager()
         }
     }
 
-    printf("Было удалено %d объектов, причем общее количество классов-обёрток составляет %d штук\n", amountOfDeletedObjs, (int)objs.size());
+    dprintf("Было удалено %d объектов, причем общее количество классов-обёрток составляет %d штук\n", amountOfDeletedObjs, (int)objs.size());
 
 }
 
@@ -74,7 +74,7 @@ int HGDIManager::unBind(M_HGDIOBJ* obj)
 
     if (howManyDeleted == 0)
     {
-        printf("Попытка отвязать незарегестрированный в мэнеджере объект\n");
+        dprintf("Попытка отвязать незарегестрированный в мэнеджере объект\n");
         //DebugBreak();
         return -1;
     }

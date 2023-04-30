@@ -117,7 +117,7 @@ size_t CoordinatSystemWindow::clearSys()
     }
     catch(...)
     {
-        printf("Exception: %s", __FUNCTION__);
+        dprintf("Exception: %s", __FUNCTION__);
         return 0;
     }
     return 0;
@@ -169,7 +169,7 @@ void CoordinatSystemWindow::drawAxis(M_HDC& _dc)
 void CoordinatSystemWindow::draw()
 {
     bool state = isValidViewState();
-    cout << "isValidViewState: " << state << endl;
+    dcout << "isValidViewState: " << state << endl;
     if (!state)
     {
         int timestart = clock();
@@ -189,7 +189,7 @@ void CoordinatSystemWindow::draw()
 
         int timefinish = clock();
 
-        cout << "CoordinatSystemWindow::draw():" << timefinish - timestart << endl;
+        dcout << "CoordinatSystemWindow::draw():" << timefinish - timestart << endl;
     }
 }
 

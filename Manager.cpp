@@ -25,7 +25,7 @@ Window* Manager::getChildWindowPointer(int i)
     return pointers[i];
 }
 
-vector<Window*>& Manager::getPointers()
+std::vector<Window*>& Manager::getPointers()
 {
     return pointers;
 }

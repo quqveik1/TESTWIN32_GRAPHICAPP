@@ -10,7 +10,7 @@
 #include <vector>
 #include <string>
 #include "remember_mem_type.h"
-using namespace std;
+#include "ConsoleOutput.cpp"
 
 
 struct AbstractAppData* appData = NULL;
@@ -18,13 +18,13 @@ struct AbstractAppData* appData = NULL;
 struct AbstractAppData
 {
     const char* appVersion = NULL;
-    string appName = "Графическое приложение";
+    std::string appName = "Графическое приложение";
     HWND MAINWINDOW = NULL;
     HICON appIcon = NULL;
     HCURSOR activeCursor = NULL;
     int lastTimeCursorSetTime = NULL;
     struct Manager* mainManager = NULL;
-    string pathToAbstractAppDataApi;
+    std::string pathToAbstractAppDataApi;
 
     
     bool filesCompability = true;
@@ -60,7 +60,7 @@ struct AbstractAppData
 
     M_HDC testDC;
 
-    AbstractAppData(HINSTANCE _instance, string _pathToAbstractAppDataApi = "");
+    AbstractAppData(HINSTANCE _instance, std::string _pathToAbstractAppDataApi = "");
     virtual ~AbstractAppData();
 
     virtual int startApp();
@@ -75,11 +75,16 @@ struct AbstractAppData
     virtual Vector getMinSize();
     virtual HWND getActiveHWND();
     virtual int setIcon(HICON icon = NULL);
+    virtual HICON loadIcon(int resource);
+    virtual int loadAndSetIcon(int resource);
+
+    virtual void hideConsoleWindow();
+    virtual void showConsoleWindow();
 
     virtual int getAppCondition();
     virtual void setAppCondition(int newCondition);
 
-    virtual void setAppName(const string& newName);
+    virtual void setAppName(const std::string& newName);
     
     virtual int makeDir(const char* path);
     virtual long getFileSize(FILE* _file);
@@ -163,7 +168,7 @@ struct AbstractAppData
     virtual int saveImage(HDC dc, const char* path);
     int (*dllsaveImage) (HDC dc, const char* path) = NULL;
     HDC(*dllloadImage) (const char* path, Vector& _size, AbstractAppData* _app) = NULL;
-    virtual int DEBUGsaveImage(HDC dc, string _name = "1");
+    virtual int DEBUGsaveImage(HDC dc, std::string _name = "1");
     virtual HDC loadImage(const char* path, Vector _size = {});
 
     virtual void drawCadre(Rect rect, M_HDC& dc, COLORREF color, int thickness);
@@ -191,7 +196,7 @@ struct AbstractAppData
     virtual double generateRandom(double min, double max, size_t precision = 0);
     virtual double generateRandom(Vector range, size_t precision = 0);
     template <typename T>
-    int findElement(const vector<T>& arr, const T& val, int startIndex = 0, int finishIndex = 0);
+    int findElement(const std::vector<T>& arr, const T& val, int startIndex = 0, int finishIndex = 0);
 
     virtual Vector getCentrizedPos(Vector localSize, Vector globalSize);
     virtual void shiftArrBack(char* arr, int oneItemSize, int firstPosOfShifting, int finishPosOfShifting);

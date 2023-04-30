@@ -66,7 +66,7 @@ int M_HDC::selectObj(M_HGDIOBJ* _obj, HBITMAP map)
 {
     if (!app)
     {
-        printf("Попытка графический действий на M_HDC без доступа к приложению[%p]", this);
+        dprintf("Попытка графический действий на M_HDC без доступа к приложению[%p]", this);
         return-1;
     }
 
@@ -86,7 +86,7 @@ int M_HDC::selectObj(HBITMAP map)
 {
     if (!app)
     {
-        printf("Попытка графический действий на M_HDC без доступа к приложению[%p]", this);
+        dprintf("Попытка графический действий на M_HDC без доступа к приложению[%p]", this);
         return-1;
     }
 
@@ -131,7 +131,7 @@ int M_HDC::selectObj(HPEN pen)
 {
     if (!app)
     {
-        printf("Попытка графический действий на M_HDC без доступа к приложению[%p]", this);
+        dprintf("Попытка графический действий на M_HDC без доступа к приложению[%p]", this);
         return-1;
     }
 
@@ -162,7 +162,7 @@ int M_HDC::selectObj(M_HGDIOBJ* _obj, HBRUSH brush)
 {
     if (!app)
     {
-        printf("Попытка графический действий на M_HDC без доступа к приложению[%p]", this);
+        dprintf("Попытка графический действий на M_HDC без доступа к приложению[%p]", this);
         return-1;
     }
 
@@ -182,7 +182,7 @@ int M_HDC::selectObj(HBRUSH brush)
 {
     if (!app)
     {
-        printf("Попытка графический действий на M_HDC без доступа к приложению[%p]", this);
+        dprintf("Попытка графический действий на M_HDC без доступа к приложению[%p]", this);
         return-1;
     }
 
@@ -213,7 +213,7 @@ int M_HDC::selectObj(M_HGDIOBJ* _obj, HFONT font)
 {
     if (!app)
     {
-        printf("Попытка графический действий на M_HDC без доступа к приложению[%p]", this);
+        dprintf("Попытка графический действий на M_HDC без доступа к приложению[%p]", this);
         return-1;
     }
 
@@ -233,7 +233,7 @@ int M_HDC::selectObj(HFONT font)
 {
     if (!app)
     {
-        printf("Попытка графический действий на M_HDC без доступа к приложению[%p]", this);
+        dprintf("Попытка графический действий на M_HDC без доступа к приложению[%p]", this);
         return-1;
     }
 
@@ -329,7 +329,7 @@ int M_HDC::setSize(Vector size, struct AbstractAppData* _app, RGBQUAD** pixels/*
         HBITMAP bmap = CreateDIBSection(NULL, &info, DIB_RGB_COLORS, (void**)pixels, NULL, 0);
         if (!bmap)
         {
-            printf("bitmap с размером %s не создалась(\n", size.getStr());
+            dprintf("bitmap с размером %s не создалась(\n", size.getStr());
             return 0;
         }
         setApp(_app);
@@ -355,7 +355,7 @@ int M_HDC::loadImage(struct AbstractAppData* _app, const char* _path, Vector _si
     }
     else
     {
-        printf("Попытка графический действий на M_HDC без доступа к приложению[%p]", this);
+        dprintf("Попытка графический действий на M_HDC без доступа к приложению[%p]", this);
         return-1;
     }
 

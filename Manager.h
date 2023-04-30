@@ -7,7 +7,7 @@
 struct Manager : Window
 {
     int length;
-    vector <Window*> pointers;
+    std::vector <Window*> pointers;
     int currLen;
     Window handle;
     int needToControlHandleInDefaultFuncs = 0;
@@ -56,7 +56,7 @@ struct Manager : Window
     virtual void show() override;
     virtual int& getCurLen() { return currLen; };
     virtual Window* getChildWindowPointer(int i);
-    virtual vector<Window*>& getPointers();
+    virtual std::vector<Window*>& getPointers();
 
     virtual Window* isActiveWindowBelow() override;
     virtual void screenChanged() override;

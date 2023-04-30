@@ -19,7 +19,7 @@ struct HGDIManager
     int currlen = 0;
     static const int maxLen = 100000;
     //M_HGDIOBJ* objs[maxLen] = {};
-    vector <M_HGDIOBJ*> objs{};
+    std::vector <M_HGDIOBJ*> objs{};
 
     HGDIManager(AbstractAppData* _app) :
         app (_app)
