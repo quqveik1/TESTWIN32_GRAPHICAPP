@@ -113,6 +113,15 @@ void Window::invalidateButton()
     app->updateScreen(this);
     needRedraw();
     inValidateViewState();
+    Manager* _man = getManager();
+    if (_man)
+    {
+        _man->invalidateButton();
+    }
+    else
+    {
+        dprintf("У окна [%p] нет родителя\n", this);
+    }
 }
 
 
