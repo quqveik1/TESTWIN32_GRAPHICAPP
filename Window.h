@@ -190,6 +190,7 @@ struct Window : remember_mem_type
     };
 
     virtual void screenChanged() {}; //???
+    virtual void invalidateParent();
     virtual void invalidateButton();
     virtual bool isValidViewState() { return validViewState; };
     virtual void inValidateViewState() { validViewState = false; };

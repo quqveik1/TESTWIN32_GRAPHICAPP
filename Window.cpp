@@ -108,11 +108,8 @@ int Window::setTrancparencyOutput(int need)
     return old;
 }
 
-void Window::invalidateButton()
+void Window::invalidateParent()
 {
-    app->updateScreen(this);
-    needRedraw();
-    inValidateViewState();
     Manager* _man = getManager();
     if (_man)
     {
@@ -122,6 +119,14 @@ void Window::invalidateButton()
     {
         dprintf("У окна [%p] нет родителя\n", this);
     }
+}
+
+void Window::invalidateButton()
+{
+    app->updateScreen(this);
+    needRedraw();
+    inValidateViewState();
+    invalidateParent();
 }
 
 

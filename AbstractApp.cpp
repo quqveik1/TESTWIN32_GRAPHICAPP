@@ -145,7 +145,13 @@ void AbstractAppData::setWindowParameters(HINSTANCE hInstance)
 
     ShowWindow(MAINWINDOW, SW_SHOW);
     updateScreen(NULL);
+
+#ifndef _DEBUG
     hideConsoleWindow();
+#else
+    showConsoleWindow();
+#endif
+
 
 
     loadAndSetIcon(IMREDICON1);
@@ -368,59 +374,6 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
     }
 
     LRESULT resDefWindowProc = DefWindowProc(window, message, wParam, lParam);
-    /*
-    if (message == WM_NCPAINT)
-    {
-
-        if (appData)
-        {
-
-            HDC finalDC = GetWindowDC(window);
-            M_HDC outDC(appData, finalDC);
-
-            if (appData->handle)
-            {
-                appData->handle->print(outDC);
-            }
-
-            outDC.deleteObj();
-        }
-    }
-    if (message == WM_NCLBUTTONDOWN || message == WM_NCRBUTTONDOWN)
-    {
-        if (appData->handle)
-        {
-            int button = 0;
-            if (message == WM_LBUTTONDOWN) button = 1;
-            if (message == WM_RBUTTONDOWN) button = 2;
-            dprintf("WM_MBDOWN_START\n");
-            Vector mp = { GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam) };
-            mp -= appData->getWindowRect().pos;
-            appData->handle->mbDown(mp, button);
-            //appData->captureMouse();
-            dprintf("WM_MBDOWN_END\n");
-        }
-        //return 0;
-    }
-
-    if (message == WM_NCLBUTTONUP || message == WM_NCRBUTTONUP)
-    {
-        if (appData->handle)
-        {
-            int button = 0;
-            if (message == WM_LBUTTONUP) button = 1;
-            if (message == WM_RBUTTONUP) button = 2;
-            dprintf("WM_MBUP_START\n");
-            Vector mp = { GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam) };
-            mp -= appData->getWindowRect().pos;
-            appData->handle->mbUp(mp, button);
-            appData->handle->onClick(mp);
-            //appData->releaseMouse();
-            dprintf("WM_MBUP_END\n");
-        }
-        //return 0;
-    }
-    */
     return resDefWindowProc;
 }
 

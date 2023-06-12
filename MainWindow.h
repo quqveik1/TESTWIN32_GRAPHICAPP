@@ -23,6 +23,7 @@ struct MainWindow : Manager
         Manager(_app)
     {
         setColor(C_BLACK);
+        devName = "Главное окно";
     }
 
     //{----------------------------------------------------------------------------------------------------------------
@@ -40,4 +41,6 @@ struct MainWindow : Manager
     //! @endcode
     //}----------------------------------------------------------------------------------------------------------------
     virtual int onSize(Vector managerSize, Rect _newRect = {}) override;
+
+    virtual void invalidateParent() override;
 };
