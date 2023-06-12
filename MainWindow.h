@@ -1,5 +1,5 @@
 #pragma once
-#include <Manager.h>
+#include "Manager.h"
 
 //{----------------------------------------------------------------------------------------------------------------
 //! @ingroup UI
@@ -22,6 +22,7 @@ struct MainWindow : Manager
     MainWindow(AbstractAppData* _app) :
         Manager(_app)
     {
+        setColor(C_BLACK);
     }
 
     //{----------------------------------------------------------------------------------------------------------------

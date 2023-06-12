@@ -2,13 +2,14 @@
 
 #include "WindowsLibApi.cpp"
 #include "WindowHandle.h"
+#include "MainWindow.cpp"
 
-struct ManagerHandle : Manager
+struct ManagerHandle : MainWindow
 {
     struct WindowHandle* handle;
 
     ManagerHandle(AbstractAppData* _app, WindowHandle* _handle = NULL) :
-        Manager(_app, {}, 0),
+        MainWindow(_app),
         handle(_handle)
     {
         setHandle(_handle);

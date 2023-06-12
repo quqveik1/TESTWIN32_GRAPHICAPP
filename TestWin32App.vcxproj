@@ -150,9 +150,6 @@
     <ClCompile Include="TestWin32App.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="resource.h" />
-  </ItemGroup>
-  <ItemGroup>
     <ResourceCompile Include="TestWin32App.rc" />
   </ItemGroup>
   <ItemGroup>

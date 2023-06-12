@@ -210,7 +210,7 @@ int CWindowsLibApi::standartWindowDraw(struct Window* window)
         {
 
             if (*outDC) app->setColor(window->color, *outDC);
-            if (*outDC) app->rectangle(0, 0, window->rect.getSize().x, window->rect.getSize().y, *outDC);
+            if (*outDC) app->rectangle(window->rect - window->rect.pos, *outDC);
 
             if (window->text)
             {
@@ -242,7 +242,6 @@ int CWindowsLibApi::standartManagerDraw(Manager* manager, Vector deltaFromStart/
 
     if (outDC)
     {
-
         if (manager->dc) app->bitBlt(*outDC, 0, 0, 0, 0, manager->dc);
 
         if (manager->needToShow)

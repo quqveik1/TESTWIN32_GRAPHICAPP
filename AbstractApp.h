@@ -11,6 +11,7 @@
 #include <string>
 #include "remember_mem_type.h"
 #include "ConsoleOutput.cpp"
+#include "RGB.h"
 
 
 struct AbstractAppData* appData = NULL;

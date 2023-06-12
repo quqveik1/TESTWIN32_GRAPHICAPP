@@ -33,8 +33,6 @@ struct MainManager : ManagerHandle
 
     void controlWorkSpace();
 
-    virtual void screenChanged() override;
-
     virtual int getMBCondition() override { return clicked; };
 
     virtual Vector getMousePos() override { return mousePos; };

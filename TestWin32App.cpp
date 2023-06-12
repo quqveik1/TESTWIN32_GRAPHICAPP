@@ -1,21 +1,8 @@
 ﻿// TestWin32App.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 #define _CRT_SECURE_NO_WARNINGS
-#include <Windows.h>
+
 #include "AppApi.cpp"
-#include "resource.h"
-#include "MainManager.cpp"
-#include "Handle.cpp"
-#include "OpenManager.cpp"
-#include "List.cpp"
-#include "ConsoleOutput.cpp"
-#include "CanvasManager.cpp"
-#include "SetCanvasButton.cpp"
-#include "ColorMenu.cpp"
-//#include "ToolsMenu.cpp"
-#include "Thickness.cpp"
-//#include "LaysMenu.cpp"
-#include <windowsx.h>
 
 int initProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam);
 int shutDownProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam);
@@ -23,13 +10,9 @@ int shutDownProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam);
 
 int main()
 {
-    PowerPoint* myApp = new PowerPoint(NULL);
-    myApp->startApp();
-    delete myApp;
+    PowerPoint app(nullptr);
+    app.startApp();
 }
-
-
-
 
 
 int initProg(HWND window, UINT message, WPARAM wParam, LPARAM lParam)

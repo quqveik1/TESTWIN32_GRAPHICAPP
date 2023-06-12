@@ -15,20 +15,6 @@ void MainManager::controlWorkSpace()
 }
 
 
-void MainManager::screenChanged()
-{
-    
-    
-    /*/*
-    for (int i = 0; i < getCurLen(); i++)
-    {
-        if (pointers[i]) pointers[i]->screenChanged();
-    }
-    */
-}
-
-
-
 void MainManager::draw()
 {
     zone.pos = app->systemSettings->ScreenPos;

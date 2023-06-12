@@ -24,7 +24,11 @@
 #include <iostream>
 #include <sys/stat.h>
 
-#pragma comment(lib, "Msimg32")   
+#include "IMREDresource.h"
+
+#ifdef _MSC_VER
+#pragma comment(lib, "Msimg32")
+#endif
 
 
 AbstractAppData::AbstractAppData(HINSTANCE _instance, std::string _pathToAbstractAppDataApi/* = ""*/) :
@@ -35,7 +39,7 @@ AbstractAppData::AbstractAppData(HINSTANCE _instance, std::string _pathToAbstrac
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
     appData = this;
-    appVersion = "v0.2.4.0";
+    appVersion = "v0.2.5.0";
     massert(!makeDir("Settings"), this);
 
     if (getAsyncKeyState(VK_CONTROL))
@@ -142,6 +146,9 @@ void AbstractAppData::setWindowParameters(HINSTANCE hInstance)
     ShowWindow(MAINWINDOW, SW_SHOW);
     updateScreen(NULL);
     hideConsoleWindow();
+
+
+    loadAndSetIcon(IMREDICON1);
 }
 
 LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
@@ -507,7 +514,10 @@ int AbstractAppData::setIcon(HICON icon/* = NULL*/)
 HICON AbstractAppData::loadIcon(int resourcename)
 {
     HICON loadedIcon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(resourcename));
-    //int err = GetLastError();
+    if(loadedIcon == 0)
+    {
+        dcout << "LoadedIcon = 0\n";
+    }
     return loadedIcon;
 }
 

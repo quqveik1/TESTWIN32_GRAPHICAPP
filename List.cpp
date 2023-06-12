@@ -9,7 +9,7 @@ void List::addNewItem(Window* openButton, HDC dc/* = NULL*/, const char* text/* 
     app->selectFont(fontName, font, finalDC);
     items.push_back(new OpenManager(app, oneItemSize));
     isThisItemList.push_back(false);
-    int newPos = items.size() - 1;
+    int newPos = (int)items.size() - 1;
     items[newPos]->font = font;
     items[newPos]->color = color;
     items[newPos]->keyBind = keybind;

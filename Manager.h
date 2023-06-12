@@ -2,8 +2,6 @@
 
 #include "Window.h"
 
-
-
 struct Manager : Window
 {
     int length;

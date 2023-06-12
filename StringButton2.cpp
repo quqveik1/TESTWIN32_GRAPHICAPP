@@ -427,13 +427,15 @@ void StringButton2::draw()
 {
     doBeforeMainBlock();
 
-    if (isVisible())
+    if (true)
     {
-        
+        RGB_Struct rgbColor = color;
+
         app->setColor(color, getFinalDC());
         app->rectangle({ 0, 0 }, getSize(), getFinalDC());
 
-        
+        //app->DEBUGsaveImage(getFinalDC(), "before");
+
         if (getInputMode())
         {
             cursor.draw(getFinalDC());
@@ -454,8 +456,6 @@ void StringButton2::draw()
         Rect cadreRect = { .pos = {0, 0}, .finishPos = {getSize().x, getSize().y} };
         Vector finalDCSize = getFinalDC().getSize();
         app->drawCadre(cadreRect, getFinalDC(), cadreColor, 2);
-        //finalDC.setSize({ 100, 100 }, app);
-        //app->DEBUGsaveImage(getFinalDC());
         
     }
 

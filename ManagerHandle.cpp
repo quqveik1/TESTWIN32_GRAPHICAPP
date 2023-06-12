@@ -23,7 +23,7 @@ int ManagerHandle::hitTest(Vector mp)
     Vector delta = mp;
     delta.y -= handle->rect.finishPos.y;
 
-    return app->windowsLibApi->standartManagerHitTest(this, mp);
+    return MainWindow::hitTest(mp);
 
 
 }
@@ -37,7 +37,7 @@ void ManagerHandle::onClick(Vector mp)
 
     mp.y -= handle->rect.finishPos.y;
 
-    app->windowsLibApi->standartManagerOnClick(this, mp);
+    MainWindow::onClick(mp);
 }
 
 
@@ -48,7 +48,7 @@ int ManagerHandle::onMouseMove(Vector mp, Vector delta)
 
     mp.y -= handle->rect.finishPos.y;
 
-    return app->windowsLibApi->standartManagerOnMouseMove(this, mp, delta);
+    return MainWindow::onMouseMove(mp, delta);
 }
 
 
@@ -57,7 +57,7 @@ int ManagerHandle::mbDown(Vector mp, int button)
     handle->mbDown(mp, button);
 
     mp.y -= handle->rect.finishPos.y;
-    return app->windowsLibApi->standartManagerMbDown(this, mp, button);
+    return MainWindow::mbDown(mp, button);
 } 
 
 
@@ -66,14 +66,14 @@ int ManagerHandle::mbUp(Vector mp, int button)
     handle->mbUp(mp, button);
 
     mp.y -= handle->rect.finishPos.y;
-    return app->windowsLibApi->standartManagerMbUp(this, mp, button);
+    return MainWindow::mbUp(mp, button);
 }
 
 
 int ManagerHandle::onSize(Vector managerSize, Rect newRect/* = {}*/)
 {
     handle->onSize(managerSize, {});
-    return app->windowsLibApi->standartManagerOnSize(this, managerSize, {});
+    return MainWindow::onSize(managerSize, newRect);
 }
 
 
@@ -81,7 +81,6 @@ int ManagerHandle::onSize(Vector managerSize, Rect newRect/* = {}*/)
 void ManagerHandle::draw()
 {
     massert(handle, app);
-    
 
     Vector delta = { 0, handle->getSize().y };
     app->windowsLibApi->standartManagerDraw(this, delta);

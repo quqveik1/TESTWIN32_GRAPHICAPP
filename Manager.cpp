@@ -39,6 +39,7 @@ Window* Manager::isActiveWindowBelow()
 
 void Manager::draw()
 {
+    Window::draw();
     app->windowsLibApi->standartManagerDraw(this);
 }
 
