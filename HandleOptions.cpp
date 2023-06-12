@@ -14,8 +14,6 @@ void HandleOptions::setManagerHandle(struct ManagerHandle* _managerhandle)
 
 int HandleOptions::addOption(Option* _option)
 {
-    
-
     List* newList = new List(app, { app->systemSettings->BUTTONWIDTH * 5, app->systemSettings->HANDLEHEIGHT });
     _option->addReciever(newList);
 

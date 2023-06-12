@@ -152,8 +152,6 @@ void AbstractAppData::setWindowParameters(HINSTANCE hInstance)
     showConsoleWindow();
 #endif
 
-
-
     loadAndSetIcon(IMREDICON1);
 }
 

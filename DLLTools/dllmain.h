@@ -31,7 +31,7 @@ struct Line : Tool2
     {
         assert(_data);
         dc = app->loadManager->loadImage("Line.bmp");
-        printf("Line dc[%d]\n", dc);
+        printf("Line dc[%d]\n", dc == NULL);
     }
 
     virtual int createNewToolCopy(ToolLay* toollay) override;

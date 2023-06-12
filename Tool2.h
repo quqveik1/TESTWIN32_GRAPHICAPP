@@ -1,6 +1,7 @@
 #pragma once
 #include "AbstractApp.h"
 #include "WindowsLib.h"
+#include "ConsoleOutput.cpp"
 
 
 struct Tool2 : Window
@@ -17,7 +18,7 @@ struct Tool2 : Window
     
     virtual ~Tool2()
     {
-        printf("%s", __FUNCTION__);
+        dprintf("%s", __FUNCTION__);
     }
 
     virtual struct ToolLay* selectToolLay(struct ToolLay* toollay);

@@ -5,7 +5,12 @@ void OpenManager::click()
 {
     if (mode == 0)
     {
-        assert(openingManager);
+        if(!getOpeningManager())
+        {
+            dcout << "getOpeningManager() == 0\n";
+            return;
+        }
+
         if (getOpeningManager()->needToShow)
         {
             getOpeningManager()->hide();

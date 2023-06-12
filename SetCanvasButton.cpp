@@ -80,14 +80,14 @@ void SetCanvasButton::draw()
         app->line({ 0, downSectionPosY }, { getSize().x, downSectionPosY }, finalDC);
 
 
-        sizeX = defaultCanvasSize.x;
-        sizeY = defaultCanvasSize.y;
+        sizeX = (int)defaultCanvasSize.x;
+        sizeY = (int)defaultCanvasSize.y;
         app->windowsLibApi->standartManagerDraw(this);
         defaultCanvasSize.x = sizeX;
         defaultCanvasSize.y = sizeY;
 
         app->setColor(app->systemSettings->TextColor, finalDC);
-        app->selectFont(app->systemSettings->FONTNAME, oneLineSize.y, finalDC);
+        app->selectFont(app->systemSettings->FONTNAME, (int)oneLineSize.y, finalDC);
         app->drawText(sizeXText, "Ширина:", finalDC, format);
         app->drawText(sizeYText, "Длина:", finalDC, format);
 
@@ -98,7 +98,7 @@ void SetCanvasButton::draw()
         app->rectangle(confirmButton, finalDC);
         app->rectangle(cancelButton, finalDC);
         app->setColor(TX_BLACK, finalDC);
-        app->selectFont(app->systemSettings->FONTNAME, buttonSize.y - 5, finalDC);
+        app->selectFont(app->systemSettings->FONTNAME, (int)buttonSize.y - 5, finalDC);
         app->drawText(confirmButton, "Ок", finalDC);
         app->drawText(cancelButton, "Отмена", finalDC); 
     }

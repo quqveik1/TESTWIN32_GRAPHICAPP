@@ -29,15 +29,10 @@ void HSLPalette::draw()
         crossPos = { hue, sat };
         app->bitBlt(finalDC, {}, {}, palette);
 
-        app->setColor(TX_WHITE, finalDC, crossLineSize.x);
+        app->setColor(TX_WHITE, finalDC, (int)crossLineSize.x);
         app->line(crossPos.x, crossPos.y - (crossLineSize.y / 2), crossPos.x, crossPos.y + (crossLineSize.y / 2), finalDC);
         app->line(crossPos.x - (crossLineSize.y / 2), crossPos.y, crossPos.x + (crossLineSize.y / 2), crossPos.y, finalDC);
-
-
     }
-
-    
-
 }
 
 

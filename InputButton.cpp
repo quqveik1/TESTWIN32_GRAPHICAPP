@@ -56,7 +56,7 @@ void InputButton::backSpace()
 
     int numsAfterEnteredNumLength = numLength - cursorPos;
 
-    newNum *= pow(10, numsAfterEnteredNumLength);
+    newNum *= (int)pow(10, numsAfterEnteredNumLength);
     newNum += numsAfterEnteredNum;
 
     if (newNum >= 0)
@@ -88,7 +88,7 @@ void InputButton::checkKeyboard()
 
     int newNum = *parameter;
     int numLength = getAmountOfNumbers(*parameter);
-    newNum /= pow(10, numLength - cursorPos);
+    newNum /= (int)pow(10, numLength - cursorPos);
 
     newNum *= 10;
     newNum += symbol - 48;
@@ -98,7 +98,7 @@ void InputButton::checkKeyboard()
 
     int numsAfterEnteredNumLength = numLength - cursorPos;
 
-    newNum *= pow(10, numsAfterEnteredNumLength);
+    newNum *= (int)pow(10, numsAfterEnteredNumLength);
     newNum += numsAfterEnteredNum;
 
 
@@ -127,10 +127,10 @@ void InputButton::drawCursor()
     app->setColor(cursorColor, finalDC);
     int tempCursorPos = cursorPos;
     if (*parameter == 0) tempCursorPos = 0;
-    int cursorXPosition = deltaAfterCadre + fontSizeX * tempCursorPos;
+    int cursorXPosition = (int) (deltaAfterCadre + fontSizeX * tempCursorPos);
     if (tempCursorPos > 0)
     {
-        cursorXPosition += spaceBetween2Symbols * (tempCursorPos - 1);
+        cursorXPosition += (int) spaceBetween2Symbols * (tempCursorPos - 1);
     }
     app->line(cursorXPosition, 0, cursorXPosition, getSize().y, finalDC);
 
@@ -193,7 +193,7 @@ void InputButton::draw()
     }
     (void)sprintf(output, "%s%s", parametrString, addition);
 
-    app->selectFont(app->systemSettings->FONTNAME, font, finalDC, fontSizeX);
+    app->selectFont(app->systemSettings->FONTNAME, font, finalDC, (int)fontSizeX);
     app->setColor(app->systemSettings->TextColor, finalDC);
     app->drawText(deltaAfterCadre, 0, getSize().x, getSize().y, output, finalDC, DT_VCENTER);
 
@@ -215,7 +215,7 @@ void InputButton::onClick(Vector mp)
             double trueMP = mp.x - deltaAfterCadre + spaceBetween2Symbols;
             if (!isEqual(fontSizeX + spaceBetween2Symbols, 0))
             {
-                int potentialCursorPos = trueMP / (fontSizeX + spaceBetween2Symbols);
+                int potentialCursorPos = (int)(trueMP / (fontSizeX + spaceBetween2Symbols));
                 if (potentialCursorPos <= amountOfNumbers)
                 {
                     cursorPos = potentialCursorPos;

@@ -54,19 +54,6 @@ void MainManager::onClick(Vector mp)
     ManagerHandle::onClick(mp);
 }
 
-int MainManager::mbDown(Vector mp, int button)
-{     
-    clicked = button;
-    mousePos = mp;
-    return app->windowsLibApi->standartManagerMbDown(this, mp, button);
-}
-int MainManager::mbUp(Vector mp, int button)
-{
-    clicked = 0;
-    mousePos = mp;
-    return app->windowsLibApi->standartManagerMbUp(this, mp, button);
-}
-
 int MainManager::onSize(Vector managerSize, Rect newRect)
 {
     rect = { .pos = {}, .finishPos = managerSize };

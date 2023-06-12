@@ -375,7 +375,7 @@ int CanvasManager::setActiveCanvas(int num)
         return !"Sucsess";
     }
     activeCanvasNum = -1;
-    return (int)"Error";
+    return 1;//error
 }
 
 void CanvasManager::deleteButton()

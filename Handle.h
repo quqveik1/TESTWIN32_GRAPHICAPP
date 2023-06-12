@@ -70,6 +70,8 @@ struct Handle : HandleOptions
     void clickIcon();
     int isOnOptionsDown();
 
+    void setActiveOptionNum(int num) { activeOptionNum = num; invalidateButton(); };
+
     virtual List* createMenuOption(const char* optionText, int* status, bool needToHideAfterClick = false);
     virtual bool addWindowToStart(Window* window);
     virtual bool addWindowToBack(Window* window);

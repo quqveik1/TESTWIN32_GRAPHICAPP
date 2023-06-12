@@ -13,8 +13,8 @@ struct HandleOptions : WindowHandle
     struct ManagerHandle* managerhandle = NULL;
     Option mainOption;
     LinearLayout optionsLayout;
-    vector<List*> optionsList;
-    vector<OptionWindow*> optionsWindow;
+    std::vector<List*> optionsList;
+    std::vector<OptionWindow*> optionsWindow;
 
     HandleOptions(AbstractAppData* _app, double _height) :
         WindowHandle(_app, _height),

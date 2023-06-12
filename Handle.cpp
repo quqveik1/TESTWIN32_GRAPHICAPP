@@ -59,12 +59,9 @@ void Handle::setOptionsRect()
 
 void Handle::drawOptions()
 {
-      
     int numOfOption = coloredOptionNum;
     app->setColor(app->systemSettings->TextColor, *getOutputDC());
     app->selectFont(fontName, font, *getOutputDC());
-
-    
 
     for (int i = 0; i < currentOptionsLength; i++)
     {
@@ -79,7 +76,7 @@ void Handle::drawOptions()
 
         if (activeOptionNum < 0)
         {
-            //options[i].list->needToShow = false;
+            options[i].
         }
     }
 
@@ -291,20 +288,7 @@ int Handle::isOnOptionsDown()
 
 int Handle::mbDown(Vector mp, int button)
 {
-    /*
-    int was
-    for (int i = 0; i < currentOptionsLength; i++)
-    {
-        if ()
-    }
-    */
-    int isonOptDown = isOnOptionsDown();
-    if (getOptionNum(mp) == -1 && !isonOptDown)
-    {
-        activeOptionNum = -1;
-        coloredOptionNum = -1;
-        app->updateScreen(this);
-    }
+    if (optionOnClick(mp)) return 0;
 
     if ((rect - rect.pos).inRect(mp) && getOptionNum(mp) == -1)
     {
@@ -373,15 +357,9 @@ int Handle::optionOnClick(Vector mp)
     int answer = getOptionNum(mp);
     if (activeOptionNum != answer)
     {
-        activeOptionNum = answer;
         coloredOptionNum = answer;
-        app->updateScreen(this);
     }
-    else
-    {
-        activeOptionNum = -1;
-        app->updateScreen(this);
-    }
+    setActiveOptionNum(answer);
     return activeOptionNum;
 }
 

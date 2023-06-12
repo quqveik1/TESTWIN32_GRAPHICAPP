@@ -89,8 +89,6 @@ bool swapDC(HDC dest, int xDest, int yDest, int wDest, int hDest,
     return NULL;
 }
 
-
-
 bool checkVersionCompability(PowerPoint* app)
 {
     assert(app);

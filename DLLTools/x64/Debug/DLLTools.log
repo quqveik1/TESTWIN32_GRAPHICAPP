@@ -1,6 +1,2 @@
-﻿  pch.cpp
-  dllmain.cpp
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\DLLTools\dllmain.h(34,16): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'HDC'
-C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\DLLTools\dllmain.h(34,16): warning C4313: 'printf': '%d' in format string conflicts with argument 1 of type 'HDC'
-     Creating library C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\x64\Debug\DLLTools.lib and object C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\x64\Debug\DLLTools.exp
+﻿  dllmain.cpp
   DLLTools.vcxproj -> C:\Users\Алехандро\Desktop\AlexProjects\TESTWIN32_GRAPHICAPP\x64\Debug\DLLTools.tool

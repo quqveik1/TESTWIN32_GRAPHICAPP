@@ -1,5 +1,6 @@
 #pragma once
 #include "Canvas.h"
+#include "Tool2.h"
 
 struct CanvasManager : Manager
 {
@@ -27,7 +28,7 @@ struct CanvasManager : Manager
     int lastTimeButtonClicked = 0;
     int deltaBetween2Clicks = 300;
     int lastTimeMBWasClicked = 0;
-    struct ImportTool* importTool = NULL;
+    Tool2* importTool = NULL;
 
     struct SetCanvasButton* setCanvasButton = NULL;
 
