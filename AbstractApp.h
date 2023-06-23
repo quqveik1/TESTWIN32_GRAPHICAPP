@@ -1,18 +1,20 @@
 #pragma once
 #define _CRT_SECURE_NO_WARNINGS
+
+#include <vector>
+#include <string>
 #include <Windows.h>
 #include <wingdi.h>
+#include <time.h>
+
 #include "Q_Rect.h"
 #include "ColorsName.h"
 #include "Asserts.h"
 #include "M_HDC.h"
-#include <time.h>
-#include <vector>
-#include <string>
 #include "remember_mem_type.h"
 #include "ConsoleOutput.cpp"
 #include "RGB.h"
-#include "StringResources.cpp"
+#include "StringResources.h"
 
 struct AbstractAppData* appData = NULL;
 
@@ -210,6 +212,10 @@ struct AbstractAppData
     virtual UINT_PTR setTimer(int mslen);
     virtual int deleteTimer(UINT_PTR timer);
 
+    //String resources
+    virtual StringResources& getStringResources();
+
+    virtual std::string getUserLangCode();
 
     //logic part of engine
     virtual int declareReactionOnMSG(int reaction = 0);//reaction = 0 on default

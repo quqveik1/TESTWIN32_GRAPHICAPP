@@ -23,7 +23,8 @@ struct MainWindow : Manager
         Manager(_app)
     {
         setColor(C_BLACK);
-        devName = "Главное окно";
+
+        devName = "MainWindow";
     }
 
     //{----------------------------------------------------------------------------------------------------------------

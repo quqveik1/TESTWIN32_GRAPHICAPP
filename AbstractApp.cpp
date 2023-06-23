@@ -1529,42 +1529,28 @@ int AbstractAppData::deleteTimer(UINT_PTR timer)
     return KillTimer(MAINWINDOW, timer);
 }
 
-/*   txVer
-void AbstractAppData::controlApp()
+StringResources& AbstractAppData::getStringResources()
 {
-    int time = clock();
-    if (time - lastTimeCursorSetTime > 60)
-    {
-        setCursor(defaultCursor);
-    }
-
-
-
-    if (dClick)
-    {
-        dClick = false;
-    }
-
-    if (getAsyncKeyState(VK_LBUTTON))
-    {
-        if (!wasLastTimeLButtonClicked && time - lastTimeLButtonClicked < 300)
-        {
-            dClick = true;
-        }
-        wasLastTimeLButtonClicked = true;
-        lastTimeLButtonClicked = time;
-    }
-    else
-    {
-        wasLastTimeLButtonClicked = false;
-    }
-
-    //txClearConsole();
+    return *stringResources;
 }
-*/
+
+std::string AbstractAppData::getUserLangCode()
+{
+    LANGID langId = GetUserDefaultUILanguage();
+    LCID Locale = MAKELCID(langId, SORT_DEFAULT);
+
+    int nchars = GetLocaleInfo(Locale, LOCALE_SISO639LANGNAME, NULL, 0);
+    std::string langCode;
+    langCode.resize(nchars);
+    GetLocaleInfo(Locale, LOCALE_SISO639LANGNAME, langCode.data(), nchars);
+
+    size_t len = strlen(langCode.c_str());
+    langCode.resize(len);
+
+    return langCode;
+}
 
 const char* findExtensionStart(const char* text, int extensionPos);
-
 
 char* AbstractAppData::getOpenFileName(const char* question, const char* fileTypeDescribtion, const char* defaultFilename)
 {

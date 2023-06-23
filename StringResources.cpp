@@ -5,6 +5,12 @@
 StringResources::StringResources(AbstractAppData* _app) :
     app(_app)    
 {
+    activeLang = getApp()->getUserLangCode();
+    if(activeLang != Russian)
+    {
+        activeLang = English;
+    }
+
     resources[Russian] = CPPResourcesType();
     resources[English] = CPPResourcesType();
     cResources[Russian] = CResourcesType();
@@ -18,12 +24,12 @@ AbstractAppData* StringResources::getApp()
 
 StringResources::CPPResourcesType& StringResources::getMapResources()
 {
-    return resources[Russian];
+    return resources[getActiveLang()];
 }
 
 StringResources::CResourcesType& StringResources::getMapCResources()
 {
-    return cResources[Russian];
+    return cResources[getActiveLang()];
 }
 
 std::string& StringResources::getResource(const std::string& key)
@@ -31,10 +37,20 @@ std::string& StringResources::getResource(const std::string& key)
     return getMapResources()[key];
 }
 
-int StringResources::setResource(const std::string& region, const std::string& key, const std::string& string)
+std::string& StringResources::getResource(const char* key)
+{
+    return getMapResources()[key];
+}
+
+int StringResources::addResource(const std::string& region, const std::string& key, const std::string& string)
 {
     resources[region][key] = string;
     return 0;
+}
+
+const char* StringResources::getCResource(const std::string& key)
+{
+    return getMapCResources()[key];
 }
 
 const char* StringResources::getCResource(const char* key)
@@ -42,8 +58,19 @@ const char* StringResources::getCResource(const char* key)
     return getMapCResources()[key];
 }
 
-int StringResources::setCResource(const std::string& region, const char* key, const char* string)
+int StringResources::addCResource(const std::string& region, const char* key, const char* string)
 {
     cResources[region][key] = string;
     return 0;
+}
+
+int StringResources::addCResource(const std::string& region, const std::string& key, const char* string)
+{
+    cResources[region][key] = string;
+    return 0;
+}
+
+std::string& StringResources::getActiveLang()
+{
+    return activeLang;
 }

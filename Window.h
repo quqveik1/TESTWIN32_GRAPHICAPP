@@ -218,6 +218,8 @@ struct Window : remember_mem_type
     virtual M_HDC& getFinalDC() { return finalDC; };
     virtual M_HDC* setOutputDC(M_HDC* _newDC) { return pFinalDC = _newDC; }
 
+    virtual AbstractAppData& getApp();
+
     virtual int setTrancparencyOutput(int need);
     virtual int setMatchParentX(bool status);
     virtual int setMatchParentY(bool status);

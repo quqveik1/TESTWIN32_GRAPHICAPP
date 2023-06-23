@@ -97,6 +97,11 @@ int Window::mayBeDeletedInDestructor()
     return 0;
 }
 
+AbstractAppData& Window::getApp()
+{
+    return *app;
+}
+
 int Window::setTrancparencyOutput(int need)
 {
     int old = needTransparencyOutput;
