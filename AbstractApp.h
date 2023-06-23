@@ -12,7 +12,7 @@
 #include "remember_mem_type.h"
 #include "ConsoleOutput.cpp"
 #include "RGB.h"
-
+#include "StringResources.cpp"
 
 struct AbstractAppData* appData = NULL;
 
@@ -41,6 +41,8 @@ struct AbstractAppData
     struct MSGReaction* msgReaction = NULL;
     virtual M_HDC* getHDC();
     virtual M_HGDIOBJ* getHGDIOBJ();
+    struct StringResources* stringResources = NULL;
+
 
     COLORREF* currColor = NULL;
     bool isResized = false;

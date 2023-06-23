@@ -76,7 +76,6 @@ void Handle::drawOptions()
 
         if (activeOptionNum < 0)
         {
-            options[i].
         }
     }
 

@@ -1,14 +1,18 @@
 #pragma once
 #include "AbstractApp.h"
-#include "AppApi.h"
+
+#include <windowsx.h>
+#include <iostream>
+#include <sys/stat.h>
+#include <direct.h>
+#include <stdlib.h>
+#include <stdio.h>
+
 #include "SystemSettings.cpp"
 #include "ToolManager.h"
 #include "FileSavings.cpp"
 #include "LoadLib.cpp"
 #include "MainManager.h"
-#include <direct.h>
-#include <stdlib.h>
-#include <stdio.h>
 #include "WindowsLibApi.cpp"
 #include "Loadmanager.cpp"
 #include "ToolManager.cpp"
@@ -19,10 +23,7 @@
 #include "TimerManager.cpp"
 #include "DLLToolsManager.cpp"
 #include "MSGReaction.cpp"
-#include "IMREDresource.h"
-#include <windowsx.h>
-#include <iostream>
-#include <sys/stat.h>
+#include "StringResources.cpp"
 
 #include "IMREDresource.h"
 
@@ -69,6 +70,8 @@ AbstractAppData::AbstractAppData(HINSTANCE _instance, std::string _pathToAbstrac
     dllloadImage = (HDC(*) (const char* path, Vector & _size, AbstractAppData * _app))GetProcAddress(_saveImagesLib, "loadImage");
 
     msgReaction = new MSGReaction();
+
+    stringResources = new StringResources(this);
 
     testDC.setSize(systemSettings->SizeOfScreen, this);
 

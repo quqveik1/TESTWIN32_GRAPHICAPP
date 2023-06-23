@@ -46,28 +46,19 @@ PowerPoint::PowerPoint(HINSTANCE hInstance):
 PowerPoint::~PowerPoint()
 {
     writeVersion(this);
-
 }
 
 
 void PowerPoint::onCreate(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
 {
     AbstractAppData::onCreate(window, message, wParam, lParam);
-    Handle* mainHandle = new Handle(this);
-    MainManager* manager = new MainManager(this, { .pos = {0, 0}, .finishPos = systemSettings->FullSizeOfScreen }, 21, mainHandle);
-    setMainManager(manager);
 
+    MainWindow* main_manager = new MainWindow(this);
+    setMainManager(main_manager);
 
-    Option* optionCreate = new Option();
-    optionCreate->name = "Создать";
-
-
-    Option* optionSetCanvas = new Option();
-    optionSetCanvas->name = "Создать холст";
-    //optionSetCanvas->reciever = canvasManager->getSetCanvasButton();
-    optionCreate->addSubOption(optionSetCanvas);
-    mainHandle->addOption(optionCreate);
-
+    CanvasManager* _canvasManager = new CanvasManager(this, {});
+    setCanvasManager(canvasManager);
+    OptionWindow
 }
 
 void writeVersion(PowerPoint* app)

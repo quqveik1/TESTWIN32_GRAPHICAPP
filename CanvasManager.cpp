@@ -284,6 +284,7 @@ int CanvasManager::openCreatingCanvasMenu()
 
 int CanvasManager::onKeyboard(int key)
 {
+
     controlStretching();
     controlPosition();
     app->windowsLibApi->standartManagerOnKeyboard(this, key);
