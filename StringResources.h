@@ -25,15 +25,13 @@ public:
     StringResources(AbstractAppData* _app);
 
     std::string& getResource(const std::string& key);
-    std::string& getResource(const char* key);
     int addResource(const std::string& region, const std::string& key, const std::string& string);
 
     const char* getCResource(const std::string& key);
-    const char* getCResource(const char* key);
-    int addCResource(const std::string& region, const char* key, const char* string);
     int addCResource(const std::string& region, const std::string& key, const char* string);
 
     std::string& getActiveLang();
+    void setActiveLang(const std::string& str);
 
 private:
     AbstractAppData* getApp();

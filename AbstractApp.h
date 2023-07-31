@@ -21,7 +21,7 @@ struct AbstractAppData* appData = NULL;
 struct AbstractAppData
 {
     const char* appVersion = NULL;
-    std::string appName = "Графическое приложение";
+    std::string appName;
     HWND MAINWINDOW = NULL;
     HICON appIcon = NULL;
     HCURSOR activeCursor = NULL;
@@ -71,8 +71,10 @@ struct AbstractAppData
     virtual int startApp();
 
     virtual void setWindowParameters(HINSTANCE hInstance);
-    virtual void onCreate(HWND window, UINT message, WPARAM wParam, LPARAM lParam) {};
+    virtual void onCreate(HWND window, UINT message, WPARAM wParam, LPARAM lParam);
     virtual int needToLoadOldFiles();
+
+    virtual std::string setAppInfoToString(const std::string& str);
 
     virtual struct Manager* setMainManager(struct Manager* newManager, MEM_TYPE mt = MT_DYNAMIC);
     virtual struct Manager& setMainManager(struct Manager& newManager, MEM_TYPE mt = MT_STATIC);
@@ -224,4 +226,9 @@ struct AbstractAppData
 
 
     virtual Rect getUserRect();
+
+protected:
+    void initStrings();
+    void setRussianLocale();
+    
 };

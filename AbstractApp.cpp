@@ -36,11 +36,10 @@ AbstractAppData::AbstractAppData(HINSTANCE _instance, std::string _pathToAbstrac
     hInstance(_instance),
     pathToAbstractAppDataApi(_pathToAbstractAppDataApi)
 {
-    setlocale(LC_ALL, "Russian");
-    SetConsoleCP(1251);
-    SetConsoleOutputCP(1251);
+    setRussianLocale();
+
     appData = this;
-    appVersion = "v0.2.5.0";
+    appVersion = "v0.2.6.0";
     massert(!makeDir("Settings"), this);
 
     if (getAsyncKeyState(VK_CONTROL))
@@ -75,10 +74,23 @@ AbstractAppData::AbstractAppData(HINSTANCE _instance, std::string _pathToAbstrac
 
     testDC.setSize(systemSettings->SizeOfScreen, this);
 
+    initStrings();
+
     dcout << "Конструтор закончил выполнение" << std::endl;
-    //setWindowParameters(hInstance);
 }
 
+void AbstractAppData::initStrings()
+{
+    getStringResources().addResource(StringResources::Russian, "graphicApp", "Графическое приложение");
+    getStringResources().addResource(StringResources::English, "graphicApp", "Graphic application");
+}
+
+void AbstractAppData::setRussianLocale()
+{
+    setlocale(LC_ALL, "Russian");
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
+}
 
 AbstractAppData::~AbstractAppData()
 {
@@ -98,8 +110,22 @@ AbstractAppData::~AbstractAppData()
     delete hgdiManager;
     delete timerManager;
     delete msgReaction;
+    delete stringResources;
 }
 
+void AbstractAppData::onCreate(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
+{
+}
+
+std::string AbstractAppData::setAppInfoToString(const std::string& str)
+{
+    std::string answer = str;
+    answer += " - ";
+    answer += appVersion;
+    answer += "[AbstractApp / WindowsLibApi]";
+
+    return answer;
+}
 
 LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam);
 
@@ -109,6 +135,7 @@ void AbstractAppData::setWindowParameters(HINSTANCE hInstance)
     WNDCLASSEX wndClass = {};
 
     char handleName[MAX_PATH] = {};
+    appName = getStringResources().getResource("graphicApp");
     (void)sprintf(handleName, "%s - %s[AbstractApp/WindowsLibApi]", appName.c_str(), appVersion);
 
     appIcon = LoadIcon((HINSTANCE)GetModuleHandle(NULL), MAKEINTRESOURCE(IMREDICON2));
