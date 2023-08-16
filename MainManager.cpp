@@ -7,7 +7,7 @@ void MainManager::controlWorkSpace()
 {
     if (screenSizeLastTime != app->systemSettings->SizeOfScreen)
     {
-        screenChanged();
+        //screenChanged();
     }
     screenSizeLastTime = app->systemSettings->SizeOfScreen;
 

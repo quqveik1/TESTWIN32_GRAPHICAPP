@@ -316,15 +316,11 @@ LRESULT CALLBACK WinProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam
             }
         }
 
-
-
         if (message == WM_PAINT)
         {
             HDC finalDC = BeginPaint(appData->MAINWINDOW, &ps);
             M_HDC paintDC(appData, finalDC);
             paintDC = finalDC;
-
-
 
             if (appData->mainManager)
             {

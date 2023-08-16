@@ -189,7 +189,7 @@ struct Window : remember_mem_type
         else return NULL;
     };
 
-    virtual void screenChanged() {}; //???
+    virtual void screenChanged() {}; //don't use it
     virtual void invalidateParent();
     virtual void invalidateButton();
     virtual bool isValidViewState() { return validViewState; };
@@ -238,24 +238,24 @@ struct Window : remember_mem_type
     virtual int managerOnSize();
 
 
-    virtual void draw();
-    virtual void print(M_HDC& finalDC);
-    virtual int hitTest(Vector mp);//1 - hit; 0 - miss
-    virtual void onClick(Vector mp) {};
-    virtual int onClick(Vector mp, int button) { return 1; };//1- reacted 0 - ignored
-    virtual int mbDown(Vector mp, int button) { if (rect.inRect(mp)) { app->declareReactionOnMSG(1); }; return 0; };
-    virtual int mbUp(Vector mp, int button) { return 0; };
-    virtual int onDoubleClick(Vector mp, int button) { return 0; };
-    virtual int onKeyboard(int key) { return 0; };
-    virtual int onKeyboardChar(int key) { return 0; };
-    virtual int onSize(Vector managerSize, Rect newRect = {}); // return 0 if size didn't changed
-    virtual int onMouseMove(Vector mp, Vector delta) { return 0; };
-    virtual int onTimer(UINT_PTR timerName) { return 0; };
-    virtual int onClose() { return 0; };// if you want to cancel closing you need to return non 0 value
-    virtual int onDestroy() { return 0; };
-    virtual int onEnterWindowSizeMove() { return 0; };
-    virtual int onExitWindowSizeMove() { return 0; };
-    virtual int onDrawEnd() { validateViewState(); return 1; };//0 if you ignore this message
+    virtual void draw                 ();//internal draw
+    virtual void print                (M_HDC& finalDC);//put window to parent dc
+    virtual int  hitTest              (Vector mp);//1 - hit; 0 - miss | it happens, then parrent window, wish to know if it need to send child window(this window) onClick()
+    virtual void onClick              (Vector mp) {};
+    virtual int  onClick              (Vector mp, int button) { return 1; };//1- reacted 0 - ignored ; don't use it
+    virtual int  mbDown               (Vector mp, int button) { if (rect.inRect(mp)) { app->declareReactionOnMSG(1); }; return 0; };  //1 - left, 2 - right
+    virtual int  mbUp                 (Vector mp, int button) { return 0; }; //1 - left, 2 - right
+    virtual int  onDoubleClick        (Vector mp, int button) { return 0; };
+    virtual int  onKeyboard           (int key) { return 0; };  //just keyboard event(only capital character)
+    virtual int  onKeyboardChar       (int key) { return 0; };  //character(capital or regular) 
+    virtual int  onSize               (Vector managerSize, Rect newRect = {}); // return 0 if size didn't changed
+    virtual int  onMouseMove          (Vector mp, Vector delta) { return 0; };
+    virtual int  onTimer              (UINT_PTR timerName) { return 0; };// if your window have set timer here you will recieve it
+    virtual int  onClose              () { return 0; };// if you want to cancel closing you need to return non 0 value
+    virtual int  onDestroy            () { return 0; };// then destroying send, you are unable to stop it
+    virtual int  onEnterWindowSizeMove() { return 0; };
+    virtual int  onExitWindowSizeMove () { return 0; };
+    virtual int  onDrawEnd            () { validateViewState(); return 1; };//0 if you ignore this message
     
 
     virtual void deleteButton() {};

@@ -58,7 +58,7 @@ void PowerPoint::onCreate(HWND window, UINT message, WPARAM wParam, LPARAM lPara
 
     CanvasManager* _canvasManager = new CanvasManager(this, {});
     setCanvasManager(canvasManager);
-    OptionWindow
+    //OptionWindow
 }
 
 void writeVersion(PowerPoint* app)

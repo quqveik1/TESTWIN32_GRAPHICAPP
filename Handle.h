@@ -76,7 +76,7 @@ struct Handle : HandleOptions
     virtual bool addWindowToStart(Window* window);
     virtual bool addWindowToBack(Window* window);
 
-    virtual void screenChanged() override;
+    virtual void screenChanged();
 
     virtual void draw() override;
     virtual void onClick(Vector mp) override;

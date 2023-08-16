@@ -51,7 +51,7 @@ bool DLLManager::loadLibs()
                 }
                 if (j != 0)
                 {
-                    returnableValue = _findnext(placeData, &fileinfo);
+                    returnableValue = (long long)_findnext((intptr_t)placeData, &fileinfo);
                 }
                 if (returnableValue < 0) break;
 

@@ -41,8 +41,8 @@ struct Manager : Window
     }
 
 
-    virtual bool addWindow(Window* window, MEM_TYPE _memtype = MT_DYNAMIC);
-    virtual bool addWindow(Window& window, MEM_TYPE _memtype = MT_STATIC);
+    virtual bool addWindow(Window* window, MEM_TYPE _memtype = MT_DYNAMIC);//1 - if window was sucsessfully added, otherwise - 0
+    virtual bool addWindow(Window& window, MEM_TYPE _memtype = MT_STATIC); //1 - if window was sucsessfully added, otherwise - 0
     virtual int separateWindow(int pos);
 
     virtual void controlHandle();
@@ -61,21 +61,21 @@ struct Manager : Window
 
     virtual void redraw() { redrawStatus = true; };
 
-    virtual void draw()             override;
-    virtual int hitTest(Vector mp) override;
-    virtual void onClick(Vector mp) override;
-    virtual int onClick(Vector mp, int button) override;
-    virtual int mbDown(Vector mp, int button) override;
-    virtual int mbUp(Vector mp, int button) override;
-    virtual int onDoubleClick(Vector mp, int button) override;
-    virtual int onSize(Vector managerSize, Rect newRect = {}) override;
-    virtual int onKeyboard(int key) override;
-    virtual int onKeyboardChar(int key) override;
-    virtual int onMouseMove(Vector mp, Vector delta) override;
-    virtual int onTimer(UINT_PTR timerName) override;
-    virtual int onClose() override;
-    virtual int onDestroy() override;
-    virtual int onEnterWindowSizeMove() override;
-    virtual int onExitWindowSizeMove() override;
-    virtual int onDrawEnd() override;
+    virtual void draw                 ()                                      override;
+    virtual int  hitTest              (Vector mp)                             override;
+    virtual void onClick              (Vector mp)                             override;
+    virtual int  onClick              (Vector mp, int button)                 override;
+    virtual int  mbDown               (Vector mp, int button)                 override;
+    virtual int  mbUp                 (Vector mp, int button)                 override;
+    virtual int  onDoubleClick        (Vector mp, int button)                 override;
+    virtual int  onSize               (Vector managerSize, Rect newRect = {}) override;
+    virtual int  onKeyboard           (int key)                               override;
+    virtual int  onKeyboardChar       (int key)                               override;
+    virtual int  onMouseMove          (Vector mp, Vector delta)               override;
+    virtual int  onTimer              (UINT_PTR timerName)                    override;
+    virtual int  onClose              ()                                      override;
+    virtual int  onDestroy            ()                                      override;
+    virtual int  onEnterWindowSizeMove()                                      override;
+    virtual int  onExitWindowSizeMove ()                                      override;
+    virtual int  onDrawEnd            ()                                      override;
 };
