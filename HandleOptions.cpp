@@ -39,7 +39,7 @@ int HandleOptions::onSize(Vector managerSize, Rect newRect/* = {}*/)
     app->windowsLibApi->standartManagerOnSize(this, managerSize, newRect);
 
 
-    for (int i = 0; i < optionsWindow.size(); i++)
+    for (size_t i = 0; i < optionsWindow.size(); i++)
     {
         optionsList[i]->MoveWindowTo({ optionsWindow[i]->rect.pos.x + optionsLayout.rect.pos.x, optionsWindow[i]->rect.finishPos.y + optionsLayout.rect.pos.y });
     }

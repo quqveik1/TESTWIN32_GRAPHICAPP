@@ -8,7 +8,7 @@ int LinearLayout::onSize(Vector managerSize, Rect _newRect/* = {}*/)
     setOnSizeActive(true);
     Layout::onSize(managerSize, _newRect);
     Vector nextStartPos = {};
-    for (int i = 0; i < pointers.size(); i++)
+    for (size_t i = 0; i < pointers.size(); i++)
     {
         Window* _wnd = pointers[i];
         if (_wnd)
@@ -89,7 +89,7 @@ Rect LinearLayout::calcRect()
 {
     //Rect newRect = { .pos = {DBL_MAX, DBL_MAX}, .finishPos = {DBL_MIN, DBL_MIN} };
     Rect newRect = rect;
-    for (int i = 0; i < pointers.size(); i++)
+    for (size_t i = 0; i < pointers.size(); i++)
     {
         Window* _wnd = pointers[i];
         if (_wnd)

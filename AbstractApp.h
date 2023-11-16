@@ -230,5 +230,4 @@ struct AbstractAppData
 protected:
     void initStrings();
     void setRussianLocale();
-    
 };

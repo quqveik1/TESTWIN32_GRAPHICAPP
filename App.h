@@ -1,4 +1,5 @@
 #pragma once
+//depricated
 #include "EngineAppApi.h"
 
 struct App : EngineAppApi

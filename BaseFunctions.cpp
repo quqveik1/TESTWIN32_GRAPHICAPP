@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseFunctions.h"
+
 void drawCadre(Rect rect, HDC dc)
 {
     printf("Rect: {%lf, %lf}\n", rect.pos.x, rect.pos.y);

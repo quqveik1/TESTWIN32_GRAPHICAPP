@@ -1,4 +1,5 @@
 #pragma once
+//depricated
 #include "CanvasManager.h"
 #include "Canvas.cpp"
 #include "InputButton2.cpp"

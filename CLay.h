@@ -1,4 +1,5 @@
 #pragma once
+//depricated
 #include "AbstractApp.h"
 #include "ToolLay.h"
 

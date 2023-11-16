@@ -18,7 +18,6 @@ struct AddCanvasButton : Manager
         setCanvasButton(_app, canvasManager)
     {
         text = "Создать";
-        //addWindow(&setCanvasButton);
     }
 
     virtual SetCanvasButton* getSetCanvasButton();

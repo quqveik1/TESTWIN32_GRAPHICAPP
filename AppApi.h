@@ -4,9 +4,9 @@
 #include "LoadLib.h"
 #include "HGDIManager.h"
 
+
 struct PowerPoint : AbstractAppData
 {
-    
     struct Manager* handle = NULL;
     struct CToolManager* toolManager = NULL;
     struct CanvasManager* canvasManager = NULL;
@@ -23,5 +23,4 @@ struct PowerPoint : AbstractAppData
     void setCanvasManager(CanvasManager* _canvasManager) { canvasManager = _canvasManager; };
 
     virtual void onCreate(HWND window, UINT message, WPARAM wParam, LPARAM lParam) override;
-
 };

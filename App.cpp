@@ -1,4 +1,5 @@
 #pragma once
+//depricated
 #include "App.h"
 #include "SystemSettings.cpp"
 #include "ToolManager.h"
@@ -37,9 +38,6 @@ App::App(HINSTANCE hInstance)
     appVersion = "v0.2.3.0";
     massert(!makeDir("Settings"), this);
 
-
-    //filesCompability = checkVersionCompability(this);
-
     systemSettings = new CSystemSettings(this);
 
     loadLibManager = new CLoadLib();
@@ -61,16 +59,10 @@ App::App(HINSTANCE hInstance)
     dllsaveImage = (int (*) (HDC dc, const char* path))GetProcAddress(_saveImagesLib, "saveImage");
     dllloadImage = (HDC(*) (const char* path, Vector & _size, AbstractAppData * _app))GetProcAddress(_saveImagesLib, "loadImage");
 
-    //toolManager = new CToolManager(this);
     DLLToolsManager dlltoolsmanager(this, "Settings\\DLLToolsPathList.txt");
     dlltoolsmanager.loadLibs();
-    //dlltoolsmanager.addToManager(toolManager);
-
-
-
 
     msgReaction = new MSGReaction();
-
 
     testDC.setSize(systemSettings->SizeOfScreen, this);
     setWindowParameters(this, hInstance);
@@ -82,16 +74,12 @@ App::~App()
 
     delete mainManager;
 
-    //delete toolManager;
     delete loadManager;
     delete windowsLibApi;
-    //delete systemSettings;
     delete loadLibManager;
-    //delete dcManager;
     delete hgdiManager;
     delete timerManager;
     delete msgReaction;
-
 }
 
 void writeVersion(App* app)
@@ -105,7 +93,6 @@ void writeVersion(App* app)
     }
     if (versionFile)fclose(versionFile);
 }
-
 
 bool swapDC(HDC dest, int xDest, int yDest, int wDest, int hDest,
     HDC src, int xSrc, int ySrc, int wSrc, int hSrc, DWORD rOp)
@@ -161,7 +148,7 @@ void setWindowParameters(App* app, HINSTANCE hInstance)
     app->appIcon = LoadIcon((HINSTANCE)GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_ICON2));
 
     wndClass.cbSize = sizeof(wndClass);
-    wndClass.style = (CS_VREDRAW | CS_HREDRAW);// &~WS_CAPTION;
+    wndClass.style = (CS_VREDRAW | CS_HREDRAW);
     wndClass.lpfnWndProc = WinProc;
     wndClass.cbClsExtra = 0;
     wndClass.cbWndExtra = 0;
@@ -186,7 +173,6 @@ void setWindowParameters(App* app, HINSTANCE hInstance)
     hwnd = CreateWindow(
         handleName,
         handleName,
-        //(WS_VISIBLE | WS_POPUP | WS_CLIPSIBLINGS | WS_CLIPCHILDREN),
         WS_THICKFRAME | WS_SYSMENU | WS_MAXIMIZEBOX | WS_MINIMIZEBOX,
         CW_USEDEFAULT,
         CW_USEDEFAULT,
@@ -233,13 +219,10 @@ HDC App::_loadImage(const char* path)
     return dc;
 }
 
-
-
 void App::rectangle(double x1, double y1, double x2, double y2, HDC dc)
 {
     Rectangle(dc, std::lround(x1), std::lround(y1), std::lround(x2), std::lround(y2));
 }
-
 
 void App::rectangle(Vector pos1, Vector pos2, HDC dc)
 {
@@ -271,7 +254,6 @@ void App::drawCadre(Vector pos1, Vector pos2, M_HDC dc, COLORREF color, int thic
     drawCadre(rect, dc, color, thickness);
 }
 
-
 void App::drawCadre(int x1, int y1, int x2, int y2, M_HDC dc, COLORREF color, int thickness)
 {
     Vector pos1 = { (double)x1, (double)y1 };
@@ -279,7 +261,6 @@ void App::drawCadre(int x1, int y1, int x2, int y2, M_HDC dc, COLORREF color, in
 
     drawCadre(pos1, pos2, dc, color, thickness);
 }
-
 
 int App::isHDCValid(HDC _dc)
 {
@@ -290,7 +271,6 @@ int App::isHDCValid(HDC _dc)
     }
     return 1;
 }
-
 
 int App::setViewPort(HDC _dc, Vector newPos)
 {
@@ -324,7 +304,6 @@ void App::shiftArrBack(char* arr, int oneItemSize, int firstPosOfShifting, int f
     }
 }
 
-
 void App::drawText(double x0, double y0, double x1, double y1, const char text[], HDC dc,
     unsigned format /*= DT_CENTER | DT_VCENTER | DT_WORDBREAK | DT_WORD_ELLIPSIS*/)
 {
@@ -337,8 +316,6 @@ void App::drawText(Rect rect, const char text[], HDC dc,
 {
     drawText(rect.pos.x, rect.pos.y, rect.finishPos.x, rect.finishPos.y, text, dc, format);
 }
-
-
 
 Vector App::getTextExtent(const char* text, HDC finalDC)
 {
@@ -387,13 +364,10 @@ int App::makeDir(const char* path)
     return 0;
 }
 
-
 LRESULT App::mainProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
 {
     return 0;
 }
-
-
 
 void App::setColor(COLORREF color, M_HDC& dc, int thickness)
 {
@@ -458,7 +432,6 @@ COLORREF App::HSL2RGB(COLORREF HSL)
     return rgbColor;
 }
 
-
 COLORREF App::RGB2HSL(COLORREF rgbColor)
 {
     struct xRGB
@@ -517,11 +490,9 @@ int App::updateScreen(Window* window)
 {
     if (window)
     {
-        //int isVisible = window->isVisible();
         if (true)
         {
             InvalidateRect(MAINWINDOW, NULL, FALSE);
-            //printf("[%p] InvalidetedRect\n", window);
         }
     }
     return 0;
@@ -547,7 +518,6 @@ int App::invalidateRect(struct Window* window, Rect _rect, bool _erase /*= false
         if (isVisible)
         {
             InvalidateRect(MAINWINDOW, NULL, FALSE);
-            //printf("[%p] InvalidetedRect\n", window);
         }
     }
     return 0;
@@ -574,7 +544,6 @@ void App::line(Rect rect, HDC dc)
     line(rect.pos.x, rect.pos.y, rect.finishPos.x, rect.finishPos.y, dc);
 }
 
-
 void App::line(double x1, double y1, double x2, double y2, HDC dc)
 {
     bool result = MoveToEx(dc, std::lround(x1), std::lround(y1), NULL);
@@ -585,7 +554,6 @@ void App::line(Vector pos1, Vector pos2, HDC dc)
 {
     line(pos1.x, pos1.y, pos2.x, pos2.y, dc);
 }
-
 
 void App::ellipse(Vector centrePos, Vector halfSize, HDC dc)
 {
@@ -628,8 +596,6 @@ void App::verticalReflect(HDC dc, RGBQUAD* buf, Vector size, Vector fullDCSize/*
     RGBQUAD* tempBuf = {};
     HDC tempDC = createDIBSection(size, &tempBuf);
 
-
-
     for (int x = 0; x < size.x; x++)
     {
         for (int y = std::lround(posy); y < std::lround(fullDCSize.y); y++)
@@ -644,7 +610,6 @@ void App::verticalReflect(HDC dc, RGBQUAD* buf, Vector size, Vector fullDCSize/*
     deleteDC(tempDC);
 
 }
-
 
 void App::bitBlt(HDC dc1, double x0, double y0, double sizex, double sizey, HDC dc2, double xSource/* = 0*/, double ySource/* = 0*/)
 {
@@ -697,12 +662,10 @@ int App::stretchBlt(HDC dest, Vector destPos, Vector destSize, HDC source, Vecto
     return stretchBlt(dest, destPos.x, destPos.y, destSize.x, destSize.y, source, sourcePos.x, sourcePos.y, sourceSize.x, sourceSize.y);
 }
 
-
 int App::stretchBlt(HDC dest, Rect destRect, HDC source, Rect sourceRect)
 {
     return stretchBlt(dest, destRect.pos, destRect.getSize(), source, sourceRect.pos, sourceRect.getSize());
 }
-
 
 void App::compressImage(HDC& newDC, Vector newSize, HDC oldDC, Vector oldSize)
 {
@@ -731,8 +694,6 @@ HDC App::getBufferDC(RGBQUAD** buf)
                 HGDIOBJ result = SelectObject(answer, hBmpCopy);
             }
         }
-
-
         CloseClipboard();
     }
 
@@ -760,20 +721,9 @@ Vector App::getHBITMAPSize(HBITMAP _bitmap)
 }
 
 
-void App::drawOnScreen(HDC dc, bool useAlpha /*=false*/)
-{
-    //if (!useAlpha)//txBitBlt(0, 0, dc);
-    //if (useAlpha)transparentBlt(//txDC(), 0, 0, 0, 0, dc);
-    //txSleep(0);
-}
+void App::drawOnScreen(HDC dc, bool useAlpha /*=false*/) {}
 
-void App::cleanTransparentDC()
-{
-    //setColor(SystemSettings.TRANSPARENTCOLOR, transparentLay.lay);
-   // rectangle(0, 0, transparentLay.laySize.x, transparentLay.laySize.y, transparentLay.lay);
-    ////txClear(transparentLay.lay);
-    //deleteTransparency(transparentLay.layBuf, transparentLay.laySize.x * transparentLay.laySize.y);
-}
+void App::cleanTransparentDC() {}
 
 bool App::getAsyncKeyState(int symbol)
 {
@@ -801,12 +751,10 @@ void App::deleteTransparency(RGBQUAD* buf, unsigned int totalSize)
     }
 }
 
-
 int App::needToLoadOldFiles()
 {
     return filesCompability;
 }
-
 
 void App::deleteDC(HDC dc)
 {
@@ -840,7 +788,6 @@ int App::saveImage(HDC dc, const char* path)
     return NULL;
 }
 
-
 int App::DEBUGsaveImage(HDC dc)
 {
     if (dllsaveImage)
@@ -869,43 +816,7 @@ int App::messageBox(const char  text[]/* = ""*/, const char  header[]/* = ""*/, 
 {
     return MessageBox(MAINWINDOW, text, header, flags);
 }
-void App::changeWindow(Vector size/* = {}*/, Vector pos/* = {}*/)
-{
-    /*
-    bool wasSizeChanged = true;
-    if (pos == pos.getNullVector())
-    {
-        pos = { .x = abs((size.x - systemSettings->FullSizeOfScreen.x) / 2), .y = abs( (size.y - systemSettings->FullSizeOfScreen.y) / 2) };
-    }
-    if (size == size.getNullVector())
-    {
-        size = systemSettings->SizeOfScreen;
-        wasSizeChanged = false;
-    }
-
-
-    systemSettings->ScreenPos = pos;
-
-    MoveWindow(MAINWINDOW, std::lround (pos.x), std::lround(pos.y), std::lround(size.x), std::lround(size.y), TRUE);
-
-    //SetWindowLong(MAINWINDOW, GCL_HBRBACKGROUND, (LONG)CreateSolidBrush(RGB(0,0,0)));
-
-    if (sizeHistory[1] != size)
-    {
-        HDC outDC = //txCreateDIBSection(size.x, size.y);
-        deleteDC(//txDC());
-        //txDC() = outDC;
-        sizeHistory[0] = sizeHistory[1];
-        sizeHistory[1] = size;
-        systemSettings->lastTimeSizeOfScreen = sizeHistory[0];
-    }
-
-
-
-    systemSettings->SizeOfScreen = size;
-    if (wasSizeChanged) isResized = true;
-    */
-}
+void App::changeWindow(Vector size/* = {}*/, Vector pos/* = {}*/) {}
 
 int App::moveWindow(Vector _delta, HWND _wnd/* = 0*/)
 {
@@ -922,7 +833,6 @@ int App::moveWindow(Vector _delta, HWND _wnd/* = 0*/)
 
 }
 
-
 int App::moveWindowTo(Vector _pos, HWND _wnd/*=0*/)
 {
     if (_wnd == 0)
@@ -931,10 +841,8 @@ int App::moveWindowTo(Vector _pos, HWND _wnd/*=0*/)
     }
     Rect _windowRect = getWindowRect(_wnd);
     Vector _size = _windowRect.getSize();
-    //return MoveWindow(MAINWINDOW, std::lround(_pos.x), std::lround(_pos.y), std::lround(_size.x), std::lround(_size.y), TRUE);        r
     return 0;
 }
-
 
 Rect App::getWindowRect(HWND _wnd/* = 0*/)
 {
@@ -973,12 +881,10 @@ Vector App::getCursorPos()
     return vector;
 }
 
-
 long App::lround(double num)
 {
     return std::lround(num);
 }
-
 
 bool App::isFullScreen()
 {
@@ -1008,12 +914,10 @@ Rect App::getUserRect()
     }
 }
 
-
 void App::setResized(bool state/* = true*/)
 {
     isResized = state;
 }
-
 
 void App::controlApp()
 {
@@ -1022,9 +926,6 @@ void App::controlApp()
     {
         setCursor(defaultCursor);
     }
-
-
-
     if (dClick)
     {
         dClick = false;
@@ -1043,10 +944,7 @@ void App::controlApp()
     {
         wasLastTimeLButtonClicked = false;
     }
-
-    //txClearConsole();
 }
-
 
 char* App::getOpenFileName(const char* question, const char* fileTypeDescribtion, const char* defaultFilename)
 {
@@ -1065,12 +963,8 @@ char* App::getOpenFileName(const char* question, const char* fileTypeDescribtion
     ofn.lpstrInitialDir = NULL;
     ofn.Flags = OFN_PATHMUSTEXIST;
 
-    //bool oldPSW = _//txProcessSystemWarnings;
-    //_txProcessSystemWarnings = false;//отключает всякие системные проверки тхлибом иначе возникает ошибка 298
-
     if ((GetOpenFileNameA))
         (GetOpenFileNameA(&ofn));
-    //_//txProcessSystemWarnings = oldPSW;
 
     if (ofn.nFileOffset <= 0)
     {
@@ -1079,8 +973,6 @@ char* App::getOpenFileName(const char* question, const char* fileTypeDescribtion
 
     return fileName;
 }
-
-
 
 char* App::getSaveFileName(const char* question, const char* fileTypeDescribtion, const char* defaultFilename/* = NULL*/)
 {
@@ -1098,12 +990,8 @@ char* App::getSaveFileName(const char* question, const char* fileTypeDescribtion
     ofn.nFilterIndex = 1;
     ofn.lpstrInitialDir = NULL;
 
-    //bool oldPSW = _//txProcessSystemWarnings;
-    //_//txProcessSystemWarnings = false;//отключает всякие системные проверки тхлибом иначе возникает ошибка 298
-
     if ((GetSaveFileNameA))
         (GetSaveFileNameA(&ofn));
-    //_//txProcessSystemWarnings = oldPSW;
 
     if (ofn.nFileOffset <= 0)
     {
@@ -1122,7 +1010,6 @@ char* App::getSaveFileName(const char* question, const char* fileTypeDescribtion
     return fileName;
 }
 
-
 const char* findExtensionStart(const char* text, int extensionPos)
 {
     int startPos = 0;
@@ -1137,7 +1024,6 @@ const char* findExtensionStart(const char* text, int extensionPos)
 
     return &text[startPos];
 }
-
 
 int App::declareReactionOnMSG(int reaction/* = 0*/)
 {
@@ -1159,7 +1045,6 @@ int App::getReactionOnMSG()
     return 0;
 
 }
-
 
 int App::beforeMessage()
 {

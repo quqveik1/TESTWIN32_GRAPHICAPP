@@ -7,9 +7,6 @@ SetCanvasButton* AddCanvasButton::getSetCanvasButton()
     return &setCanvasButton;
 }
 
-
-
-
 void AddCanvasButton::draw()
 {
     app->windowsLibApi->standartWindowDraw(this);
@@ -35,7 +32,6 @@ void AddCanvasButton::draw()
     }
     setMbLastTime();
 }
-
 
 void AddCanvasButton::onClick(Vector mp)
 {

@@ -85,7 +85,7 @@ void List::draw()
     app->windowsLibApi->standartManagerDraw(this);
     Vector size = app->getHDCSize(finalDC);
 
-    for (int i = 0; i < items.size() - 1; i++)
+    for (size_t i = 0; i < items.size() - 1; i++)
     {
         if (needToShow)
         {

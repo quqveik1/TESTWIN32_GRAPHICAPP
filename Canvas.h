@@ -1,5 +1,5 @@
 #pragma once
-
+//depricated
 #include "WindowsLib.cpp"
 #include "CLay.h"
 #include "ToolLay.h"

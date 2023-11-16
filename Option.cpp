@@ -12,7 +12,7 @@ int Option::addSubOption(Option* _option)
 
 void Option::toLists(struct List* _list)
 {
-    for (int i = 0; i < subOptions.size(); i++)
+    for (size_t i = 0; i < subOptions.size(); i++)
     {
         _list->addNewItem(subOptions[i]);
     }

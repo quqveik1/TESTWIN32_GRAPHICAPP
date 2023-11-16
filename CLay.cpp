@@ -1,4 +1,5 @@
 #pragma once
+//depricated
 #include "CLay.h"
 #include "Canvas.h"
 #include "ToolLay.cpp"

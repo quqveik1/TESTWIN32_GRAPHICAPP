@@ -11,7 +11,6 @@ int Api::setColor(COLORREF color, HDC dc, int thickness/* = 1*/)
         DeleteObject(oldSolidBrush);
     }
 
-
     HPEN newPen = CreatePen(PS_SOLID, thickness, color);
     HPEN oldPen = (HPEN)SelectObject(dc, (HGDIOBJ)newPen);
     if (oldPen)
@@ -26,7 +25,6 @@ int Api::line(double x1, double y1, double x2, double y2, HDC dc)
     bool result = MoveToEx(dc, std::lround(x1), std::lround(y1), NULL);
     result *= LineTo(dc, std::lround(x2), std::lround(y2));
     return NULL;
-
 }
 
 int Api::ellipse(double x1, double y1, double x2, double y2, HDC dc)

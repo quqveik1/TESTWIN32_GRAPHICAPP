@@ -15,10 +15,7 @@
 #include "CanvasManager.cpp"
 #include "SetCanvasButton.cpp"
 #include "ColorMenu.cpp"
-//#include "ToolsMenu.cpp"
 #include "Thickness.cpp"
-//#include "LaysMenu.cpp"
-
 
 
 bool checkVersionCompability(PowerPoint* app);
@@ -48,7 +45,6 @@ PowerPoint::~PowerPoint()
     writeVersion(this);
 }
 
-
 void PowerPoint::onCreate(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
 {
     AbstractAppData::onCreate(window, message, wParam, lParam);
@@ -58,7 +54,6 @@ void PowerPoint::onCreate(HWND window, UINT message, WPARAM wParam, LPARAM lPara
 
     CanvasManager* _canvasManager = new CanvasManager(this, {});
     setCanvasManager(canvasManager);
-    //OptionWindow
 }
 
 void writeVersion(PowerPoint* app)
@@ -72,7 +67,6 @@ void writeVersion(PowerPoint* app)
     }
     if (versionFile)fclose(versionFile);
 }
-
 
 bool swapDC(HDC dest, int xDest, int yDest, int wDest, int hDest,
     HDC src, int xSrc, int ySrc, int wSrc, int hSrc, DWORD rOp)
@@ -105,5 +99,3 @@ bool checkVersionCompability(PowerPoint* app)
     if (versionFile) fclose(versionFile);
     return needLoadSaves;
 }
-
-

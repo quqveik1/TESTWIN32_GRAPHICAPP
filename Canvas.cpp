@@ -1,4 +1,5 @@
 #pragma once
+//depricated
 #include "Canvas.h"
 #include "ZoneSizeControl.cpp"
 #include "ImportTool.cpp"
@@ -31,10 +32,7 @@ Canvas::~Canvas()
     {
         delete lay[i];
     }
-
-    //delete lay;
 }
-
 
 int Canvas::separateWindow(int pos)
 {
@@ -47,16 +45,11 @@ int Canvas::separateWindow(int pos)
     return -1;
 }
 
-
-
-
-
 void Canvas::createLay()
 {
     assert(!(currentLayersLength >= LayersNum));
     CLay* newlay = new CLay(app, this, laysSize);
     lay[currentLayersLength] = newlay;
-    //lay[currentLayersLength].createLay(app, this, laysSize);
     if (currentLayersLength <= LayersNum) currentLayersLength++;
 
     activeLayNum = currentLayersLength - 1;
@@ -78,13 +71,6 @@ void Canvas::controlImportingImages()
     if (getCurrentlyImportingImage())
     {
         lastTimetoolNum = ((PowerPoint*)app)->toolManager->getActiveToolNum();
-        /*
-        int settedToolNum = app->toolManager->setActiveTool(app->canvasManager->importTool);
-        if (settedToolNum >= 0)
-        {
-            wasLastTimeImporting = true;
-        }
-        */
     }
 }
 
@@ -102,7 +88,6 @@ void Canvas::changeTool(Tool2* tool)
 void Canvas::initToolLay()
 {
     addToolLay();
-    //getActiveLay()->addToolLay(&toolLays[currentToolLength]);
 
     currentToolLength++;
 }
@@ -140,7 +125,7 @@ ToolLay* Canvas::getNewToolLay()
 
 bool Canvas::isDrawingModeChanged()
 {        
-return false;
+    return false;
     //return DrawingModeLastTime != systemSettings->DrawingMode;
 }
 
@@ -174,7 +159,6 @@ void Canvas::onClick(Vector mp)
         if (zoneSizeControl.clickFrame()) return;
     }
 
-
     //independet scenery block++++++++++++++++++++++++++++++++++++++++++++++++++++
     if (getActiveLay())
     {
@@ -182,10 +166,8 @@ void Canvas::onClick(Vector mp)
     }
     //independet scenery block----------------------------------------------------
 
-
     setMbLastTime();
 }
-
 
 int Canvas::mbDown(Vector mp, int button)
 {
@@ -249,16 +231,10 @@ Vector Canvas::convertMousePosForLay(Vector mp)
 
 }
 
-
-
-
-
 void Canvas::draw()
 {
     if (app->systemSettings->debugMode >= 3) printf("Canvas clicked: %d\n", getMBCondition());
     if (app->systemSettings->debugMode >= 3) printf(" Canvasrect.pos: {%lf, %lf}\n", rect.pos.x, rect.pos.y);
-
-    //controlStretching();
 
     CLay* activeLay = getActiveLay();
     if (activeLay)
@@ -276,9 +252,6 @@ void Canvas::draw()
     setMbLastTime();
 
     posLastTime = rect.pos;
-
-
-
 }
 
 void Canvas::controlStretching()
@@ -297,9 +270,6 @@ void Canvas::controlStretching()
 
         reDraw = true;
     }
-
-    
-    
 }
 
 void Canvas::resize(Vector newSize)
@@ -311,7 +281,6 @@ void Canvas::resize(Vector newSize)
         if (isBigger(newSize.y, app->systemSettings->SizeOfScreen.y)) newSize.y = app->systemSettings->SizeOfScreen.y;
         finalDCSize = newSize;
 
-        //app->deleteDC(finalDC);
         finalDC.setSize(finalDCSize, app, &finalDCArr);
         Vector _s = finalDC.getSize();
 
@@ -330,10 +299,6 @@ void Canvas::copyFinalLayOnFinalDC()
             app->setColor(TX_WHITE, finalDC);
             app->rectangle({}, { 1000, 1000 }, finalDC);
             app->bitBlt(finalDC, {}, laysSize, finalLay);
-            //Vector finalDCSize = finalDC.getSize();
-            //Vector finalLaySize = finalLay.getSize();
-            //COLORREF pix2Col = GetPixel(finalDC, 0, 0);
-            //printf ("");
         }
         else
         {
@@ -361,7 +326,6 @@ void Canvas::copyFinalLayOnFinalDC()
     if (app->systemSettings->debugMode >= 3 && getSize() > 0) printf("Canvas: (finalDCSize) / getSize()): {%lf, %lf}\n", (finalDCSize.x) / getSize().x, (finalDCSize.y) / getSize().y);
 }
 
-
 void Canvas::print(M_HDC& _dc)
 {
     draw();
@@ -371,8 +335,6 @@ void Canvas::print(M_HDC& _dc)
 
     app->bitBlt(_dc, outputPos, finalDCSize, finalDC);
 }
-
-
 
 Vector Canvas::setNewCanvasSize(Vector newSize)
 {
@@ -397,15 +359,12 @@ Vector Canvas::setNewCanvasSize(Vector newSize)
 
 }
 
-
 void Canvas::stretchCanvas(double percantageFromOriginal)
 {
     Vector newSize = getSize();
     if (newSize > 0)newSize += laysSize * percantageFromOriginal;
     setNewCanvasSize(newSize);
 }
-
-
 
 HDC Canvas::getImageForSaving()
 {
@@ -429,10 +388,8 @@ HDC Canvas::getImageForSaving()
     //выданный HDC следует удалить после использваония
 }
 
-
 int Canvas::importImage(HDC dc)
 {
-
     if (!getActiveLay()) createLay();
     currentlyImportingImage = dc;
     editingMode = 0;
@@ -445,7 +402,6 @@ HDC& Canvas::getCurrentlyImportingImage()
     return currentlyImportingImage;
 }
 
-
 int Canvas::getActiveLayNum()
 {
     return activeLayNum;
@@ -456,13 +412,11 @@ int Canvas::getCurrentLayLength()
     return  currentLayersLength;
 }
 
-
 CLay* Canvas::getActiveLay()
 {
     if (activeLayNum < 0 /*|| !lay[activeLayNum]->toolLays*/) return NULL;
     return (lay[activeLayNum]);
 }
-
 
 Vector Canvas::getLaySize()
 {
@@ -470,7 +424,6 @@ Vector Canvas::getLaySize()
     if (_lay)
     {
         return _lay->getSize();
-        //return getActiveLay()->lay.laySize;
     }
     return {};
 }
@@ -479,7 +432,6 @@ int Canvas::getEditingMode()
 {
     return editingMode;
 }
-
 
 int Canvas::getCurrentToolLengthOnActiveLay()
 {
@@ -499,15 +451,11 @@ double& Canvas::getScale()
     return scale;
 }
 
-
 void Canvas::deleteButton()
 {
     if (dc) app->deleteDC(dc);
     if (finalDC) app->deleteDC(finalDC);
 }
-
-
-
 
 void Canvas::controlTool()
 {
@@ -544,7 +492,6 @@ void Canvas::controlTool()
 
 int Canvas::controlLay()
 {
-
     setCurrentData();
 
     CLay* clay = getActiveLay();
@@ -554,10 +501,8 @@ int Canvas::controlLay()
 
     clay->controlTool(&currentDate);
 
-
     return 0;
 }
-
 
 int Canvas::setActiveLay(int pos)
 {
@@ -615,7 +560,6 @@ void Canvas::controlEditLay()
 }
 
 
-
 void Canvas::cleanOutputLay()
 {
     for (int i = 0; i < currentLayersLength; i++)
@@ -656,11 +600,8 @@ void Canvas::drawLays()
         }
 
         //app->transparentBlt(finalLay, lay[lays].lay.layCoordinats.x, lay[lays].lay.layCoordinats.y, 0, 0, lay[lays].lay.outputLay);
-
     }
 }
-
-
 
 void Canvas::MoveWindow(Vector delta)
 {
@@ -684,9 +625,7 @@ void Canvas::MoveWindowTo(Vector pos, bool needToCallOnSize/* = true*/)
     if (app->systemSettings->debugMode >= 3)printf("Canvas pos: {%lf, %lf}\n", rect.pos.x, rect.pos.y);
 }
 
-
 void Canvas::drawCadre()
 {
     zoneSizeControl.drawFrame();
-
 }
